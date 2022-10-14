@@ -5,6 +5,6 @@ This has been tested only on Ubuntu 20.04 (LTS at the time of writing) but it sh
 
 1. Install the latest versions of the following software: Apache 2, MySQL, PHP. You will also need the PHP-MySQL plugin.
 2. Setup the software. You will want to create a MySQL user and a MySQL database for the forum to use. The config should be filled out by you with this user's details.
-3. Navigate to your forum's install script. E.g. if it's hosted at example.com go to example.com/install.
+3. Navigate to your forum's install script. E.g. if it's hosted at example.com go to example.com/installer.
 4. You will want to create an account and set it as an administrator through the database. You will also want to create some categories and perhaps a thread or two.
 5. Enjoy! It should be smooth sailing from here.
