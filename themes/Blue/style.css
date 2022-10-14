@@ -1,0 +1,75 @@
+/* Main styles. */
+body {background-color: gray; text-align: center;}
+#wrapper {width: 900px; margin: 0 auto;}
+#content {background-color: #fff; border: 1px solid #000; float: left; font-family: Arial; padding: 20px 30px; text-align: left; width: 100%;}
+#menu {float: left; border-top-left-radius: 6px; border-top-right-radius: 6px; border: 1px solid #000; border-bottom: none; clear: both; width: 100%; height:25px; padding: 0 30px; padding-top: 10px; padding-bottom: 1px; background-color: #FFF; text-align: left; font-size: 85%;}
+#menu a:hover {background-color: #009FC1;}
+#userbar {background-color: #fff; float: right; width: 250px;}
+#footer {border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; font-size: 75%; clear: both; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; background: white; min-width: 950px; max-width: 960px; padding: 5px;}
+button {background: linear-gradient(lightgray, lightblue); border: 1px solid gray; border-radius: 3px;}
+input {background: linear-gradient(lightgray, lightblue); border: 1px solid gray; border-radius: 3px;}
+select {background: linear-gradient(lightgray, lightblue); border: 1px solid gray; border-radius: 3px;}
+.message {border: 1px solid black; border-radius: 4px; background: yellow; padding: 5px;}
+
+/* Pagination styles. */
+.paginationleft {background: lightgray; float: left; border-left: 1px solid black; border-top: 1px solid black; border-bottom: 1px solid black; padding: 8px; border-top-left-radius: 4px; border-bottom-left-radius: 4px;}
+.paginationright {background: lightgray; text-align: right; border-right: 1px solid black; border-top: 1px solid black; border-bottom: 1px solid black; padding: 8px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-top-left-radius: 5px; border-bottom-left-radius: 5px;}
+.paginationleft a {background: linear-gradient(lightblue, #00728B); border: 1px solid #032472; border-radius: 4px; color: black; font-family: Arial; padding: 3px; text-decoration: none;}
+.paginationright a {background: linear-gradient(lightblue, #00728B); border: 1px solid #032472; border-radius: 4px; color: black; font-family: Arial; padding: 3px; text-decoration: none;}
+.paginationleft font {background: linear-gradient(lightgray, gray); border: 1px solid #032472; border-radius: 4px; color: black; font-family: Arial; padding: 3px; text-decoration: none;}
+.paginationright font {background: linear-gradient(lightgray, gray); border: 1px solid #032472; border-radius: 4px; color: black; font-family: Arial; padding: 3px; text-decoration: none;}
+
+/* Table styles. */
+table {border-collapse: separate; width: 100%; border: 1px solid navy; border-radius: 8px;}
+table a {color: #000;}
+table a:hover {color:#373737; text-decoration: none;}
+th {background-color: blue; color: #F0F0F0; border: 1px solid black; border-radius: 6px;}
+td {padding: 5px; border: 1px solid black; border-radius: 8px;}
+
+/* Font styles. */
+h1 {font-family: Arial; color: black;}
+h3 {margin: 0; padding: 0;}
+
+/* Menu styles. */
+.item {background: linear-gradient(#00728B, blue); border: 1px solid #032472; border-radius: 4px; color: #FFF; font-family: Arial; padding: 3px; text-decoration: none;}
+.category {border: 1px solid #000000; padding: 12px; border-radius: 6px;}
+.leftpart {width: 70%;}
+.rightpart {width: 30%;}
+.small {font-size: 75%; color: #373737;}
+.topic-post {height: 100px; overflow: auto;}
+.post-content {padding: 30px;}
+textarea {width: 500px; height: 200px;}
+
+/* Thread styles. */
+.thread {border-top-left-radius: 6px; border-top-right-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px}
+.threadcontent {border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; border-bottom:1px solid black; border-right:1px solid black; border-left:1px solid black; padding: 8px; max-width:1000px; word-wrap: break-word;}
+.postc {display: inline; float:right; margin-left: 2px;}
+.hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: gray;}
+.threadbutton {background: linear-gradient(#00728B, blue); border: 1px solid black; border-radius: 4px; color: white; font-family: Arial; display: inline; padding: 4px; text-decoration: none; float: right; margin-left: 2px;}
+.locked {background: gray; border: 1px solid black; border-radius: 4px; padding: 2px;}
+.sticky {background: gold; border: 1px solid black; border-radius: 4px; padding: 2px;}
+
+/* Post colors. */
+[postcolor="1"] {background: lightblue;}
+[postcolor="2"] {background: lightgreen;}
+[postcolor="3"] {background: yellow;}
+[postcolor="4"] {background: indianred;}
+[postcolor="5"] {background: hotpink;}
+[postcolor="6"] {background: mediumpurple;}
+[postcolor="7"] {background: coral;}
+[postcolor="8"] {background: cornflowerblue;}
+[postcolor="9"] {background: lavender;}
+[postcolor="10"] {background: silver;}
+[postcolor="11"] {background: wheat;}
+[postcolor="12"] {background: sandybrown;}
+[postcolor="13"] {background: mediumseagreen;}
+[postcolor="14"] {background: gold;}
+[postcolor="15"] {background: plum;}
+[postcolor="16"] {background: aliceblue;}
+
+/* Userlist Styles. */
+.userlist {border:1px solid black; padding:5px; border-radius: 6px;}
+
+/* User Styles. */
+.usertop {border:1px solid black; padding:8px; border-top-left-radius: 8px; border-top-right-radius: 8px;}
+.userbottom {border-bottom:1px solid black; border-left:1px solid black; border-right:1px solid black; padding:8px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;}
