@@ -37,6 +37,7 @@ if (isset($url[3])) $q4 = $url[3];
 
 // Based on the URL, serve the user with a corresponding page.
 if (!$q1) require "pages/homepage.php";
+elseif ($q1 == "installer") require "install/install.php";
 elseif ($q1 == "signup") require "pages/signup.php";
 elseif ($q1 == "login") require "pages/login.php";
 elseif ($q1 == "logout") logout();
