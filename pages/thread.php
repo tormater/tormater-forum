@@ -116,7 +116,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				$lastpost = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
 				if ((!$lastpost) or ($lastpost->num_rows == 0))
 				{
-					echo "Something went wrong with resyncronizing the conversation. Perhaps there are no posts left?";
+					echo "Something went wrong with resynchronizing the conversation. Perhaps there are no posts left?";
 				}
 				
 				else
@@ -437,7 +437,7 @@ else
 	{
 		echo '<form method="post" action="">';				
 		echo 'Content:</br><textarea name="content" />'; if (isset($contentSave)) echo $contentSave; echo '</textarea></br>
-			<input type="submit" value="Submit post">
+			<input type="submit" class="postreply" value="Post reply">
 			</form>';
 	}
 	
@@ -450,7 +450,7 @@ else
 	{
 		echo '<form method="post" action="">';				
 		echo 'Content:</br><textarea name="content" />'; if (isset($contentSave)) echo $contentSave; echo '</textarea></br>
-			<input type="submit" value="Submit post">
+			<input type="submit" class="postreply" value="Post reply">
 			</form>';
 	}
 	
