@@ -1,4 +1,6 @@
 # Tormater Forum
+![2022-10-15_12-14](https://user-images.githubusercontent.com/115832947/196004117-a413f7db-7cbf-4324-9201-f6674b26df13.png)
+
  What in tormation?
 # Installation Instructions
 This has been tested only on Ubuntu 20.04 (LTS at the time of writing) but it should work on pretty much any operating system. If you have trouble, feel free to open an issue. Important note: this forum software is in development still. It may not be secure and isn't ready for production.
