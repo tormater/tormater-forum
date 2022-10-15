@@ -15,7 +15,20 @@ if (!defined("INDEXED")) exit;
 	<meta name="description" content="A short description." />
 	<meta name="keywords" content="put, keywords, here" />
 	<title><?php echo $config["forumName"]; ?></title>
-	<link rel="stylesheet" href="/../themes/Blue/style.css" type="text/css">
+
+<?php
+if(!isset($config["forumTheme"]))
+{
+	echo '<link rel="stylesheet" href="/../themes/Blue/style.css" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/Blue/favicon.png">';
+}
+else
+{
+	echo '<link rel="stylesheet" href="/../themes/' . $config["forumTheme"] . '/style.css" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/favicon.png">';
+}
+?>
+
 </head>
 <body>
 <h1><?php echo $config["forumName"]; ?></h1>
