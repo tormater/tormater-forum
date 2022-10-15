@@ -25,9 +25,12 @@ if (!defined("INDEXED")) exit;
 			echo '<a class="item" href="/">Home</a> ';
 			echo '<a class="item" href="/userlist/">Userlist</a> ';
 		
+		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+		{
 			echo '<a class="item" href="/settings/">Settings</a> ';
 			echo '<a class="item" href="/newthread/">Create a thread</a> ';
-		
+        }
+        
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
 		{
 			echo '<a class="item" href="/newcategory/">Create a category</a> ';
@@ -43,7 +46,7 @@ if (!defined("INDEXED")) exit;
 		echo '<div id="userbar">';
  			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
  			{
- 	 			echo "Hello <a href='/user/" . $_SESSION["userid"] . "/'>" . $_SESSION["username"] . "</a>.";
+ 	 			echo "Hello, <a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a>.";
  			}
  			else
  			{
