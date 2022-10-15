@@ -7,18 +7,18 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
-echo '<center><h3>Sign up</h3></center></br>';
+echo '<h2>Sign up</h2>';
 
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-    echo '<center><form method="post" action="">
- 	 	Username: <input type="text" name="user_name" /></br></br>
- 	 	E-mail: <input type="email" name="user_email"></br></br>
- 		Password: <input type="password" name="user_pass"></br>
- 		<small>(minimum X characters)</small></br></br>
-		Confirm password: <input type="password" name="user_pass_check"></br></br>
- 		<input type="submit" value="Register" />
- 	 </form></center>';
+    echo '<form method="post" action="">
+ 	 	<label>Username:</label><input type="text" name="user_name" /></br></br>
+ 	 	<label>E-mail:</label><input type="email" name="user_email"></br></br>
+ 		<label>Password:</label><input type="password" name="user_pass"></br>
+ 		<label></label><small>(minimum X characters)</small></br>
+		<label>Confirm password:</label><input type="password" name="user_pass_check"></br></br>
+ 		<label></label><input type="submit" class="postreply" value="Register" />
+ 	 </form>';
 }
 else
 {
