@@ -97,6 +97,7 @@ legend {font-size:18px; font-weight: bold}
 .changerole {display: inline-block;}
 .userrole a {color:#000}
 .userstat a {color:#000}
+.date {color:#000}
 
 /* Role Colors */
 #Administrator {color:#6d0000; text-decoration:none}
