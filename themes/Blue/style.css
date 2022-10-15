@@ -81,12 +81,16 @@ textarea {resize: none; height: 200px; width:100%; box-sizing: border-box; margi
 /* Fieldsets */
 fieldset {border: 1px solid #999; padding:15px}
 legend {font-size:18px; font-weight: bold}
+
 /* Userlist Styles. */
 .userlist {border:1px solid rgba(0, 0, 0, 0.493); padding:5px;}
 
 /* User Styles. */
 .usertop {border:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
 .userbottom {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
+.userstat {display:block; padding:3px 8px}
+.userrole {padding: 0px 8px}
+.changerole {display: inline-block;}
 
 /* Role Colors */
 #Administrator {color:#6d0000}
