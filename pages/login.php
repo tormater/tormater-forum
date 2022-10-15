@@ -7,22 +7,22 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
-echo '<center><h3>Sign in</h3></center></br>';
+echo '<h2>Log in</h2>';
 
 if($_SESSION['signed_in'] == true)
 {
-	echo 'You are already signed in, you can <a href="/logout/">log out</a> if you want.';
+	echo 'You are already logged in, you can <a href="/logout/">log out</a> if you want.';
 }
 
 else
 {
 	if($_SERVER['REQUEST_METHOD'] != 'POST')
 	{
-		echo '<center><form method="post" action="">
-			Username: <input type="text" name="user_name" /></br></br>
-			Password: <input type="password" name="user_pass"></br></br>
-			<input type="submit" value="Log in" />
-		 </form></center>';
+		echo '<form method="post" action="">
+			<label>Username:</label><input type="text" name="user_name" /></br></br>
+			<label>Password:</label><input type="password" name="user_pass"></br></br>
+			<label></label><input type="submit" class="postreply" value="Log in" />
+		 </form>';
 	}
 	
 	else
@@ -57,7 +57,7 @@ else
 			
 			if(!$res)
 			{
-				echo "Something went wrong while signing in. Please try again later.";
+				echo "Something went wrong while logging in. Please try again later.";
 			}
 			
 			if (!$res->num_rows)
@@ -77,7 +77,7 @@ else
 			
 			if(!$result)
 			{
-				echo 'Something went wrong while signing in. Please try again later.';
+				echo 'Something went wrong while logging in. Please try again later.';
 			}
 			
 			else
