@@ -8,7 +8,7 @@ body {text-align: center;}
 #userbar {background: linear-gradient(to left, #ffffffa0, #ffffff00); margin: -3px; padding: 3px; padding-left:30px; float:right}
 #footer {font-size: 75%; clear: both; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; background: white; padding: 5px;}
 button {background: linear-gradient(lightgray, lightblue); border: 1px solid gray; border-radius: 3px}
-label {display:inline-block; width:100px;}
+label {display:inline-block; width:200px;}
 input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px}
 input:hover {filter: brightness(120%);}
 select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
