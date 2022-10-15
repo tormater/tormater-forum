@@ -317,7 +317,7 @@ else
 			echo '<form style="display:inline;" action="" method="post"><button name="stickythread" class="threadbutton" value="' . $q2 . '">Sticky thread</button></form>';
 		}
 	}
-	echo '<h2>Posts in ' . htmlspecialchars($title) . '</h2>';
+	echo '<h2>Posts in "' . htmlspecialchars($title) . '"</h2>';
 	
 	if ($locked == 1 && $stickied == 1)
 	{
@@ -369,8 +369,8 @@ else
 				$hider = $db->query("SELECT * FROM users WHERE userid='" . $row["deletedby"] . "'");
 				
 				while ($h = $hider->fetch_assoc())
-				{
-					echo '<div class="hiddenpost"><b><a href="/user/' . $u["userid"] . '/">' . htmlspecialchars($u["username"]) . "</a></b> <a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . '</a> (hidden by <a href="/user/' . $row["deletedby"] . '/">' . $h["username"] . '</a>)';
+				{ 
+					echo '<div class="hiddenpost"><b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . '</a> (hidden by <a href="/user/' . $row["deletedby"] . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
 					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 					{
 						echo '<form class="postc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">Restore</button></form>';
@@ -380,9 +380,9 @@ else
 			}
 			
 			else
-			{
+			{   // <a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a>."
 				echo '<div postcolor="' . $u["color"] . '" class="thread">';
-				echo '<b><a href="/user/' . $u["userid"] . '/">' . htmlspecialchars($u["username"]) . "</a></b> <a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</a>";
+				echo '<b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</a>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
 					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">Delete</button></form>';
