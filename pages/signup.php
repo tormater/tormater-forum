@@ -12,10 +12,11 @@ echo '<h2>Sign up</h2>';
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
     echo '<form method="post" action="">
- 	 	<label>Username:</label><input type="text" name="user_name" /></br></br>
- 	 	<label>E-mail:</label><input type="email" name="user_email"></br></br>
+ 	 	<label>Username:</label><input type="text" name="user_name" /></br>
+        <label></label><small>(3-24 characters, alphanumeric only)</small></br></br>
+ 	 	<label>Email:</label><input type="email" name="user_email"></br></br>
  		<label>Password:</label><input type="password" name="user_pass"></br>
- 		<label></label><small>(minimum X characters)</small></br>
+ 		<label></label><small>(minimum X characters)</small></br></br>
 		<label>Confirm password:</label><input type="password" name="user_pass_check"></br></br>
  		<label></label><input type="submit" class="postreply" value="Register" />
  	 </form>';
@@ -29,6 +30,10 @@ else
 		if(!ctype_alnum($_POST['user_name']))
 		{
 			$errors[] = 'The username can only contain alphanumeric characters.';
+		}
+		if(strlen($_POST['user_name']) < 3)
+		{
+			$errors[] = 'The username must be at least 3 characters.';
 		}
 		if(strlen($_POST['user_name']) > 24)
 		{
@@ -73,11 +78,12 @@ else
 		$password = md5($salt . $_POST['user_pass']);
 		$role = "Member";
 		$jointime = time();
+        $lastactive = time();
 		$color = '1';
 		$ip = md5($_SERVER["REMOTE_ADDR"]);
 		$verified = '1';
 		
-		$result = $db->query("INSERT INTO users (username, email, password, role, jointime, color, ip, salt, verified) VALUES('" . $db->real_escape_string($username) . "', '" . $db->real_escape_string($email) . "', '" . $db->real_escape_string($password) . "', '$role', '$jointime', '$color', '$ip', '$salt', '$verified')");
+		$result = $db->query("INSERT INTO users (username, email, password, role, jointime, lastactive, color, ip, salt, verified) VALUES('" . $db->real_escape_string($username) . "', '" . $db->real_escape_string($email) . "', '" . $db->real_escape_string($password) . "', '$role', '$jointime', '$lastactive', '$color', '$ip', '$salt', '$verified')");
 						
 		if(!$result)
 		{
