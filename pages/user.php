@@ -43,7 +43,7 @@ else
 			
 			if ($_SESSION['role'] == "Administrator")
 			{
-				echo "<div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b>" . htmlspecialchars($row["username"]) . "</b> <small><form method='post' action=''><select name='role'>";
+				echo "<div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b>" . htmlspecialchars($row["username"]) . "</b> <form method='post' class='changerole' action=''><select name='role'>";
 				
 				if ($row['role'] == "Administrator")
 				{
@@ -77,7 +77,7 @@ else
 					echo '<option value="Suspended" selected>Suspended</option>';
 				}
 				
-				echo "</select><input type='submit' value='Change role'></form></small></div>";
+				echo "</select><input type='submit' value='Change role'></form></div>";
 				
 				$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
 				
@@ -124,9 +124,9 @@ else
 					$uthreads +=1;
 				}
 				
-				echo "<div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b>" . htmlspecialchars($row["username"]) . "</b> <small>" . $row["role"] . "</small></div>";
+				echo "<div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b>" . htmlspecialchars($row["username"]) . "</b><span class='userrole'>" . $row["role"] . "</span></div>";
 				
-				echo "<div class='userbottom'>Joined: <a title='" . date('m-d-Y h:i:s A', $row['jointime']) . "'>" . relativeTime($row["jointime"]) . "</a>" . "</p>Last active: <a title='" . date('m-d-Y h:i:s A', $row['lastactive']) . "'>" . relativeTime($row["lastactive"]) . "</a>" . "</p>Posts: " . $uposts . "</p>Threads: " . $uthreads . "</p>Verified: " . $verified . "</div>";
+				echo "<div class='userbottom'><span class='userstat'><label class='shortlabel'>Registered:</label><a title='" . date('m-d-Y h:i:s A', $row['jointime']) . "'>" . relativeTime($row["jointime"]) . "</a></span>" . "<span class='userstat'><label class='shortlabel'>Last active:</label><a title='" . date('m-d-Y h:i:s A', $row['lastactive']) . "'>" . relativeTime($row["lastactive"]) . "</a></span>" . "<span class='userstat'><label class='shortlabel'>Posts:</label>" . $uposts . "</span><span class='userstat'><label class='shortlabel'>Threads:</label>" . $uthreads . "</span><span class='userstat'><label class='shortlabel'>Verified:</label>" . $verified . "</span></div>";
 			}
 			
 			// If the viewing user is logged in, update their last action.
