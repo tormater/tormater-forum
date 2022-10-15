@@ -1,5 +1,5 @@
 /* Main styles. */
-html {background-color:#007b7b; background:radial-gradient(circle, #00bebe, #00a0a0, #007b7b)}
+html {background-color:#007b7b; background-size: 100% auto; background-repeat: no-repeat; background:radial-gradient(circle, #00bebe, #00a0a0, #007b7b)}
 body {text-align: center;}
 #wrapper {width: 900px; margin: 0 auto; border: #000 outset; box-sizing: border-box}
 #content {background-color: #fff; border: 1px solid #000; float: left; font-family: Arial; padding: 20px 30px; text-align: left; width: 100%; box-sizing: border-box;}
@@ -76,9 +76,18 @@ textarea {resize: none; height: 200px; width:100%; box-sizing: border-box; margi
 [postcolor="15"] {background: plum;}
 [postcolor="16"] {background: aliceblue;}
 
+/* Fieldsets */
+fieldset {border: 1px solid #999; padding:15px}
+legend {font-size:18px; font-weight: bold}
 /* Userlist Styles. */
 .userlist {border:1px solid rgba(0, 0, 0, 0.493); padding:5px;}
 
 /* User Styles. */
 .usertop {border:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
 .userbottom {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
+
+/* Role Colors */
+#Administrator {color:#6d0000}
+#Moderator {color:#07006d}
+#Member {color:#000000}
+#Suspended {color:#666666}
