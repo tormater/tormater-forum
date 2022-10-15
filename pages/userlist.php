@@ -28,7 +28,7 @@ else
 		
 		while($row = $result->fetch_assoc())
 		{
-			echo '<div class="userlist" postcolor="' . $row["color"] . '"><b><a href="/user/' . $row["userid"] . '/">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $row["role"] . '&nbsp; <small>' . $row["lastaction"] . ' (<a title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></br>';
+			echo '<div class="userlist" postcolor="' . $row["color"] . '"><b><a href="/user/' . $row["userid"] . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $row["role"] . '&nbsp; <small>' . $row["lastaction"] . ' (<a title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></br>';
 		}
 	}
 }
