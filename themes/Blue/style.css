@@ -1,21 +1,25 @@
 /* Main styles. */
 html {background-color:#007b7b; background-size: 100% auto; background-repeat: no-repeat; background:radial-gradient(circle, #00bebe, #00a0a0, #007b7b)}
 body {text-align: center;}
+a {color:rgb(0, 17, 255); text-decoration:none}
+a:hover {text-decoration:underline}
 #wrapper {width: 900px; margin: 0 auto; border: #000 outset; box-sizing: border-box}
 #content {background-color: #fff; border: 1px solid #000; float: left; font-family: Arial; padding: 20px 30px; text-align: left; width: 100%; box-sizing: border-box;}
 #menu {float: left; border: 1px solid #000; border-bottom: none; clear: both; height:37px; padding: 0 30px; padding-top: 10px; padding-bottom: 1px; background: linear-gradient(to right, #010074, #0292fc); text-align: left; font-size: 85%; box-sizing: border-box; width:100%}
-#menu a:hover {background-color: #009FC1;}
 #userbar {background: linear-gradient(to left, #ffffffa0, #ffffff00); margin: -3px; padding: 3px; padding-left:30px; float:right}
 #footer {font-size: 75%; clear: both; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black; background: white; padding: 5px;}
-button {background: linear-gradient(lightgray, lightblue); border: 1px solid gray; border-radius: 3px}
+button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px}
+button:hover {filter: brightness(110%);}
+button:active {filter: brightness(80%);}
 label {display:inline-block; width:200px;}
 input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px}
 input:hover {filter: brightness(105%);}
 input:active {filter: brightness(115%);}
 select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
 select:hover {filter: brightness(105%);}
-.message {border: 1px solid black; border-radius: 4px; background: yellow; padding: 5px;}
+.message {border-left: 4px solid rgb(180, 75, 5); border-radius: 3px 2px 2px 3px; background: linear-gradient(to right, rgb(255, 115, 0), rgba(255, 102, 0, 0.279)); padding: 5px; color:white}
 .postreply {font-size:14px}
+
 
 /* Pagination styles. */
 .paginationleft {background: lightgray; float: left; border-top: 1px solid #797979; border-bottom: 1px solid #797979; padding: 3px; padding-left:0px}
@@ -91,9 +95,11 @@ legend {font-size:18px; font-weight: bold}
 .userstat {display:block; padding:3px 8px}
 .userrole {padding: 0px 8px}
 .changerole {display: inline-block;}
+.userrole a {color:#000}
+.userstat a {color:#000}
 
 /* Role Colors */
-#Administrator {color:#6d0000}
-#Moderator {color:#07006d}
-#Member {color:#000000}
-#Suspended {color:#666666}
+#Administrator {color:#6d0000; text-decoration:none}
+#Moderator {color:#07006d; text-decoration:none}
+#Member {color:#000000; text-decoration:none}
+#Suspended {color:#666666; text-decoration:none}
