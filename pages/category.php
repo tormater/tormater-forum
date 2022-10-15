@@ -120,7 +120,7 @@ else
 					
 					while ($u = $uinfo->fetch_assoc())
 					{
-						echo '<a href="/user/' . $row['startuser'] . '/">' . $u['username'] . '</a>';
+						echo '<a href="/user/' . $row['startuser'] . '/" id="' . $u["role"] . '">' . $u['username'] . '</a>';
 					}
 					
 					echo "</br><small><a title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</a></small>";
@@ -131,7 +131,7 @@ else
 					
 					while ($u = $uinfo->fetch_assoc())
 					{
-						echo '<a href="/user/' . $row['lastpostuser'] . '/">' . $u['username'] . '</a>';
+						echo '<a href="/user/' . $row['lastpostuser'] . '/" id="' . $u["role"] . '">' . $u['username'] . '</a>';
 					}
 					
 					echo '</br><small><a title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</a></small></td></tr>';
