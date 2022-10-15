@@ -13,8 +13,8 @@ $config = array(
 "MySQLDatabase" => "", // Name of the MySQL database you wish to use.
 "baseURL" => "", // The base URL for the website that the forum is on.
 "cookieName" => "forum", // The name of cookies set by the forum.
-"forumName" => "TormaterForum", // The forum's name.
-"footer" => "Powered by TormaterForum", // The text that appears on the footer.
+"forumName" => "Tormater Forum", // The forum's name.
+"footer" => "Powered by <a href=\"https://github.com/tormater/tormater-forum\">tormater-forum</a>", // The text that appears on the footer.
 "postsPerPage" => 10, // Number of posts to display on a page in a thread.
 "threadsPerPage" => 20, // Number of threads to display on a page in a category.
 "maxCharsPerPost" => 50000, // Maximum number of characters allowable in a single post.
