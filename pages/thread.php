@@ -398,7 +398,7 @@ else
 				
 				else
 				{
-					echo '</div><div class="threadcontent">' . htmlspecialchars($row["content"]) . '</div></br>';
+					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . '</div></br>';
 				}
 			}
 		}
