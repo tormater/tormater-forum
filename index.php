@@ -9,6 +9,7 @@ define("INDEXED", "1");
 require "config/config.php";
 require "libs/database.php";
 require "libs/functions.php";
+require "libs/formatter.php";
 
 // If a session doesn't exist, set one.
 if (!session_id()) {
