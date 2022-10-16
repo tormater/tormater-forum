@@ -5,8 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include "header.php";
-
 // Get the category information.
 $category = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($q2) . "'");
 
@@ -22,9 +20,12 @@ else
 
 while ($row = $category->fetch_assoc()) {
 	// Category information.
+    $categoryID = $row['categoryid'];
 	$categoryName = $row['categoryname'];
 	$categoryDescription = $row['categorydescription'];
 }
+
+include "header.php";
 
 $threads = $db->query("SELECT 1 FROM threads WHERE category='" . $db->real_escape_string($q2) . "'");
 
