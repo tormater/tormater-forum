@@ -393,7 +393,7 @@ else
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
 					echo '</div><form method="post" action="">';				
-					echo '<textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></br><input type="submit" value="Save edit"></form></br>';
+					echo '<textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></br><input type="submit" class="buttonbig" value="Save edit"></form></br>';
 				}
 				
 				else
@@ -433,25 +433,17 @@ else
 		message("Unfortunately, you're suspended. Suspended users cannot post.");
 	}
 		
-	elseif (($_SESSION['signed_in'] == true) && ($locked == 0))
+	elseif (($_SESSION['signed_in'] == true) && ($locked == 0) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) && $locked == 1)
 	{
 		echo '<form method="post" action="">';				
 		echo 'Content:</br><textarea name="content" />'; if (isset($contentSave)) echo $contentSave; echo '</textarea></br>
-			<input type="submit" class="postreply" value="Post reply">
+			<input type="submit" class="buttonbig" value="Post reply">
 			</form>';
 	}
 	
-	elseif ($_SESSION['signed_in'] == true && $locked == 1 && ((!$_SESSION["role"] == "Moderator") or (!$_SESSION["role"] == "Administrator")))
+	elseif ($_SESSION['signed_in'] == true && $locked == 1)
 	{
 		message("Sorry, this thread is locked. Only moderators and administrators can post in it.");
-	}
-	
-	elseif ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) && $locked == 1)
-	{
-		echo '<form method="post" action="">';				
-		echo 'Content:</br><textarea name="content" />'; if (isset($contentSave)) echo $contentSave; echo '</textarea></br>
-			<input type="submit" class="postreply" value="Post reply">
-			</form>';
 	}
 	
 	else
