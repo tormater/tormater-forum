@@ -53,6 +53,10 @@ function relativeTime($timestamp) {
 	$now = time();
 	$diff = $now - $timestamp;
 	
+    if ($timestamp == 0) {
+		return "Never";
+	}
+
 	if ($diff <= 0) {
 		return "Just now";
 	}
