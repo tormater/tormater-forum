@@ -148,18 +148,19 @@ else
 		else
 		{
 		
-			echo '<form method="post" action="">Title: <input type="text" name="title"';
+			echo '<form method="post" action=""><label>Title: </label><input type="text" name="title"';
 			if (isset($titleSave)) echo "value='" . $titleSave . "'";
-			echo '></br>Category: '; 
-				
+			echo '></br></br><label>Category: </label>'; 
+
 			echo '<select name="category">';
 				while($row = $result->fetch_assoc())
 				{
 					echo '<option ';
 					if (isset($catSave) && $catSave == $row["categoryid"]) echo "selected ";
+                    elseif (isset($q2) && $q2 == $row["categoryid"]) echo "selected ";
 					echo 'value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
 				}
-			echo '</select></br>';	
+			echo '</select></br></br>';	
 					
 			echo 'Content:</br><textarea name="content" />';
 			if (isset($contentSave)) echo $contentSave;
