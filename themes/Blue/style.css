@@ -24,10 +24,14 @@ select:hover {filter: brightness(105%);}
 /* Pagination styles. */
 .paginationleft {background: lightgray; float: left; border-top: 1px solid #797979; border-bottom: 1px solid #797979; padding: 3px; padding-left:0px}
 .paginationright {background: lightgray; text-align: right; border-top: 1px solid #797979; border-bottom: 1px solid #797979; padding: 3px; padding-right:0px}
-.paginationleft a {background: linear-gradient(lightblue, #00728B); border: 1px solid #032472; color: black; font-family: Arial; padding: 3px 6px; text-decoration: none;}
-.paginationright a {background: linear-gradient(lightblue, #00728B); border: 1px solid #032472; color: black; font-family: Arial; padding: 3px 6px; text-decoration: none;}
-.paginationleft font {background: linear-gradient(lightgray, gray); border: 1px solid #032472; color: rgb(48, 48, 48); font-family: Arial; padding: 3px 6px; text-decoration: none; cursor:default}
-.paginationright font {background: linear-gradient(lightgray, gray); border: 1px solid #032472; color: rgb(48, 48, 48); font-family: Arial; padding: 3px 6px; text-decoration: none; cursor:default}
+.paginationleft a {background: linear-gradient(#fff, rgb(219, 219, 219), rgb(163, 163, 163)); border: 1px solid #000; color: #000; font-family: Arial; padding: 3px 6px; text-decoration: none;}
+.paginationright a {background: linear-gradient(#fff, rgb(219, 219, 219), rgb(163, 163, 163)); border: 1px solid #000; color: #000; font-family: Arial; padding: 3px 6px; text-decoration: none;}
+.paginationleft a:hover {filter: brightness(110%);}
+.paginationright a:hover {filter: brightness(110%);}
+.paginationleft a:active {filter: brightness(80%);}
+.paginationright a:active {filter: brightness(80%);}
+.paginationleft font {background: linear-gradient(lightgray, gray); border: 1px solid #616161; color: #3f3f3f; font-family: Arial; padding: 3px 6px; text-decoration: none; cursor:default}
+.paginationright font {background: linear-gradient(lightgray, gray); border: 1px solid #616161; color: #3f3f3f; font-family: Arial; padding: 3px 6px; text-decoration: none; cursor:default}
 
 /* Table styles. */
 table {border-collapse: collapse; border: 1px solid navy; box-sizing: border-box; width:100%}
