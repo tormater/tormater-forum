@@ -41,7 +41,14 @@ else
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
 			echo '<a class="item" href="/settings/">Settings</a> ';
-			echo '<a class="item" href="/newthread/">Create a thread</a> ';
+            if(isset($categoryID))
+            {
+			    echo '<a class="item" href="/newthread/' . $categoryID . '">Create a thread</a> ';
+            }
+            else
+            {
+                echo '<a class="item" href="/newthread/">Create a thread</a> ';
+            }
         }
         
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
