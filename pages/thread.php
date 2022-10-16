@@ -319,21 +319,22 @@ else
 	}
 	echo '<h2>Posts in "' . htmlspecialchars($title) . '"</h2>';
 	
-	if ($locked == 1 && $stickied == 1)
+	if ($locked == 1 or $stickied == 1)
 	{
-		echo '<font class="sticky">Sticky</font> <font class="locked">Locked</font></br></br>';
-	}
+		echo 'Labels:';
 	
-	elseif ($locked == 1)
-	{
-		echo '<font class="locked">Locked</font></br></br>';
-	}
 	
-	elseif ($stickied == 1)
-	{
-		echo '<font class="sticky">Sticky</font></br></br>';
-	}
-		
+	    if ($locked == 1)
+	    {
+	    	echo '<font class="locked">Locked</font>';
+	    }
+	
+	    if ($stickied == 1)
+	    {
+	    	echo '<font class="sticky">Sticky</font>';
+        }
+	    echo '</br>';
+    }
 	echo "<div class='paginationleft'>";
 		
 	if ($currentPage == 1)
