@@ -3,7 +3,7 @@ html {background-color:#007b7b; background-size: 100% auto; background-repeat: n
 body {text-align: center;}
 a {color:rgb(0, 17, 255); text-decoration:none}
 a:hover {text-decoration:underline}
-#wrapper {width: 900px; margin: 0 auto; border: #000 outset; box-sizing: border-box}
+#wrapper {max-width: 900px; margin: 0 auto; border: #000 outset; box-sizing: border-box}
 #content {background-color: #fff; border: 1px solid #000; float: left; font-family: Arial; padding: 20px 30px; text-align: left; width: 100%; box-sizing: border-box;}
 #menu {float: left; border: 1px solid #000; border-bottom: none; clear: both; height:37px; padding: 0 30px; padding-top: 10px; padding-bottom: 1px; background: linear-gradient(to right, #010074, #0292fc); text-align: left; font-size: 85%; box-sizing: border-box; width:100%}
 #userbar {background: linear-gradient(to left, #ffffffa0, #ffffff00); margin: -3px; padding: 3px; padding-left:30px; float:right}
@@ -104,3 +104,18 @@ legend {font-size:18px; font-weight: bold}
 #Moderator {color:#07006d; text-decoration:none}
 #Member {color:#000000; text-decoration:none}
 #Suspended {color:#666666; text-decoration:none}
+
+/* Buttons */
+.button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px}
+.button:hover {filter: brightness(110%);}
+.button:active {filter: brightness(80%);}
+.buttonbig {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
+.buttonbig:hover {filter: brightness(110%);}
+.buttonbig:active {filter: brightness(80%);}
+
+/* Posts */
+.postimg {box-sizing: border-box; width:100%; border: 1px outset #000}
+.postspoiler {margin: 3px 0px; display:inline-block; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; padding: 5px 10px}
+.postspoiler[open] {background:rgb(240, 240, 240); display:inline-block}
+.postcode {background: rgb(230, 230, 230); border: 1px solid gray; border-radius: 3px; font-size:14px; padding:5px 10px; display: inline-block;}
+.postpre {font-size:15px; display:inline}
