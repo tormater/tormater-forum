@@ -99,20 +99,15 @@ else
 					
 				while($row = $result->fetch_assoc())
 				{				
-					echo '<tr><td class="leftpart"><b><a href="/thread/' . $row['threadid'] . '/">' . htmlspecialchars($row['title']) . "</a></b>";
-					if ($row["locked"] == 1 && $row["sticky"] == 1)
+					echo '<tr><td class="leftpart"><b><a href="/thread/' . $row['threadid'] . '/">' . htmlspecialchars($row['title']) . "</a></b>";	
+					if ($row["locked"] == 1)
 					{
-						echo ' <small><font class="sticky">Sticky</font> <font class="locked">Locked</font></small></br></br>';
+						echo '<span class="locked">Locked</span>';
 					}
 	
-					elseif ($row["locked"] == 1)
+					if ($row["sticky"] == 1)
 					{
-						echo ' <small><font class="locked">Locked</font></small></br></br>';
-					}
-	
-					elseif ($row["sticky"] == 1)
-					{
-						echo ' <small><font class="sticky">Sticky</font></small></br></br>';
+						echo '<span class="sticky">Sticky</span>';
 					}
 
 					echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
