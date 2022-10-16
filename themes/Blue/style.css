@@ -17,7 +17,7 @@ input:hover {filter: brightness(105%);}
 input:active {filter: brightness(115%);}
 select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
 select:hover {filter: brightness(105%);}
-.message {border-left: 4px solid rgb(180, 75, 5); border-radius: 3px 2px 2px 3px; background: linear-gradient(to right, rgb(255, 115, 0), rgba(255, 102, 0, 0.279)); padding: 5px; color:white}
+.message {border-left: 4px solid rgb(150, 0, 0); background: linear-gradient(to right, rgb(255, 0, 0), rgba(255, 0, 0, 0.279)); padding: 5px; padding-left:10px; color:white}
 .postreply {font-size:14px}
 
 
@@ -36,7 +36,7 @@ table a:hover {color:#373737; text-decoration: none;}
 th {background: navy; color: #FFF; padding-left: 4px}
 tr:nth-child(even) {background-color: #f2f2f2;}
 tr:hover {background-color: #e3efff}
-td {padding: 5px; border: 1px solid black}
+td {padding: 5px; border: 1px solid black; vertical-align:middle}
 
 /* Font styles. */
 h1 {font-family: Arial; color: #fff; text-shadow:#000 0px 0px 10px}
@@ -61,8 +61,8 @@ textarea {resize: none; height: 200px; width:100%; box-sizing: border-box; margi
 .postc {display: inline; float:right; margin-left: 2px;}
 .hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: gray;}
 .threadbutton {background: linear-gradient(#00728B, blue); border: 1px solid black; border-radius: 4px; color: white; font-family: Arial; display: inline; padding: 4px; text-decoration: none; float: right; margin-left: 2px;}
-.locked {background: gray; border: 1px solid black; border-radius: 4px; padding: 2px;}
-.sticky {background: gold; border: 1px solid black; border-radius: 4px; padding: 2px;}
+.locked {background: linear-gradient(rgb(172, 172, 172), rgb(82, 82, 82)); border: 1px solid rgb(0, 0, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:2px 0px; margin-left:8px}
+.sticky {background: linear-gradient(rgb(255, 158, 12), rgb(202, 121, 0)); border: 1px solid rgb(71, 46, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:2px 0px; margin-left:8px}
 
 /* Post colors. */
 [postcolor="1"] {background: lightblue;}
