@@ -21,6 +21,7 @@ function formatPost($post)
     $returnPost = formatTableheader($returnPost);
     $returnPost = formatLink($returnPost);
     $returnPost = formatImage($returnPost);
+    $returnPost = formatSpoiler($returnPost);
     return $returnPost;
 }
 
@@ -68,7 +69,7 @@ function formatStrikethrough($returnPost)
 function formatPreformatted($returnPost)
 {
     if ((strpos($returnPost, "[pre]") !== false) and (strpos($returnPost, "[/pre]") !== false)) {
-        $returnPost = str_replace("[pre]","<pre>",$returnPost);
+        $returnPost = str_replace("[pre]","<pre class='postpre'>",$returnPost);
         $returnPost = str_replace("[/pre]","</pre>",$returnPost);
     }
     return $returnPost;
@@ -77,7 +78,7 @@ function formatPreformatted($returnPost)
 function formatCode($returnPost)
 {
     if ((strpos($returnPost, "[code]") !== false) and (strpos($returnPost, "[/code]") !== false)) {
-        $returnPost = str_replace("[code]","<code>",$returnPost);
+        $returnPost = str_replace("[code]","<code class='postcode'>",$returnPost);
         $returnPost = str_replace("[/code]","</code>",$returnPost);
     }
     return $returnPost;
@@ -122,7 +123,7 @@ function formatTableheader($returnPost)
 function formatLink($returnPost)
 {
     if ((strpos($returnPost, "[url]http") !== false) and (strpos($returnPost, "[/url]") !== false)) {
-        $returnPost = str_replace("[url]http","<a href='http",$returnPost);
+        $returnPost = str_replace("[url]http","<a class='postlink' href='http",$returnPost);
         $returnPost = str_replace("[/url]","'>link text</a>",$returnPost);
     }
     return $returnPost;
@@ -131,8 +132,17 @@ function formatLink($returnPost)
 function formatImage($returnPost)
 {
     if ((strpos($returnPost, "[img]http") !== false) and (strpos($returnPost, "[/img]") !== false)) {
-        $returnPost = str_replace("[img]http","<img height='200' width='200' src='http",$returnPost);
+        $returnPost = str_replace("[img]http","<img class='postimg' src='http",$returnPost);
         $returnPost = str_replace("[/img]","'>",$returnPost);
+    }
+    return $returnPost;
+}
+
+function formatSpoiler($returnPost)
+{
+    if ((strpos($returnPost, "[spoiler]") !== false) and (strpos($returnPost, "[/spoiler]") !== false)) {
+        $returnPost = str_replace("[spoiler]","<details class='postspoiler'><summary>Spoiler</summary>",$returnPost);
+        $returnPost = str_replace("[/spoiler]","</details>",$returnPost);
     }
     return $returnPost;
 }
