@@ -1,5 +1,5 @@
 /* Main styles. */
-html {background-color:#007b7b; background-size: 100% auto; background-repeat: no-repeat; background:radial-gradient(circle, #00bebe, #00a0a0, #007b7b)}
+html {background-color:#00adad;}
 body {text-align: center;}
 a {color:rgb(0, 17, 255); text-decoration:none}
 a:hover {text-decoration:underline}
@@ -61,8 +61,8 @@ textarea {resize: none; height: 200px; width:100%; box-sizing: border-box; margi
 .postc {display: inline; float:right; margin-left: 2px;}
 .hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: gray;}
 .threadbutton {background: linear-gradient(#00728B, blue); border: 1px solid black; border-radius: 4px; color: white; font-family: Arial; display: inline; padding: 4px; text-decoration: none; float: right; margin-left: 2px;}
-.locked {background: linear-gradient(rgb(172, 172, 172), rgb(82, 82, 82)); border: 1px solid rgb(0, 0, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:2px 0px; margin-left:8px}
-.sticky {background: linear-gradient(rgb(255, 158, 12), rgb(202, 121, 0)); border: 1px solid rgb(71, 46, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:2px 0px; margin-left:8px}
+.locked {background: linear-gradient(rgb(172, 172, 172), rgb(82, 82, 82)); border: 1px solid rgb(0, 0, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:4px 0px; margin-left:8px}
+.sticky {background: linear-gradient(rgb(255, 158, 12), rgb(202, 121, 0)); border: 1px solid rgb(71, 46, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:4px 0px; margin-left:8px}
 
 /* Post colors. */
 [postcolor="1"] {background: lightblue;}
@@ -114,6 +114,8 @@ legend {font-size:18px; font-weight: bold}
 .buttonbig:active {filter: brightness(80%);}
 
 /* Posts */
+.postc button {background: linear-gradient(rgba(255, 255, 255, 0.637), rgba(255, 255, 255, 0.301)); border:1px solid rgba(0, 0, 0, 0.658)}
+.postc button:hover {background: linear-gradient(rgba(255, 255, 255, 0.856), rgba(255, 255, 255, 0.596));}
 .postimg {box-sizing: border-box; width:100%; border: 1px outset #000}
 .postspoiler {margin: 3px 0px; display:inline-block; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; padding: 5px 10px}
 .postspoiler[open] {background:rgb(240, 240, 240); display:inline-block}
