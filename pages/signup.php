@@ -18,7 +18,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
  		<label>Password:</label><input type="password" name="user_pass"></br>
  		<label></label><small>(minimum X characters)</small></br></br>
 		<label>Confirm password:</label><input type="password" name="user_pass_check"></br></br>
- 		<label></label><input type="submit" class="postreply" value="Register" />
+ 		<label></label><input type="submit" class="buttoninput" value="Register" />
  	 </form>';
 }
 else
