@@ -374,18 +374,19 @@ else
 					echo '<div class="hiddenpost"><b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . '</a> (hidden by <a href="/user/' . $row["deletedby"] . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
 					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 					{
-						echo '<form class="postc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">Restore</button></form>';
+						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">Restore</button></form>';
 					}
-					echo '</div></br>';
+					echo '</div>';
 				}
 			}
 			
 			else
 			{   // <a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a>."
-				echo '<div postcolor="' . $u["color"] . '" class="thread">';
-				echo '<b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><span class='userrole'><a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</a></span>";
+				echo '<div class="post"><div postcolor="' . $u["color"] . '" class="thread">';
+				echo '<b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><br><span class='postdate'><a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</a></span>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
+                    echo '<br>';
 					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">Delete</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">Hide</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">Edit</button></form>';
@@ -401,6 +402,7 @@ else
 				{
 					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . '</div></br>';
 				}
+                echo "</div>";
 			}
 		}
 	}
