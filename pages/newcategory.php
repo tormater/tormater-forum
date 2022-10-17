@@ -29,7 +29,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
  		Category name: <input type='text' name='cat_name'></br>
  		Category description:</br>
  		<textarea name='cat_description'></textarea>
- 		</br><input type='submit' value='Add category'>
+ 		</br><input type='submit' class='buttonbig' value='Add category'>
  	</form>";
 }
 
