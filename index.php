@@ -11,6 +11,16 @@ require "libs/database.php";
 require "libs/functions.php";
 require "libs/formatter.php";
 
+// Get our language file
+if(!isset($config["forumLang"]))
+{
+	require 'lang/EN_US.php';
+}
+else
+{
+	require 'lang/' . $config["forumLang"] . '.php';
+}
+
 // If a session doesn't exist, set one.
 if (!session_id()) {
 	session_name($config["cookieName"] . "_Session");
@@ -51,7 +61,7 @@ elseif ($q1 == "user") require "pages/user.php";
 elseif ($q1 == "settings") require "pages/settings.php";
 elseif ($q1 == "panel") require "pages/panel.php";
 else {
-	echo "Error: requested page not found.";
+	echo $lang["error.PageNotFound"];
 	require "pages/homepage.php";
 }
 
