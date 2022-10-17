@@ -40,33 +40,33 @@ $posts = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_
 
 if(!$category)
 {
-	echo 'The category could not be displayed, please try again later.';
+	echo $lang["error.CategoryMisc"];
 }
 
 else
 {
 	if($category->num_rows == 0)
 	{
-		echo 'This category does not exist.';
+		echo $lang["error.CategoryNotFound"];
 	}
 	
 	else
 	{
-		echo '<h2>Threads in ' . htmlspecialchars($categoryName) . '</h2>';
+		echo '<h2>' . $lang["category.ThreadsIn"] . htmlspecialchars($categoryName) . '</h2>';
 	
 		$result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
 		
 		
 		if(!$result)
 		{
-			echo 'The threads could not be displayed, please try again later.';
+			echo $lang["error.CategoryThreadMisc"];
 		}
 		
 		else
 		{
 			if($result->num_rows == 0)
 			{
-				echo 'There are no threads in this category yet.';
+				echo $lang["error.CategoryEmpty"];
 			}
 			
 			else
@@ -75,39 +75,39 @@ else
 		
 				if ($currentPage == 1)
 				{
-					echo "<font color=white>First page</font> <font color=white>Previous page</font>";
+					echo "<font color=white>" . $lang["nav.FirstPage"] . "</font> <font color=white>" . $lang["nav.PrevPage"] . "</font>";
 				}
 				else
 				{
-					echo "<a href='/category/" . $q2 . "/1/'>First page</a> <a href='/category/" . $q2 . "/" . ($currentPage - 1) . "/'>Previous page</a>";
+					echo "<a href='/category/" . $q2 . "/1/'>" . $lang["nav.FirstPage"] . "</a> <a href='/category/" . $q2 . "/" . ($currentPage - 1) . "/'>" . $lang["nav.PrevPage"] . "</a>";
 				}
 		
 				echo "</div><div class='paginationright'>";
 		
 				if ($currentPage == $pages)
 				{
-					echo "<font color=white>Next page</font> <font color=white>Last page</font>";
+					echo "<font color=white>" . $lang["nav.NextPage"] . "</font> <font color=white>" . $lang["nav.LastPage"] . "</font>";
 				}
 				else
 				{
-					echo "<a href='/category/" . $q2 . "/" . ($currentPage + 1) . "/'>Next page</a> <a href='/category/" . $q2 . "/" . $pages ."/'>Last page</a>";
+					echo "<a href='/category/" . $q2 . "/" . ($currentPage + 1) . "/'>" . $lang["nav.NextPage"] . "</a> <a href='/category/" . $q2 . "/" . $pages ."/'>" . $lang["nav.LastPage"] . "</a>";
 				}
 		
 				echo "</div></br>";
 
-				echo '<table><tr><th>Thread</th><th>Posts</th><th>Created by</th><th>Last post</th></tr>';
+				echo '<table><tr><th>' . $lang["category.Thread"] . '</th><th>' . $lang["category.Posts"] . '</th><th>' . $lang["category.CreatedBy"] . '</th><th>' . $lang["category.LastPost"] . '</th></tr>';
 					
 				while($row = $result->fetch_assoc())
 				{				
 					echo '<tr><td class="leftpart"><b><a href="/thread/' . $row['threadid'] . '/">' . htmlspecialchars($row['title']) . "</a></b>";	
 					if ($row["locked"] == 1)
 					{
-						echo '<span class="locked">Locked</span>';
+						echo '<span class="locked">' . $lang["label.Locked"] . '</span>';
 					}
 	
 					if ($row["sticky"] == 1)
 					{
-						echo '<span class="sticky">Sticky</span>';
+						echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
 					}
 
 					echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
@@ -138,7 +138,7 @@ else
 		
 				if ($currentPage == 1)
 				{
-					echo "<font color=white>First page</font> <font color=white>Previous page</font>";
+					echo "<font color=white>" . $lang["nav.FirstPage"] . "</font> <font color=white>" . $lang["nav.PrevPage"] . "</font>";
 				}
 				else
 				{
@@ -149,11 +149,11 @@ else
 		
 				if ($currentPage == $pages)
 				{
-					echo "<font color=white>Next page</font> <font color=white>Last page</font>";
+					echo "<font color=white>" . $lang["nav.NextPage"] . "</font> <font color=white>" . $lang["nav.LastPage"] . "</font>";
 				}
 				else
 				{
-					echo "<a href='/category/" . $q2 . "/" . ($currentPage + 1) . "/'>Next page</a> <a href='/category/" . $q2 . "/" . $pages ."/'>Last page</a>";
+					echo "<a href='/category/" . $q2 . "/" . ($currentPage + 1) . "/'>" . $lang["nav.NextPage"] . "</a> <a href='/category/" . $q2 . "/" . $pages ."/'>" . $lang["nav.LastPage"] . "</a>";
 				}
 		
 				echo "</div>";
