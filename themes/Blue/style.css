@@ -98,9 +98,9 @@ legend {font-size:18px; font-weight: bold}
 
 /* User Styles. */
 .usertop {border:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
-.userbottom {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
+.userbottom {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-top:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
 .userstat {display:block; padding:3px 8px}
-.userrole {padding: 0px 8px}
+.userrole {padding: 0px}
 .changerole {display: inline-block;}
 .userrole a {color:#000}
 .userstat a {color:#000}
