@@ -35,32 +35,32 @@ else
 	<div id="wrapper">
 	<div id="menu">
 		<?php
-			echo '<a class="item" href="/">Home</a> ';
-			echo '<a class="item" href="/userlist/">Userlist</a> ';
+			echo '<a class="item" href="/">' . $lang["header.Home"] . '</a> ';
+			echo '<a class="item" href="/userlist/">' . $lang["header.Userlist"] . '</a> ';
 		
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="/settings/">Settings</a> ';
+			echo '<a class="item" href="/settings/">' . $lang["header.Settings"] . '</a> ';
             if(isset($categoryID))
             {
-			    echo '<a class="item" href="/newthread/' . $categoryID . '">Create a thread</a> ';
+			    echo '<a class="item" href="/newthread/' . $categoryID . '">' . $lang["header.NewThread"] . '</a> ';
             }
             else
             {
-                echo '<a class="item" href="/newthread/">Create a thread</a> ';
+                echo '<a class="item" href="/newthread/">' . $lang["header.NewThread"] . '</a> ';
             }
         }
         
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
 		{
-			echo '<a class="item" href="/newcategory/">Create a category</a> ';
-			echo '<a class="item" href="/panel/">Admin Panel</a> ';
+			echo '<a class="item" href="/newcategory/">' . $lang["header.NewCategory"] . '</a> ';
+			echo '<a class="item" href="/panel/">' . $lang["header.Panel"] . '</a> ';
 		}
 		
 
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="/logout/">Log out</a> ';
+			echo '<a class="item" href="/logout/">' . $lang["header.Logout"] . '</a> ';
 		}
 		
 		echo '<div id="userbar">';
@@ -70,7 +70,7 @@ else
  			}
  			else
  			{
- 				echo '<a href="/login/">Log in</a> or <a href="/signup/">Sign up</a>.';
+ 				echo '<a href="/login/">' . $lang["header.Login"] . '</a> or <a href="/signup/">' . $lang["header.Signup"] . '</a>.';
  			}
 		echo "</div>";
 		?>
