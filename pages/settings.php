@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     <form method="post" action="">
     <label>New username:</label><input type="text" name="newusername"><br/><br/>
     <label>Current password:</label><input type="password" name="confirmpass"><br/><br/>
-    <label></label><input type="submit" class="postreply" value="Change username"></form></fieldset>';
+    <label></label><input type="submit" class="buttoninput" value="Change username"></form></fieldset>';
 }
 
 else
