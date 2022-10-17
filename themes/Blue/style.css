@@ -14,7 +14,7 @@ button:active {filter: brightness(80%);}
 label {display:inline-block; width:200px;}
 input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px}
 input:hover {filter: brightness(105%);}
-input:active {filter: brightness(115%);}
+input:focus {background:#fff; border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
 select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
 select:hover {filter: brightness(105%);}
 .message {border-left: 4px solid rgb(150, 0, 0); background: linear-gradient(to right, rgb(255, 0, 0), rgba(255, 0, 0, 0.279)); padding: 5px; padding-left:10px; color:white}
@@ -57,7 +57,8 @@ h2 {background:linear-gradient(to right, #92d2ff, #92d2ff00); border-left:#4bb4f
 .small {font-size: 75%; color: #373737;}
 .topic-post {height: 100px; overflow: auto;}
 .post-content {padding: 30px;}
-textarea {resize: none; height: 200px; width:100%; box-sizing: border-box; margin-bottom:4px}
+textarea {border:1px gray solid; border-radius:3px; resize: none; height: 200px; width:100%; box-sizing: border-box; margin-bottom:4px}
+textarea:focus {border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
 
 /* Thread styles. */
 .thread {display:inline-block; box-sizing: border-box; border:1px solid rgba(0, 0, 0, 0.493); padding: 8px; position: relative}
