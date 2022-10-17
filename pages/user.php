@@ -79,7 +79,7 @@ else
 					echo '<option value="Suspended" selected>Suspended</option>';
 				}
 				
-				echo "</select><input type='submit' value='Change role'></form></div>";
+				echo "</select><input type='submit' class='buttonrole' value='Change role'></form></div>";
 			
 				
 			}
