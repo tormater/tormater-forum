@@ -8,6 +8,8 @@ if (!defined("INDEXED")) exit;
 $lang = array(
 "error.PageNotFound" => "Requested page not found.",
 
+"action.homepage" => "Viewing: Homepage",
+
 "header.Home" => "Home",
 "header.Userlist" => "Userlist",
 "header.Settings" => "Settings",
@@ -17,6 +19,8 @@ $lang = array(
 "header.Logout" => "Logout",
 "header.Login" => "Login",
 "header.Signup" => "Sign up",
+
+"homepage.CatThreads" => "Threads: ",
 );
 
 ?>
