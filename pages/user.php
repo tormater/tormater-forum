@@ -41,9 +41,11 @@ else
 			if ($row["verified"] == "1") $verified = "Yes";
 			else $verified = "No";
 			
+            echo '<h2>Viewing profile "' . htmlspecialchars($row["username"]) . '"</h2>';
+            echo "<div class='post'><div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b id='" .$row["role"] . "'>" . htmlspecialchars($row["username"]) . "</b>";
 			if ($_SESSION['role'] == "Administrator")
 			{
-				echo "<div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b id='" .$row["role"] . "'>" . htmlspecialchars($row["username"]) . "</b> <form method='post' class='changerole' action=''><select name='role'>";
+				echo " <form method='post' class='changerole' action=''><select name='role'>";
 				
 				if ($row['role'] == "Administrator")
 				{
@@ -78,55 +80,36 @@ else
 				}
 				
 				echo "</select><input type='submit' value='Change role'></form></div>";
-				
-				$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
-				
-				$uposts = 0;
-				
-				while ($p = $posts->fetch_assoc())
-				{
-					// Had to be ghetto here and increment a custom variable because num_rows was throwing tons of
-					// notices for no reason and wouldn't return with a number like it's supposed to.
-					$uposts += 1;
-				}
-				
-				$threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
-				
-				$uthreads = 0;
-				
-				while ($t = $threads->fetch_assoc())
-				{
-					$uthreads +=1;
-				}
+			
 				
 			}
 			
 			else
 			{
-				$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
 				
-				$uposts = 0;
-				
-				while ($p = $posts->fetch_assoc())
-				{
-					// Had to be ghetto here and increment a custom variable because num_rows was throwing tons of
-					// notices for no reason and wouldn't return with a number like it's supposed to.
-					$uposts += 1;
-				}
-				
-				$threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
-				
-				$uthreads = 0;
-				
-				while ($t = $threads->fetch_assoc())
-				{
-					$uthreads +=1;
-				}
-				
-				echo "<div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b id='" .$row["role"] . "'>" . htmlspecialchars($row["username"]) . "</b><span class='userrole'>" . $row["role"] . "</span></div>";
+				echo "<br/><span class='userrole'>" . $row["role"] . "</span></div>";
 				
 			}
-			echo "<div class='userbottom'><span class='userstat'><label class='shortlabel'>Registered:</label><a title='" . date('m-d-Y h:i:s A', $row['jointime']) . "'>" . relativeTime($row["jointime"]) . "</a></span>" . "<span class='userstat'><label class='shortlabel'>Last active:</label><a title='" . date('m-d-Y h:i:s A', $row['lastactive']) . "'>" . relativeTime($row["lastactive"]) . "</a></span>" . "<span class='userstat'><label class='shortlabel'>Posts:</label>" . $uposts . "</span><span class='userstat'><label class='shortlabel'>Threads:</label>" . $uthreads . "</span><span class='userstat'><label class='shortlabel'>Verified:</label>" . $verified . "</span></div>";
+			$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
+				
+			$uposts = 0;
+				
+			while ($p = $posts->fetch_assoc())
+			{
+				// Had to be ghetto here and increment a custom variable because num_rows was throwing tons of
+				// notices for no reason and wouldn't return with a number like it's supposed to.
+				$uposts += 1;
+			}
+				
+			$threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
+				
+			$uthreads = 0;
+				
+			while ($t = $threads->fetch_assoc())
+			{
+				$uthreads +=1;
+			}
+			echo "<div class='userbottom'><span class='userstat'><label class='shortlabel'>Registered:</label><a title='" . date('m-d-Y h:i:s A', $row['jointime']) . "'>" . relativeTime($row["jointime"]) . "</a></span>" . "<span class='userstat'><label class='shortlabel'>Last active:</label><a title='" . date('m-d-Y h:i:s A', $row['lastactive']) . "'>" . relativeTime($row["lastactive"]) . "</a></span>" . "<span class='userstat'><label class='shortlabel'>Posts:</label>" . $uposts . "</span><span class='userstat'><label class='shortlabel'>Threads:</label>" . $uthreads . "</span><span class='userstat'><label class='shortlabel'>Verified:</label>" . $verified . "</span></div></div>";
 
 			// If the viewing user is logged in, update their last action.
 			if ($_SESSION['signed_in'] == true)
