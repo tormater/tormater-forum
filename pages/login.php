@@ -21,7 +21,7 @@ else
 		echo '<form method="post" action="">
 			<label>Username:</label><input type="text" name="user_name" /></br></br>
 			<label>Password:</label><input type="password" name="user_pass"></br></br>
-			<label></label><input type="submit" class="postreply" value="Log in" />
+			<label></label><input type="submit" class="buttoninput" value="Log in" />
 		 </form>';
 	}
 	
