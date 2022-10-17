@@ -8,6 +8,15 @@ if (!defined("INDEXED")) exit;
 $lang = array(
 "error.PageNotFound" => "Requested page not found.",
 
+"header.Home" => "Home",
+"header.Userlist" => "Userlist",
+"header.Settings" => "Settings",
+"header.NewThread" => "Create a thread",
+"header.NewCategory" => "Create a category",
+"header.Panel" => "Admin Panel",
+"header.Logout" => "Logout",
+"header.Login" => "Login",
+"header.Signup" => "Sign up",
 );
 
 ?>
