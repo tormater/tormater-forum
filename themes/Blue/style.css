@@ -60,13 +60,16 @@ h2 {background:linear-gradient(to right, #92d2ff, #92d2ff00); border-left:#4bb4f
 textarea {resize: none; height: 200px; width:100%; box-sizing: border-box; margin-bottom:4px}
 
 /* Thread styles. */
-.thread {max-width:900px; border:1px solid rgba(0, 0, 0, 0.493); padding: 8px}
-.threadcontent {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); padding: 8px; max-width:1000px; word-wrap: break-word;}
-.postc {display: inline; float:right; margin-left: 2px;}
-.hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: gray;}
+.thread {display:inline-block; box-sizing: border-box; border:1px solid rgba(0, 0, 0, 0.493); padding: 8px; position: relative}
+.threadcontent {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); border-top:1px solid rgba(0, 0, 0, 0.493); padding: 8px; box-sizing: border-box; display:inline-block; word-wrap: break-word; margin: 0; float:right}
+.postc {display: inline-block; margin-right: 2px; margin-top:4px}
+.rpostc {float:right; margin: 0px}
+.hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: rgb(199, 199, 199); margin-bottom:5px}
 .threadbutton {background: linear-gradient(#00728B, blue); border: 1px solid black; border-radius: 4px; color: white; font-family: Arial; display: inline; padding: 4px; text-decoration: none; float: right; margin-left: 2px;}
 .locked {background: linear-gradient(rgb(172, 172, 172), rgb(82, 82, 82)); border: 1px solid rgb(0, 0, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:4px 0px; margin-left:8px}
 .sticky {background: linear-gradient(rgb(255, 158, 12), rgb(202, 121, 0)); border: 1px solid rgb(71, 46, 0); border-radius: 4px; padding: 2px 4px; display:inline-block; color:#fff; margin:4px 0px; margin-left:8px}
+.postdate a {color:#000}
+.post {display: grid; grid-template-columns: 18% 82%; grid-gap: 0px; margin-bottom:5px}
 
 /* Post colors. */
 [postcolor="1"] {background: lightblue;}
