@@ -164,7 +164,7 @@ else
 					
 			echo 'Content:</br><textarea name="content" />';
 			if (isset($contentSave)) echo $contentSave;
-			echo '</textarea></br><input type="submit" value="Create thread"></form>';
+			echo '</textarea></br><input type="submit" class="buttonbig" value="Create thread"></form>';
 		}
 	}
 }
