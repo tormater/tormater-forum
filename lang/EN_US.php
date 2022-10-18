@@ -20,7 +20,8 @@ $lang = array(
 "label.Locked" => "Locked",
 "label.Sticky" => "Sticky",
 
-"action.homepage" => "Viewing: Homepage",
+"action.Generic" => "Viewing: ",
+"action.Homepage" => "Viewing: Homepage",
 
 "header.Home" => "Home",
 "header.Userlist" => "Userlist",
