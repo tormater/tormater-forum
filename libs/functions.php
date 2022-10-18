@@ -37,6 +37,16 @@ function logout() {
 	redirect("");
 }
 
+// Makes sure there aren't any bad characters in usernames
+function checkUsername($username) {
+if (!preg_match("#^[a-zA-Z0-9_-]+$#", $username)) {
+   return false;   
+} 
+else {
+   return true;
+}
+}
+
 // Update the user's last action and set their last active time to now.
 function update_last_action($action) {
 	global $db;
