@@ -1,5 +1,5 @@
 # Tormater Forum
-![2022-10-15_12-14](https://user-images.githubusercontent.com/115832947/196004117-a413f7db-7cbf-4324-9201-f6674b26df13.png)
+![2022-10-18_15-35](https://user-images.githubusercontent.com/115832947/196558035-951ab8da-e5fd-452e-8ab9-5f3ff96746d4.png)
 
  What in tormation?
 # Installation Instructions
@@ -10,3 +10,4 @@ This has been tested only on Ubuntu 20.04 (LTS at the time of writing) but it sh
 3. Navigate to your forum's install script. E.g. if it's hosted at example.com go to example.com/installer.
 4. You will want to create an account and set it as an administrator through the database. You will also want to create some categories and perhaps a thread or two.
 5. Enjoy! It should be smooth sailing from here.
+
