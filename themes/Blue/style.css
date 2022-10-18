@@ -21,16 +21,7 @@ select:hover {filter: brightness(105%);}
 
 
 /* Pagination styles. */
-.paginationleft {background: lightgray; float: left; border-top: 1px solid #797979; border-bottom: 1px solid #797979; padding: 3px; padding-left:0px}
-.paginationright {background: lightgray; text-align: right; border-top: 1px solid #797979; border-bottom: 1px solid #797979; padding: 3px; padding-right:0px}
-.paginationleft a {background: linear-gradient(#fff, rgb(219, 219, 219), rgb(163, 163, 163)); border: 1px solid #000; color: #000; font-family: Arial; padding: 3px 6px; text-decoration: none;}
-.paginationright a {background: linear-gradient(#fff, rgb(219, 219, 219), rgb(163, 163, 163)); border: 1px solid #000; color: #000; font-family: Arial; padding: 3px 6px; text-decoration: none;}
-.paginationleft a:hover {filter: brightness(110%);}
-.paginationright a:hover {filter: brightness(110%);}
-.paginationleft a:active {filter: brightness(80%);}
-.paginationright a:active {filter: brightness(80%);}
-.paginationleft font {background: linear-gradient(lightgray, gray); border: 1px solid #616161; color: #3f3f3f; font-family: Arial; padding: 3px 6px; text-decoration: none; cursor:default}
-.paginationright font {background: linear-gradient(lightgray, gray); border: 1px solid #616161; color: #3f3f3f; font-family: Arial; padding: 3px 6px; text-decoration: none; cursor:default}
+.pagination {line-height: 200%; margin-bottom:5px; margin-top:5px}
 
 /* Table styles. */
 table {border-collapse: collapse; border: 1px solid navy; box-sizing: border-box; width:100%}
@@ -124,10 +115,11 @@ legend {font-size:18px; font-weight: bold}
 .buttonrole:hover {filter: brightness(110%);}
 .buttonrole:active {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttonrole:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
-.buttonbig {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
+.buttonbig {color:#000; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
 .buttonbig:hover {filter: brightness(110%);}
 .buttonbig:active {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttonbig:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttondisabled {color:gray; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
 
 /* Posts */
 .postc button {background: linear-gradient(rgba(255, 255, 255, 0.637), rgba(255, 255, 255, 0.301)); border:1px solid rgba(0, 0, 0, 0.658)}
