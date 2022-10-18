@@ -144,7 +144,7 @@ else
 					
 					echo '</br><small><a title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</a></small></td></tr>';
 				}	
-				echo "</table></br>";
+				echo "</table>";
 				
     // Draw page bar
    	echo "<div class='pagination'>";
