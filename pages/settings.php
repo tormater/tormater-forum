@@ -60,7 +60,7 @@ else
 			echo "New username cannot be longer than 24 characters.";
 		}
 		
-		elseif (!ctype_alnum($newusername))
+		elseif (!checkUsername($newusername))
 		{
 			echo "New username cannot contain non-alphanumeric characters.";
 		}
