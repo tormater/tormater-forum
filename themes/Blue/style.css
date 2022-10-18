@@ -17,7 +17,7 @@ input:hover {filter: brightness(105%);}
 input:focus {background:#fff; border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
 select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
 select:hover {filter: brightness(105%);}
-.message {border-left: 4px solid rgb(150, 0, 0); background: linear-gradient(to right, rgb(255, 0, 0), rgba(255, 0, 0, 0.279)); padding: 5px; padding-left:10px; color:white}
+.message {border-left: 4px solid rgb(161, 161, 161); background: lightgray; padding: 5px; padding-left:10px}
 
 
 /* Pagination styles. */
@@ -52,8 +52,8 @@ textarea {border:1px gray solid; border-radius:3px; resize: none; height: 200px;
 textarea:focus {border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
 
 /* Thread styles. */
-.thread {box-shadow:#ffffff8f 0px 1px inset; display:inline-block; box-sizing: border-box; border:1px solid rgba(0, 0, 0, 0.356); padding: 8px; position: relative}
-.threadcontent {border:1px solid rgb(173, 173, 173); box-shadow:#ffffff 0px 1px inset; border-left:none; padding: 8px; box-sizing: border-box; background-color: #F6F6F6; word-wrap: break-word; margin: 0; float:right; border-top-right-radius:8px; border-bottom-right-radius:8px}
+.thread, .usertop {box-shadow:#ffffff8f 0px 1px inset; display:inline-block; box-sizing: border-box; border:1px solid rgba(0, 0, 0, 0.356); padding: 8px; position: relative}
+.threadcontent, .userbottom {border:1px solid rgb(173, 173, 173); box-shadow:#ffffff 0px 1px inset; border-left:none; padding: 8px; box-sizing: border-box; background-color: #F6F6F6; word-wrap: break-word; margin: 0; float:right; border-top-right-radius:8px; border-bottom-right-radius:8px}
 .postc {display: inline-block; margin-right: 2px; margin-top:4px}
 .rpostc {float:right; margin: 0px}
 .hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: rgb(199, 199, 199); margin-bottom:5px}
@@ -88,8 +88,6 @@ legend {font-size:18px; font-weight: bold}
 .userlist {border:1px solid rgba(0, 0, 0, 0.493); padding:5px;}
 
 /* User Styles. */
-.usertop {border:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
-.userbottom {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-top:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); padding:8px;}
 .userstat {display:block; padding:3px 8px}
 .userrole {padding: 0px}
 .changerole {display: inline-block;}
