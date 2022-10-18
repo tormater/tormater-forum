@@ -27,7 +27,7 @@ else
 	
 	if(isset($_POST['user_name']))
 	{
-		if(!ctype_alnum($_POST['user_name']))
+		if(!checkUsername($_POST['user_name']))
 		{
 			$errors[] = 'The username can only contain alphanumeric characters.';
 		}
