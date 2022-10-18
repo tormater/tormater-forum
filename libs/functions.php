@@ -43,9 +43,27 @@ function update_last_action($action) {
 	$result = $db->query("UPDATE users SET lastactive='" . time() . "', lastaction='" . $db->real_escape_string($action) . "' WHERE userid='" . $_SESSION["userid"] . "'");
 }
 
+// Parse the user's last action as a language string if it is one.
+// (you have to specify the array as an argument otherwise it doesn't work)
+function parseAction($action, $array) {
+    if (stripos($action, "action.") !== false )
+    {
+        return $array[$action];
+    }
+    else
+    {
+        return $action;
+    }
+}
+
 // Display a nice message.
 function message($content) {
 	echo "<div class='message'>" . $content . "</div>";
+}
+
+// Outputs the data of an array into a file, like the config.
+function arrayToFile($file, $array) {
+    file_put_contents($file, '<?php '.PHP_EOL.'return '.var_export($array, true).';');
 }
 
 // Convert a unix timestamp into a human readable time format.
