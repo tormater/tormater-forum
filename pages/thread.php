@@ -335,30 +335,42 @@ else
         }
 	    echo '</br>';
     }
-	echo "<div class='paginationleft'>";
-		
+
+    // Draw page bar
+   	echo "<div class='pagination'>";
+
 	if ($currentPage == 1)
 	{
-		echo "<font color=white>First page</font> <font color=white>Previous page</font>";
+		echo "<span class='buttondisabled'><<</span> <span class='buttondisabled'><</span> ";
 	}
 	else
 	{
-		echo "<a href='/thread/" . $q2 . "/1/'>First page</a> <a href='/thread/" . $q2 . "/" . ($currentPage - 1) . "/'>Previous page</a>";
+		echo "<a class='buttonbig' href='/thread/" . $q2 . "/1/'><<</a> <a class='buttonbig' href='/thread/" . $q2 . "/" . ($currentPage - 1) . "/'><</a> ";
 	}
-		
-	echo "</div><div class='paginationright'>";
-		
-	if ($currentPage == $pages)
+
+    for ($x = 1; $x <= $pages; $x++) {
+        if ($x == $currentPage)
+        {
+            echo "<span class='buttondisabled'>" . $x . "</span> ";
+
+        }
+        else
+        {
+            echo "<a class='buttonbig' href='/thread/" . $q2 . "/" . $x . "/'>" . $x . "</a> ";            
+        }
+    } 
+
+    	if ($currentPage == $pages)
 	{
-		echo "<font color=white>Next page</font> <font color=white>Last page</font>";
+		echo "<span class='buttondisabled'>></span> <span class='buttondisabled'>>></span>";
 	}
 	else
 	{
-		echo "<a href='/thread/" . $q2 . "/" . ($currentPage + 1) . "/'>Next page</a> <a href='/thread/" . $q2 . "/" . $pages ."/'>Last page</a>";
-	}
+		echo "<a class='buttonbig' href='/thread/" . $q2 . "/" . ($currentPage + 1) . "/'>></a> <a class='buttonbig' href='/thread/" . $q2 . "/" . $pages ."/'>>></a>";
+	} 
 		
-	echo "</div></br>";
-					
+	echo "</div>";
+
 	while($row = $posts->fetch_assoc())
 	{
 		$userinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["user"] . "'");
@@ -407,29 +419,40 @@ else
 		}
 	}
 		
-	echo "<div class='paginationleft'>";
-		
+    // Draw page bar
+   	echo "<div class='pagination'>";
+
 	if ($currentPage == 1)
 	{
-		echo "<font color=white>First page</font> <font color=white>Previous page</font>";
+		echo "<span class='buttondisabled'><<</span> <span class='buttondisabled'><</span> ";
 	}
 	else
 	{
-		echo "<a href='/thread/" . $q2 . "/1/'>First page</a> <a href='/thread/" . $q2 . "/" . ($currentPage - 1) . "/'>Previous page</a>";
+		echo "<a class='buttonbig' href='/thread/" . $q2 . "/1/'><<</a> <a class='buttonbig' href='/thread/" . $q2 . "/" . ($currentPage - 1) . "/'><</a> ";
 	}
-		
-	echo "</div><div class='paginationright'>";
-		
-	if ($currentPage == $pages)
+
+    for ($x = 1; $x <= $pages; $x++) {
+        if ($x == $currentPage)
+        {
+            echo "<span class='buttondisabled'>" . $x . "</span> ";
+
+        }
+        else
+        {
+            echo "<a class='buttonbig' href='/thread/" . $q2 . "/" . $x . "/'>" . $x . "</a> ";            
+        }
+    } 
+
+    	if ($currentPage == $pages)
 	{
-		echo "<font color=white>Next page</font> <font color=white>Last page</font>";
+		echo "<span class='buttondisabled'>></span> <span class='buttondisabled'>>></span>";
 	}
 	else
 	{
-		echo "<a href='/thread/" . $q2 . "/" . ($currentPage + 1) . "/'>Next page</a> <a href='/thread/" . $q2 . "/" . $pages ."/'>Last page</a>";
-	}
+		echo "<a class='buttonbig' href='/thread/" . $q2 . "/" . ($currentPage + 1) . "/'>></a> <a class='buttonbig' href='/thread/" . $q2 . "/" . $pages ."/'>>></a>";
+	} 
 		
-	echo "</div></br>";
+	echo "</div>";
 	
 	if ($_SESSION["role"] == "Suspended")
 	{
