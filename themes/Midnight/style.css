@@ -1,0 +1,144 @@
+/* Main styles. */
+html {background-color:#143e5a; font-size:95%}
+body {text-align: center}
+a {color:rgb(159, 165, 255); text-decoration:none}
+a:hover {text-decoration:underline}
+#wrapper {max-width: 900px; margin: 0 auto; box-sizing: border-box; color:#fff; background:#000}
+#content {background-color: #000; border: 1px solid rgb(61, 61, 61); border-top: none; float: left; font-family: Arial, Helvetica, sans-serif; padding: 20px 30px; text-align: left; width: 100%; box-sizing: border-box;}
+#menu {float: left; clear: both; height:37px;  background: linear-gradient(#1948ac, #1a2981); box-shadow:#3e6dc5 0px 1px inset; border: 1px solid #04274d; padding: 0 30px; padding-top: 10px; padding-bottom: 1px;text-align: left; font-size: 85%; box-sizing: border-box; width:100%}
+#userbar {background: linear-gradient(to left, #000000a0, #00000000); margin: -3px; padding: 3px; padding-left:30px; float:right}
+#footer {font-size: 80%; clear: both; border: 1px solid rgb(61, 61, 61); border-top:none; background: #000; padding: 5px; font-family:Helvetica, Arial, sans-serif}
+button {background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; color:#fff}
+button:hover {filter: brightness(110%);} 
+button:active {filter: brightness(80%);}
+label {display:inline-block; width:200px;}
+input {background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; color:#fff}
+input:hover {filter: brightness(105%);}
+input:focus {background:rgb(73, 73, 73); border:rgb(156, 156, 255) 1px solid; outline: blue 1px solid}
+select {background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; color:#fff}
+select:hover {filter: brightness(105%);}
+.message {border-left: 4px solid rgb(161, 161, 161); background: lightgray; padding: 5px; padding-left:10px}
+
+
+/* Pagination styles. */
+.pagination {line-height: 200%; margin-bottom:5px; margin-top:5px}
+
+/* Table styles. */
+table {border-collapse: collapse;  border: 1px solid rgb(161, 161, 161); box-sizing: border-box; width:100%}
+table a {color: #fff;}
+table a:hover {color:#e2e2e2; text-decoration: none;}
+th {background: linear-gradient(#1948ac, #1a2981); box-shadow:#3e6dc5 0px 1px inset; text-shadow:#04274d 0px -1px; color: #FFF; padding-left: 4px; border-bottom: 1px solid rgb(161, 161, 161);  padding-top:2px}
+tr:nth-child(odd) {background-color: #272727;}
+tr:nth-child(even) {background-color: #0c0c0c;}
+tr:hover {background-color: #3a4047}
+td {padding: 8px; border: 1px solid rgb(161, 161, 161); vertical-align:middle}
+
+/* Font styles. */
+h1 {font-family: Arial, Helvetica, sans-serif; color: #fff; text-shadow:#000 0px 0px 10px}
+h3 {margin: 0; padding: 0;}
+h2 {background:linear-gradient(to right, #0049a8, #004a8000); border-left:#1961e6 2px solid; padding:15px;}
+
+/* Menu styles. */
+.item, .threadbutton {background: linear-gradient(#1948ac, #1a2981); box-shadow:#3e6dc5 0px 1px inset; text-shadow:#031e3b 0px -1px; border: 1px solid #021325; border-radius: 4px; color: #FFF; font-family: Arial, Helvetica, sans-serif; padding: 3px 6px; text-decoration: none; font-size: 95%}
+.item:hover, .threadbutton:hover {filter: brightness(120%);}
+.item:active, .threadbutton:active {filter: brightness(70%);}
+.threadbutton {float:right; margin:2px; margin-top:-4px}
+.category {background-color: rgb(66, 66, 66); border:1px solid rgb(34, 34, 34); box-shadow:#ffffff56 0px 1px inset; padding: 12px; border-radius:8px}
+.leftpart {width: 60%;}
+.rightpart {width: 40%;}
+.small {font-size: 75%; color: #373737;}
+.topic-post {height: 100px; overflow: auto;}
+.post-content {padding: 30px;}
+textarea {background:rgb(73, 73, 73); color:#fff; border:1px gray solid; border-radius:3px; resize: none; height: 200px; width:100%; box-sizing: border-box; margin-bottom:4px}
+textarea:focus {border:rgb(156, 156, 255) 1px solid; outline: blue 1px solid}
+
+/* Thread styles. */
+.thread, .usertop {box-shadow:#ffffff56 0px 1px inset; display:inline-block; box-sizing: border-box; border:1px solid rgb(65, 65, 65); padding: 8px; position: relative}
+.threadcontent, .userbottom {background-color: rgb(66, 66, 66); border:1px solid rgb(34, 34, 34); box-shadow:#ffffff56 0px 1px inset; border-left:none; padding: 8px; box-sizing: border-box; word-wrap: break-word; margin: 0; float:right; border-top-right-radius:8px; border-bottom-right-radius:8px}
+.postc {display: inline-block; margin-right: 2px; margin-top:4px}
+.rpostc {float:right; margin: 0px}
+.hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: rgb(199, 199, 199); margin-bottom:5px}
+.locked {background: linear-gradient(rgb(172, 172, 172), rgb(82, 82, 82)); border: 1px solid rgb(0, 0, 0); text-shadow:rgb(77, 77, 77) 0px -1px; box-shadow:rgb(189, 189, 189) 0px 1px inset; border-radius: 4px; padding: 2px 6px; display:inline-block; color:#fff; margin:4px 0px; margin-left:8px}
+.sticky {background: linear-gradient(rgb(255, 158, 12), rgb(202, 121, 0)); border: 1px solid rgb(71, 46, 0); text-shadow:rgb(173, 104, 0) 0px -1px; box-shadow:rgb(255, 207, 76) 0px 1px inset; border-radius: 4px; padding: 2px 6px; display:inline-block; color:#fff; margin:4px 0px; margin-left:8px}
+.postdate a {color:#fff}
+.post {display: grid; grid-template-columns: 18% 82%; grid-gap: 0px; margin-bottom:5px}
+
+/* Post colors. */
+[postcolor="1"] {background: rgb(70, 108, 121);}
+[postcolor="2"] {background: rgb(43, 136, 43);}
+[postcolor="3"] {background: rgb(204, 150, 0);}
+[postcolor="4"] {background: rgb(150, 20, 20);}
+[postcolor="5"] {background: rgb(185, 57, 121);}
+[postcolor="6"] {background: rgb(81, 51, 141);}
+[postcolor="7"] {background: rgb(165, 76, 44);}
+[postcolor="8"] {background: rgb(35, 65, 119);}
+[postcolor="9"] {background: rgb(105, 105, 151);}
+[postcolor="10"] {background: rgb(77, 77, 77);}
+[postcolor="11"] {background: rgb(104, 90, 63);}
+[postcolor="12"] {background: rgb(114, 73, 38);}
+[postcolor="13"] {background: rgb(24, 87, 52);}
+[postcolor="14"] {background: rgb(255, 145, 0);}
+[postcolor="15"] {background: rgb(100, 55, 100);}
+[postcolor="16"] {background: rgb(85, 100, 112);}
+
+/* Fieldsets */
+fieldset {border: 1px solid #999; padding:15px}
+legend {font-size:18px; font-weight: bold}
+
+/* Userlist Styles. */
+.userlist {border:1px solid rgba(0, 0, 0, 0.493); padding:5px;}
+
+/* User Styles. */
+.userstat {display:block; padding:3px 8px}
+.userrole {padding: 0px}
+.changerole {display: inline-block;}
+.userrole a {color:#fff}
+.userstat a {color:#fff}
+.date {color:#fff}
+
+/* Role Colors */
+#Administrator {color:#ff0000; text-decoration:none}
+#Moderator {color:#1100ff; text-decoration:none}
+#Member {color:#ffffff; text-decoration:none}
+#Suspended {color:#b8b8b8; text-decoration:none}
+
+/* Buttons */
+.button {background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px}
+.button:hover {filter: brightness(110%);}
+.button:active {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttoninput {background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; font-size:14px}
+.buttoninput:hover {filter: brightness(110%);}
+.buttoninput:active {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttoninput:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttonrole {background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; font-size:14px; margin-top:2px}
+.buttonrole:hover {filter: brightness(110%);}
+.buttonrole:active {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttonrole:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttonbig {color:#fff; background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
+.buttonbig:hover {filter: brightness(110%);}
+.buttonbig:active {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttonbig:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
+.buttondisabled {color:gray; background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
+
+/* Posts */
+.postc button {background: linear-gradient(rgba(0, 0, 0, 0.452), rgba(0, 0, 0, 0.493)); border:1px solid rgba(0, 0, 0, 0.658)}
+.postc button:hover {background: linear-gradient(rgba(0, 0, 0, 0.493), rgba(0, 0, 0, 0.596));}
+.postimg {box-sizing: border-box; width:100%; border: 1px outset #000}
+.postspoiler {margin: 3px 0px; display:inline-block; background: linear-gradient(rgb(73, 73, 73), rgb(32, 32, 32)); border: 1px solid gray; border-radius: 3px; padding: 5px 10px}
+.postspoiler[open] {background:rgb(32, 32, 32); display:inline-block}
+.postcode {background: rgb(32, 32, 32); border: 1px solid gray; border-radius: 3px; margin: 4px 0px; font-size:14px; padding:5px 10px; display: inline-block;}
+.postpre {font-size:15px; display:inline}
+
+
+
+@media (max-width: 800px) {
+/* oh no grandma */
+}
+@media (max-width: 640px) {
+
+    .thread {max-width:900px; border:1px solid rgba(0, 0, 0, 0.493); padding: 8px}
+    .threadcontent {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); padding: 8px; max-width:1000px; word-wrap: break-word;}
+    .postc {float:right; margin-left: 2px;}
+}
+
+
