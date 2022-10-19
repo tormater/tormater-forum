@@ -20,8 +20,8 @@ if (!defined("INDEXED")) exit;
 <?php
 if(!isset($config["forumTheme"]))
 {
-	echo '<link rel="stylesheet" href="/../themes/Blue/style.css" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/Blue/icon.ico">';
+	echo '<link rel="stylesheet" href="/../themes/Skyline/style.css" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/Skyline/icon.ico">';
 }
 else
 {

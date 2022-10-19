@@ -21,7 +21,7 @@ $config = array(
 "postDelay" => 5, // Number of seconds between posts during which a user can't make another post.
 "maxCats" => 10, // Maximum number of categories that can be created.
 "maxCharsPerTitle" => 35 // Maximum number of characters allowable in a title. Includes category names along with thread titles.
-"forumTheme" => "Blue", // The directory that the forum should look in for skin files
+"forumTheme" => "Skyline", // The directory that the forum should look in for skin files
 "forumLang" => "EN_US" // The language file that the forum should use to display strings
 );
 
