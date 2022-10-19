@@ -127,3 +127,17 @@ legend {font-size:18px; font-weight: bold}
 .postspoiler[open] {background:rgb(240, 240, 240); display:inline-block}
 .postcode {background: rgb(230, 230, 230); border: 1px solid gray; border-radius: 3px; font-size:14px; padding:5px 10px; display: inline-block;}
 .postpre {font-size:15px; display:inline}
+
+
+
+@media (max-width: 800px) {
+/* oh no grandma */
+}
+@media (max-width: 640px) {
+
+    .thread {max-width:900px; border:1px solid rgba(0, 0, 0, 0.493); padding: 8px}
+    .threadcontent {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); padding: 8px; max-width:1000px; word-wrap: break-word;}
+    .postc {float:right; margin-left: 2px;}
+}
+
+

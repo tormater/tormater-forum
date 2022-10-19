@@ -12,6 +12,7 @@ if (!defined("INDEXED")) exit;
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Powered by tormater-forum" />
 	<meta name="keywords" content="tormater-forum, tormater, forum" />
 	<title><?php echo $config["forumName"]; ?></title>
@@ -20,12 +21,12 @@ if (!defined("INDEXED")) exit;
 if(!isset($config["forumTheme"]))
 {
 	echo '<link rel="stylesheet" href="/../themes/Blue/style.css" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/Blue/favicon.png">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/Blue/icon.ico">';
 }
 else
 {
 	echo '<link rel="stylesheet" href="/../themes/' . $config["forumTheme"] . '/style.css" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/favicon.png">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/icon.ico">';
 }
 ?>
 
