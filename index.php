@@ -12,7 +12,7 @@ require "libs/functions.php";
 require "libs/formatter.php";
 
 // Get our language file
-if(!isset($config["forumLang"]))
+if(!isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
 {
 	require 'lang/EN_US.php';
 }
@@ -20,6 +20,7 @@ else
 {
 	require 'lang/' . $config["forumLang"] . '.php';
 }
+
 
 // If a session doesn't exist, set one.
 if (!session_id()) {
