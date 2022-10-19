@@ -12,6 +12,7 @@ if (!defined("INDEXED")) exit;
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Powered by tormater-forum" />
 	<meta name="keywords" content="tormater-forum, tormater, forum" />
 	<title><?php echo $config["forumName"]; ?></title>
@@ -20,12 +21,12 @@ if (!defined("INDEXED")) exit;
 if(!isset($config["forumTheme"]))
 {
 	echo '<link rel="stylesheet" href="/../themes/Blue/style.css" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/Blue/favicon.png">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/Blue/icon.ico">';
 }
 else
 {
 	echo '<link rel="stylesheet" href="/../themes/' . $config["forumTheme"] . '/style.css" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/favicon.png">';
+    echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/icon.ico">';
 }
 ?>
 
@@ -35,32 +36,32 @@ else
 	<div id="wrapper">
 	<div id="menu">
 		<?php
-			echo '<a class="item" href="/">Home</a> ';
-			echo '<a class="item" href="/userlist/">Userlist</a> ';
+			echo '<a class="item" href="/">' . $lang["header.Home"] . '</a> ';
+			echo '<a class="item" href="/userlist/">' . $lang["header.Userlist"] . '</a> ';
 		
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="/settings/">Settings</a> ';
+			echo '<a class="item" href="/settings/">' . $lang["header.Settings"] . '</a> ';
             if(isset($categoryID))
             {
-			    echo '<a class="item" href="/newthread/' . $categoryID . '">Create a thread</a> ';
+			    echo '<a class="item" href="/newthread/' . $categoryID . '">' . $lang["header.NewThread"] . '</a> ';
             }
             else
             {
-                echo '<a class="item" href="/newthread/">Create a thread</a> ';
+                echo '<a class="item" href="/newthread/">' . $lang["header.NewThread"] . '</a> ';
             }
         }
         
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
 		{
-			echo '<a class="item" href="/newcategory/">Create a category</a> ';
-			echo '<a class="item" href="/panel/">Admin Panel</a> ';
+			echo '<a class="item" href="/newcategory/">' . $lang["header.NewCategory"] . '</a> ';
+			echo '<a class="item" href="/panel/">' . $lang["header.Panel"] . '</a> ';
 		}
 		
 
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="/logout/">Log out</a> ';
+			echo '<a class="item" href="/logout/">' . $lang["header.Logout"] . '</a> ';
 		}
 		
 		echo '<div id="userbar">';
@@ -70,7 +71,7 @@ else
  			}
  			else
  			{
- 				echo '<a href="/login/">Log in</a> or <a href="/signup/">Sign up</a>.';
+ 				echo '<a href="/login/">' . $lang["header.Login"] . '</a> or <a href="/signup/">' . $lang["header.Signup"] . '</a>.';
  			}
 		echo "</div>";
 		?>
