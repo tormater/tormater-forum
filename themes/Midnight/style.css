@@ -129,7 +129,9 @@ legend {font-size:18px; font-weight: bold}
 .postcode {background: rgb(32, 32, 32); border: 1px solid gray; border-radius: 3px; margin: 4px 0px; font-size:14px; padding:5px 10px; display: inline-block;}
 .postpre {font-size:15px; display:inline}
 
-
+/* Settings/Admin panel */
+.formcontainer {padding:8px}
+.formcontainer .buttoninput {margin:2px 0px}
 
 @media (max-width: 800px) {
 /* oh no grandma */

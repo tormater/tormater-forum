@@ -9,13 +9,32 @@ include "header.php";
 
 if (!$_SESSION["role"] == "Administrator")
 {
-	message("Sorry, this page is unavailable to non-admins.");
+	message($lang["nav.AdminsOnly"]);
+    include "footer.php";
+    exit;
+}
+
+// Find out which page we're loading
+
+if ($q2 == "category")
+{
+    include "panelcategory.php";
+}
+elseif ($q2 == "users")
+{
+    include "panelusers.php";
 }
 else
 {
-	message("This page is a work in progress.");
+    include "panelsettings.php";
 }
 
 include "footer.php";
+
+// If the viewing user is logged in, update their last action.
+if ($_SESSION['signed_in'] == true)
+{
+	update_last_action("action.Panel");
+}
 
 ?>

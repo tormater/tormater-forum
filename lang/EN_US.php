@@ -12,6 +12,7 @@ $lang = array(
 "error.CategoryThreadMisc" => "The threads in this category could not be displayed.",
 "error.CategoryEmpty" => "There are no threads in this category yet.",
 
+"nav.AdminsOnly" => "Sorry, this page is unavailable to non-admins.",
 "nav.FirstPage" => "First Page",
 "nav.PrevPage" => "Previous Page",
 "nav.NextPage" => "Next Page",
@@ -22,6 +23,7 @@ $lang = array(
 
 "action.Generic" => "Viewing: ",
 "action.Homepage" => "Viewing: Homepage",
+"action.Panel" => "Viewing: Admin Panel",
 
 "header.Home" => "Home",
 "header.Userlist" => "Userlist",
@@ -40,6 +42,14 @@ $lang = array(
 "category.Posts" => "Posts",
 "category.CreatedBy" => "Created by",
 "category.LastPost" => "Last post",
+
+"panel.ForumSettings" => "Forum Settings",
+"panel.ChangeForumName" => "Change forum name",
+"panel.NewForumName" => "New forum name",
+"panel.ChangeFooter" => "Change footer",
+"panel.NewFooter" => "New footer",
+"panel.ChangeTheme" => "Change theme",
+"panel.NewTheme" => "Select theme",
 );
 
 ?>

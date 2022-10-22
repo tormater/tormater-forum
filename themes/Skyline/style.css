@@ -105,7 +105,7 @@ legend {font-size:18px; font-weight: bold}
 .button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px}
 .button:hover {filter: brightness(110%);}
 .button:active {filter: brightness(80%); outline:none; border: 1px solid gray}
-.buttoninput {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:14px}
+.buttoninput {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:14px;}
 .buttoninput:hover {filter: brightness(110%);}
 .buttoninput:active {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttoninput:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
@@ -128,6 +128,9 @@ legend {font-size:18px; font-weight: bold}
 .postcode {background: rgb(230, 230, 230); border: 1px solid gray; border-radius: 3px; font-size:14px; padding:5px 10px; display: inline-block;}
 .postpre {font-size:15px; display:inline}
 
+/* Settings/Admin panel */
+.formcontainer {padding:8px}
+.formcontainer .buttoninput {margin:2px 0px}
 
 
 @media (max-width: 800px) {
