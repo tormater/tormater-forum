@@ -18,7 +18,7 @@ if (!defined("INDEXED")) exit;
 	<title><?php echo $config["forumName"]; ?></title>
 
 <?php
-if(!isset($config["forumTheme"]) or !file_exists("/../themes/" . $config["forumTheme"] . "/style.css"))
+if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
 {
 	echo '<link rel="stylesheet" href="/../themes/Skyline/style.css" type="text/css">';
     echo '<link rel="icon" type="image/x-icon" href="/../themes/Skyline/icon.ico">';
