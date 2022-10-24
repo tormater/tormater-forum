@@ -14,15 +14,17 @@ if (!$_SESSION["role"] == "Administrator")
     exit;
 }
 
+echo '<a class="buttonbig" href="/panel/">Forum Settings</a> <a class="buttonbig" href="/panel/user/">Users</a> <a class="buttonbig" href="/panel/category">Categories</a>';
+
 // Find out which page we're loading
 
 if ($q2 == "category")
 {
     include "panelcategory.php";
 }
-elseif ($q2 == "users")
+elseif ($q2 == "user")
 {
-    include "panelusers.php";
+    include "paneluser.php";
 }
 else
 {
