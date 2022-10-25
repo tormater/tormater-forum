@@ -8,7 +8,7 @@ if (!defined("INDEXED")) exit;
 ?>
 
 </div><!-- content -->
-<div id="footer"><?php echo formatPost($config["footer"]); ?></div>
+<div id="footer"><?php echo formatFooter($config["footer"]); ?></div>
 </div><!-- wrapper -->
 </body>
 </html>
