@@ -5,10 +5,9 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-function formatPost($post)
+function formatBBCode($post)
 {
     $returnPost = htmlspecialchars($post);
-    $returnPost = str_replace("\n","</br>",$returnPost);
     $find = array(
         '/\[b\](.*?)\[\/b\]/is',
         '/\[i\](.*?)\[\/i\]/is',
@@ -40,6 +39,17 @@ function formatPost($post)
     );
 
     $returnPost = preg_replace($find, $replace, $returnPost);
+    return $returnPost;
+}
+function formatPost($post)
+{
+    $returnPost = formatBBCode($post);
+    $returnPost = str_replace("\n","<br>",$returnPost);
+    return $returnPost;
+}
+function formatFooter($post)
+{
+    $returnPost = formatBBCode($post);
     return $returnPost;
 }
 ?>
