@@ -132,6 +132,7 @@ legend {font-size:18px; font-weight: bold}
 /* Settings/Admin panel */
 .formcontainer {padding:8px}
 .formcontainer .buttoninput {margin:2px 0px}
+.formcontainer .fieldhint {margin-bottom:4px; display:inline-block}
 
 @media (max-width: 800px) {
 /* oh no grandma */
