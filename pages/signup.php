@@ -7,19 +7,19 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
-echo '<h2>Sign up</h2>';
+echo '<h2>' . $lang["register.Header"] . '</h2>';
 
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
-    echo '<form method="post" action="">
- 	 	<label>Username:</label><input type="text" name="user_name" /></br>
-        <label></label><small>(3-24 characters, alphanumeric only)</small></br></br>
- 	 	<label>Email:</label><input type="email" name="user_email"></br></br>
- 		<label>Password:</label><input type="password" name="user_pass"></br>
- 		<label></label><small>(minimum X characters)</small></br></br>
-		<label>Confirm password:</label><input type="password" name="user_pass_check"></br></br>
- 		<label></label><input type="submit" class="buttoninput" value="Register" />
- 	 </form>';
+    echo '<div class="formcontainer"><form method="post" action="">
+ 	 	<label>' . $lang["register.Username"] . '</label><input type="text" name="user_name" /></br>
+        <label></label><small class="fieldhint">' . $lang["register.UsernameDesc"] . '</small></br>
+ 	 	<label>' . $lang["register.Email"] . '</label><input type="email" name="user_email"></br></br>
+ 		<label>' . $lang["register.Password"] . '</label><input type="password" name="user_pass"></br>
+ 		<label></label><small class="fieldhint">' . $lang["register.PasswordDesc"] . 'X' .$lang["register.PasswordDesc2"] . '</small></br>
+		<label>' . $lang["register.PasswordConf"] . '</label><input type="password" name="user_pass_check"></br></br>
+ 		<label></label><input type="submit" class="buttoninput" value="' . $lang["register.Submit"] . '" />
+ 	 </form></div>';
 }
 else
 {
@@ -29,20 +29,20 @@ else
 	{
 		if(!checkUsername($_POST['user_name']))
 		{
-			$errors[] = 'The username can only contain alphanumeric characters.';
+			$errors[] = $lang["error.UsernameAlphNum"];
 		}
 		if(strlen($_POST['user_name']) < 3)
 		{
-			$errors[] = 'The username must be at least 3 characters.';
+			$errors[] = $lang["error.UsernameSmall"];
 		}
 		if(strlen($_POST['user_name']) > 24)
 		{
-			$errors[] = 'The username cannot be longer than 24 characters.';
+			$errors[] = $lang["error.UsernameBig"];
 		}
 	}
 	else
 	{
-		$errors[] = 'The username field must not be empty.';
+		$errors[] = $lang["error.UsernameNull"];
 	}
 	
 	
@@ -50,17 +50,17 @@ else
 	{
 		if($_POST['user_pass'] != $_POST['user_pass_check'])
 		{
-			$errors[] = 'Your passwords do not match.';
+			$errors[] = $lang["error.PassConfFail"];
 		}
 	}
 	else
 	{
-		$errors[] = 'The password field cannot be empty.';
+		$errors[] = $lang["error.PassNull"];
 	}
 	
 	if(!empty($errors))
 	{
-		echo 'Uh-oh.. a couple of fields are not filled in correctly..';
+		echo $lang["error.BadFields"];
 		echo '<ul>';
 		foreach($errors as $key => $value)
 		{
@@ -87,11 +87,11 @@ else
 						
 		if(!$result)
 		{
-			echo 'Something went wrong while registering. Please try again later.';
+			echo $lang["error.Database"];
 		}
 		else
 		{
-			echo 'Successfully registered. You can now <a href="login.php">log in</a> and start posting! :-)';
+			echo $lang["register.Success"];
 		}
 	}
 }
