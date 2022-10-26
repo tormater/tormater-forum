@@ -7,6 +7,14 @@ if (!defined("INDEXED")) exit;
 
 $lang = array(
 "error.PageNotFound" => "Requested page not found.",
+"error.BadFields" => "Uh-oh.. a couple of fields are not filled in correctly..",
+"error.Database" => "Something went wrong. Please try again later.",
+"error.UsernameAlphNum" => "The username can only contain alphanumeric characters.",
+"error.UsernameSmall" => "The username must be at least 3 characters.",
+"error.UsernameBig" => "The username cannot be longer than 24 characters.",
+"error.UsernameNull" => "The username field must not be empty.",
+"error.PassConfFail" => "Your passwords do not match.",
+"error.PassNull" => "The password field cannot be empty.",
 "error.CategoryMisc" => "The category could not be displayed, please try again later.",
 "error.CategoryNotFound" => "This category does not exist.",
 "error.CategoryThreadMisc" => "The threads in this category could not be displayed.",
@@ -50,6 +58,19 @@ $lang = array(
 "panel.NewFooter" => "New footer",
 "panel.ChangeTheme" => "Change theme",
 "panel.NewTheme" => "Select theme",
+"panel.ChangeLang" => "Change language",
+"panel.NewLang" => "Select language",
+
+"register.Header" => "Sign up",
+"register.Username" => "Username",
+"register.UsernameDesc" => "(3-24 characters, alphanumeric)",
+"register.Email" => "Email",
+"register.Password" => "Password",
+"register.PasswordDesc" => "(minimum ",
+"register.PasswordDesc2" => " characters)",
+"register.PasswordConf" => "Confirm Password",
+"register.Submit" => "Register",
+"register.Success" => "Successfully registered. You can now <a href='login'>log in</a> and start posting!",
 );
 
 ?>
