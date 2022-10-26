@@ -9,18 +9,19 @@ function formatBBCode($post)
 {
     $returnPost = htmlspecialchars($post);
     $find = array(
-        '/\[b\](.*?)\[\/b\]/is',
-        '/\[i\](.*?)\[\/i\]/is',
-        '/\[u\](.*?)\[\/u\]/is',
-        '/\[s\](.*?)\[\/s\]/is',
-        '/\[url\](.*?)\[\/url\]/is',
-        '/\[url=(.*?)\](.*?)\[\/url\]/is',
-        '/\[img\](.*?)\[\/img\]/is',
-        '/\[spoiler\](.*?)\[\/spoiler\]/is',
-        '/\[spoiler=(.*?)\](.*?)\[\/spoiler\]/is',
-        '/\[color=(.*?)\](.*?)\[\/color\]/is',
-        '/\[code\](.*?)\[\/code\]/is',
-        '/\[pre\](.*?)\[\/pre\]/is'
+        '/"[^"]+"|\[b\](.+?)\[\/b\]/is',
+        '/\[i\](.+?)\[\/i\]/is',
+        '/\[u\](.+?)\[\/u\]/is',
+        '/\[s\](.+?)\[\/s\]/is',
+        '/\[url=(http|ftp|https):\/\/(.+?)\](.+?)\[\/url\]/is',
+        '/\[url=(.+?)\](http|ftp|https):\/\/(.+?)\[\/url\]/is',
+        '/\[url\](.+?)\[\/url\]/is',
+        '/\[img\](.+?)\[\/img\]/is',
+        '/\[spoiler\](.+?)\[\/spoiler\]/is',
+        '/\[spoiler=(.+?)\](.+?)\[\/spoiler\]/is',
+        '/\[color=(.+?)\](.+?)\[\/color\]/is',
+        '/\[code\](.+?)\[\/code\]/is',
+        '/\[pre\](.+?)\[\/pre\]/is'
     );
 
     $replace = array(
@@ -28,8 +29,9 @@ function formatBBCode($post)
         '<i>$1</i>',
         '<u>$1</u>',
         '<s>$1</s>',
+        '<a href="$2" target="_blank">$3</a>',
+        '<a href="$3" target="_blank">$1</a>',
         '<a href="$1" target="_blank">$1</a>',
-        '<a href="$2" target="_blank">$1</a>',
         '<img class="postimg" src="$1">',
         '<details class="postspoiler"><summary>Spoiler</summary>$1</details>',
         '<details class="postspoiler"><summary>Spoiler: $1</summary>$2</details>',
