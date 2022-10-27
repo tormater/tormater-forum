@@ -8,11 +8,11 @@ a:hover {text-decoration:underline}
 #menu {float: left; clear: both; height:37px; padding: 0 30px; padding-top: 10px; padding-bottom: 1px; background: linear-gradient(#5dbcff, #0292fc); box-shadow:#8adef9 0px 1px inset; border: 1px solid #1f4f83; text-align: left; font-size: 85%; box-sizing: border-box; width:100%}
 #userbar {background: linear-gradient(to left, #ffffffa0, #ffffff00); margin: -3px; padding: 3px; padding-left:30px; float:right}
 #footer {font-size: 80%; clear: both; border: 1px solid rgb(88, 88, 88); border-top:none; background: white; padding: 5px; font-family:Helvetica, Arial, sans-serif}
-button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px}
+button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif}
 button:hover {filter: brightness(110%);}
 button:active {filter: brightness(80%);}
 label {display:inline-block; width:200px;}
-input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px}
+input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif}
 input:hover {filter: brightness(105%);}
 input:focus {background:#fff; border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
 select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
@@ -102,22 +102,22 @@ legend {font-size:18px; font-weight: bold}
 #Suspended {color:#666666; text-decoration:none}
 
 /* Buttons */
-.button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px}
-.button:hover {filter: brightness(110%);}
+.button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; cursor:pointer}
+.button:hover {filter: brightness(110%); text-decoration:underline}
 .button:active {filter: brightness(80%); outline:none; border: 1px solid gray}
-.buttoninput {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:14px;}
-.buttoninput:hover {filter: brightness(110%);}
+.buttoninput {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:14px; cursor:pointer}
+.buttoninput:hover {filter: brightness(110%); text-decoration:underline}
 .buttoninput:active {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttoninput:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttonrole {background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:14px; margin-top:2px}
-.buttonrole:hover {filter: brightness(110%);}
+.buttonrole:hover {filter: brightness(110%); text-decoration:underline}
 .buttonrole:active {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttonrole:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
-.buttonbig {color:#000; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
-.buttonbig:hover {filter: brightness(110%);}
+.buttonbig {color:#000; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px; cursor:pointer}
+.buttonbig:hover {filter: brightness(110%); text-decoration:underline}
 .buttonbig:active {filter: brightness(80%); outline:none; border: 1px solid gray}
 .buttonbig:focus {filter: brightness(80%); outline:none; border: 1px solid gray}
-.buttondisabled {color:gray; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px}
+.buttondisabled {color:gray; background: linear-gradient(#fff, lightgray); border: 1px solid gray; border-radius: 3px; font-size:15px; padding:5px 10px; cursor:default}
 
 /* Posts */
 .postc button {background: linear-gradient(rgba(255, 255, 255, 0.452), rgba(255, 255, 255, 0.493)); border:1px solid rgba(0, 0, 0, 0.658)}
