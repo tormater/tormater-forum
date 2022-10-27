@@ -407,7 +407,7 @@ else
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
 					echo '</div><form method="post" action="">';				
-					echo '<textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></br><input type="submit" class="buttonbig" value="Save edit"></form></br>';
+					echo '<textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></br><input type="submit" class="buttonbig" value="Save edit"> <a class="buttonbig" href="">Discard edit</a></form></br>';
 				}
 				
 				else
