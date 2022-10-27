@@ -15,7 +15,7 @@ label {display:inline-block; width:200px;}
 input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif}
 input:hover {filter: brightness(105%);}
 input:focus {background:#fff; border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
-select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px;}
+select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif}
 select:hover {filter: brightness(105%);}
 .message {border-left: 4px solid rgb(161, 161, 161); background: lightgray; padding: 5px; padding-left:10px}
 
