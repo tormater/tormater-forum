@@ -79,7 +79,7 @@ $lang = array(
 "login.Password" => "Password",
 "login.Submit" => "Log in",
 "login.WelcomeStart" => "Welcome, ",
-"login.WelcomeEnd" => ". <a href='/'>Proceed to the forum overview</a>.";
+"login.WelcomeEnd" => ". <a href='/'>Proceed to the forum overview</a>.",
 );
 
 ?>
