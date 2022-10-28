@@ -13,12 +13,14 @@ $lang = array(
 "error.UsernameSmall" => "The username must be at least 3 characters.",
 "error.UsernameBig" => "The username cannot be longer than 24 characters.",
 "error.UsernameNull" => "The username field must not be empty.",
-"error.PassConfFail" => "Your passwords do not match.",
-"error.PassNull" => "The password field cannot be empty.",
+"error.PasswordNull" => "The password field must not be empty.",
 "error.CategoryMisc" => "The category could not be displayed, please try again later.",
+"error.PasswordWrong" => "Incorrect password.",
+"error.UsernameWrong" => "The specified user doesn't exist.",
 "error.CategoryNotFound" => "This category does not exist.",
 "error.CategoryThreadMisc" => "The threads in this category could not be displayed.",
 "error.CategoryEmpty" => "There are no threads in this category yet.",
+"error.AlreadyLoggedIn" => "You are already logged in, you can <a href='/logout/'>log out</a> if you want.",
 
 "nav.AdminsOnly" => "Sorry, this page is unavailable to non-admins.",
 "nav.FirstPage" => "First Page",
@@ -71,6 +73,13 @@ $lang = array(
 "register.PasswordConf" => "Confirm Password",
 "register.Submit" => "Register",
 "register.Success" => "Successfully registered. You can now <a href='login'>log in</a> and start posting!",
+
+"login.Header" => "Log in",
+"login.Username" => "Username/Email",
+"login.Password" => "Password",
+"login.Submit" => "Log in",
+"login.WelcomeStart" => "Welcome, ",
+"login.WelcomeEnd" => ". <a href='/'>Proceed to the forum overview</a>.";
 );
 
 ?>
