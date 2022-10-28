@@ -17,8 +17,8 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
  	 	<label>' . $lang["register.Email"] . '</label><input type="email" name="user_email"></br></br>
  		<label>' . $lang["register.Password"] . '</label><input type="password" name="user_pass"></br>
  		<label></label><small class="fieldhint">' . $lang["register.PasswordDesc"] . 'X' .$lang["register.PasswordDesc2"] . '</small></br>
-		<label>' . $lang["register.PasswordConf"] . '</label><input type="password" name="user_pass_check"></br></br>
- 		<label></label><input type="submit" class="buttoninput" value="' . $lang["register.Submit"] . '" />
+		<label>' . $lang["register.PasswordConf"] . '</label><input type="password" name="user_pass_check"></br>
+ 		<label></label><input type="submit" class="buttonbig" value="' . $lang["register.Submit"] . '" />
  	 </form></div>';
 }
 else
