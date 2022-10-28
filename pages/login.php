@@ -7,22 +7,22 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
-echo '<h2>Log in</h2>';
+echo '<h2>' . $lang["login.Header"] . '</h2>';
 
 if($_SESSION['signed_in'] == true)
 {
-	echo 'You are already logged in, you can <a href="/logout/">log out</a> if you want.';
+	message($lang["error.AlreadyLoggedIn"]);
 }
 
 else
 {
 	if($_SERVER['REQUEST_METHOD'] != 'POST')
 	{
-		echo '<form method="post" action="">
-			<label>Username:</label><input type="text" name="user_name" /></br></br>
-			<label>Password:</label><input type="password" name="user_pass"></br></br>
-			<label></label><input type="submit" class="buttoninput" value="Log in" />
-		 </form>';
+		echo '<form method="post" action=""><div class="formcontainer">
+			<label>' . $lang["login.Username"] . '</label><input type="text" name="user_name" /></br>
+			<label>' . $lang["login.Password"] . '</label><input type="password" name="user_pass"></br>
+			<label></label><input type="submit" class="buttonbig" value="' . $lang["login.Submit"] . '" />
+		 </div></form>';
 	}
 	
 	else
@@ -31,17 +31,17 @@ else
 		
 		if(!isset($_POST['user_name']))
 		{
-			$errors[] = 'The username field must not be empty.';
+			$errors[] = $lang["error.UsernameNull"];
 		}
 		
 		if(!isset($_POST['user_pass']))
 		{
-			$errors[] = 'The password field must not be empty.';
+			$errors[] = $lang["error.PasswordNull"];
 		}
 		
 		if(!empty($errors))
 		{
-			echo 'Uh-oh.. a couple of fields are not filled in correctly..';
+			echo $lang["error.BadFields"];
 			echo '<ul>';
 			foreach($errors as $key => $value)
 			{
@@ -52,17 +52,26 @@ else
 		else
 		{	
 			$username = $db->real_escape_string($_POST['user_name']);
-			
-			$res = $db->query("SELECT salt FROM users WHERE username = '" . $username . "'");
-			
+            
+            $resemail = $db->query("SELECT username FROM users WHERE email = '" . $username . "'");
+
+            if(strpos($username, '@') !== "0")
+            {
+                while($rowe = $resemail->fetch_assoc()) {
+				$username = $rowe["username"];
+			    }
+            }
+
+            $res = $db->query("SELECT salt FROM users WHERE username = '" . $username . "'");
+
 			if(!$res)
 			{
-				echo "Something went wrong while logging in. Please try again later.";
+				$errors[] = $lang["error.Database"];
 			}
 			
 			if (!$res->num_rows)
 			{
-				echo "The specified user doesn't exist.";
+				$errors[] = $lang["error.UsernameWrong"];
 			}
 			
 			while($row = $res->fetch_assoc()) {
@@ -72,19 +81,20 @@ else
 			// Now check if the password is correct.
 			$hash = $db->real_escape_string(md5($salt . $_POST["user_pass"]));
 			
+
 			$result = $db->query("SELECT userid, username, role FROM users WHERE username = '" . $username . "' AND password = '" . $hash . "'");
 			
 			
 			if(!$result)
 			{
-				echo 'Something went wrong while logging in. Please try again later.';
+				$errors[] = $lang["error.Database"];
 			}
 			
 			else
 			{
 				if (!$result->num_rows)
 				{
-					echo "Wrong password.";
+					$errors[] = $lang["error.PasswordWrong"];
 				}
 				
 				else
@@ -98,7 +108,7 @@ else
 						$_SESSION['role'] = $row['role'];
 					}
 					
-					echo 'Welcome, ' . $_SESSION['username'] . '. <a href="/">Proceed to the forum overview</a>.';
+					echo $lang["login.WelcomeStart"] . $_SESSION['username'] . $lang["login.WelcomeEnd"];
 				}
 			}
 		}
