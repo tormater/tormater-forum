@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 	echo '<h3>' . $lang["panel.ChangeForumName"]  . '</h3>
     <div class="formcontainer"><form method="post" action="">
     <label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . $config["forumName"] . '"><br/>
-    <label></label><input type="submit" class="buttoninput" value="' . $lang["panel.ChangeForumName"]  . '"></form></div>';
+    <label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeForumName"]  . '"></form></div>';
 
     // Display the change theme form.
 	echo '<h3>' . $lang["panel.ChangeTheme"]  . '</h3>
@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
         }
         echo '<option ' . $selected . 'value="' . $file . '">' . $file . '</option>';
     }
-    echo '</select><br/><label></label><input type="submit" class="buttoninput" value="' . $lang["panel.ChangeTheme"]  . '"></form></div>';
+    echo '</select><br/><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeTheme"]  . '"></form></div>';
 
     // Display the change language form.
 	echo '<h3>' . $lang["panel.ChangeLang"]  . '</h3>
@@ -53,13 +53,13 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
         }
         echo '<option ' . $selected . 'value="' . substr($file, 0, -4) . '">' . substr($file, 0, -4) . '</option>';
     }
-    echo '</select><br/><label></label><input type="submit" class="buttoninput" value="' . $lang["panel.ChangeLang"]  . '"></form></div>';
+    echo '</select><br/><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeLang"]  . '"></form></div>';
 
     // Display the change footer form.
 	echo '<h3>' . $lang["panel.ChangeFooter"]  . '</h3>
     <div class="formcontainer"><form method="post" action="">
     <textarea name="newfooter">' . htmlspecialchars($config["footer"]) . '</textarea><br/>
-    <input type="submit" class="buttoninput" value="' . $lang["panel.ChangeFooter"]  . '"></form></div>';
+    <input type="submit" class="buttonbig" value="' . $lang["panel.ChangeFooter"]  . '"></form></div>';
 }
 
 else
