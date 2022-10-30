@@ -12,10 +12,10 @@ button {background: linear-gradient(#fff, lightgray); border: 1px solid gray; bo
 button:hover {filter: brightness(110%);}
 button:active {filter: brightness(80%);}
 label {display:inline-block; width:200px;}
-input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif}
+input {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif; padding:2px; font-size:100%}
 input:hover {filter: brightness(105%);}
 input:focus {background:#fff; border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
-select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif}
+select {background: linear-gradient(#fff,rgb(212, 212, 212)); border: 1px solid gray; border-radius: 3px; font-family: Arial, Helvetica, sans-serif; padding:2px; font-size:100%}
 select:hover {filter: brightness(105%);}
 .message {border-left: 4px solid rgb(161, 161, 161); background: lightgray; padding: 5px; padding-left:10px}
 
@@ -133,6 +133,8 @@ legend {font-size:18px; font-weight: bold}
 .formcontainer {padding:8px}
 .formcontainer input {margin:2px 0px}
 .formcontainer .fieldhint {margin-bottom:4px; display:inline-block}
+.settingscolor {padding:20px; margin:1px; box-shadow:#ffffff8f 0px 1px inset; display:inline-block; box-sizing: border-box; border:1px solid rgba(0, 0, 0, 0.356); border-radius:3px}
+.settingscolor:hover {filter: brightness(110%);}
 
 
 /* Mobile Support (thanks VegBao!)*/
