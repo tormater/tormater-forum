@@ -128,6 +128,8 @@ legend {font-size:18px; font-weight: bold}
 .postspoiler[open] {background:rgb(240, 240, 240); display:inline-block}
 .postcode {background: rgb(230, 230, 230); border: 1px solid gray; border-radius: 3px; font-size:14px; padding:5px 10px; display: inline-block;}
 .postpre {font-size:15px; display:inline}
+.postheader {display:inline-block; margin-bottom:6px; font-weight:bold; font-size:25px}
+.postsubheader {display:inline-block; margin-bottom:3px; font-weight:bold; font-size:20px}
 
 /* Settings/Admin panel */
 .formcontainer {padding:8px}
