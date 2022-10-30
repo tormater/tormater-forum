@@ -54,6 +54,7 @@ textarea:focus {border:blue 1px solid; outline: rgb(156, 156, 255) 1px solid}
 /* Thread styles. */
 .thread, .usertop {box-shadow:#ffffff8f 0px 1px inset; display:inline-block; box-sizing: border-box; border:1px solid rgba(0, 0, 0, 0.356); padding: 8px; position: relative}
 .threadcontent, .userbottom {border:1px solid rgb(173, 173, 173); box-shadow:#ffffff 0px 1px inset; border-left:none; padding: 8px; box-sizing: border-box; background-color: #F6F6F6; word-wrap: break-word; margin: 0; float:right; border-top-right-radius:8px; border-bottom-right-radius:8px}
+.thread b {display:block}
 .postc {display: inline-block; margin-right: 2px; margin-top:4px}
 .rpostc {float:right; margin: 0px}
 .hiddenpost {border-radius: 6px; max-width:1000px; border:1px solid black; padding: 8px; background: rgb(199, 199, 199); margin-bottom:5px}
@@ -134,14 +135,51 @@ legend {font-size:18px; font-weight: bold}
 .formcontainer .fieldhint {margin-bottom:4px; display:inline-block}
 
 
+/* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
-/* oh no grandma */
+
+/* Menu */
+#menu {
+height: auto;
+padding: 10px;
 }
-@media (max-width: 640px) {
-
-    .thread {max-width:900px; border:1px solid rgba(0, 0, 0, 0.493); padding: 8px}
-    .threadcontent {border-bottom:1px solid rgba(0, 0, 0, 0.493); border-right:1px solid rgba(0, 0, 0, 0.493); border-left:1px solid rgba(0, 0, 0, 0.493); padding: 8px; max-width:1000px; word-wrap: break-word;}
-    .postc {float:right; margin-left: 2px;}
+#menu .item {
+display: inline-block;
+margin-bottom: 4px;
+}
+#menu #userbar {
+float: none;
+text-align: right;
+margin: 4px 0;
 }
 
+/* Content */
+#content table th:nth-child(n+3),
+#content table td:nth-child(n+3) {
+display: none;
+}
+.leftpart {
+width: 80%;
+}
 
+/* Post */
+.post {
+display: block;
+}
+.thread, .usertop {
+width: 100%;
+}
+.thread b {display:inline-block}
+.thread .postdate, .usertop .postdate {
+float: right;
+}
+.threadcontent, .userbottom {
+display: block;
+width: 100%;
+float: none;
+border-left: 1px solid #bbb;
+border-top: none;
+border-top-right-radius: 0px;
+border-bottom-left-radius: 6px;
+}
+} 
