@@ -53,7 +53,6 @@ elseif ($q1 == "installer") require "install/install.php";
 elseif ($q1 == "signup") require "pages/signup.php";
 elseif ($q1 == "login") require "pages/login.php";
 elseif ($q1 == "logout") logout();
-elseif ($q1 == "newcategory") require "pages/newcategory.php";
 elseif ($q1 == "newthread") require "pages/newthread.php";
 elseif ($q1 == "category") require "pages/category.php";
 elseif ($q1 == "thread") require "pages/thread.php";
