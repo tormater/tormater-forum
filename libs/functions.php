@@ -72,8 +72,9 @@ function message($content) {
 }
 
 // Outputs the data of an array into a file, like the config.
-function arrayToFile($file, $array) {
-    file_put_contents($file, '<?php '.PHP_EOL.'return '.var_export($array, true).';');
+function saveConfig($file, $array) {
+    $getArray = var_export($array, true);
+    file_put_contents($file, '<?php '.PHP_EOL. '$config ='. $getArray .';' .PHP_EOL. '?>');
 }
 
 // Convert a unix timestamp into a human readable time format.

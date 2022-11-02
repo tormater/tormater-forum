@@ -56,12 +56,20 @@ elseif ($q1 == "logout") logout();
 elseif ($q1 == "newthread") require "pages/newthread.php";
 elseif ($q1 == "category") require "pages/category.php";
 elseif ($q1 == "thread") require "pages/thread.php";
-elseif ($q1 == "userlist") require "pages/userlist.php";
+elseif (($q1 == "userlist") && ($config["userlistEnabled"] == true) && ((($config["userlistMembersOnly"] == true) && ($_SESSION["signed_in"] == true)) || ($config["userlistMembersOnly"] == false))) require "pages/userlist.php";
 elseif ($q1 == "user") require "pages/user.php";
 elseif ($q1 == "settings") require "pages/settings.php";
 elseif ($q1 == "panel") require "pages/panel.php";
+elseif (($q1 == "userlist") && ($config["userlistEnabled"] == false)) {
+    message($lang["error.UserlistDisabled"]);
+    require "pages/homepage.php";
+}
+elseif (($q1 == "userlist") && ($config["userlistEnabled"] == true) && (($config["userlistMembersOnly"] == true) && ($_SESSION["signed_in"] == false))) {
+    message($lang["error.UserlistMembersOnly"]);
+    require "pages/homepage.php";
+}
 else {
-	echo $lang["error.PageNotFound"];
+	message($lang["error.PageNotFound"]);
 	require "pages/homepage.php";
 }
 

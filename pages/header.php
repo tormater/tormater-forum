@@ -37,7 +37,10 @@ else
 	<div id="menu">
 		<?php
 			echo '<a class="item" href="/">' . $lang["header.Home"] . '</a> ';
-			echo '<a class="item" href="/userlist/">' . $lang["header.Userlist"] . '</a> ';
+			
+			if ($config["userlistEnabled"] == true) {
+			    echo '<a class="item" href="/userlist/">' . $lang["header.Userlist"] . '</a> ';
+            }
 		
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
