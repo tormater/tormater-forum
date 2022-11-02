@@ -54,7 +54,6 @@ else
         
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
 		{
-			echo '<a class="item" href="/newcategory/">' . $lang["header.NewCategory"] . '</a> ';
 			echo '<a class="item" href="/panel/">' . $lang["header.Panel"] . '</a> ';
 		}
 		
