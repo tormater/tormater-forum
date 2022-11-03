@@ -28,6 +28,10 @@ if (isset($q3) && is_numeric($q3) && ($q2 == "color") && ($q3 !== 0) && ($q3 <= 
 
 echo '<h2>Settings</h2>';
 
+// Load users color.
+$result = $db->query("SELECT color FROM users WHERE userid='" . $_SESSION["userid"] . "'");
+$user = $result->fetch_assoc();
+
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
 	// Display the post color setting.
@@ -36,7 +40,12 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     $i = 1;
 
     while ($i <= 16) {
-    echo "<a class='settingscolor' postcolor='" . $i . "' href='/settings/color/" . $i . "/'></a>";
+    echo "<a class='settingscolor ";
+	// Display users color.
+		if($user['color'] == $i) {
+			echo " userscolor";
+		}
+	echo "' postcolor='" . $i . "' href='/settings/color/" . $i . "/'></a>";
     $i++;
     }
 
@@ -45,9 +54,9 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 	// Display the change username form.
 	echo '<h3>Change username</h3><div class="formcontainer">
     <form method="post" action="">
-    <label>New username</label><input type="text" name="newusername"><br/>
-    <label>Current password</label><input type="password" name="confirmpass"><br/>
-    <label></label><input type="submit" class="buttonbig" value="Change username"></form></div>';
+    <div class="forminput"><label>New username</label><input type="text" name="newusername"></div>
+	<div class="forminput"><label>Current password</label><input type="password" name="confirmpass"></div>
+    <div class="forminput"><label></label><input type="submit" class="buttonbig" value="Change username"></div></form></div>';
 }
 
 else
