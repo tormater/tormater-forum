@@ -1,6 +1,6 @@
 <?php
-// config.php
-// Contains all the config options essential for the forum to function properly.
+// config-setup.php
+// Use this file to setup your webforum.
 
 // Only load the page if it's being loaded through the index.php file.
 if (!defined('INDEXED')) exit;
