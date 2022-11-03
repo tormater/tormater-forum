@@ -7,6 +7,8 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
+echo '<h2>' . $config["forumName"] . '</h2>';
+
 $result = $db->query("SELECT * FROM categories");
 
 while($row = $result->fetch_assoc()) {
@@ -14,9 +16,10 @@ while($row = $result->fetch_assoc()) {
 	$number = $numthreads->num_rows;
 	echo '<div class="category"><tr>';
 		echo '<td class="leftpart">';
-			echo '<h3><a href="/category/' . $row["categoryid"] . '/">' . htmlspecialchars($row["categoryname"]) . '</a></h3>' . $row["categorydescription"];
-		echo '</td></br><td>' . $lang["homepage.CatThreads"] . $number . '</td>';
-	echo '</tr></div></br>';
+			echo '<h3><a href="/category/' . $row["categoryid"] . '/">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
+		echo '<div>' . $row["categorydescription"] . '</div>';
+		echo '<div>' . $lang["homepage.CatThreads"] . $number . '</div>';
+	echo '</tr></div>';
 }
 
 include 'footer.php';

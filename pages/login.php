@@ -19,9 +19,9 @@ else
 	if($_SERVER['REQUEST_METHOD'] != 'POST')
 	{
 		echo '<form method="post" action=""><div class="formcontainer">
-			<label>' . $lang["login.Username"] . '</label><input type="text" name="user_name" /></br>
-			<label>' . $lang["login.Password"] . '</label><input type="password" name="user_pass"></br>
-			<label></label><input type="submit" class="buttonbig" value="' . $lang["login.Submit"] . '" />
+			<div class="forminput"><label>' . $lang["login.Username"] . '</label><input type="text" name="user_name" /></div>
+			<div class="forminput"><label>' . $lang["login.Password"] . '</label><input type="password" name="user_pass"></div>
+			<div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["login.Submit"] . '" /></div>
 		 </div></form>';
 	}
 	

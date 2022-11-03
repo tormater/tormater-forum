@@ -148,9 +148,10 @@ else
 		else
 		{
 		
-			echo '<form method="post" action=""><label>Title: </label><input type="text" name="title"';
+			echo '<form method="post" action="">';
+			echo '<div class="forminput"><label>Title: </label><input type="text" name="title"';
 			if (isset($titleSave)) echo "value='" . $titleSave . "'";
-			echo '></br></br><label>Category: </label>'; 
+			echo '></div><div class="forminput"><label>Category: </label>'; 
 
 			echo '<select name="category">';
 				while($row = $result->fetch_assoc())
@@ -160,11 +161,13 @@ else
                     elseif (isset($q2) && $q2 == $row["categoryid"]) echo "selected ";
 					echo 'value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
 				}
-			echo '</select></br></br>';	
+			echo '</select></div>';	
 					
-			echo 'Content:</br><textarea name="content" />';
+			echo '<div class="forminput">Content:</div>';
+			echo '<div class="forminput"><textarea name="content" />';
 			if (isset($contentSave)) echo $contentSave;
-			echo '</textarea></br><input type="submit" class="buttonbig" value="Create thread"></form>';
+			echo '</textarea></div>';
+			echo '<div class="forminput"><input type="submit" class="buttonbig" value="Create thread"></form></div>';
 		}
 	}
 }

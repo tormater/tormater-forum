@@ -12,13 +12,13 @@ echo '<h2>' . $lang["register.Header"] . '</h2>';
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
     echo '<div class="formcontainer"><form method="post" action="">
- 	 	<label>' . $lang["register.Username"] . '</label><input type="text" name="user_name" /></br>
-        <label></label><small class="fieldhint">' . $lang["register.UsernameDesc"] . '</small></br>
- 	 	<label>' . $lang["register.Email"] . '</label><input type="email" name="user_email"></br></br>
- 		<label>' . $lang["register.Password"] . '</label><input type="password" name="user_pass"></br>
- 		<label></label><small class="fieldhint">' . $lang["register.PasswordDesc"] . 'X' .$lang["register.PasswordDesc2"] . '</small></br>
-		<label>' . $lang["register.PasswordConf"] . '</label><input type="password" name="user_pass_check"></br>
- 		<label></label><input type="submit" class="buttonbig" value="' . $lang["register.Submit"] . '" />
+ 	 	<div class="forminput"><label>' . $lang["register.Username"] . '</label><input type="text" name="user_name" /></div>
+		<div class="forminput"><label></label><small class="fieldhint">' . $lang["register.UsernameDesc"] . '</small></div>
+		<div class="forminput"><label>' . $lang["register.Email"] . '</label><input type="email" name="user_email"></div>
+		<div class="forminput"><label>' . $lang["register.Password"] . '</label><input type="password" name="user_pass"></div>
+		<div class="forminput"><label></label><small class="fieldhint">' . $lang["register.PasswordDesc"] . 'X' .$lang["register.PasswordDesc2"] . '</small></div>
+		<div class="forminput"><label>' . $lang["register.PasswordConf"] . '</label><input type="password" name="user_pass_check"></div>
+		<div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["register.Submit"] . '" /></div>
  	 </form></div>';
 }
 else

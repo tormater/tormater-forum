@@ -12,13 +12,14 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 	// Display the change forum name form.
 	echo '<h3>' . $lang["panel.ChangeForumName"]  . '</h3>
     <div class="formcontainer"><form method="post" action="">
-    <label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . $config["forumName"] . '"><br/>
-    <label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeForumName"]  . '"></form></div>';
+    <div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . $config["forumName"] . '"></div>
+    <div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeForumName"]  . '"></div>
+    </form></div>';
 
     // Display the change theme form.
 	echo '<h3>' . $lang["panel.ChangeTheme"]  . '</h3>
     <div class="formcontainer"><form method="post" action="">
-    <label>' . $lang["panel.NewTheme"]  . '</label>';
+    <div class="forminput"><label>' . $lang["panel.NewTheme"]  . '</label>';
     echo '<select name="newtheme">';
     $files = scandir(dirname(__DIR__,1) . '/themes');
     foreach($files as $file) {
@@ -33,12 +34,14 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
         }
         echo '<option ' . $selected . 'value="' . $file . '">' . $file . '</option>';
     }
-    echo '</select><br/><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeTheme"]  . '"></form></div>';
+    echo '</select></div>
+    <div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeTheme"]  . '"></div>
+    </form></div>';
 
     // Display the change language form.
 	echo '<h3>' . $lang["panel.ChangeLang"]  . '</h3>
     <div class="formcontainer"><form method="post" action="">
-    <label>' . $lang["panel.NewLang"]  . '</label>';
+    <div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
     echo '<select name="newlang">';
     $files = scandir(dirname(__DIR__,1) . '/lang');
     foreach($files as $file) {
@@ -53,13 +56,15 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
         }
         echo '<option ' . $selected . 'value="' . substr($file, 0, -4) . '">' . substr($file, 0, -4) . '</option>';
     }
-    echo '</select><br/><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeLang"]  . '"></form></div>';
+    echo '</select></div>
+    <div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeLang"]  . '"></div>
+    </form></div>';
 
     // Display the change footer form.
 	echo '<h3>' . $lang["panel.ChangeFooter"]  . '</h3>
     <div class="formcontainer"><form method="post" action="">
-    <textarea name="newfooter">' . htmlspecialchars($config["footer"]) . '</textarea><br/>
-    <input type="submit" class="buttonbig" value="' . $lang["panel.ChangeFooter"]  . '"></form></div>';
+    <div class="forminput"><textarea name="newfooter">' . htmlspecialchars($config["footer"]) . '</textarea></div>
+    <div class="forminput"><input type="submit" class="buttonbig" value="' . $lang["panel.ChangeFooter"]  . '"></form></div></div>';
 }
 
 else

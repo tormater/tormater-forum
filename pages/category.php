@@ -131,7 +131,7 @@ else
 						echo '<a href="/user/' . $row['startuser'] . '/" id="' . $u["role"] . '">' . $u['username'] . '</a>';
 					}
 					
-					echo "</br><small><a title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</a></small>";
+					echo "<div class='tddate' title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</div>";
 					
 					echo '</td><td>';
 					
@@ -142,7 +142,7 @@ else
 						echo '<a href="/user/' . $row['lastpostuser'] . '/" id="' . $u["role"] . '">' . $u['username'] . '</a>';
 					}
 					
-					echo '</br><small><a title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</a></small></td></tr>';
+					echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
 				}	
 				echo "</table>";
 				

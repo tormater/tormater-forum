@@ -45,7 +45,7 @@ else
             echo "<div class='post'><div class='usertop' postcolor='" . htmlspecialchars($row["color"]) . "'><b id='" .$row["role"] . "'>" . htmlspecialchars($row["username"]) . "</b>";
 			if ($_SESSION['role'] == "Administrator")
 			{
-				echo " <form method='post' class='changerole' action=''><select name='role'>";
+				echo "<div class='forminput'><form method='post' class='changerole' action=''><select name='role'>";
 				
 				if ($row['role'] == "Administrator")
 				{
@@ -79,7 +79,7 @@ else
 					echo '<option value="Suspended" selected>Suspended</option>';
 				}
 				
-				echo "</select><input type='submit' class='buttonrole' value='Change role'></form></div>";
+				echo "</select><div class='forminput'><input type='submit' class='buttonrole' value='Change role'></div></form></div></div>";
 			
 				
 			}
@@ -87,7 +87,7 @@ else
 			else
 			{
 				
-				echo "<br/><span class='userrole'>" . $row["role"] . "</span></div>";
+				echo "<div class='userrole'>" . $row["role"] . "</div></div>";
 				
 			}
 			$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");

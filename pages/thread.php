@@ -296,32 +296,34 @@ elseif($posts->num_rows == 0)
 	
 else
 {
-	echo '</br><a class="item" href="/category/' . $category . '/">Back to category</a>';
+	echo '<div><a class="item" href="/category/' . $category . '/">Back to category</a></div>';
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
-		echo '<form style="display:inline;" action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">Delete thread</button></form>';
+		echo '<div class="modtools">';
+		echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">Delete</button></form>';
 		if ($locked == 1)
 		{
-			echo '<form style="display:inline;" action="" method="post"><button name="unlockthread" class="threadbutton" value="' . $q2 . '">Unlock thread</button></form>';
+			echo '<form action="" method="post"><button name="unlockthread" class="threadbutton" value="' . $q2 . '">Unlock</button></form>';
 		}
 		else
 		{
-			echo '<form style="display:inline;" action="" method="post"><button name="lockthread" class="threadbutton" value="' . $q2 . '">Lock thread</button></form>';
+			echo '<form action="" method="post"><button name="lockthread" class="threadbutton" value="' . $q2 . '">Lock</button></form>';
 		}
 		if ($stickied == 1)
 		{
-			echo '<form style="display:inline;" action="" method="post"><button name="unstickythread" class="threadbutton" value="' . $q2 . '">Unsticky thread</button></form>';
+			echo '<form action="" method="post"><button name="unstickythread" class="threadbutton" value="' . $q2 . '">Unsticky</button></form>';
 		}
 		else
 		{
-			echo '<form style="display:inline;" action="" method="post"><button name="stickythread" class="threadbutton" value="' . $q2 . '">Sticky thread</button></form>';
+			echo '<form action="" method="post"><button name="stickythread" class="threadbutton" value="' . $q2 . '">Sticky</button></form>';
 		}
+		echo '</div>';
 	}
 	echo '<h2>Posts in "' . htmlspecialchars($title) . '"</h2>';
 	
 	if ($locked == 1 or $stickied == 1)
 	{
-		echo 'Labels:';
+		echo '<div>Labels:';
 	
 	
 	    if ($locked == 1)
@@ -333,7 +335,7 @@ else
 	    {
 	    	echo '<font class="sticky">Sticky</font>';
         }
-	    echo '</br>';
+	    echo '</div>';
     }
 
     // Draw page bar
@@ -395,24 +397,26 @@ else
 			else
 			{   // <a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a>."
 				echo '<div class="post"><div postcolor="' . $u["color"] . '" class="thread">';
-				echo '<b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><span class='postdate'><a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</a></span>";
+				echo '<b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
-                    echo '<br>';
+                    echo '<div>';
 					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">Delete</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">Hide</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">Edit</button></form>';
+					echo '</div>';
 				}
 				
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
 					echo '</div><form method="post" action="">';				
-					echo '<textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></br><input type="submit" class="buttonbig" value="Save edit"> <a class="buttonbig" href="">Discard edit</a></form></br>';
+					echo '<div class="forminput"><textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
+					echo '<div class="forminput"><input type="submit" class="buttonbig" value="Save edit"> <a class="buttonbig" href="">Discard edit</a></form></div>';
 				}
 				
 				else
 				{
-					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . '</div></br>';
+					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . '</div>';
 				}
                 echo "</div>";
 			}
@@ -462,8 +466,11 @@ else
 	elseif (($_SESSION['signed_in'] == true) && ($locked == 0) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) && $locked == 1)
 	{
 		echo '<form method="post" action="">';				
-		echo 'Content:</br><textarea name="content" />'; if (isset($contentSave)) echo $contentSave; echo '</textarea></br>
-			<input type="submit" class="buttonbig" value="Post reply">
+		echo '<div class="forminput">Content:</div>';
+		echo '<div class="forminput"><textarea name="content" />';
+		if (isset($contentSave)) echo $contentSave;
+		echo '</textarea></div>
+			<div class="forminput"><input type="submit" class="buttonbig" value="Post reply"></div>
 			</form>';
 	}
 	
