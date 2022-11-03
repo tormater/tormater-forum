@@ -6,9 +6,24 @@
 define("INDEXED", "1");
 
 // Require all the necessary files for the forum to function.
-require "config/config.php";
-require "libs/database.php";
+
 require "libs/functions.php";
+
+// Config handling, stop your config from being overwritten on upgrade
+
+if (file_exists("config/config-setup.php")) {
+    require "config/config-setup.php";
+} 
+
+if (file_exists("config/config.php")) {
+    require "config/config.php";
+} 
+else {
+    saveConfig("config/config.php", $config);
+}
+
+
+require "libs/database.php";
 require "libs/formatter.php";
 
 // Get our language file
