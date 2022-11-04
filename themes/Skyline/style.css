@@ -329,11 +329,11 @@ textarea:focus {
 }
 
 .hiddenpost {
-    margin-bottom: 5px;
+    margin-bottom: 14px;
     padding: 8px;
     max-width: 1000px;
-    background: #c7c7c7;
-    border: 1px solid #000;
+    background: #d2d2d2;
+    border: 1px solid #888;
     border-radius: 6px;
 }
 
@@ -574,7 +574,7 @@ legend {
 }
 
 .buttonbig {
-    display: inline-block;
+    /* display: inline-block; */
     padding: 5px 10px;
     background: linear-gradient(#fff, #d3d3d3);
     border: 1px solid #808080;
@@ -726,7 +726,7 @@ legend {
 
     /* Content */
     #content {
-        padding: 20px;
+        padding: 14px;
     }
     #content table th:nth-child(n+3),
     #content table td:nth-child(n+3) {
@@ -764,5 +764,12 @@ legend {
         border-left: 1px solid #bbb;
         border-top: none;
         border-radius: 0 0 0 6px;
+    }
+
+    .rpostc {
+        text-align: right;
+        float: none;
+        margin: 0px;
+        margin-top: 4px;
     }
 }
