@@ -82,7 +82,7 @@ button:active {
 
 label {
     display: inline-block;
-    width: 200px;
+    width: 30%;
 }
 
 .forminput {
@@ -94,7 +94,7 @@ input {
     background: linear-gradient(#fff, #d4d4d4);
     border: 1px solid #808080;
     border-radius: 3px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 100%;
 }
 
@@ -113,7 +113,7 @@ select {
     background: linear-gradient(#fff, #d4d4d4);
     border: 1px solid #808080;
     border-radius: 3px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 100%;
 }
 
@@ -278,7 +278,7 @@ textarea {
     box-sizing: border-box;
     border: 1px solid #808080;
     border-radius: 3px;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 100%;
     resize: none;
 }
