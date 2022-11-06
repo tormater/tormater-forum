@@ -73,39 +73,7 @@ else
 			{
 
     // Draw page bar
-   	echo "<div class='pagination'>";
-
-	if ($currentPage == 1)
-	{
-		echo "<span class='buttondisabled'><<</span> <span class='buttondisabled'><</span> ";
-	}
-	else
-	{
-		echo "<a class='buttonbig' href='/category/" . $q2 . "/1/'><<</a> <a class='buttonbig' href='/category/" . $q2 . "/" . ($currentPage - 1) . "/'><</a> ";
-	}
-
-    for ($x = 1; $x <= $pages; $x++) {
-        if ($x == $currentPage)
-        {
-            echo "<span class='buttondisabled'>" . $x . "</span> ";
-
-        }
-        else
-        {
-            echo "<a class='buttonbig' href='/category/" . $q2 . "/" . $x . "/'>" . $x . "</a> ";            
-        }
-    } 
-
-    	if ($currentPage == $pages)
-	{
-		echo "<span class='buttondisabled'>></span> <span class='buttondisabled'>>></span>";
-	}
-	else
-	{
-		echo "<a class='buttonbig' href='/category/" . $q2 . "/" . ($currentPage + 1) . "/'>></a> <a class='buttonbig' href='/category/" . $q2 . "/" . $pages ."/'>>></a>";
-	} 
-		
-	echo "</div>";
+	pagination(category);
 
 				echo '<table><tr><th>' . $lang["category.Thread"] . '</th><th>' . $lang["category.Posts"] . '</th><th>' . $lang["category.CreatedBy"] . '</th><th>' . $lang["category.LastPost"] . '</th></tr>';
 					
@@ -147,39 +115,7 @@ else
 				echo "</table>";
 				
     // Draw page bar
-   	echo "<div class='pagination'>";
-
-	if ($currentPage == 1)
-	{
-		echo "<span class='buttondisabled'><<</span> <span class='buttondisabled'><</span> ";
-	}
-	else
-	{
-		echo "<a class='buttonbig' href='/category/" . $q2 . "/1/'><<</a> <a class='buttonbig' href='/category/" . $q2 . "/" . ($currentPage - 1) . "/'><</a> ";
-	}
-
-    for ($x = 1; $x <= $pages; $x++) {
-        if ($x == $currentPage)
-        {
-            echo "<span class='buttondisabled'>" . $x . "</span> ";
-
-        }
-        else
-        {
-            echo "<a class='buttonbig' href='/category/" . $q2 . "/" . $x . "/'>" . $x . "</a> ";            
-        }
-    } 
-
-    	if ($currentPage == $pages)
-	{
-		echo "<span class='buttondisabled'>></span> <span class='buttondisabled'>>></span>";
-	}
-	else
-	{
-		echo "<a class='buttonbig' href='/category/" . $q2 . "/" . ($currentPage + 1) . "/'>></a> <a class='buttonbig' href='/category/" . $q2 . "/" . $pages ."/'>>></a>";
-	} 
-		
-	echo "</div>";
+	pagination(category);
     
 			}
 		}
