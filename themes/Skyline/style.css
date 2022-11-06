@@ -134,6 +134,10 @@ select:hover {
     margin: 10px 0;
     line-height: 200%;
 }
+.pagination a,
+.pagination span {
+    margin-right: 4px;
+}
 
 /* Table styles. */
 table {
