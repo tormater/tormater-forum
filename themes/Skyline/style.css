@@ -122,6 +122,7 @@ select:hover {
 }
 
 .message {
+    margin: 14px 0;
     padding: 5px;
     padding-left: 10px;
     background: #d3d3d3;
