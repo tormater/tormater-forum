@@ -14,6 +14,10 @@ if($_SESSION['signed_in'] == false)
 	exit;
 }
 
+if ($_SESSION["role"] == "Suspended")
+{
+	message("Unfortunately, you're suspended. Suspended users cannot create a thread.");
+}
 else
 {
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
