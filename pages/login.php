@@ -48,6 +48,7 @@ else
 				echo '<li>' . $value . '</li>';
 			}
 			echo '</ul>';
+			echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
 		}
 		else
 		{	
@@ -110,6 +111,18 @@ else
 					
 					echo $lang["login.WelcomeStart"] . $_SESSION['username'] . $lang["login.WelcomeEnd"];
 				}
+			}
+
+			if(!empty($errors))
+			{
+				echo $lang["error.BadFields"];
+				echo '<ul>';
+				foreach($errors as $key => $value)
+				{
+					echo '<li>' . $value . '</li>';
+				}
+				echo '</ul>';
+				echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
 			}
 		}
 	}

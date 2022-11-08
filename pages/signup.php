@@ -27,6 +27,11 @@ else
 	
 	if(isset($_POST['user_name']))
 	{
+		$res = $db->query("SELECT salt FROM users WHERE username = '" . $_POST['user_name'] . "'");
+		if($res->num_rows)
+		{
+			$errors[] = "This username already exists.";
+		}
 		if(!checkUsername($_POST['user_name']))
 		{
 			$errors[] = $lang["error.UsernameAlphNum"];
@@ -44,20 +49,40 @@ else
 	{
 		$errors[] = $lang["error.UsernameNull"];
 	}
-	
-	
-	if(isset($_POST['user_pass']))
+
+	if(isset($_POST['user_email']))
 	{
-		if($_POST['user_pass'] != $_POST['user_pass_check'])
+		$res = $db->query("SELECT * FROM users WHERE email ='". $_POST['user_email'] ."'");
+		if($res->num_rows)
 		{
-			$errors[] = $lang["error.PassConfFail"];
+			$errors[] = "This Email already exists.";
+		}
+		if(!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL))
+		{
+			$errors[] = "Invalid Email format.";
 		}
 	}
 	else
 	{
-		$errors[] = $lang["error.PassNull"];
+		$errors[] = "The Email field must not be empty.";
 	}
-	
+
+	if(empty($_POST['user_pass']))
+	{
+		$errors[] = "The password field must not be empty."; // $lang["error.PassNull"]
+	}
+	elseif (empty($_POST['user_pass_check']))
+	{
+		$errors[] = "The confirm password field must not be empty."; // $lang["error.ConfPassNull"]
+	}
+	else
+	{
+		if($_POST['user_pass'] != $_POST['user_pass_check'])
+		{
+			$errors[] = "The confirm password is not the same."; // $lang["error.PassConfFail"]
+		}
+	}
+
 	if(!empty($errors))
 	{
 		echo $lang["error.BadFields"];
@@ -67,6 +92,7 @@ else
 			echo '<li>' . $value . '</li>';
 		}
 		echo '</ul>';
+		echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
 	}
 	else
 	{
