@@ -30,7 +30,28 @@ else
 		
 		while($row = $result->fetch_assoc())
 		{
-			echo '<div class="userlist" postcolor="' . $row["color"] . '"><b><a href="/user/' . $row["userid"] . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $row["role"] . '&nbsp; <small>' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div>';
+			if ($row["role"] == "Administrator")
+			{
+				$role = $lang["role.Admin"];
+			}
+			elseif ($row["role"] == "Moderator")
+			{
+				$role = $lang["role.Mod"];
+			}
+			elseif ($row["role"] == "Member")
+			{
+				$role = $lang["role.Member"];
+			}
+			elseif ($row["role"] == "Suspended")
+			{
+				$role = $lang["role.Suspend"];
+			}
+			else
+			{
+				$role = $lang["role.Member"];
+			}
+
+			echo '<div class="userlist" postcolor="' . $row["color"] . '"><b><a href="/user/' . $row["userid"] . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $role . '&nbsp; <small>' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div>';
 		}
 	} // . '/" id="' . $u["role"] . '">' .
 }
