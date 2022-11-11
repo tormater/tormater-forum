@@ -9,21 +9,21 @@ include "header.php";
 
 if (empty($_SESSION["signed_in"]))
 {
-	message("You must be logged in to change user settings.");
+	message($lang["settings.LoginFirst"]);
 	include "footer.php";
 	exit;
 }
 
-echo '<h2>Settings</h2>';
+echo '<h2>'.$lang["header.Settings"].'</h2>';
 
 if (isset($_POST["newcolor"]))
 {
 	$result = $db->query("UPDATE users SET color='" . $_POST["newcolor"] . "' WHERE userid='" . $_SESSION["userid"] . "'");
 	if (!$result) {
-		message("Sorry, couldn't set requested color.");
+		message($lang["settings.SetColorError"]);
 	}
 	else {
-		message("Successfully set post color.");
+		message($lang["settings.SetColorSuccess"]);
 		header("Cache-Control:private");
 	}
 }
@@ -46,23 +46,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$newusername = $_POST["newusername"];
 		if (!isset($newusername))
 		{
-			$errors[] = "New username cannot be empty.";
+			$errors[] = $lang["settings.NewUsernameEmpty"];
 		}
 		elseif (!isset($_POST["confirmpass"]))
 		{
-			$errors[] = "Password cannot be empty.";
+			$errors[] = $lang["settings.PasswordEmpty"];
 		}
 		elseif ($newusername == $_SESSION["username"])
 		{
-			$errors[] = "New username cannot be the same as old username.";
+			$errors[] = $lang["settings.NewUsernameSame"];
 		}
 		elseif (strlen($newusername) > 24)
 		{
-			$errors[] = "New username cannot be longer than 24 characters.";
+			$errors[] = $lang["settings.NewUsernameBig"];
 		}
 		elseif (!checkUsername($newusername))
 		{
-			$errors[] = "New username cannot contain non-alphanumeric characters.";
+			$errors[] = $lang["settings.NewUsernameNonAlph"];
 		}
 		elseif (!$result->num_rows)
 		{
@@ -72,11 +72,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		{
 			$result = $db->query("UPDATE users SET username='" . $db->real_escape_string($_POST["newusername"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
 			if (!$result) {
-				message("Unable to change username.");
+				message($lang["settings.NewUsernameError"]);
 			}
 			else {
 				$_SESSION["username"] = $_POST["newusername"];
-				message("Username has been changed.");
+				message($lang["settings.NewUsernameChanged"]);
 				include "footer.php";
 				refresh(1.5);
 				exit;
@@ -92,19 +92,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		$confirmnewpass = $_POST["confirmnewpass"];
 		if(empty($newpass))
 		{
-			$errors[] = "New password cannot be empty.";
+			$errors[] = $lang["settings.NewPasswordEmpty"];
 		}
 		elseif (empty($confirmnewpass))
 		{
-			$errors[] = "Confirm new password cannot be empty.";
+			$errors[] = $lang["settings.ConfirmNewPasswordEmpty"];
 		}
 		elseif (empty($_POST["oldpass"]))
 		{
-			$errors[] = "Current password cannot be empty.";
+			$errors[] = $lang["settings.OldPasswordEmpty"];
 		}
 		elseif ($newpass != $confirmnewpass)
 		{
-			$errors[] = "Confirm new password is not the same.";
+			$errors[] = $lang["settings.ConfirmNewPasswordError"];
 		}
 		elseif (!$result->num_rows)
 		{
@@ -116,10 +116,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			$password = md5($salt . $_POST["newpass"]);
 			$result = $db->query("UPDATE users SET password ='" . $db->real_escape_string($password) . "', salt = '".$salt."'  WHERE userid='" . $_SESSION["userid"] . "'");
 			if (!$result) {
-				message("Unable to change password.");
+				message($lang["settings.ChangePasswordError"]);
 			}
 			else {
-				message("Password has been changed.");
+				message($lang["settings.ChangePasswordChanged"]);
 				include "footer.php";
 				refresh(1.5);
 				exit;
@@ -136,7 +136,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		echo '<li>' . $value . '</li>';
 		}
 		echo '</ul>';
-		echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
+		echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
 		include "footer.php";
         exit;
 	}
@@ -147,7 +147,7 @@ $result = $db->query("SELECT color FROM users WHERE userid='" . $_SESSION["useri
 $user = $result->fetch_assoc();
 
 // Display the post color setting.
-echo '<h3>Post color</h3><div class="formcontainer">
+echo '<h3>'.$lang["settings.PostColor"].'</h3><div class="formcontainer">
 <form method="post" action="">';
 
 $i = 1;
@@ -165,26 +165,26 @@ $i++;
 echo '</form></div>';
 
 // Display the change password form.
-echo '<h3>Change Password</h3><div class="formcontainer">
+echo '<h3>'.$lang["settings.ChangePassword"].'</h3><div class="formcontainer">
 <form method="post" action="">
-<div class="forminput"><label>Current password</label><input type="password" name="oldpass"></div>
-<div class="forminput"><label>New Password</label><input type="password" name="newpass"></div>
-<div class="forminput"><label>Confirm New Password</label><input type="password" name="confirmnewpass"></div>
-<div class="forminput"><label></label><input type="submit" class="buttonbig" value="Change Password"></div></form></div>';
+<div class="forminput"><label>'.$lang["settings.CurrentPassword"].'</label><input type="password" name="oldpass"></div>
+<div class="forminput"><label>'.$lang["settings.NewPassword"].'</label><input type="password" name="newpass"></div>
+<div class="forminput"><label>'.$lang["settings.ConfirmNewPassword"].'</label><input type="password" name="confirmnewpass"></div>
+<div class="forminput"><label></label><input type="submit" class="buttonbig" value="'.$lang["settings.ChangePasswordBtn"].'"></div></form></div>';
 
 // Display the change username form.
-echo '<h3>Change Username</h3><div class="formcontainer">
+echo '<h3>'.$lang["settings.ChangeUsername"].'</h3><div class="formcontainer">
 <form method="post" action="">
-<div class="forminput"><label>New Username</label><input type="text" name="newusername"></div>
-<div class="forminput"><label>Current Password</label><input type="password" name="confirmpass"></div>
-<div class="forminput"><label></label><input type="submit" class="buttonbig" value="Change Username"></div></form></div>';
+<div class="forminput"><label>'.$lang["settings.NewUsername"].'</label><input type="text" name="newusername"></div>
+<div class="forminput"><label>'.$lang["settings.CurrentPassword"].'</label><input type="password" name="confirmpass"></div>
+<div class="forminput"><label></label><input type="submit" class="buttonbig" value="'.$lang["settings.ChangeUsernameBtn"].'"></div></form></div>';
 
 include "footer.php";
 
 // If the viewing user is logged in, update their last action.
 if ($_SESSION['signed_in'] == true)
 {
-	update_last_action("Viewing: Settings");
+	update_last_action($lang["action.Settings"]);
 }
 
 ?>

@@ -12,19 +12,19 @@ $result = $db->query("SELECT * FROM users ORDER BY userid ASC");
 
 if (!$result)
 {
-	echo "Failed to fetch users.";
+	echo $lang["error.FailedFetchUsers"];
 }
 
 else
 {
 	if ($result->num_rows == 0)
 	{
-		echo "Sadly, there are currently no users on the forum.";
+		echo $lang["error.NoUsers"];
 	}
 	
 	else
 	{
-		echo '<h2>Userlist</h2>';
+		echo '<h2>'.$lang["header.Userlist"].'</h2>';
 
         
 		
@@ -40,7 +40,7 @@ include "footer.php";
 // If the viewing user is logged in, update their last action.
 if ($_SESSION['signed_in'] == true)
 {
-	update_last_action("Viewing: Userlist");
+	update_last_action($lang["action.Userlist"]);
 }
 
 ?>

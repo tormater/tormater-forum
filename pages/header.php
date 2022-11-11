@@ -19,12 +19,12 @@ if (!defined("INDEXED")) exit;
 <?php
 if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
 {
-	echo '<link rel="stylesheet" href="/../themes/Skyline/style.css" type="text/css">';
+	echo '<link rel="stylesheet" href="/../themes/Skyline/style.css?v=0.1" type="text/css">';
     echo '<link rel="icon" type="image/x-icon" href="/../themes/Skyline/icon.ico">';
 }
 else
 {
-	echo '<link rel="stylesheet" href="/../themes/' . $config["forumTheme"] . '/style.css" type="text/css">';
+	echo '<link rel="stylesheet" href="/../themes/' . $config["forumTheme"] . '/style.css?v=0.1" type="text/css">';
     echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/icon.ico">';
 }
 ?>
@@ -68,11 +68,11 @@ else
 		echo '<div id="userbar">';
  			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
  			{
- 	 			echo "Hello, <b><a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a></b>.";
+ 	 			echo $lang["header.Hello"] . '<b><a href="/user/' . $_SESSION["userid"] . '/" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
  			}
  			else
  			{
- 				echo '<a href="/login/">' . $lang["header.Login"] . '</a> or <a href="/signup/">' . $lang["header.Signup"] . '</a>.';
+ 				echo '<a href="/login/">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="/signup/">' . $lang["header.Signup"] . '</a>';
  			}
 		echo "</div>";
 		?>

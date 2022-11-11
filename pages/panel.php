@@ -14,7 +14,7 @@ if (!$_SESSION["role"] == "Administrator")
     exit;
 }
 
-echo '<a class="buttonbig" href="/panel/">Forum Settings</a> <a class="buttonbig" href="/panel/user/">Users</a> <a class="buttonbig" href="/panel/category">Categories</a>';
+echo '<a class="buttonbig" href="/panel/">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="/panel/user/">'.$lang["panel.Users"].'</a> <a class="buttonbig" href="/panel/category">'.$lang["panel.Categories"].'</a>';
 
 // Find out which page we're loading
 

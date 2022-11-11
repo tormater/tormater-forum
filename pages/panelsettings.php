@@ -76,7 +76,7 @@ else
         $config["forumName"] = htmlspecialchars($newforumname);
         saveConfig("./config/config.php", $config);
         echo '<meta http-equiv="refresh" content="1;url=/panel/" />';
-        message("Your changes were saved.");
+        message($lang["panel.ChangesSaved"]);
 	}
 
 	if (isset($_POST["newfooter"]))
@@ -86,7 +86,7 @@ else
         $config["footer"] = $newfooter;
         saveConfig("./config/config.php", $config);
         echo '<meta http-equiv="refresh" content="1;url=/panel/" />';
-        message("Your changes were saved.");
+        message($lang["panel.ChangesSaved"]);
 	}
 
 	if (isset($_POST["newtheme"]))
@@ -96,7 +96,7 @@ else
         $config["forumTheme"] = $newtheme;
         saveConfig("./config/config.php", $config);
         echo '<meta http-equiv="refresh" content="1;url=/panel/" />';
-        message("Your changes were saved.");
+        message($lang["panel.ChangesSaved"]);
 	}
 
 	if (isset($_POST["newlang"]))
@@ -106,7 +106,7 @@ else
         $config["forumLang"] = $newlang;
         saveConfig("./config/config.php", $config);
         echo '<meta http-equiv="refresh" content="1;url=/panel/" />';
-        message("Your changes were saved.");
+        message($lang["panel.ChangesSaved"]);
 	}
 }
 ?>

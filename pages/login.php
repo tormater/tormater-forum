@@ -48,7 +48,7 @@ else
 				echo '<li>' . $value . '</li>';
 			}
 			echo '</ul>';
-			echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
+			echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
 		}
 		else
 		{	
@@ -110,6 +110,7 @@ else
 					}
 					
 					echo $lang["login.WelcomeStart"] . $_SESSION['username'] . $lang["login.WelcomeEnd"];
+					header("Refresh:1; url=/");
 				}
 			}
 
@@ -122,7 +123,7 @@ else
 					echo '<li>' . $value . '</li>';
 				}
 				echo '</ul>';
-				echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
+				echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
 			}
 		}
 	}

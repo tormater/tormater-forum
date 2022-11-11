@@ -9,14 +9,14 @@ include 'header.php';
 
 if($_SESSION['signed_in'] == false)
 {
-	message('Sorry, you have to be <a href="/login/">logged in</a> to create a thread.');
+	message($lang["newthread.LoginToCreate"]);
 	include "footer.php";
 	exit;
 }
 
 if ($_SESSION["role"] == "Suspended")
 {
-	message("Unfortunately, you're suspended. Suspended users cannot create a thread.");
+	message($lang["newthread.SuspendCantCreate"]);
 }
 else
 {
@@ -26,7 +26,7 @@ else
 		
 		if (strlen($_POST["title"]) < 1)
 		{
-			message("Your title cannot be blank.");
+			message($lang["newthread.TitleEmpty"]);
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -34,7 +34,7 @@ else
 		
 		elseif (strlen($_POST["title"]) > $config["maxCharsPerTitle"])
 		{
-			message("Your title was too long. The maximum number of characters a title may contain is currently set to " . $config["maxCharsPerTitle"] . ".");
+			message($lang["newthread.TitleBig1"] . ' ' . $config["maxCharsPerTitle"] . ' ' . "newthread.TitleBig2");
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -42,7 +42,7 @@ else
 		
 		elseif (strlen($_POST["content"]) < 1)
 		{
-			message("Your post cannot be blank.");
+			message($lang["newthread.PostEmpty"]);
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -50,7 +50,7 @@ else
 			
 		elseif (strlen($_POST["content"]) > $config["maxCharsPerPost"])
 		{
-			message("Your post was too long. The maximum number of characters a post may contain is currently set to " . $config["maxCharsPerPost"] . ".");
+			message($lang["newthread.PostBig1"] . ' ' . $config["maxCharsPerPost"] . ' ' . $lang["newthread.PostBig2"]);
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -58,7 +58,7 @@ else
 		
 		elseif ((!$cat) or ($cat->num_rows < 1))
 		{
-			message("Invalid category selection. Please select a category that actually exists.");
+			message($lang["newthread.InvalidCategory"]);
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -71,7 +71,7 @@ else
 			
 			if ($delaycheck->num_rows > 0)
 			{
-				message("You tried to post too soon after a previous post. The post delay is currently " . $config["postDelay"] . " seconds between posts.");
+				message($lang["newthread.PostSoon1"] . ' ' . $config["postDelay"] . ' ' . $lang["newthread.PostSoon2"]);
 				$catSave = $_POST["category"];
 				$titleSave = $_POST["title"];
 				$contentSave = $_POST["content"];
@@ -84,7 +84,7 @@ else
 		
 				if(!$beginwork)
 				{
-					message("An error occured while creating your thread. Please try again later.");
+					message($lang["newthread.CreateError"]);
 				}
 		
 				else
@@ -96,7 +96,7 @@ else
 			
 					if (!$threadresult)
 					{
-						echo 'An error occured while inserting your thread. Please try again later.';
+						echo $lang["newthread.InsertThreadError"];
 						$db->query("ROLLBACK");
 					}
 			
@@ -108,14 +108,14 @@ else
 				
 						if(!$result)
 						{
-							echo 'An error occured while inserting your post. Please try again later.';
+							echo $lang["newthread.InsertPostError"];
 							$db->query("ROLLBACK");
 						}
 						else
 						{
 							$db->query("COMMIT");
 					
-							message('You have successfully created <a href="/thread/'. $threadid . '/">your new thread</a>.');
+							message($lang["newthread.SuccessCreate1"] . ' <a href="/thread/'. $threadid . '/">' . $lang["newthread.SuccessCreate2"] . '</a>');
 							include("footer.php");
 							exit;
 						}
@@ -125,13 +125,13 @@ else
 		}
 	}
 	
-	echo '<h2>Create a thread</h2>';
+	echo '<h2>'.$lang["newthread.Header"].'</h2>';
 		
 	$result = $db->query("SELECT * FROM categories");
 		
 	if(!$result)
 	{
-		message('Error while selecting from database. Please try again later.');
+		message($lang["newthread.DataError"]);
 	}
 		
 	else
@@ -140,12 +140,12 @@ else
 		{
 			if($_SESSION['role'] == "Administrator")
 			{
-				message('You have not created categories yet.');
+				message($lang["newthread.NoCategoryAdmin"]);
 			}
 				
 			else
 			{
-				message('Before you can post a topic, you must wait for an admin to create some categories.');
+				message($lang["newthread.NoCategoryUser"]);
 			}
 		}
 			
@@ -153,9 +153,9 @@ else
 		{
 		
 			echo '<form method="post" action="">';
-			echo '<div class="forminput"><label>Title: </label><input type="text" name="title"';
+			echo '<div class="forminput"><label>' . $lang["newthread.Title"] . '</label><input type="text" name="title"';
 			if (isset($titleSave)) echo "value='" . $titleSave . "'";
-			echo '></div><div class="forminput"><label>Category: </label>'; 
+			echo '></div><div class="forminput"><label>' . $lang["newthread.Category"] . '</label>'; 
 
 			echo '<select name="category">';
 				while($row = $result->fetch_assoc())
@@ -167,11 +167,11 @@ else
 				}
 			echo '</select></div>';	
 					
-			echo '<div class="forminput">Content:</div>';
+			echo '<div class="forminput">' . $lang["newthread.Content"] . '</div>';
 			echo '<div class="forminput"><textarea name="content" />';
 			if (isset($contentSave)) echo $contentSave;
 			echo '</textarea></div>';
-			echo '<div class="forminput"><input type="submit" class="buttonbig" value="Create thread"></form></div>';
+			echo '<div class="forminput"><input type="submit" class="buttonbig" value="' . $lang["newthread.CreateBtn"] . '"></form></div>';
 		}
 	}
 }
@@ -181,7 +181,7 @@ include 'footer.php';
 // If the viewing user is logged in, update their last action.
 if ($_SESSION['signed_in'] == true)
 {
-	update_last_action("Creating a thread");
+	update_last_action("action.CreateAThread");
 }
 
 ?>

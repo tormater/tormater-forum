@@ -30,7 +30,7 @@ else
 		$res = $db->query("SELECT salt FROM users WHERE username = '" . $_POST['user_name'] . "'");
 		if($res->num_rows)
 		{
-			$errors[] = "This username already exists.";
+			$errors[] = $lang["register.UsernameExists"];
 		}
 		if(!checkUsername($_POST['user_name']))
 		{
@@ -55,31 +55,31 @@ else
 		$res = $db->query("SELECT * FROM users WHERE email ='". $_POST['user_email'] ."'");
 		if($res->num_rows)
 		{
-			$errors[] = "This Email already exists.";
+			$errors[] = $lang["register.EmailExists"];
 		}
 		if(!filter_var($_POST['user_email'], FILTER_VALIDATE_EMAIL))
 		{
-			$errors[] = "Invalid Email format.";
+			$errors[] = $lang["register.InvalidEmailFormat"];
 		}
 	}
 	else
 	{
-		$errors[] = "The Email field must not be empty.";
+		$errors[] = $lang["register.EmailEmpty"];
 	}
 
 	if(empty($_POST['user_pass']))
 	{
-		$errors[] = "The password field must not be empty."; // $lang["error.PassNull"]
+		$errors[] = $lang["register.PasswordEmpty"]; // $lang["error.PassNull"]
 	}
 	elseif (empty($_POST['user_pass_check']))
 	{
-		$errors[] = "The confirm password field must not be empty."; // $lang["error.ConfPassNull"]
+		$errors[] = $lang["register.ConfirmPasswordEmpty"]; // $lang["error.ConfPassNull"]
 	}
 	else
 	{
 		if($_POST['user_pass'] != $_POST['user_pass_check'])
 		{
-			$errors[] = "The confirm password is not the same."; // $lang["error.PassConfFail"]
+			$errors[] = $lang["register.ConfirmPasswordWrong"]; // $lang["error.PassConfFail"]
 		}
 	}
 

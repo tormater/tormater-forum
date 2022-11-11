@@ -39,14 +39,14 @@ $posts = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_stri
 
 if(!$thread)
 {
-	message("The specified thread doesn't exist.");
+	message($lang["thread.ThreadDoesntExist"]);
 	include "footer.php";
 	exit;
 }
 
 if(!$posts)
 {
-	message("There are no posts in this thread.");
+	message($lang["thread.ThreadsNoPosts"]);
 	include "footer.php";
 	exit;
 }
@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	if(!$_SESSION['signed_in'])
 	{
-		echo 'You must be signed in for any action within a thread.';
+		echo $lang["thread.LoginFirst"];
 	}
 	else
 	{
@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if ($delaycheck->num_rows > 0)
 			{
-				message("You tried to post too soon after a previous post. The post delay is currently " . $config["postDelay"] . " seconds between posts.");
+				message($lang["thread.PostSoon1"] . ' ' . $config["postDelay"] . ' ' . $lang["thread.PostSoon2"]);
 				$contentSave = $_POST["content"];
 			}
 			
@@ -75,12 +75,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				if (strlen($_POST["content"]) < 1)
 				{
-					message("Your post cannot be blank.");
+					message($lang["thread.PostEmpty"]);
 				}
 			
 				elseif (strlen($_POST["content"]) > $config["maxCharsPerPost"])
 				{
-					message("Your post was too long. The maximum number of characters a post may contain is currently set to " . $config["maxCharsPerPost"] . ".");
+					message($lang["thread.PostBig1"] . ' ' . $config["maxCharsPerPost"] . ' ' . $lang["thread.PostBig2"]);
 				}
 		
 				else
@@ -90,7 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 						
 					if(!$result)
 					{
-						echo 'Your reply has not been saved, please try again later.';
+						echo $lang["thread.PostError"];
 					}
 					else
 					{
@@ -107,16 +107,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				echo "Sorry, post couldn't be deleted.";
+				echo $lang["thread.PostDeleteError"];
 			}
-			
 			else
 			{
 				// Now we need to update the thread's data to be in sync with the remaining posts.
 				$lastpost = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
 				if ((!$lastpost) or ($lastpost->num_rows == 0))
 				{
-					echo "Something went wrong with resynchronizing the conversation. Perhaps there are no posts left?";
+					echo $lang["thread.ThreadDataError"];
 				}
 				
 				else
@@ -138,7 +137,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, post couldn't be hidden.");
+				message($lang["thread.PostHiddenError"]);
 			}
 			
 			else
@@ -154,7 +153,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, post couldn't be restored.");
+				message($lang["thread.PostRestoredError"]);
 			}
 			
 			else
@@ -172,7 +171,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				if ((!$p["user"] == $_SESSION["userid"]) && ((!$_SESSION["role"] == "Moderator") or (!$_SESSION["role"] == "Administrator")))
 				{
-					message("Hey, you don't have permission to edit that post.");
+					message($lang["thread.PostEditError"]);
 				}
 				
 				else
@@ -181,7 +180,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 					if (!$result)
 					{
-						message("Sorry, post couldn't be restored.");
+						message($lang["thread.PostRestoredError"]);
 					}
 			
 					else
@@ -199,7 +198,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, thread couldn't be deleted.");
+				message($lang["thread.ThreadDeleteError"]);
 			}
 			
 			else
@@ -208,7 +207,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				
 				if (!$result)
 				{
-					message("Sorry, the thread's posts couldn't be deleted.");
+					message($lang["thread.ThreadPostDeleteError"]);
 				}
 				
 				else
@@ -225,7 +224,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, thread couldn't be locked.");
+				message($lang["thread.ThreadLockError"]);
 			}
 			
 			else
@@ -241,7 +240,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, thread couldn't be stickied.");
+				message($lang["thread.ThreadStickError"]);
 			}
 			
 			else
@@ -257,7 +256,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, thread couldn't be unlocked.");
+				message($lang["thread.ThreadUnlockError"]);
 			}
 			
 			else
@@ -273,7 +272,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$result)
 			{
-				message("Sorry, thread couldn't be unstickied.");
+				message($lang["thread.ThreadUnstickError"]);
 			}
 			
 			else
@@ -286,54 +285,54 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 if($thread->num_rows == 0)
 {
-	message("The specified thread doesn't exist.");
+	message($lang["thread.ThreadDoesntExist"]);
 }
 	
 elseif($posts->num_rows == 0)
 {
-	message("Couldn't find any posts.");
+	message($lang["thread.NoPosts"]);
 }
 	
 else
 {
-	echo '<div><a class="item" href="/category/' . $category . '/">Back to category</a></div>';
+	echo '<div><a class="item" href="/category/' . $category . '/">'.$lang["thread.BackToCategory"].'</a></div>';
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
 		echo '<div class="modtools">';
-		echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">Delete</button></form>';
+		echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.DeleteThreadBtn"].'</button></form>';
 		if ($locked == 1)
 		{
-			echo '<form action="" method="post"><button name="unlockthread" class="threadbutton" value="' . $q2 . '">Unlock</button></form>';
+			echo '<form action="" method="post"><button name="unlockthread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.UnlockThreadBtn"].'</button></form>';
 		}
 		else
 		{
-			echo '<form action="" method="post"><button name="lockthread" class="threadbutton" value="' . $q2 . '">Lock</button></form>';
+			echo '<form action="" method="post"><button name="lockthread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.LockThreadBtn"].'</button></form>';
 		}
 		if ($stickied == 1)
 		{
-			echo '<form action="" method="post"><button name="unstickythread" class="threadbutton" value="' . $q2 . '">Unsticky</button></form>';
+			echo '<form action="" method="post"><button name="unstickythread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.UnstickyThreadBtn"].'</button></form>';
 		}
 		else
 		{
-			echo '<form action="" method="post"><button name="stickythread" class="threadbutton" value="' . $q2 . '">Sticky</button></form>';
+			echo '<form action="" method="post"><button name="stickythread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.StickyThreadBtn"].'</button></form>';
 		}
 		echo '</div>';
 	}
-	echo '<h2>Posts in "' . htmlspecialchars($title) . '"</h2>';
+	echo '<h2>'. htmlspecialchars($title) . '</h2>'; // $lang["thread.PostInTitle"]
 	
 	if ($locked == 1 or $stickied == 1)
 	{
-		echo '<div>Labels:';
+		echo '<div>'.$lang["thread.Labels"];
 	
 	
 	    if ($locked == 1)
 	    {
-	    	echo '<font class="locked">Locked</font>';
+	    	echo '<font class="locked">'.$lang["label.Locked"].'</font>';
 	    }
 	
 	    if ($stickied == 1)
 	    {
-	    	echo '<font class="sticky">Sticky</font>';
+	    	echo '<font class="sticky">'.$lang["label.Sticky"].'</font>';
         }
 	    echo '</div>';
     }
@@ -353,10 +352,10 @@ else
 				
 				while ($h = $hider->fetch_assoc())
 				{ 
-					echo '<div class="hiddenpost"><b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <a title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . '</a> (hidden by <a href="/user/' . $row["deletedby"] . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
+					echo '<div class="hiddenpost"><b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> (hidden by <a href="/user/' . $row["deletedby"] . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
 					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 					{
-						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">Restore</button></form>';
+						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
 					}
 					echo '</div>';
 				}
@@ -369,17 +368,20 @@ else
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
                     echo '<div>';
-					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">Delete</button></form>';
-					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">Hide</button></form>';
-					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">Edit</button></form>';
+					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
+					if((!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
+					{
+						echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
+						echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
+					}
 					echo '</div>';
 				}
 				
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
-					echo '</div><form method="post" action="">';				
+					echo '</div><form method="post" action="" class="editbox">';				
 					echo '<div class="forminput"><textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
-					echo '<div class="forminput"><input type="submit" class="buttonbig" value="Save edit"> <a class="buttonbig" href="">Discard edit</a></form></div>';
+					echo '<div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["post.SaveEditBtn"].'"> <a class="buttonbig" href="">'.$lang["post.DiscardEditBtn"].'</a></form></div>';
 				}
 				
 				else
@@ -396,28 +398,28 @@ else
 	
 	if ($_SESSION["role"] == "Suspended")
 	{
-		message("Unfortunately, you're suspended. Suspended users cannot post.");
+		message($lang["thread.SuspendCantPost"]);
 	}
 		
 	elseif (($_SESSION['signed_in'] == true) && ($locked == 0) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) && $locked == 1)
 	{
 		echo '<form method="post" action="">';				
-		echo '<div class="forminput">Content:</div>';
+		echo '<div class="forminput">'.$lang["thread.ContentTitle"].'</div>';
 		echo '<div class="forminput"><textarea name="content" />';
 		if (isset($contentSave)) echo $contentSave;
 		echo '</textarea></div>
-			<div class="forminput"><input type="submit" class="buttonbig" value="Post reply"></div>
+			<div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["thread.PostReplyBtn"].'"></div>
 			</form>';
 	}
 	
 	elseif ($_SESSION['signed_in'] == true && $locked == 1)
 	{
-		message("Sorry, this thread is locked. Only moderators and administrators can post in it.");
+		message($lang["thread.ThreadLocked"]);
 	}
 	
 	else
 	{
-		message("You must be signed in to post.");
+		message($lang["thread.LoginToPost"]);
 	}
 }
 
@@ -428,7 +430,7 @@ if ($_SESSION['signed_in'] == true)
 {
 	while($row = $thread->fetch_assoc())
 	{
-		$action = "Viewing: <a href='/thread/" . $row["threadid"] . "/'>" . $row["title"] . "</a>";
+		$action = $lang["action.Generic"] . ' <a href="/thread/' . $row["threadid"] . '/">' . $row["title"] . '</a>';
 		
 		update_last_action($action);
 	}

@@ -8,7 +8,7 @@ if (!defined("INDEXED")) exit;
 // Check how many categories there are. If the limit has been reached show a message.
 $catcheck = $db->query("SELECT 1 FROM categories");
 if (($catcheck->num_rows) >= $config["maxCats"]) {
-	message("Sorry, no more new categories can be created at this time.");
+	message($lang["panel.NoNewCategoriesCreate"]);
 	include "footer.php";
 	exit;
 }
@@ -27,8 +27,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$id = $row['categoryid'];
 		}
 
-		echo '<h2>Categories</h2>';
-		echo '<h3>Edit category</h3>';
+		echo '<h2>'.$lang["panel.Categories"].'</h2>';
+		echo '<h3>'.$lang["panel.EditCategory"].'</h3>';
 
 		if ($_POST["edit_edit_cat_name"] or $_POST["edit_cat_description"])
 		{
@@ -38,23 +38,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if (!$_POST["edit_edit_cat_name"])
 			{
-				message("The category name cannot be blank.");
+				message($lang["panel.CategoryNameBlank"]);
 			}
 			elseif (!$_POST["edit_cat_description"])
 			{
-				message("The category description cannot be blank.");
+				message($lang["panel.CategoryDescBlank"]);
 			}
 			elseif (isset($_POST["edit_edit_cat_name"]) && isset($_POST["edit_cat_description"]))
 			{
 				$result = $db->query("UPDATE categories SET categoryname='" . $name . "',categorydescription='" . $description . "' WHERE categoryid='" . $db->real_escape_string($id) . "'");
 				if (!$result)
 				{
-					message("Sorry, can't update category.");
+					message($lang["panel.CantUpdateCategory"]);
 				}
 				
 				else
 				{
-					message("Successfully update.");
+					message($lang["panel.SuccessUpdateCategory"]);
 					refresh(1);
 				}
 			}
@@ -62,10 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo'
 		<div class="formcontainer"><form method="post" action="">
 		<input style="display:none;" type="text" name="cat_num" value="' . htmlspecialchars($id) . '">
-		<div class="forminput"><label>Title</label><input type="text" name="edit_edit_cat_name" value="' . htmlspecialchars($name) . '"></div>
-		<div class="forminput"><label>Description</label></div>
+		<div class="forminput"><label>'.$lang["panel.InputCategoryTitle"].'</label><input type="text" name="edit_edit_cat_name" value="' . htmlspecialchars($name) . '"></div>
+		<div class="forminput"><label>'.$lang["panel.InputCategoryDesc"].'</label></div>
 		<div class="forminput"><textarea name="edit_cat_description">' . htmlspecialchars($description) . '</textarea></div>
-		<div class="forminput"><input type="submit" class="buttonbig" value="Edit category"> <a class="buttonbig" href="">Discard edit</a></div>
+		<div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["panel.EditCategoryBtn"].'"> <a class="buttonbig" href="">'.$lang["panel.EditCategoryDisBtn"].'</a></div>
 		</form></div>';
 
 			include "footer.php";
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$id = $row['categoryid'];
 		}
 
-		echo '<h2>Categories</h2>';
+		echo '<h2>'.$lang["panel.Categories"].'</h2>';
 		
 		if ($_POST["deleteit"])
 		{
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$result = $db->query("DELETE FROM categories WHERE categoryid='" . $id . "'");
 			
 			if (!$result) {
-				message("Sorry, can't delete category.");
+				message($lang["CantDeleteCategory"]);
 			}
 			else
 			{
@@ -102,25 +102,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 				if (!$threads)
 				{
-					message("Sorry, can't delete category.");
+					message($lang["CantDeleteCategory"]);
 				}
 				else
 				{
 					$result = $db->query("DELETE FROM posts WHERE thread='" . $threadid . "'");
 					if (!$result)
 					{
-						message("Sorry, can't delete category.");
+						message($lang["CantDeleteCategory"]);
 					}
 					else
 					{
 						$result = $db->query("DELETE FROM threads WHERE threadid='" . $threadid . "'");
 						if (!$result)
 						{
-							message("Sorry, can't delete category.");
+							message($lang["CantDeleteCategory"]);
 						}
 						else
 						{
-							message("Successfully delete.");
+							message($lang["panel.SuccessDeleteCategory"]);
 							refresh(1);
 						}
 					}
@@ -128,13 +128,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			}
 		}
 
-		echo '<h3>Delete category "'.$name.'"</h3>';
+		echo '<h3>'.$lang["panel.DeleteCategory"].'('.$name.')</h3>';
 		echo'
 		<div class="formcontainer"><form method="post" action="">
 		<input style="display:none;" type="text" name="deleteit" value="' . htmlspecialchars($id) . '">
-		<div class="forminput">All threads and posts in this category will be gone forever...</div>
-		<div class="forminput">Are you sure?</div><br>
-		<div class="forminput"><button type="submit" class="buttonbig">Delete it</button> <a class="buttonbig" href="">Go back</a></div>
+		<div class="forminput">'.$lang["panel.CategoryDataWillGone"].'</div>
+		<div class="forminput">'.$lang["panel.CategoryDeleteLastCheck"].'</div><br>
+		<div class="forminput"><button type="submit" class="buttonbig">'.$lang["panel.DeleteCategoryBtn"].'</button> <a class="buttonbig" href="">'.$lang["panel.DeleteCategoryBackBtn"].'</a></div>
 		</form></div>';
 
 		include "footer.php";
@@ -146,12 +146,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		// Ensure the name and description aren't empty.
 		if (!$_POST["cat_name"])
 		{
-			message("The category name cannot be blank.");
+			message($lang["panel.CategoryNameBlank"]);
 		}
 		
 		elseif (!$_POST["cat_description"])
 		{
-			message("The category description cannot be blank.");
+			message($lang["panel.CategoryDescBlank"]);
 		}
 		
 		else {
@@ -159,19 +159,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		
 			if(!$result)
 			{
-				message("Something went wrong.");
+				message($lang["error.SomethingWentWrong"]);
 			}
 		
 			else
 			{
-				message("New category successfully added.");
+				message($lang["panel.SuccessAddedCategory"]);
 			}
 		}
 	}
 }
 
 	$result = $db->query("SELECT * FROM categories");
-	echo '<h2>Categories</h2>';
+	echo '<h2>'.$lang["panel.Categories"].'</h2>';
     while($row = $result->fetch_assoc()) {
     	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
     	$number = $numthreads->num_rows;
@@ -180,19 +180,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     		echo '<h3><span>' . htmlspecialchars($row["categoryname"]) . ' (#' . $row["categoryid"] . ')</span></h3>';
 			echo '<div>' . $row["categorydescription"] . '</div>';
     		echo '<div><div style="float:right">';
-			echo '<form style="display:inline-block;" method="post" action=""><button name="edit" value="' . $row["categoryid"] . '">Edit</button></form> 
-				<form style="display:inline-block;" method="post" action=""><button name="delete" value="' . $row["categoryid"] . '">Delete</button></form>';
+			echo '<form style="display:inline-block;" method="post" action=""><button name="edit" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryEditBtn"].'</button></form> 
+				<form style="display:inline-block;" method="post" action=""><button name="delete" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryDeleteBtn"].'</button></form>';
 			echo '</div>';
 			echo $lang["homepage.CatThreads"] . $number . '</div>';
     	echo '</tr></div>';
     }
-	echo "
-    <h3>Create a category</h3>
-    <div class='formcontainer'><form method='post' action=''>
-		<div class='forminput'><label>Title</label><input type='text' name='cat_name'></div>
-		<div class='forminput'><label>Description</label></div>
-		<div class='forminput'><textarea name='cat_description'></textarea></div>
-		<div class='forminput'><input type='submit' class='buttonbig' value='Create category'></div>
-		</form></div>";
+	echo '
+    <h3>'.$lang["panel.CreateACategory"].'</h3>
+    <div class="formcontainer"><form method="post" action="">
+		<div class="forminput"><label>'.$lang["panel.InputCategoryTitle"].'</label><input type="text" name="cat_name"></div>
+		<div class="forminput"><label>'.$lang["panel.InputCategoryDesc"].'</label></div>
+		<div class="forminput"><textarea name="cat_description"></textarea></div>
+		<div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["panel.CreateCategoryBtn"].'"></div>
+		</form></div>';
 
 ?>

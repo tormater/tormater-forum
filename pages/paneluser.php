@@ -10,19 +10,19 @@ $result = $db->query("SELECT * FROM users ORDER BY userid ASC");
 
 if (!$result)
 {
-	echo "Failed to fetch users.";
+	echo $lang["error.FailedFetchUsers"];
 }
 
 else
 {
 	if ($result->num_rows == 0)
 	{
-		echo "Sadly, there are currently no users on the forum.";
+		echo $lang["error.NoUsers"];
 	}
 	
 	else
 	{
-		echo '<h2>Users</h2>';
+		echo '<h2>'.$lang["panel.Users"].'</h2>';
 
         
 		
