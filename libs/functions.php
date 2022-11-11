@@ -79,71 +79,72 @@ function saveConfig($file, $array) {
 
 // Convert a unix timestamp into a human readable time format.
 function relativeTime($timestamp) {
+	global $lang;
 	$now = time();
 	$diff = $now - $timestamp;
 	
     if ($timestamp == 0) {
-		return "Never";
+		return $lang["time.Never"];
 	}
 
 	if ($diff <= 0) {
-		return "Just now";
+		return $lang["time.JustNow"];
 	}
 	
 	elseif ($diff == 1) {
-		return "1 second ago";
+		return $lang["time.1SecAgo"];
 	}
 	
 	elseif ($diff > 1 && $diff < 60) {
-		return $diff . " seconds ago";
+		return $diff . ' ' . $lang["time.SecAgo"];
 	}
 	
 	elseif ($diff >= 60 && $diff <= 120) {
-		return "1 minute ago";
+		return $lang["time.1MinAgo"];
 	}
 	
 	elseif ($diff > 120 && $diff < 3600) {
-		return round($diff / 60) . " minutes ago";
+		return round($diff / 60) . ' ' . $lang["time.MinAgo"];
 	}
 	
 	elseif ($diff >= 3600 && $diff <= 7200) {
-		return "1 hour ago";
+		return $lang["time.1HrAgo"];
 	}
 	
 	elseif ($diff > 7200 && $diff < 86400) {
-		return round(($diff / 60) / 60) . " hours ago";
+		return round(($diff / 60) / 60) . ' ' . $lang["time.HrsAgo"];
 	}
 	
 	elseif ($diff >= 86400 && $diff <= 172800) {
-		return "1 day ago";
+		return $lang["time.1DayAgo"];
 	}
 	
 	elseif ($diff > 172800 && $diff < 604800) {
-		return round((($diff / 60) / 60) / 24) . " days ago";
+		return round((($diff / 60) / 60) / 24) . ' ' . $lang["time.DaysAgo"];
 	}
 	
 	elseif ($diff >= 604800 && $diff <= 1209600) {
-		return "1 week ago";
+		return $lang["time.1WeekAgo"];
 	}
 	
 	elseif ($diff > 1209600 && $diff < 2419200) {
-		return round(((($diff / 60) / 60) / 24) / 7) . " weeks ago";
+		return round(((($diff / 60) / 60) / 24) / 7) . ' ' . $lang["time.WeeksAgo"];
 	}
 	
 	elseif ($diff >= 2419200 && $diff <= 4838400) {
-		return "1 month ago";
+		return $lang["time.1MonthAgo"];
 	}
 	
 	elseif ($diff > 4838400 && $diff < 29030400) {
-		return round((((($diff / 60) / 60) / 24) / 7) / 4) . " months ago";
+		return round((((($diff / 60) / 60) / 24) / 7) / 4) . ' ' . $lang["time.MonthsAgo"];
 	}
 	
 	elseif ($diff >= 29030400 && $diff <= 58060800) {
-		return "1 year ago";
+		return $lang["time.1YearAgo"];
 	}
 	
 	elseif ($diff > 58060800) {
-		return round(((((($diff / 60) / 60) / 24) / 7) / 4) / 12) . " years ago";
+		return round(((((($diff / 60) / 60) / 24) / 7) / 4) / 12) . ' ' . $lang["time.YearsAgo"];
 	}
 }
 
