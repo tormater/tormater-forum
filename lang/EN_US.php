@@ -220,7 +220,12 @@ $lang = array(
     "user.TitleThreads" => "Threads:",
     "user.TitleVerified" => "Verified:",
     "user.VerifiedYes" => "Yes",
-    "user.VerifiedNo" => "No",
+    "user.VerifiedNo" => "No",    
+    // Role
+    "role.Admin" => "Administrator",
+    "role.Mod" => "Moderator",
+    "role.Member" => "Member",
+    "role.Suspend" => "Suspended",
 
     // User settings
     "settings.LoginFirst" => "You must be logged in to change user settings.",
