@@ -135,15 +135,20 @@ $lang = array(
     
     // Admin panel
     "panel.ForumSettings" => "Forum Settings",
-    "panel.ChangeForumName" => "Change forum name",
+    "panel.BasicSettings" => "Basic Settings",
     "panel.NewForumName" => "New forum name",
-    "panel.ChangeFooter" => "Change footer",
-    "panel.NewFooter" => "New footer",
-    "panel.ChangeTheme" => "Change theme",
-    "panel.NewTheme" => "Select theme",
-    "panel.ChangeLang" => "Change language",
     "panel.NewLang" => "Select language",
+    "panel.NewTheme" => "Select theme",
+    "panel.AdvancedSettings" => "Advanced Settings",
+    "panel.ThreadsPerPage" => "Threads per page:",
+    "panel.PostPerPage" => "Post per page:",
+    "panel.Userlist" => "Userlist:",
+    "panel.UserlistMemberOnly" => "- Display to Member Only ?",
+    "panel.EnabledBtn" => "Enabled",
+    "panel.ChangeFooter" => "Change footer",
+    "panel.ChangeSettingsBtn" => "Change Settings",
     "panel.ChangesSaved" => "Your changes were saved.",
+    "panel.ChangeError" => "Some fields are left blank, or something went wrong.",
     // Admin panel / Users
     "panel.Users" => "Users",
     // Admin panel / Categories
