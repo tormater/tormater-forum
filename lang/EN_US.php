@@ -202,8 +202,7 @@ $lang = array(
     "login.Username" => "Username / Email",
     "login.Password" => "Password",
     "login.Submit" => "Log in",
-    "login.WelcomeStart" => "Welcome, ",
-    "login.WelcomeEnd" => ". <a href='%s'>Proceed to the forum overview</a>.",
+    "login.Welcome" => "Welcome, %s. <a href='%s'>Proceed to the forum overview</a>.",
 
     // User page
     "user.FaildFindUser" => "Sorry, that user couldn't be displayed. Try again later.",
