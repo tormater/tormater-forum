@@ -66,6 +66,19 @@ function parseAction($action, $array) {
     }
 }
 
+// Generates a URL for a page based on the site's baseURL
+function genURL($page) {
+    if (!$config["baseURL"] || $config == "http://example.com")
+    {
+        $generated = "/" . $page;
+    }
+    else
+    {
+        $generated = $config["baseURL"] . "/" . $page;
+    }
+return $generated;
+}
+
 // Display a nice message.
 function message($content) {
 	echo "<div class='message'>" . $content . "</div>";
