@@ -66,6 +66,7 @@ if (isset($url[3])) $q4 = $url[3];
 if (!$q1) require "pages/homepage.php";
 elseif ($q1 == "installer") require "install/install.php";
 elseif ($q1 == "signup") require "pages/signup.php";
+elseif ($q1 == "register") require "pages/signup.php";
 elseif ($q1 == "login") require "pages/login.php";
 elseif ($q1 == "logout") logout();
 elseif ($q1 == "newthread") require "pages/newthread.php";
@@ -80,7 +81,7 @@ elseif (($q1 == "userlist") && ($config["userlistEnabled"] == false)) {
     require "pages/homepage.php";
 }
 elseif (($q1 == "userlist") && ($config["userlistEnabled"] == true) && (($config["userlistMembersOnly"] == true) && ($_SESSION["signed_in"] == false))) {
-    message($lang["error.UserlistMembersOnly"]);
+    message(sprintf($lang["error.UserlistMembersOnly"], genURL("signup"), genURL("login")));
     require "pages/homepage.php";
 }
 else {
