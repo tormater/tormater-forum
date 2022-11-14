@@ -152,10 +152,13 @@ select:hover {
 
 .message {
     margin: 14px 0;
-    padding: 5px;
+    padding: 6px;
     padding-left: 10px;
-    background: #d3d3d3;
-    border-left: 4px solid #a1a1a1;
+    font-size: 95%;
+    background: linear-gradient(#e9e9e9, #dfdfdf);
+    box-shadow: 0px 1px inset #fff;
+    border: 1px solid rgb(173, 173, 173);
+    border-left-width:3px;
 }
 
 
