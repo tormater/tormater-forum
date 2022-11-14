@@ -31,8 +31,8 @@ else
 
 </head>
 <body>
-<h1><?php echo $config["forumName"]; ?></h1>
 	<div id="wrapper">
+    <div id="forumheader"><span class="forumtitle"><?php echo $config["forumName"]; ?></span></div>
 	<div id="menu">
 		<?php
 			echo '<a class="item" href="/">' . $lang["header.Home"] . '</a> ';
