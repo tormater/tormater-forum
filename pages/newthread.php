@@ -9,7 +9,7 @@ include 'header.php';
 
 if($_SESSION['signed_in'] == false)
 {
-	message($lang["newthread.LoginToCreate"]);
+	message(sprintf($lang["newthread.LoginToCreate"], genURL("login")));
 	include "footer.php";
 	exit;
 }
@@ -34,7 +34,7 @@ else
 		
 		elseif (strlen($_POST["title"]) > $config["maxCharsPerTitle"])
 		{
-			message($lang["newthread.TitleBig1"] . ' ' . $config["maxCharsPerTitle"] . ' ' . "newthread.TitleBig2");
+            message(sprintf($lang["newthread.TitleBig1"], $config["maxCharsPerTitle"]));
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -50,7 +50,7 @@ else
 			
 		elseif (strlen($_POST["content"]) > $config["maxCharsPerPost"])
 		{
-			message($lang["newthread.PostBig1"] . ' ' . $config["maxCharsPerPost"] . ' ' . $lang["newthread.PostBig2"]);
+            message(sprintf($lang["newthread.PostBig1"], $config["maxCharsPerPost"]));
 			$catSave = $_POST["category"];
 			$titleSave = $_POST["title"];
 			$contentSave = $_POST["content"];
@@ -71,7 +71,7 @@ else
 			
 			if ($delaycheck->num_rows > 0)
 			{
-				message($lang["newthread.PostSoon1"] . ' ' . $config["postDelay"] . ' ' . $lang["newthread.PostSoon2"]);
+                message(sprintf($lang["newthread.PostSoon1"], $config["postDelay"]));
 				$catSave = $_POST["category"];
 				$titleSave = $_POST["title"];
 				$contentSave = $_POST["content"];
