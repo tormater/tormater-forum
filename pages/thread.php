@@ -67,7 +67,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			if ($delaycheck->num_rows > 0)
 			{
-				message($lang["thread.PostSoon1"] . ' ' . $config["postDelay"] . ' ' . $lang["thread.PostSoon2"]);
+				message(sprintf($lang["thread.PostSoon"], $config["postDelay"]));
 				$contentSave = $_POST["content"];
 			}
 			
@@ -80,7 +80,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 				elseif (strlen($_POST["content"]) > $config["maxCharsPerPost"])
 				{
-					message($lang["thread.PostBig1"] . ' ' . $config["maxCharsPerPost"] . ' ' . $lang["thread.PostBig2"]);
+                    message(sprintf($lang["thread.PostBig"], $config["maxCharsPerPost"]));
 				}
 		
 				else
