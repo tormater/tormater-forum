@@ -11,7 +11,7 @@ $config = array(
     'MySQLUser' => '', // Username for native MySQL user.
     'MySQLPass' => '', // Password for native MySQL user.
     'MySQLDatabase' => '', // Name of the MySQL database you wish to use.
-    'baseURL' => '', // The base URL for the website that the forum is on.
+    'baseURL' => 'http://example.com', // The base URL for the website that the forum is on.
     'cookieName' => 'forum', // The name of cookies set by the forum.
     'forumName' => 'Tormater Forum', // The forum's name.
     'footer' => 'Powered by [url=tormater-forum]https://github.com/tormater/tormater-forum[/url]', // The text that appears on the footer.
