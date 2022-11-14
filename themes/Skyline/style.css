@@ -7,8 +7,14 @@ body {
     margin: 0;
 }
 
+::selection {
+  color: #fff;
+  background: #3eaeff;
+  text-shadow:none;
+}
+
 a {
-    color: #0011ff;
+    color: #0058bd;
     text-decoration: none;
 }
 
@@ -35,8 +41,8 @@ a:hover {
 }
 
 .forumtitle {
-font-size:200%;
-font-weight:bold;
+    font-size:200%;
+    font-weight:bold;
 }
 
 #content {
