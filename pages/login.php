@@ -11,7 +11,7 @@ echo '<h2>' . $lang["login.Header"] . '</h2>';
 
 if($_SESSION['signed_in'] == true)
 {
-	message($lang["error.AlreadyLoggedIn"]);
+	message(sprintf($lang["error.AlreadyLoggedIn"], genURL("logout")));
 }
 
 else
@@ -108,9 +108,8 @@ else
 						$_SESSION['username'] = $row['username'];
 						$_SESSION['role'] = $row['role'];
 					}
-					
-					echo $lang["login.WelcomeStart"] . $_SESSION['username'] . $lang["login.WelcomeEnd"];
-					header("Refresh:1; url=/");
+                    message(sprintf($lang["login.Welcome"], $_SESSION['username'], genURL("")));
+					header("Refresh:1; url=" . genURL(""));
 				}
 			}
 
