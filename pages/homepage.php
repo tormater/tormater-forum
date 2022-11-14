@@ -7,7 +7,7 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
-echo '<h2>' . $config["forumName"] . '</h2>';
+echo '<h2>' . $lang["homepage.Cats"] . '</h2>';
 
 $result = $db->query("SELECT * FROM categories");
 
