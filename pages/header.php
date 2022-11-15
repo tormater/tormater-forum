@@ -19,13 +19,13 @@ if (!defined("INDEXED")) exit;
 <?php
 if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
 {
-	echo '<link rel="stylesheet" href="/../themes/Skyline/style.css?v=0.1" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/Skyline/icon.ico">';
+	echo '<link rel="stylesheet" href="' . genURL("themes/Skyline/style.css?v=0.1") . '" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="' . genURL("themes/Skyline/icon.ico") . '">';
 }
 else
 {
-	echo '<link rel="stylesheet" href="/../themes/' . $config["forumTheme"] . '/style.css?v=0.1" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="/../themes/' . $config["forumTheme"] . '/icon.ico">';
+	echo '<link rel="stylesheet" href="' . genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1') . '" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.ico') . '">';
 }
 ?>
 
@@ -35,44 +35,44 @@ else
     <div id="forumheader"><span class="forumtitle"><?php echo $config["forumName"]; ?></span></div>
 	<div id="menu">
 		<?php
-			echo '<a class="item" href="/">' . $lang["header.Home"] . '</a> ';
+			echo '<a class="item" href="' . genURL("") . '">' . $lang["header.Home"] . '</a> ';
 			
 			if ($config["userlistEnabled"] == true) {
-			    echo '<a class="item" href="/userlist/">' . $lang["header.Userlist"] . '</a> ';
+			    echo '<a class="item" href="' . genURL("userlist") . '">' . $lang["header.Userlist"] . '</a> ';
             }
 		
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="/settings/">' . $lang["header.Settings"] . '</a> ';
+			echo '<a class="item" href="' . genURL("settings") . '">' . $lang["header.Settings"] . '</a> ';
             if(isset($categoryID))
             {
-			    echo '<a class="item" href="/newthread/' . $categoryID . '">' . $lang["header.NewThread"] . '</a> ';
+			    echo '<a class="item" href="' . genURL('newthread/' . $categoryID) . '">' . $lang["header.NewThread"] . '</a> ';
             }
             else
             {
-                echo '<a class="item" href="/newthread/">' . $lang["header.NewThread"] . '</a> ';
+                echo '<a class="item" href="' . genURL("newthread") . '">' . $lang["header.NewThread"] . '</a> ';
             }
         }
         
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
 		{
-			echo '<a class="item" href="/panel/">' . $lang["header.Panel"] . '</a> ';
+			echo '<a class="item" href="' . genURL("panel") . '">' . $lang["header.Panel"] . '</a> ';
 		}
 		
 
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="/logout/">' . $lang["header.Logout"] . '</a> ';
+			echo '<a class="item" href="' . genURL("logout") . '">' . $lang["header.Logout"] . '</a> ';
 		}
 		
 		echo '<div id="userbar">';
  			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
  			{
- 	 			echo $lang["header.Hello"] . '<b><a href="/user/' . $_SESSION["userid"] . '/" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
+ 	 			echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
  			}
  			else
  			{
- 				echo '<a href="/login/">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="/signup/">' . $lang["header.Signup"] . '</a>';
+ 				echo '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
  			}
 		echo "</div>";
 		?>
