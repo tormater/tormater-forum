@@ -94,7 +94,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 					}
 					else
 					{
-						refresh(0);
+						redirect("thread/" . $q2 . "/" . $pages . "/#footer");
 					}
 				}
 			}
