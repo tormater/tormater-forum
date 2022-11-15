@@ -26,6 +26,13 @@ function formatBBCode($post)
         '/\[pre\](.+?)\[\/pre\]/is',
         '/\[h\](.+?)\[\/h\]/is',
         '/\[h2\](.+?)\[\/h2\]/is',
+        '/\[list\](.+?)\[\/list\]/is',
+        '/\[list=1\](.+?)\[\/list\]/is',
+        '/\[list=a\](.+?)\[\/list\]/is',
+        '/\[\*\](.+?)(\n|\r\n?)/is',
+        '/(\n|\r\n?)\[hr\]\[\/hr\](\n|\r\n?)/is',
+        '/(\n|\r\n?)\[hr\]\[\/hr\]/is',
+        '/\[quote\](.+?)\[\/quote\]/is',
     );
 
     $replace = array(
@@ -46,6 +53,13 @@ function formatBBCode($post)
         '<pre class="postpre">$1</pre>',
         '<span class="postheader">$1</span>',
         '<span class="postsubheader">$1</span>',
+        '<ul class="postlist">$1</ul>',
+        '<ol class="postlist" style="list-style-type: decimal;">$1</ol>',
+        '<ol class="postlist" style="list-style-type: lower-alpha">$1</ol>',
+        '<li>$1</li>',
+        '<hr class="posthr"></hr>',
+        '<hr class="posthr"></hr>',
+        '<blockquote style="border-left: 5px solid rgba(0,0,0,.05); padding: 4px 10px; font-style: italic; margin: 0 0 14px; position: relative;">$1</blockquote>',
     );
 
     $returnPost = preg_replace($find, $replace, $returnPost);
