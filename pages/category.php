@@ -73,7 +73,7 @@ else
 			{
 
     // Draw page bar
-	pagination(category);
+	pagination("category");
 
 				echo '<table><tr><th>' . $lang["category.Thread"] . '</th><th>' . $lang["category.Posts"] . '</th><th>' . $lang["category.CreatedBy"] . '</th><th>' . $lang["category.LastPost"] . '</th></tr>';
 					
@@ -115,7 +115,7 @@ else
 				echo "</table>";
 				
     // Draw page bar
-	pagination(category);
+	pagination("category");
     
 			}
 		}
