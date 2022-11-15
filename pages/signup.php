@@ -92,7 +92,7 @@ else
 			echo '<li>' . $value . '</li>';
 		}
 		echo '</ul>';
-		echo '<a class="buttonbig" href="javascript:history.back()">Go Back</a>';
+		echo '<a class="buttonbig" href="javascript:history.back()">' . $lang["error.GoBack"] . '</a>';
 	}
 	else
 	{
