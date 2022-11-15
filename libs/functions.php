@@ -68,7 +68,8 @@ function parseAction($action, $array) {
 
 // Generates a URL for a page based on the site's baseURL
 function genURL($page) {
-    if (!$config["baseURL"] || $config == "http://example.com")
+    global $config;
+    if (!$config["baseURL"] || $config["baseURL"] == "http://example.com")
     {
         $generated = "/" . $page;
     }
@@ -76,7 +77,7 @@ function genURL($page) {
     {
         $generated = $config["baseURL"] . "/" . $page;
     }
-return $generated;
+    return $generated;
 }
 
 // Display a nice message.
