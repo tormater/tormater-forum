@@ -79,7 +79,7 @@ else
 					
 				while($row = $result->fetch_assoc())
 				{				
-					echo '<tr><td class="leftpart"><b><a href="/thread/' . $row['threadid'] . '/">' . htmlspecialchars($row['title']) . "</a></b>";	
+					echo '<tr><td class="leftpart"><b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 					if ($row["locked"] == 1)
 					{
 						echo '<span class="locked">' . $lang["label.Locked"] . '</span>';
@@ -96,7 +96,7 @@ else
 					
 					while ($u = $uinfo->fetch_assoc())
 					{
-						echo '<a href="/user/' . $row['startuser'] . '/" id="' . $u["role"] . '">' . $u['username'] . '</a>';
+						echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
 					}
 					
 					echo "<div class='tddate' title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</div>";
@@ -107,7 +107,7 @@ else
 					
 					while ($u = $uinfo->fetch_assoc())
 					{
-						echo '<a href="/user/' . $row['lastpostuser'] . '/" id="' . $u["role"] . '">' . $u['username'] . '</a>';
+						echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
 					}
 					
 					echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
