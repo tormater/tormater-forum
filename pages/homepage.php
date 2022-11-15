@@ -16,7 +16,7 @@ while($row = $result->fetch_assoc()) {
 	$number = $numthreads->num_rows;
 	echo '<div class="category"><tr>';
 		echo '<td class="leftpart">';
-			echo '<h3><a href="/category/' . $row["categoryid"] . '/">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
+			echo '<h3><a href="' . genURL("category/" . $row["categoryid"]) . '">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
 		echo '<div>' . $row["categorydescription"] . '</div>';
 		echo '<div>' . $lang["homepage.CatThreads"] . $number . '</div>';
 	echo '</tr></div>';
