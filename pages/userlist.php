@@ -7,6 +7,17 @@ if (!defined("INDEXED")) exit;
 
 include "header.php";
 
+if (($q1 == "userlist") && ($config["userlistEnabled"] == false)) {
+    message($lang["error.UserlistDisabled"]);
+    require "pages/footer.php";
+    exit;
+}
+if (($q1 == "userlist") && ($config["userlistEnabled"] == true) && (($config["userlistMembersOnly"] == true) && ($_SESSION["signed_in"] == false))) {
+    message(sprintf($lang["error.UserlistMembersOnly"], genURL("signup"), genURL("login")));
+    require "pages/footer.php";
+    exit;
+}
+
 // Start off by making a query for our list.
 $result = $db->query("SELECT * FROM users ORDER BY userid ASC");
 
