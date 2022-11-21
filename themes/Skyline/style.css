@@ -334,6 +334,7 @@ textarea:focus {
     box-sizing: border-box;
     box-shadow: 0px 1px inset rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(0, 0, 0, 0.5);
+    word-wrap: break-word;
 }
 
 .threadcontent,
@@ -406,7 +407,7 @@ textarea:focus {
 
 .post {
     display: grid;
-    grid-template-columns: 18% 82%;
+    grid-template-columns: 150px auto;
     grid-gap: 0px;
     margin-bottom: 14px;
 }
