@@ -295,7 +295,7 @@ elseif($posts->num_rows == 0)
 	
 else
 {
-	echo '<div><a class="item" href="/category/' . $category . '/">'.$lang["thread.BackToCategory"].'</a></div>';
+	echo '<div><a class="item" href="' . genURL('category/' . $category) . '/">'.$lang["thread.BackToCategory"].'</a></div>';
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
 		echo '<div class="modtools">';
@@ -338,7 +338,7 @@ else
     }
 
     // Draw page bar
-	pagination(thread);
+	pagination("thread");
 
 	while($row = $posts->fetch_assoc())
 	{
@@ -352,7 +352,7 @@ else
 				
 				while ($h = $hider->fetch_assoc())
 				{ 
-					echo '<div class="hiddenpost"><b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> (hidden by <a href="/user/' . $row["deletedby"] . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
+					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> (hidden by <a href="' . genURL('user/' . $row["deletedby"]) . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
 					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 					{
 						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
@@ -364,7 +364,7 @@ else
 			else
 			{   // <a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a>."
 				echo '<div class="post"><div postcolor="' . $u["color"] . '" class="thread">';
-				echo '<b><a href="/user/' . $u["userid"] . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
+				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
                     echo '<div>';
@@ -394,7 +394,7 @@ else
 	}
 		
     // Draw page bar
-	pagination(thread);
+	pagination("thread");
 	
 	if ($_SESSION["role"] == "Suspended")
 	{
@@ -430,7 +430,7 @@ if ($_SESSION['signed_in'] == true)
 {
 	while($row = $thread->fetch_assoc())
 	{
-		$action = $lang["action.Generic"] . ' <a href="/thread/' . $row["threadid"] . '/">' . $row["title"] . '</a>';
+		$action = $lang["action.Generic"] . ' <a href="' . genURL('/thread/' . $row["threadid"]) . '/">' . $row["title"] . '</a>';
 		
 		update_last_action($action);
 	}
