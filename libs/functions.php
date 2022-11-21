@@ -18,8 +18,18 @@ function random_str($length = 10) {
 
 // Redirects the user to the specified page. If blank it defaults to the homepage.
 function redirect($text) {
-	header("Location: " . $config["baseURL"] . "/" . $text);
-	flush();
+    global $config;
+    if (!$config["baseURL"] || $config["baseURL"] == "http://example.com")
+    {
+        header("Location: " . "/" . $text);
+	    flush();
+    }
+    else
+    {
+        header("Location: " . $config["baseURL"] . "/" . $text);
+	    flush();
+    }
+
 	exit();
 }
 
