@@ -105,12 +105,42 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			$result = $db->query("DELETE FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
 			
+            $postCheck = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
+
 			if (!$result)
 			{
 				echo $lang["thread.PostDeleteError"];
 			}
+
+            // If this is the last post in the thread, delete the thread too.
+			if ((!$postCheck) or ($postCheck->num_rows == 0))
+			{
+				$resultd = $db->query("DELETE FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
+			
+				if (!$resultd)
+				{
+					message($lang["thread.ThreadDeleteError"]);
+				}
+			
+				else
+				{
+					$resultd = $db->query("DELETE FROM posts WHERE thread='" . $db->real_escape_string($q2) . "'");
+				
+					if (!$resultd)
+					{
+						message($lang["thread.ThreadPostDeleteError"]);
+					}
+				
+					else
+					{
+						redirect("category/" . $category . "/");
+					}
+				}
+			}
+            
 			else
 			{
+                
 				// Now we need to update the thread's data to be in sync with the remaining posts.
 				$lastpost = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
 				if ((!$lastpost) or ($lastpost->num_rows == 0))
