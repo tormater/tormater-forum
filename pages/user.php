@@ -121,7 +121,7 @@ else
 			// If the viewing user is logged in, update their last action.
 			if ($_SESSION['signed_in'] == true)
 			{
-				$action = $lang["action.Generic"]. '<a href="/user/' . $row["userid"] . '/">' . $row["username"] . $lang["action.UserProfile"] . '</a>';
+				$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $row["userid"]) . '/">' . $row["username"] . $lang["action.UserProfile"] . '</a>';
 				update_last_action($action);
 			}
 		}

@@ -115,7 +115,7 @@ else
 						{
 							$db->query("COMMIT");
 					
-							message($lang["newthread.SuccessCreate1"] . ' <a href="/thread/'. $threadid . '/">' . $lang["newthread.SuccessCreate2"] . '</a>');
+							message($lang["newthread.SuccessCreate1"] . ' <a href="' . genURL('thread/' . $threadid) . '/">' . $lang["newthread.SuccessCreate2"] . '</a>');
 							include("footer.php");
 							exit;
 						}
