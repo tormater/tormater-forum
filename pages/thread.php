@@ -326,6 +326,7 @@ elseif($posts->num_rows == 0)
 else
 {
 	echo '<div><a class="item" href="' . genURL('category/' . $category) . '/">'.$lang["thread.BackToCategory"].'</a></div>';
+	echo '<h2>'. htmlspecialchars($title); // $lang["thread.PostInTitle"]
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
 		echo '<div class="modtools">';
@@ -348,8 +349,7 @@ else
 		}
 		echo '</div>';
 	}
-	echo '<h2>'. htmlspecialchars($title) . '</h2>'; // $lang["thread.PostInTitle"]
-	
+    echo '</h2>';
 	if ($locked == 1 or $stickied == 1)
 	{
 		echo '<div>'.$lang["thread.Labels"];
