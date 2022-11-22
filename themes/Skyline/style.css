@@ -236,6 +236,10 @@ h2 {
     padding: 15px;
     background: linear-gradient(to right, #92d2ff, #92d2ff00);
     border-left: 2px solid #4bb4ff;
+    word-wrap: break-word;
+}
+h2 .modtools {
+    font-size:70%;
 }
 
 /* Menu styles. */
@@ -267,7 +271,8 @@ h2 {
 
 .modtools {
     text-align: right;
-    margin: 8px 0;
+    display:inline-block;
+    float:right;
 }
 
 .modtools form {
