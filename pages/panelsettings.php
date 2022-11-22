@@ -119,8 +119,8 @@ else
         $config["forumLang"] = $newlang;
         $config["footer"] = $newfooter;
         saveConfig("./config/config.php", $config);
-        echo '<meta http-equiv="refresh" content="1;url=/panel/" />';
         message($lang["panel.ChangesSaved"]);
+        refresh(1, "panel");
     }
 }
 ?>
