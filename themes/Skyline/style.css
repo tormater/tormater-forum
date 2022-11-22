@@ -98,6 +98,7 @@ button {
     background: linear-gradient(#fff, #d3d3d3);
     border: 1px solid #808080;
     border-radius: 3px;
+    font-family: Arial, sans-serif;
 }
 
 button:hover {
@@ -255,11 +256,13 @@ h2 {
 .threadbutton:hover {
     filter: brightness(120%);
     text-decoration: none;
+    cursor: pointer;
 }
 
 .item:active,
 .threadbutton:active {
     filter: brightness(70%);
+    cursor: pointer;
 }
 
 .modtools {
@@ -667,7 +670,22 @@ legend {
     cursor: default;
 }
 
+.buttonNo {
+    color:#b90000;
+    transition: 50ms cubic-bezier(0.50, 1, 0.50, 1);
+    transition-property: background-color,border-color;
+}
+
+.buttonNo:hover, .buttonNo:active {
+    background:#b40000;
+    border-color:rgb(105, 0, 0);
+    color:#fff;
+}
+
 /* Posts */
+.editbox {
+    padding-left:5px
+}
 .postc button {
     background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
     border: 1px solid rgba(0, 0, 0, 0.6);
