@@ -86,8 +86,29 @@ else
 			
 			else
 			{
+
+				if ($row["role"] == "Administrator")
+				{
+					$role = $lang["role.Admin"];
+				}
+				elseif ($row["role"] == "Moderator")
+				{
+					$role = $lang["role.Mod"];
+				}
+				elseif ($row["role"] == "Member")
+				{
+					$role = $lang["role.Member"];
+				}
+				elseif ($row["role"] == "Suspended")
+				{
+					$role = $lang["role.Suspend"];
+				}
+				else
+				{
+					$role = $lang["role.Member"];
+				}
 				
-				echo '<div class="userrole">' . $row["role"] . '</div></div>';
+				echo '<div class="userrole">' . $role . '</div></div>';
 				
 			}
 			$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
