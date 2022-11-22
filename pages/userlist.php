@@ -36,6 +36,7 @@ else
 	else
 	{
 		echo '<h2>'.$lang["header.Userlist"].'</h2>';
+        echo "<div class='userlist-grid'>";
 
         
 		
@@ -62,10 +63,12 @@ else
 				$role = $lang["role.Member"];
 			}
 
-			echo '<div class="userlist" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $role . '&nbsp; <small>' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div>';
+			echo '<div class="userlist"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $role . '&nbsp; <small></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
 	} // . '/" id="' . $u["role"] . '">' .
 }
+
+echo "</div>";
 
 include "footer.php";
 
