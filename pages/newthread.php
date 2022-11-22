@@ -153,7 +153,7 @@ else
 		{
 		
 			echo '<form method="post" action="">';
-			echo '<div class="forminput"><label>' . $lang["newthread.Title"] . '</label><input type="text" name="title"';
+			echo '<div class="forminput"><label>' . $lang["newthread.Title"] . '</label><input type="text" maxlength="' . $config["maxCharsPerTitle"] . '" name="title"';
 			if (isset($titleSave)) echo "value='" . $titleSave . "'";
 			echo '></div><div class="forminput"><label>' . $lang["newthread.Category"] . '</label>'; 
 
