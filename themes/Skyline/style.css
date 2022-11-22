@@ -490,10 +490,27 @@ legend {
 }
 
 /* Userlist Styles. */
+.userlist-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 0px;
+}
 .userlist {
-    margin-bottom: 14px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+.userlist-top {
     padding: 5px;
+    box-shadow: 0px 1px inset rgba(255, 255, 255, 0.5);
     border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.userlist-bottom {
+    padding: 5px;
+    background: #F6F6F6;
+    box-sizing: border-box;
+    box-shadow: 0px 1px inset #fff;
+    border: 1px solid #adadad;
+    border-top: none;
 }
 
 /* User Styles. */
@@ -811,4 +828,8 @@ legend {
         margin: 0px;
         margin-top: 4px;
     }
+    /* Userlist */
+    .userlist-grid {
+    display: block;
+}
 }
