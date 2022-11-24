@@ -416,7 +416,7 @@ textarea:focus {
 
 .post {
     display: grid;
-    grid-template-columns: 150px auto;
+    grid-template-columns: 150px 83%;
     grid-gap: 0px;
     margin-bottom: 14px;
 }
