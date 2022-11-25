@@ -271,8 +271,7 @@ h2 .modtools {
 
 .modtools {
     text-align: right;
-    display:inline-block;
-    float:right;
+    float: right;
 }
 
 .modtools form {
@@ -325,7 +324,7 @@ textarea {
     border-radius: 3px;
     font-family: Arial, sans-serif;
     font-size: 100%;
-    resize: none;
+    resize: vertical;
 }
 
 textarea:focus {
@@ -853,6 +852,9 @@ legend {
     }
     /* Userlist */
     .userlist-grid {
-    display: block;
-}
+        display: block;
+    }
+    .userlist {
+        margin-right: 0px;
+    }
 }
