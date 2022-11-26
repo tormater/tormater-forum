@@ -500,11 +500,7 @@ legend {
 .userlist-grid {
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-gap: 0px;
-}
-.userlist {
-    margin-right: 20px;
-    margin-bottom: 20px;
+    grid-gap: 1em;
 }
 .userlist-top {
     padding: 5px;
@@ -852,9 +848,6 @@ legend {
     }
     /* Userlist */
     .userlist-grid {
-        display: block;
-    }
-    .userlist {
-        margin-right: 0px;
+        grid-template-columns: auto;
     }
 }
