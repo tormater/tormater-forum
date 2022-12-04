@@ -1,5 +1,5 @@
 <?php
-// panelsettings.php
+// panelsettings.page.php
 // The Forum Settings portion of the admin panel.
 
 // Only load the page if it's being loaded through the index.php file.

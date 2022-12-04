@@ -1,5 +1,5 @@
 <?php
-// homepage.php
+// homepage.page.php
 // Initializes the home page.
 
 // Only load the page if it's being loaded through the index.php file.

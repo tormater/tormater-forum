@@ -1,5 +1,5 @@
 <?php
-// panelcategory.php
+// panelcategory.page.php
 // Creates a new category.
 
 // Only load the page if it's being loaded through the index.php file.

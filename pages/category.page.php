@@ -1,5 +1,5 @@
 <?php
-// category/php
+// category.page.php
 // Shows all the threads inside a category.
 
 // Only load the page if it's being loaded through the index.php file.

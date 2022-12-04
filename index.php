@@ -62,21 +62,21 @@ if (isset($url[3])) $q4 = $url[3];
 
 // Based on the URL, serve the user with a corresponding page.
 if ($config['installed'] == "no") require "install/install.php";
-elseif (!$q1) require "pages/homepage.php";
-elseif ($q1 == "signup") require "pages/signup.php";
-elseif ($q1 == "register") require "pages/signup.php";
-elseif ($q1 == "login") require "pages/login.php";
+elseif (!$q1) require "pages/homepage.page.php";
+elseif ($q1 == "signup") require "pages/signup.page.php";
+elseif ($q1 == "register") require "pages/signup.page.php";
+elseif ($q1 == "login") require "pages/login.page.php";
 elseif ($q1 == "logout") logout();
-elseif ($q1 == "newthread") require "pages/newthread.php";
-elseif ($q1 == "category") require "pages/category.php";
-elseif ($q1 == "thread") require "pages/thread.php";
-elseif ($q1 == "userlist") require "pages/userlist.php";
-elseif ($q1 == "user") require "pages/user.php";
-elseif ($q1 == "settings") require "pages/settings.php";
-elseif ($q1 == "panel") require "pages/panel.php";
+elseif ($q1 == "newthread") require "pages/newthread.page.php";
+elseif ($q1 == "category") require "pages/category.page.php";
+elseif ($q1 == "thread") require "pages/thread.page.php";
+elseif ($q1 == "userlist") require "pages/userlist.page.php";
+elseif ($q1 == "user") require "pages/user.page.php";
+elseif ($q1 == "settings") require "pages/settings.page.php";
+elseif ($q1 == "panel") require "pages/panel.page.php";
 else {
 	message($lang["error.PageNotFound"]);
-	require "pages/homepage.php";
+	require "pages/homepage.page.php";
 }
 
 ?>

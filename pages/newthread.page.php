@@ -1,5 +1,5 @@
 <?php
-// newthread.php
+// newthread.page.php
 // Creates a new thread.
 
 // Only load the page if it's being loaded through the index.php file.

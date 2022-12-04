@@ -1,5 +1,5 @@
 <?php
-// panel.php
+// panel.page.php
 // The admin panel, which is important for forum administration.
 
 // Only load the page if it's being loaded through the index.php file.
@@ -20,15 +20,15 @@ echo '<a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSe
 
 if ($q2 == "category")
 {
-    include "panelcategory.php";
+    include "panelcategory.page.php";
 }
 elseif ($q2 == "user")
 {
-    include "paneluser.php";
+    include "paneluser.page.php";
 }
 else
 {
-    include "panelsettings.php";
+    include "panelsettings.page.php";
 }
 
 include "footer.php";

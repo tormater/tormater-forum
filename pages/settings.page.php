@@ -1,5 +1,5 @@
 <?php
-// settings.php
+// settings.page.php
 // Allows the user to change their settings.
 
 // Only load the page if it's being loaded through the index.php file.

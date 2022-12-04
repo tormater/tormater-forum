@@ -1,5 +1,5 @@
 <?php
-//signup.php
+//signup.page.php
 // Allows users to create accounts.
 
 // Only load the page if it's being loaded through the index.php file.

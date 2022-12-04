@@ -1,5 +1,5 @@
 <?php
-// thread.php
+// thread.page.php
 // Shows the inside of a thread and allows users to post.
 
 // Only load the page if it's being loaded through the index.php file.

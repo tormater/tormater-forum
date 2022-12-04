@@ -1,5 +1,5 @@
 <?php
-// user.php
+// user.page.php
 // Displays a given user's profile.
 
 // Only load the page if it's being loaded through the index.php file.

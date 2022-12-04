@@ -1,9 +1,22 @@
 <?php
-// paneluser.php
-// Displays a list of all the users on the forum for admins to administrate.
+// userlist.page.php
+// Displays a list of all the users on the forum.
 
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
+
+include "header.php";
+
+if (($q1 == "userlist") && ($config["userlistEnabled"] == false)) {
+    message($lang["error.UserlistDisabled"]);
+    require "pages/footer.php";
+    exit;
+}
+if (($q1 == "userlist") && ($config["userlistEnabled"] == true) && (($config["userlistMembersOnly"] == true) && ($_SESSION["signed_in"] == false))) {
+    message(sprintf($lang["error.UserlistMembersOnly"], genURL("signup"), genURL("login")));
+    require "pages/footer.php";
+    exit;
+}
 
 // Start off by making a query for our list.
 $result = $db->query("SELECT * FROM users ORDER BY userid ASC");
@@ -22,8 +35,9 @@ else
 	
 	else
 	{
-		echo '<h2>'.$lang["panel.Users"].'</h2>';
+		echo '<h2>'.$lang["header.Userlist"].'</h2>';
         echo "<div class='userlist-grid'>";
+
         
 		
 		while($row = $result->fetch_assoc())
@@ -51,8 +65,17 @@ else
 
 			echo '<div class="userlist"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $role . '&nbsp; <small></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
-        echo "</div>";
-	}
+	} // . '/" id="' . $u["role"] . '">' .
+}
+
+echo "</div>";
+
+include "footer.php";
+
+// If the viewing user is logged in, update their last action.
+if ($_SESSION['signed_in'] == true)
+{
+	update_last_action($lang["action.Userlist"]);
 }
 
 ?>
