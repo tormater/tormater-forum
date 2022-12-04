@@ -163,7 +163,7 @@ else
 					echo '<option ';
 					if (isset($catSave) && $catSave == $row["categoryid"]) echo "selected ";
                     elseif (isset($q2) && $q2 == $row["categoryid"]) echo "selected ";
-					echo 'value="' . $row['categoryid'] . '">' . $row['categoryname'] . '</option>';
+					echo 'value="' . $row['categoryid'] . '">' . htmlspecialchars($row['categoryname']) . '</option>';
 				}
 			echo '</select></div>';	
 					
