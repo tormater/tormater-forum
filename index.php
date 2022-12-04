@@ -6,11 +6,9 @@
 define("INDEXED", "1");
 
 // Require all the necessary files for the forum to function.
-
 require "libs/functions.php";
 
 // Config handling, stop your config from being overwritten on upgrade
-
 if (file_exists("config/config-setup.php")) {
     require "config/config-setup.php";
 } 
@@ -63,8 +61,8 @@ if (isset($url[2])) $q3 = $url[2];
 if (isset($url[3])) $q4 = $url[3];
 
 // Based on the URL, serve the user with a corresponding page.
-if (!$q1) require "pages/homepage.php";
-elseif ($q1 == "installer") require "install/install.php";
+if ($config['installed'] == "no") require "install/install.php";
+elseif (!$q1) require "pages/homepage.php";
 elseif ($q1 == "signup") require "pages/signup.php";
 elseif ($q1 == "register") require "pages/signup.php";
 elseif ($q1 == "login") require "pages/login.php";
@@ -76,7 +74,6 @@ elseif ($q1 == "userlist") require "pages/userlist.php";
 elseif ($q1 == "user") require "pages/user.php";
 elseif ($q1 == "settings") require "pages/settings.php";
 elseif ($q1 == "panel") require "pages/panel.php";
-
 else {
 	message($lang["error.PageNotFound"]);
 	require "pages/homepage.php";
