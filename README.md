@@ -8,8 +8,8 @@ This software has been tested on the following Linux distributions: Debian 11, U
 The following instructions will install Tormater forum on most Linux distributions, and even Windows if you're patient enough.
 
 1. Install the latest versions of the following software: Apache 2, MySQL, PHP. You will also need the PHP-MySQL plugin.
-2. Setup the software. You will want to create a MySQL user and a MySQL database for the forum to use. The config should be filled out by you with this user's details.
-3. Navigate to your forum's install script. E.g. if it's hosted at example.com go to example.com/installer.
-4. You will want to create an account and set it as an administrator through the database. You will also want to create some categories and perhaps a thread or two.
+2. Setup the software. You will want to create a MySQL user with a native password and a MySQL database for the forum to use. The installer page should be filled out by you with this user's details.
+3. Navigate to your forum, you should be directed to the installer page.
+4. You will want to create your administrator account and fill out the MySQL details in the installer page. You will also want to create some categories and perhaps a thread or two once you've installed the forum.
 5. Enjoy! It should be smooth sailing from here.
 
