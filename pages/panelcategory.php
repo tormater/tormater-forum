@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			}
 		}
 
-		echo '<h3>'.$lang["panel.DeleteCategory"].'('.$name.')</h3>';
+		echo '<h3>'.$lang["panel.DeleteCategory"].'('.htmlspecialchars($name).')</h3>';
 		echo'
 		<div class="formcontainer"><form method="post" action="">
 		<input style="display:none;" type="text" name="deleteit" value="' . htmlspecialchars($id) . '">
