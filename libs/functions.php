@@ -49,7 +49,7 @@ function logout() {
 
 // Makes sure there aren't any bad characters in usernames
 function checkUsername($username) {
-if (!preg_match("#^[a-zA-Z0-9_-]+$#", $username)) {
+if (!preg_match("#^[a-zA-Z0-9\s_-]+$#", $username)) {
    return false;   
 } 
 else {
