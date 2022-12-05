@@ -1,6 +1,6 @@
 <?php
 // thread.page.php
-// Shows the inside of a thread and allows users to post.
+// Shows the inside of a thread and allows users and mods/admins to perform many actions involving posts and the thread itself.
 
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
