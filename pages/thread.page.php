@@ -246,6 +246,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				}
 			}
 		}
+
+		// If the user is requesting to move the thread...
+		elseif (($_POST["movethread"]) && ($_POST["category"]) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
+        {
+            // Only proceed if the values the user entered are valid.
+            if (is_numeric($_POST["category"]) or is_numeric($_POST["movethread"])) {
+                // Make sure the category is valid.
+                $categoryCheck = $db->query("SELECT * FROM categories");
+
+                 while($row = $categoryCheck->fetch_assoc()) {
+					if ($row["categoryid"] == $_POST["category"]) {
+						// If it's valid, run the query.
+                        $db->query("UPDATE threads set category='" . $row["categoryid"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+                         
+                        refresh(0);
+                    }
+                 }
+            }
+        }
 		
 		// If the user is requesting to lock the thread...
 		elseif (($_POST["lockthread"]) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
@@ -330,7 +349,22 @@ else
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
 		echo '<div class="modtools">';
+
+		$categories = $db->query("SELECT * FROM categories");
+
+        if ($categories->num_rows or $categories) {
+            echo '<form action="" method="post"><select name="category">';
+            while($row = $categories->fetch_assoc())
+				{
+					echo '<option ';
+                    if ($category == $row["categoryid"]) echo "selected ";
+					echo 'value="' . $row['categoryid'] . '">' . htmlspecialchars($row['categoryname']) . '</option>';
+				}
+			echo '</select> <button name="movethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.MoveThreadBtn"].'</button></form>';	
+        }
+
 		echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.DeleteThreadBtn"].'</button></form>';
+
 		if ($locked == 1)
 		{
 			echo '<form action="" method="post"><button name="unlockthread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.UnlockThreadBtn"].'</button></form>';

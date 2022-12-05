@@ -67,6 +67,7 @@ $lang = array(
     "thread.LockThreadBtn" => "Lock",
     "thread.UnstickyThreadBtn" => "Unsticky",
     "thread.StickyThreadBtn" => "Sticky",
+    "thread.MoveThreadBtn" => "Move",
     "thread.PostInTitle" => "Posts in",
     "thread.ContentTitle" => "Content:",
     // Labels & Buttons
