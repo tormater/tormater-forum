@@ -101,105 +101,123 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 		
 		// If the user is requesting to delete a post...
-		elseif (($_POST["delete"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
+		elseif (($_POST["delete"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 		{
-			$result = $db->query("DELETE FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
+            // First make sure the user has permission to delete the specified post.
+			$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
+			while ($p = $permission->fetch_assoc()) {
+                if (($_SESSION["userid"] == $p["user"]) or ($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+			        $result = $db->query("DELETE FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
 			
-            $postCheck = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
+                    $postCheck = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
 
-			if (!$result)
-			{
-				echo $lang["thread.PostDeleteError"];
-			}
+			        if (!$result)
+			        {
+				        echo $lang["thread.PostDeleteError"];
+			        }
 
-            // If this is the last post in the thread, delete the thread too.
-			if ((!$postCheck) or ($postCheck->num_rows == 0))
-			{
-				$resultd = $db->query("DELETE FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
+                    // If this is the last post in the thread, delete the thread too.
+			        if ((!$postCheck) or ($postCheck->num_rows == 0))
+			        {
+				        $resultd = $db->query("DELETE FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
 			
-				if (!$resultd)
-				{
-					message($lang["thread.ThreadDeleteError"]);
-				}
+				        if (!$resultd)
+				        {
+					        message($lang["thread.ThreadDeleteError"]);
+				        }
 			
-				else
-				{
-					$resultd = $db->query("DELETE FROM posts WHERE thread='" . $db->real_escape_string($q2) . "'");
+				        else
+				        {
+					        $resultd = $db->query("DELETE FROM posts WHERE thread='" . $db->real_escape_string($q2) . "'");
 				
-					if (!$resultd)
-					{
-						message($lang["thread.ThreadPostDeleteError"]);
-					}
+					        if (!$resultd)
+					        {
+						        message($lang["thread.ThreadPostDeleteError"]);
+					        }
 				
-					else
-					{
-						redirect("category/" . $category . "/");
-					}
-				}
-			}
+					        else
+					        {
+						        redirect("category/" . $category . "/");
+					        }
+                        }
+                    }
             
-			else
-			{
+			        else
+			        {
                 
-				// Now we need to update the thread's data to be in sync with the remaining posts.
-				$lastpost = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
-				if ((!$lastpost) or ($lastpost->num_rows == 0))
-				{
-					echo $lang["thread.ThreadDataError"];
-				}
+				        // Now we need to update the thread's data to be in sync with the remaining posts.
+				        $lastpost = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
+				        if ((!$lastpost) or ($lastpost->num_rows == 0))
+				        {
+					        echo $lang["thread.ThreadDataError"];
+				        }
 				
-				else
-				{
-					while($row = $lastpost->fetch_assoc())
-					{
-						$update = $db->query("UPDATE threads SET posts=posts-1, lastpostuser='" . $row["user"] . "', lastposttime='" . $row["timestamp"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
-					}
+				        else
+				        {
+					        while($row = $lastpost->fetch_assoc())
+					        {
+						        $update = $db->query("UPDATE threads SET posts=posts-1, lastpostuser='" . $row["user"] . "', lastposttime='" . $row["timestamp"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+					        }
 					
-					refresh(0);
+					        refresh(0);
+                        }
+                    }
 				}
 			}
 		}
 		
 		// If the user is requesting to hide a post...
-		elseif (($_POST["hide"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
+		elseif (($_POST["hide"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 		{
-			$result = $db->query("UPDATE posts SET deletedby='" . $_SESSION["userid"] . "' WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
+            // First make sure the user has permission to hide the specified post.
+			$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
+			while ($p = $permission->fetch_assoc()) {
+                if (($_SESSION["userid"] == $p["user"]) or ($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+			        $result = $db->query("UPDATE posts SET deletedby='" . $_SESSION["userid"] . "' WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
 			
-			if (!$result)
-			{
-				message($lang["thread.PostHiddenError"]);
-			}
+			        if (!$result)
+			        {
+				        message($lang["thread.PostHiddenError"]);
+			        }
 			
-			else
-			{
-				refresh(0);
-			}
+			        else
+			        {
+				        refresh(0);
+			        }
+                }
+            }
 		}
 		
 		// If the user is requesting to restore a post...
-		elseif (($_POST["restore"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
+		elseif (($_POST["restore"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 		{
-			$result = $db->query("UPDATE posts SET deletedby=NULL WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
+            // First make sure the user has permission to restore the specified post.
+			$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
+			while ($p = $permission->fetch_assoc()) {
+                if (($_SESSION["userid"] == $p["user"]) or ($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+			        $result = $db->query("UPDATE posts SET deletedby=NULL WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
 			
-			if (!$result)
-			{
-				message($lang["thread.PostRestoredError"]);
-			}
+			        if (!$result)
+			        {
+				        message($lang["thread.PostRestoredError"]);
+			        }
 			
-			else
-			{
-				refresh(0);
-			}
+			        else
+			        {
+				        refresh(0);
+			        }
+                }
+            }
 		}
 		
 		// If the user is requesting to save an edit...
-		elseif (($_POST["saveedit"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["saveedit"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 		{
 			// First make sure the user has permission to edit the specified post.
 			$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
 			while ($p = $permission->fetch_assoc())
 			{
-				if ((!$p["user"] == $_SESSION["userid"]) && ((!$_SESSION["role"] == "Moderator") or (!$_SESSION["role"] == "Administrator")))
+				if (($p["user"] != $_SESSION["userid"]) && (($_SESSION["role"] != "Moderator") or ($_SESSION["role"] != "Administrator")))
 				{
 					message($lang["thread.PostEditError"]);
 				}
@@ -247,7 +265,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			}
 		}
 
-		// If the user is requesting to move the thread...
+        // If the user is requesting to move the thread...
 		elseif (($_POST["movethread"]) && ($_POST["category"]) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
         {
             // Only proceed if the values the user entered are valid.
@@ -256,12 +274,11 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
                 $categoryCheck = $db->query("SELECT * FROM categories");
 
                  while($row = $categoryCheck->fetch_assoc()) {
-					if ($row["categoryid"] == $_POST["category"]) {
-						// If it's valid, run the query.
-                        $db->query("UPDATE threads set category='" . $row["categoryid"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+                     if ($row["categoryid"] == $_POST["category"]) {
+                         $db->query("UPDATE threads set category='" . $row["categoryid"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
                          
-                        refresh(0);
-                    }
+                         refresh(0);
+                     }
                  }
             }
         }
@@ -350,7 +367,7 @@ else
 	{
 		echo '<div class="modtools">';
 
-		$categories = $db->query("SELECT * FROM categories");
+        $categories = $db->query("SELECT * FROM categories");
 
         if ($categories->num_rows or $categories) {
             echo '<form action="" method="post"><select name="category">';
@@ -363,7 +380,7 @@ else
 			echo '</select> <button name="movethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.MoveThreadBtn"].'</button></form>';	
         }
 
-		echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.DeleteThreadBtn"].'</button></form>';
+        echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.DeleteThreadBtn"].'</button></form>';
 
 		if ($locked == 1)
 		{
@@ -417,7 +434,7 @@ else
 				while ($h = $hider->fetch_assoc())
 				{ 
 					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> (hidden by <a href="' . genURL('user/' . $row["deletedby"]) . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
-					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
+					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 					{
 						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
 					}
@@ -433,15 +450,12 @@ else
 				{
                     echo '<div>';
 					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
-					if((!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
-					{
-						echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
-						echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
-					}
+					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
+					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
 					echo '</div>';
 				}
 				
-				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
+				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true)))
 				{
 					echo '</div><div class="editbox"><form method="post" action="" class="editbox">';				
 					echo '<div class="forminput"><textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
