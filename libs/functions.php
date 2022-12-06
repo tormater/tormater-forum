@@ -217,11 +217,11 @@ function pagination($pageName) {
 					echo '<a class="buttonbig" href="'. genURL($pageName.'/'.$q2.'/'.$x.'">'.$x) .'</a>';
 				}
 			}
-			echo '<span>…</span>';
+			echo '<span class="paginationdots">…</span>';
 			echo '<a class="buttonbig" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/">'.$pages) .'</a>';
 		} else {
 			echo '<a class="buttonbig" href="'. genURL($pageName.'/'.$q2).'/1/">1</a>';
-			echo '<span>…</span>';
+			echo '<span class="paginationdots">…</span>';
 			for ($x = $pages - 6; $x <= $pages; $x++) {
 				if ($x == $currentPage) {
 					echo '<span class="buttondisabled">'.$x.'</span>';
