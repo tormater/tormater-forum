@@ -195,6 +195,7 @@ $lang = array(
     "register.PasswordEmpty" => "The password field must not be empty.",
     "register.ConfirmPasswordEmpty" => "The confirm password field must not be empty.",
     "register.ConfirmPasswordWrong" => "The confirmed password isn't the same as the password.",
+    "register.TooManyAccounts" => "You've created too many accounts. Try logging into an existing one instead.",
     
     // User login
     "login.Header" => "Log in",

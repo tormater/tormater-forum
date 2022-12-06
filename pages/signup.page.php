@@ -9,19 +9,7 @@ include 'header.php';
 
 echo '<h2>' . $lang["register.Header"] . '</h2>';
 
-if($_SERVER['REQUEST_METHOD'] != 'POST')
-{
-    echo '<div class="formcontainer"><form method="post" action="">
- 	 	<div class="forminput"><label>' . $lang["register.Username"] . '</label><input type="text" name="user_name" /></div>
-		<div class="forminput"><label></label><small class="fieldhint">' . $lang["register.UsernameDesc"] . '</small></div>
-		<div class="forminput"><label>' . $lang["register.Email"] . '</label><input type="email" name="user_email"></div>
-		<div class="forminput"><label>' . $lang["register.Password"] . '</label><input type="password" name="user_pass"></div>
-		<div class="forminput"><label></label><small class="fieldhint">' . sprintf($lang["register.PasswordDesc"], X) . '</small></div>
-		<div class="forminput"><label>' . $lang["register.PasswordConf"] . '</label><input type="password" name="user_pass_check"></div>
-		<div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["register.Submit"] . '" /></div>
- 	 </form></div>';
-}
-else
+if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
 	$errors = array();
 	
@@ -75,13 +63,17 @@ else
 	{
 		$errors[] = $lang["register.ConfirmPasswordEmpty"]; // $lang["error.ConfPassNull"]
 	}
-	else
+    elseif($_POST['user_pass'] != $_POST['user_pass_check'])
 	{
-		if($_POST['user_pass'] != $_POST['user_pass_check'])
-		{
-			$errors[] = $lang["register.ConfirmPasswordWrong"]; // $lang["error.PassConfFail"]
-		}
+		$errors[] = $lang["register.ConfirmPasswordWrong"]; // $lang["error.PassConfFail"]
 	}
+
+    // Make sure this user hasn't already created the maximum number of accounts.
+    $altCheck = $db->query("SELECT ip FROM users WHERE ip='" . md5($_SERVER["REMOTE_ADDR"]) . "'");
+
+    if ($altCheck->num_rows >= $config["maxAccountsPerIP"]) {
+        $errors[] = $lang["register.TooManyAccounts"];
+    }
 
 	if(!empty($errors))
 	{
@@ -92,7 +84,6 @@ else
 			echo '<li>' . $value . '</li>';
 		}
 		echo '</ul>';
-		echo '<a class="buttonbig" href="javascript:history.back()">' . $lang["error.GoBack"] . '</a>';
 	}
 	else
 	{
@@ -118,9 +109,20 @@ else
 		else
 		{
 			printf($lang["register.Success"], genURL("login"));
+            exit;
 		}
 	}
 }
+
+echo "<div class='formcontainer'><form method='post' action=''>
+<div class='forminput'><label>" . $lang["register.Username"] . "</label><input type='text' name='user_name' value='" . $_POST["user_name"] . "' /></div>
+<div class='forminput'><label></label><small class='fieldhint'>" . $lang["register.UsernameDesc"] . "</small></div>
+<div class='forminput'><label>" . $lang["register.Email"] . "</label><input type='email' name='user_email' value='" . $_POST["user_email"] . "'></div>
+<div class='forminput'><label>" . $lang["register.Password"] . "</label><input type='password' name='user_pass' value='" . $_POST["user_pass"] . "'></div>
+<div class='forminput'><label></label><small class='fieldhint'>" . sprintf($lang["register.PasswordDesc"], "X") . "</small></div>
+<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . $_POST["user_pass_check"] . "'></div>
+<div class='forminput'><label></label><input type='submit' class='buttonbig' value='" . $lang["register.Submit"] . "' /></div>
+</form></div>";
 
 include 'footer.php';
 

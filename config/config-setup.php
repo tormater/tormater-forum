@@ -24,7 +24,8 @@ $config = array(
     'forumTheme' => 'Skyline', // The directory that the forum should look in for skin files
     'forumLang' => 'EN_US', // The language file that the forum should use to display strings
     'userlistEnabled' => true, // Whether or not the userlist is enabled.
-    'userlistMembersOnly' => false // Whether or not the userlist is only viewable by members.
+    'userlistMembersOnly' => false, // Whether or not the userlist is only viewable by members.
+    'maxAccountsPerIP' => 5 // Maximum number of accounts that can be created on one IP.
 );
 
 ?>
