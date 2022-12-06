@@ -361,7 +361,7 @@ elseif($posts->num_rows == 0)
 	
 else
 {
-	echo '<div><a class="item" href="' . genURL('category/' . $category) . '/">'.$lang["thread.BackToCategory"].'</a></div>';
+	echo '<div><a class="threadbutton" href="' . genURL('category/' . $category) . '/">'.$lang["thread.BackToCategory"].'</a></div>';
 	echo '<h2>'. htmlspecialchars($title); // $lang["thread.PostInTitle"]
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
