@@ -166,11 +166,51 @@ select:hover {
 /* Pagination styles. */
 .pagination {
     margin: 10px 0;
-    line-height: 200%;
+    box-sizing: border-box;
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
 }
-.pagination a,
-.pagination span {
-    margin-right: 4px;
+.paginationinside {
+    box-sizing: border-box;
+    display: inline-block;
+    max-width: 100%;
+    height: 30px;
+    overflow-x:clip;
+}
+.paginationend {
+    display:inline-block;
+    background-color:inherit;
+    height: 30px;
+}
+.pagendr {
+    position: absolute;
+    right: 1;
+}
+.pageButton, .pageButtonDisabled {
+    background:linear-gradient(rgb(255, 255, 255),rgb(187, 187, 187));
+    padding:4px 8px;
+    color: #000;
+    border: 1px solid #000;
+    border-right: none;
+    box-shadow: 0 2px rgb(192, 192, 192);
+}
+.pagendr .pageButton:nth-child(2n), .pagendr .pageButtonDisabled:nth-child(2n) {
+    border-right: 1px solid #000;
+}
+.pageButton:hover {
+    box-shadow: 0 2px rgb(165, 183, 207);
+}
+.pageButtonDisabled {
+    color:rgb(95, 95, 95);
+    box-shadow: 0 2px rgb(113, 164, 231);
+}
+.paginationdots {
+    background:linear-gradient(rgb(87, 87, 87),rgb(53, 53, 53));
+    padding:4px;
+    color: #000;
+    border: 1px solid #000;
+    border-right: none;
 }
 
 /* Table styles. */
