@@ -52,7 +52,9 @@ $lang = array(
     "header.Hello" => "Hello, ",
     
     "homepage.CatThreads" => "Threads: ",
+    "homepage.Threads" => "Recent Threads",
     "homepage.Cats" => "Categories",
+    "homepage.Title" => "Homepage",
     
     "category.ThreadsIn" => "Threads in ",
     "category.Thread" => "Thread",
