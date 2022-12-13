@@ -79,7 +79,8 @@ else
 					
 				while($row = $result->fetch_assoc())
 				{				
-					echo '<tr><td class="leftpart"><b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
+					echo '<tr><td class="leftpart">';
+
 					if ($row["locked"] == 1)
 					{
 						echo '<span class="locked">' . $lang["label.Locked"] . '</span>';
@@ -89,6 +90,8 @@ else
 					{
 						echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
 					}
+
+                    echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 
 					echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
 					
