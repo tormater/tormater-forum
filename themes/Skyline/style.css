@@ -423,30 +423,30 @@ textarea:focus {
     border-radius: 6px;
 }
 
-.locked {
+.sticky, .locked {
     display: inline-block;
     margin: 4px 0px;
-    margin-left: 8px;
+    margin-right: 8px;
     padding: 2px 6px;
-    background: linear-gradient(#acacac, #525252);
-    box-shadow: 0px 1px inset #bdbdbd;
-    border: 1px solid #000;
-    border-radius: 4px;
-    color: #fff;
-    text-shadow: 0px -1px #4d4d4d;
+    padding-right: 8px;
+    border-radius: 12px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+    background:linear-gradient(rgb(207, 207, 207),rgb(185, 185, 185));
+    color: #000;
+    border: 1px solid rgb(146, 146, 146);
+    text-shadow: 0 1px rgb(218, 218, 218);
 }
 
 .sticky {
-    display: inline-block;
-    margin: 4px 0px;
+    background:linear-gradient(rgb(255, 229, 111),rgb(255, 213, 28));
+    border: 1px solid rgb(255, 174, 0);
+    text-shadow: 0 1px rgb(255, 233, 133);
+}
+
+font.sticky, font.locked {
     margin-left: 8px;
-    padding: 2px 6px;
-    background: linear-gradient(#ff9e0c, #ca7900);
-    box-shadow: 0px 1px inset #ffcf4c;
-    border: 1px solid #472e00;
-    border-radius: 4px;
-    color: #fff;
-    text-shadow: 0px -1px #ad6800;
+    margin-right: 0;
 }
 
 .postdate a {
