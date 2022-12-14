@@ -32,7 +32,7 @@ else
 </head>
 <body>
 	<div id="wrapper">
-    <div id="forumheader"><span class="forumtitle"><?php echo $config["forumName"]; ?></span></div>
+    <div id="forumheader"><a class="forumtitle" href="<?php echo genURL("") . '">' . $config["forumName"]; ?></a></div>
 	<div id="menu">
 		<?php
 			echo '<a class="item" href="' . genURL("") . '">' . $lang["header.Home"] . '</a> ';
