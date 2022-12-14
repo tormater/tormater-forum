@@ -193,7 +193,7 @@ function pagination($pageName) {
 	if ($pages <= 10) {
 		for ($x = 1; $x <= $pages; $x++){
 			if ($x == $currentPage) {
-				echo '<span class="pageButtonDisabled">'.$x.'</span>';
+				echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 			} else {
 				echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/">'.$x) .'</a>';
 			}
@@ -202,7 +202,7 @@ function pagination($pageName) {
 		if ($currentPage <= 4) {
 			for ($x = 1; $x < 8; $x++) {
 				if ($x == $currentPage) {
-					echo '<span class="pageButtonDisabled">'.$x.'</span>';
+					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 				} else {
 					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/">'.$x) .'</a>';
 				}
@@ -214,7 +214,7 @@ function pagination($pageName) {
 			echo '<span class="paginationdots">…</span>';
 			for ($x = $currentPage - $adjacents; $x <= $currentPage + $adjacents; $x++) {
 				if ($x == $currentPage) {
-					echo '<span class="pageButtonDisabled">'.$x.'</span>';
+					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 				} else {
 					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'">'.$x) .'</a>';
 				}
@@ -226,7 +226,7 @@ function pagination($pageName) {
 			echo '<span class="paginationdots">…</span>';
 			for ($x = $pages - 6; $x <= $pages; $x++) {
 				if ($x == $currentPage) {
-					echo '<span class="pageButtonDisabled">'.$x.'</span>';
+					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 				} else {
 					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/">'.$x).'</a>';
 				}
