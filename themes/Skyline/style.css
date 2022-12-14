@@ -36,13 +36,17 @@ a:hover {
     border: 1px solid #1f4f83;
     border-radius: 8px;
     text-shadow: 0px 2px #1f4f83;
-    color: #fff;
-    margin:10px 0;
+    margin: 10px 0;
 }
 
 .forumtitle {
-    font-size:200%;
-    font-weight:bold;
+    font-size: 200%;
+    font-weight: bold;
+    color: #fff;
+}
+
+.forumtitle:hover {
+    text-decoration: none;
 }
 
 #content {
