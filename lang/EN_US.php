@@ -51,7 +51,7 @@ $lang = array(
     "header.or" => " or ",
     "header.Hello" => "Hello, ",
     
-    "homepage.CatThreads" => "Threads: ",
+    "homepage.CatThreads" => "Threads",
     "homepage.Threads" => "Recent Threads",
     "homepage.Cats" => "Categories",
     "homepage.Title" => "Homepage",
