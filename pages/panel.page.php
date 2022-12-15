@@ -14,7 +14,7 @@ if (!$_SESSION["role"] == "Administrator")
     exit;
 }
 
-echo '<a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="' . genURL("panel/user") . '">'.$lang["panel.Users"].'</a> <a class="buttonbig" href="' . genURL("panel/category") . '">'.$lang["panel.Categories"].'</a>';
+echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="' . genURL("panel/user") . '">'.$lang["panel.Users"].'</a> <a class="buttonbig" href="' . genURL("panel/category") . '">'.$lang["panel.Categories"].'</a></div>';
 
 // Find out which page we're loading
 
