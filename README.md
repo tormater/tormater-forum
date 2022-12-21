@@ -1,5 +1,5 @@
 # Tormater Forum
-![2022-11-14_12-22](https://user-images.githubusercontent.com/115832947/201758181-e6fbb859-45ef-415b-a45f-6335a8c00d97.png)<br/>
+![image](https://user-images.githubusercontent.com/115832947/208813283-4bdfee70-04e4-4cde-b298-ea129599087d.png)<br/>
 ![](https://img.shields.io/badge/PHP-v7.4+-8892be.svg) ![](https://img.shields.io/github/license/tormater/tormater-forum) ![](https://img.shields.io/github/v/release/tormater/tormater-forum) ![](https://img.shields.io/github/languages/code-size/tormater/tormater-forum) ![](https://img.shields.io/github/downloads/tormater/tormater-forum/total) ![](https://img.shields.io/github/issues/tormater/tormater-forum) ![](https://img.shields.io/badge/tormater-yes-yellowgreen)
 # Installation Instructions
 Tormater forum will run on any computer/server with Apache 2.0, MySQL/MariaDB and PHP 7.4.
