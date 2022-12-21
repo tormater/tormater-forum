@@ -105,7 +105,7 @@ elseif ($q1 == "thread")
 }
 elseif ($q1 == "category")
 {
-    echo '<span class="pageButton pageButtonLast">' . htmlspecialchars($categoryName) . '</span>';
+    echo '<span class="pageButtonDisabled pageButtonLast">' . htmlspecialchars($categoryName) . '</span>';
 }
 elseif ($q1 == "user")
 {
