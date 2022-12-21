@@ -31,8 +31,21 @@ else
 
 </head>
 <body>
-	<div id="wrapper">
-    <div id="forumheader"><a class="forumtitle" href="<?php echo genURL("") . '">' . $config["forumName"]; ?></a></div>
+	<div class="tormater-forum">
+    <div id="forumheader">
+    <?php echo '<a class="forumtitle" href="' . genURL("") . '">' . $config["forumName"] . '</a>';
+    		echo '<div id="userbar">';
+ 			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+ 			{
+ 	 			echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
+ 			}
+ 			else
+ 			{
+ 				echo '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
+ 			}
+		echo "</div>";
+    ?>
+    </div>
 	<div id="menu">
 		<?php
 			echo '<a class="item" href="' . genURL("") . '">' . $lang["header.Home"] . '</a> ';
@@ -64,17 +77,7 @@ else
 		{
 			echo '<a class="item" href="' . genURL("logout") . '">' . $lang["header.Logout"] . '</a> ';
 		}
-		
-		echo '<div id="userbar">';
- 			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
- 			{
- 	 			echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
- 			}
- 			else
- 			{
- 				echo '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
- 			}
-		echo "</div>";
+
 		?>
 	</div>
-		<div id="content">
+	<div id="content">
