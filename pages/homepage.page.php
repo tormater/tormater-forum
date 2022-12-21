@@ -1,80 +1,83 @@
 <?php
-// homepage.page.php
-// Initializes the home page.
+// header.php
+// Placed at the top of every page on the forum.
 
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include 'header.php';
-
-echo '<h2>' . $lang["homepage.Title"] . '</h2>';
-
-$result = $db->query("SELECT * FROM categories");
-
-$threads = $db->query("SELECT * FROM threads ORDER BY lastposttime DESC LIMIT 5");
-
-echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center style="word-break: keep-all;">' . $lang["homepage.CatThreads"] . '</center></th></tr>';
-while($row = $result->fetch_assoc()) {
-	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
-	$number = $numthreads->num_rows;
-	echo '<tr><td><h3><a href="' . genURL("category/" . $row["categoryid"]) . '">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
-	echo '<div>' . htmlspecialchars($row["categorydescription"]) . '</div></td>';
-	echo '<td><div><center>' . $number . '</center></div></td></tr>';
-}
-echo '</table>';
-echo '<table><tr><th>' . $lang["homepage.Threads"] . '</th><th><center>' . $lang["category.Posts"] . '</center></th><th>' . $lang["category.CreatedBy"] . '</th><th>' . $lang["category.LastPost"] . '</th></tr>';
-					
-while($row = $threads->fetch_assoc())
-{				
-	echo '<tr><td class="leftpart">';
-
-	if ($row["locked"] == 1)
-	{
-		echo '<span class="locked">' . $lang["label.Locked"] . '</span>';
-	}
-	
-	if ($row["sticky"] == 1)
-	{
-		echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
-	}
-
-    echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
-
-
-	echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
-					
-	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");
-					
-	while ($u = $uinfo->fetch_assoc())
-	{
-		echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
-	}
-					
-	echo "<div class='tddate' title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</div>";
-					
-	echo '</td><td>';
-					
-	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["lastpostuser"] . "'");
-					
-	while ($u = $uinfo->fetch_assoc())
-	{
-		echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
-	}
-					
-	echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
-}
-
-echo "</table>";
-
-
-// Include "latest threads"
-
-include 'footer.php';
-
-// If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
-{
-	update_last_action("action.Homepage");
-}
-
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Powered by tormater-forum" />
+	<meta name="keywords" content="tormater-forum, tormater, forum" />
+    <title><?= $config["forumName"]; ?></title>
+
+<?php
+if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
+{
+	echo '<link rel="stylesheet" href="' . genURL("themes/Skyline/style.css?v=0.1") . '" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="' . genURL("themes/Skyline/icon.ico") . '">';
+}
+else
+{
+	echo '<link rel="stylesheet" href="' . genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1') . '" type="text/css">';
+    echo '<link rel="icon" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.ico') . '">';
+}
+?>
+
+</head>
+<body>
+	<div class="tormater-forum">
+    <div id="forumheader">
+    <?php echo '<a class="forumtitle" href="' . genURL("") . '">' . $config["forumName"] . '</a>';
+    		echo '<div id="userbar">';
+ 			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+ 			{
+ 	 			echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
+ 			}
+ 			else
+ 			{
+ 				echo '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
+ 			}
+		echo "</div>";
+    ?>
+    </div>
+	<div id="menu">
+		<?php
+			echo '<a class="item" href="' . genURL("") . '">' . $lang["header.Home"] . '</a> ';
+			
+			if ($config["userlistEnabled"] == true) {
+			    echo '<a class="item" href="' . genURL("userlist") . '">' . $lang["header.Userlist"] . '</a> ';
+            }
+		
+		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+		{
+			echo '<a class="item" href="' . genURL("settings") . '">' . $lang["header.Settings"] . '</a> ';
+            if(isset($categoryID))
+            {
+			    echo '<a class="item" href="' . genURL('newthread/' . $categoryID) . '">' . $lang["header.NewThread"] . '</a> ';
+            }
+            else
+            {
+                echo '<a class="item" href="' . genURL("newthread") . '">' . $lang["header.NewThread"] . '</a> ';
+            }
+        }
+        
+		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
+		{
+			echo '<a class="item" href="' . genURL("panel") . '">' . $lang["header.Panel"] . '</a> ';
+		}
+		
+
+		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+		{
+			echo '<a class="item" href="' . genURL("logout") . '">' . $lang["header.Logout"] . '</a> ';
+		}
+
+		?>
+	</div>
+	<div id="content">
