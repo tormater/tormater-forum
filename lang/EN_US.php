@@ -176,6 +176,7 @@ $lang = array(
     "panel.DeleteCategoryBackBtn" => "Go back",
     "panel.SuccessDeleteCategory" => "Successfully deleted.",
     "panel.NoNewCategoriesCreate" => "Sorry, no more new categories can be created.",
+    "panel.CatThreads" => "Threads: ",
     
     // User register
     "register.Header" => "Sign up",
