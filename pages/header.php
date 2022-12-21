@@ -80,4 +80,70 @@ else
 
 		?>
 	</div>
-	<div id="content">
+<div id="pageBar"><div class="pagination">
+<?php 
+echo '<a class="pageButton" href="' . genURL("") . '">' . $config["forumName"] . '</a>';
+echo '<span class="paginationdots">/</span>';
+
+if (!$q1)
+{
+    echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.homepage"] . '</span>';
+}
+elseif ($q1 == "thread")
+{
+    // Get the category information.
+    $categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($category) . "'");
+
+
+    while ($row = $categoryDB->fetch_assoc()) {
+	    $categoryName = $row['categoryname'];
+	    $categoryDescription = $row['categorydescription'];
+    }
+    echo '<a class="pageButton" href="' . genURL('category/' . $category). '">' . htmlspecialchars($categoryName) . '</a>';
+    echo '<span class="paginationdots">/</span>';
+    echo '<span class="pageButtonDisabled pageButtonLast">' . htmlspecialchars($title) . '</span>';
+}
+elseif ($q1 == "category")
+{
+    echo '<span class="pageButton pageButtonLast">' . htmlspecialchars($categoryName) . '</span>';
+}
+elseif ($q1 == "user")
+{
+    echo '<a class="pageButton" href="' . genURL("userlist") . '">' . $lang["page.userlist"] . '</a>';
+    echo '<span class="paginationdots">/</span>';
+    echo '<span class="pageButtonDisabled pageButtonLast">' . htmlspecialchars($username) . '</span>';
+}
+elseif ($q1 == "panel")
+{
+    if ($q2 == "user")
+    {
+        echo '<a class="pageButton" href="' . genURL("panel") . '">' . $lang["page.Panel"] . '</a>';
+        echo '<span class="paginationdots">/</span>';
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.PanelUsers"] . '</span>';
+    }
+    elseif ($q2 == "category")
+    {
+        echo '<a class="pageButton" href="' . genURL("panel") . '">' . $lang["page.Panel"] . '</a>';
+        echo '<span class="paginationdots">/</span>';
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.PanelCats"] . '</span>';
+    }
+    else
+    {
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.Panel"] . '</span>';
+    }
+}
+else
+{ 
+    if (!$lang["page." . $q1])
+    {
+        $name = $lang["page.homepage"];
+    }
+    else
+    {
+        $name = $lang["page." . $q1];
+    }
+    echo '<span class="pageButtonDisabled pageButtonLast">' . $name . '</span>';
+}
+?>
+</div></div>
+<div id="content">
