@@ -183,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			echo '<form style="display:inline-block;" method="post" action=""><button name="edit" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryEditBtn"].'</button></form> 
 				<form style="display:inline-block;" method="post" action=""><button name="delete" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryDeleteBtn"].'</button></form>';
 			echo '</div>';
-			echo $lang["homepage.CatThreads"] . $number . '</div>';
+			echo $lang["panel.CatThreads"] . $number . '</div>';
     	echo '</tr></div>';
     }
 	echo '
