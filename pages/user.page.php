@@ -38,6 +38,7 @@ else
 		while ($row = $result->fetch_assoc())
 		{
             $username = $row["username"];
+            $userid = $row["userid"];
             $color = $row["color"];
             $role = $row["role"];
             $verified = $row["verified"];
@@ -126,7 +127,7 @@ else
 			// If the viewing user is logged in, update their last action.
 			if ($_SESSION['signed_in'] == true)
 			{
-				$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $row["userid"]) . '/">' . $row["username"] . $lang["action.UserProfile"] . '</a>';
+				$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $userid) . '/">' . $username . $lang["action.UserProfile"] . '</a>';
 				update_last_action($action);
 		}
 	}
