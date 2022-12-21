@@ -285,10 +285,15 @@ $lang = array(
     "time.YearsAgo" => "years ago",
     
     // Page bar
-    "page.Homepage" => "Home",
-    "page.Userlist" => "Users",
-    "page.Login" => "Login",
-    "page.Register" => "Register",
+    "page.homepage" => "Home",
+    "page.userlist" => "Users",
+    "page.login" => "Login",
+    "page.signup" => "Register",
+    "page.settings" => "Settings",
+    "page.newthread" => "New Thread",
+    "page.Panel" => "Admin Panel",
+    "page.PanelCats" => "Categories",
+    "page.PanelUsers" => "Users",
 );
 
 ?>
