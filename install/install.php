@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	        `categorydescription` varchar(255) NOT NULL,
 	        PRIMARY KEY (`categoryid`),
 	        UNIQUE KEY `category_name` (`categoryname`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         $db->query("CREATE TABLE `posts` (
 	        `postid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -70,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `deletedby` int unsigned DEFAULT NULL,
   	        `content` text NOT NULL,
   	        PRIMARY KEY (`postid`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         $db->query("CREATE TABLE `threads` (
 	        `threadid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `lastposttime` int unsigned NOT NULL,
   	        `category` int unsigned NOT NULL,
   	        PRIMARY KEY (`threadid`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         $db->query("CREATE TABLE `users` (
 	        `userid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        PRIMARY KEY (`userid`),
   	        UNIQUE KEY `user_name` (`username`),
   	        UNIQUE KEY `user_email` (`email`)
-        ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         // Create the admin's account, first generating the salt, password hash, and IP address hash.
         $adminSalt = random_str(32);
