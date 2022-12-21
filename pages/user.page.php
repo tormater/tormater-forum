@@ -5,8 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include "header.php";
-
 // Start off by making a query using the given userid.
 $result = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
 
@@ -17,6 +15,7 @@ if (!$result)
 
 else
 {
+    
 	if ($result->num_rows == 0)
 	{
 		message($lang["user.NoSuchUser"]);
@@ -35,19 +34,29 @@ else
 			
 			refresh(0);
 		}
-		
+
 		while ($row = $result->fetch_assoc())
 		{
-			if ($row["verified"] == "1") $verified = $lang["user.VerifiedYes"];
-			else $verified = $lang["user.VerifiedNo"];
+            $username = $row["username"];
+            $color = $row["color"];
+            $role = $row["role"];
+            $verified = $row["verified"];
+            $lastactive = $row["lastactive"];
+            $jointime = $row["jointime"];
+        }
+
+        include "header.php";
+
+		if ($row["verified"] == "1") $verified = $lang["user.VerifiedYes"];
+		else $verified = $lang["user.VerifiedNo"];
 			
-            echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($row["username"]) . '"</h2>';
-            echo '<div class="post"><div class="usertop" postcolor="' . htmlspecialchars($row["color"]) . '"><b id="' .$row["role"] . '">' . htmlspecialchars($row["username"]) . '</b>';
+            echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
+            echo '<div class="post"><div class="usertop" postcolor="' . htmlspecialchars($color) . '"><b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
 			if ($_SESSION['role'] == "Administrator")
 			{
 				echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
 				
-				if ($row['role'] == "Administrator")
+				if ($role == "Administrator")
 				{
 					echo '<option value="Administrator" selected>'.$lang["user.OptionAdmin"].'</option>';
 					echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
@@ -55,7 +64,7 @@ else
 					echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
 				}
 				
-				elseif ($row['role'] == "Moderator")
+				elseif ($role == "Moderator")
 				{
 					echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
 					echo '<option value="Moderator" selected>'.$lang["user.OptionMod"].'</option>';
@@ -63,7 +72,7 @@ else
 					echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
 				}
 				
-				elseif ($row['role'] == "Member")
+				elseif ($role == "Member")
 				{
 					echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
 					echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
@@ -71,7 +80,7 @@ else
 					echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
 				}
 				
-				elseif ($row['role'] == "Suspended")
+				elseif ($role == "Suspended")
 				{
 					echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
 					echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
@@ -85,31 +94,8 @@ else
 			}
 			
 			else
-			{
-
-				if ($row["role"] == "Administrator")
-				{
-					$role = $lang["role.Admin"];
-				}
-				elseif ($row["role"] == "Moderator")
-				{
-					$role = $lang["role.Mod"];
-				}
-				elseif ($row["role"] == "Member")
-				{
-					$role = $lang["role.Member"];
-				}
-				elseif ($row["role"] == "Suspended")
-				{
-					$role = $lang["role.Suspend"];
-				}
-				else
-				{
-					$role = $lang["role.Member"];
-				}
-				
-				echo '<div class="userrole">' . $role . '</div></div>';
-				
+			{				
+				echo '<div class="userrole">' . $lang["role." . $role] . '</div></div>';
 			}
 			$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
 				
@@ -131,8 +117,8 @@ else
 				$uthreads +=1;
 			}
 			echo '<div class="userbottom">
-				<span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $row['jointime']) . '">' . relativeTime($row["jointime"]) . '</a></span>
-				<span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $row['lastactive']) . '">' . relativeTime($row["lastactive"]) . '</a></span>
+				<span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></span>
+				<span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></span>
 				<span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'</label>' . $uposts . '</span>
 				<span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label>' . $uthreads . '</span>
 				<span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span></div></div>';
@@ -142,7 +128,6 @@ else
 			{
 				$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $row["userid"]) . '/">' . $row["username"] . $lang["action.UserProfile"] . '</a>';
 				update_last_action($action);
-			}
 		}
 	}
 }
