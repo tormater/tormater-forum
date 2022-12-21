@@ -231,6 +231,11 @@ $lang = array(
     "role.Member" => "Member",
     "role.Suspend" => "Suspended",
 
+    "role.Administrator" => "Administrator",
+    "role.Moderator" => "Moderator",
+    "role.Member" => "Member",
+    "role.Suspended" => "Suspended",
+
     // User settings
     "settings.LoginFirst" => "You must be logged in to change user settings.",
     "settings.CurrentPassword" => "Current password",
@@ -279,6 +284,11 @@ $lang = array(
     "time.1YearAgo" => "1 year ago",
     "time.YearsAgo" => "years ago",
     
+    // Page bar
+    "page.Homepage" => "Home",
+    "page.Userlist" => "Users",
+    "page.Login" => "Login",
+    "page.Register" => "Register",
 );
 
 ?>
