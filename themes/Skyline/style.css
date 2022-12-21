@@ -74,6 +74,14 @@ a:hover {
     text-align: left;
 }
 
+#pageBar {
+    float: left;
+    padding: 12px 0px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
 
 #menu {
     float: left;
@@ -87,7 +95,6 @@ a:hover {
     font-size: 110%;
     border-bottom-right-radius:10px;
     border-bottom-left-radius:10px;
-    margin-bottom: 10px
 }
 
 .item {
@@ -209,7 +216,7 @@ select:hover {
     border-right: none;
     box-shadow: 0 2px rgb(192, 192, 192);
 }
-.pagendr .pageButton:nth-child(2n), .pagendr .pageButtonDisabled:nth-child(2n) {
+.pagendr .pageButton:nth-child(2n), .pagendr .pageButtonDisabled:nth-child(2n), .pageButtonLast {
     border-right: 1px solid rgb(68, 68, 68);
 }
 .pageButton:hover {
@@ -220,7 +227,7 @@ select:hover {
     box-shadow: 0 2px rgb(113, 164, 231);
 }
 .paginationdots {
-    background:linear-gradient(rgb(87, 87, 87),rgb(53, 53, 53));
+    background:linear-gradient(rgb(128, 128, 128),rgb(96, 96, 96));
     padding:4px;
     color: #000;
     border: 1px solid #000;
