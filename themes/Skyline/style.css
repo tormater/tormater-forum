@@ -223,7 +223,7 @@ select:hover {
     box-shadow: 0 2px rgb(165, 183, 207);
 }
 .pageButtonDisabled {
-    color:rgb(95, 95, 95);
+    color:rgb(40, 40, 40);
     box-shadow: 0 2px rgb(113, 164, 231);
 }
 .paginationdots {
