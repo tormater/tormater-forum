@@ -5,8 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include 'header.php';
-
 // Get the thread's information.
 $thread = $db->query("SELECT * FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
 
@@ -31,6 +29,8 @@ while($row = $thread->fetch_assoc()) {
 	$numPosts = $row['posts'];
 	$pages = ceil($numPosts / $config["postsPerPage"]);
 }
+
+include 'header.php';
 
 // Calculate the offset for the posts query.
 $offset = (($currentPage * $config["postsPerPage"]) - $config["postsPerPage"]);
