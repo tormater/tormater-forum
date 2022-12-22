@@ -842,6 +842,9 @@ legend {
     margin: -1px 1px;
 }
 
+.deleteduser {
+    filter: grayscale(80%) brightness(90%);
+}
 
 /* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
