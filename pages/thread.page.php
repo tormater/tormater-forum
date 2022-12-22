@@ -442,8 +442,10 @@ else
 			}
 			
 			else
-			{   // <a href='/user/" . $_SESSION["userid"] . "/' id='" . $_SESSION["role"] . "'>" . $_SESSION["username"] . "</a>."
-				echo '<div class="post"><div postcolor="' . $u["color"] . '" class="thread">';
+			{
+				if ($u["deleted"] == "1") $deletedClass = " deleteduser";
+            			else $deletedClass = "";
+				echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
 				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
