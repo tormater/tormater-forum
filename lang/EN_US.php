@@ -149,6 +149,7 @@ $lang = array(
     "panel.ChangeError" => "Some fields are left blank, or something went wrong.",
     // Admin panel / Users
     "panel.Users" => "Users",
+    "panel.DeleteUser" => "Delete User",
     // Admin panel / Categories
     "panel.Categories" => "Categories",
     "panel.CreateACategory" => "Create a category",
@@ -177,6 +178,14 @@ $lang = array(
     "panel.SuccessDeleteCategory" => "Successfully deleted.",
     "panel.NoNewCategoriesCreate" => "Sorry, no more new categories can be created.",
     "panel.CatThreads" => "Threads: ",
+    // Admin panel / Delete User
+    "panel.DeleteUserMessage" => "Attention, you are about to delete this user. Make absolutely sure you want to do this before proceeding because of the potentially irreversible nature of this action.",
+    "panel.DeleteKeepPosts" => "Delete User and Keep Posts",
+    "panel.DeleteHidePosts" => "Delete User and Hide Posts",
+    "panel.DeleteRemovePosts" => "Delete User and Remove Posts",
+    "panel.DeleteUserSuccess" => "Successfully deleted user.",
+    "panel.UseridError" => "Error: there is no user with the specified userid.",
+    "panel.DeleteUserSuccessHide" => "Successfully deleted user and hid all of their posts.",
     
     // User register
     "register.Header" => "Sign up",
