@@ -44,7 +44,12 @@ else
 
 		while ($row = $result->fetch_assoc())
 		{
-            		$username = $row["username"];
+            		if ($row["deleted"] == "1") {
+                		$username = "deleted" . $row["userid"];
+            		}
+            		else {
+                		$username = $row["username"];
+            		}
             		$userid = $row["userid"];
             		$color = $row["color"];
             		$role = $row["role"];
