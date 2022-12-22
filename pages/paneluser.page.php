@@ -48,8 +48,11 @@ else
 			{
 				$role = $lang["role.Member"];
 			}
+			
+			if ($row["deleted"] == "1") $deletedClass = " deleteduser";
+            		else $deletedClass = "";
 
-			echo '<div class="userlist"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $role . '&nbsp; <small><a href="' . genURL("panel/deleteuser/" . $row["userid"]) . '">' . $lang["panel.DeleteUser"] . '</a></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
+			echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($row["username"]) . '</a></b>&nbsp; ' . $role . '&nbsp; <small><a href="' . genURL("panel/deleteuser/" . $row["userid"]) . '">' . $lang["panel.DeleteUser"] . '</a></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
         echo "</div>";
 	}
