@@ -59,11 +59,14 @@ else
 		if ($verified == "1") $verified = $lang["user.VerifiedYes"];
 		else $verified = $lang["user.VerifiedNo"];
 		
-		if ($deleted == "1") $deleted = $lang["user.DeletedYes"];
+		if ($deleted == "1") {
+            		$deleted = $lang["user.DeletedYes"];
+            		$delClass = " deleteduser";
+        	}
 		else $deleted = $lang["user.DeletedNo"];
 			
             	echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
-            	echo '<div class="post"><div class="usertop" postcolor="' . htmlspecialchars($color) . '"><b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
+            	echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '"><b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
 		if (($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
