@@ -26,6 +26,10 @@ elseif ($q2 == "user")
 {
     include "paneluser.page.php";
 }
+elseif ($q2 == "deleteuser")
+{
+    include "paneldeleteuser.page.php";
+}
 else
 {
     include "panelsettings.page.php";
