@@ -231,8 +231,11 @@ $lang = array(
     "user.TitlePosts" => "Posts:",
     "user.TitleThreads" => "Threads:",
     "user.TitleVerified" => "Verified:",
+    "user.TitleDeleted" => "Deleted: ",
     "user.VerifiedYes" => "Yes",
-    "user.VerifiedNo" => "No",    
+    "user.VerifiedNo" => "No",
+    "user.DeletedYes" => "Yes",
+    "user.DeletedNo" => "No",
 
     // Roles
     "role.Admin" => "Administrator",
