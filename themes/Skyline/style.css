@@ -6,7 +6,6 @@
 body {
     background: rgb(214, 214, 214);
     font-size: 75%;
-    
     margin: 0;
     color: #333333;
 }
@@ -764,7 +763,7 @@ legend {
     box-sizing: border-box;
     width: auto;
     max-width: 100%;
-    max-height: 700px;
+    max-height: 90vh;
     border: 1px outset #000;
 }
 
