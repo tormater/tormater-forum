@@ -24,7 +24,7 @@ else
 	{
 		$cat = $db->query("SELECT 1 FROM categories WHERE categoryid='" . $db->real_escape_string($_POST["category"]) . "'");
 		
-		if (strlen($_POST["title"]) < 1)
+		if (mb_strlen($_POST["title"]) < 1)
 		{
 			message($lang["newthread.TitleEmpty"]);
 			$catSave = $_POST["category"];
@@ -32,7 +32,7 @@ else
 			$contentSave = $_POST["content"];
 		}
 		
-		elseif (strlen($_POST["title"]) > $config["maxCharsPerTitle"])
+		elseif (mb_strlen($_POST["title"]) > $config["maxCharsPerTitle"])
 		{
             message(sprintf($lang["newthread.TitleBig1"], $config["maxCharsPerTitle"]));
 			$catSave = $_POST["category"];
@@ -40,7 +40,7 @@ else
 			$contentSave = $_POST["content"];
 		}
 		
-		elseif (strlen($_POST["content"]) < 1)
+		elseif (mb_strlen($_POST["content"]) < 1)
 		{
 			message($lang["newthread.PostEmpty"]);
 			$catSave = $_POST["category"];
@@ -48,7 +48,7 @@ else
 			$contentSave = $_POST["content"];
 		}
 			
-		elseif (strlen($_POST["content"]) > $config["maxCharsPerPost"])
+		elseif (mb_strlen($_POST["content"]) > $config["maxCharsPerPost"])
 		{
             message(sprintf($lang["newthread.PostBig1"], $config["maxCharsPerPost"]));
 			$catSave = $_POST["category"];
