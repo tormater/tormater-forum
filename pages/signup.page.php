@@ -59,6 +59,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$errors[] = $lang["register.PasswordEmpty"]; // $lang["error.PassNull"]
 	}
+	if(strlen($_POST['user_pass']) < 6)
+	{
+		$errors[] = $lang["register.PasswordSmall"];
+	}
 	elseif (empty($_POST['user_pass_check']))
 	{
 		$errors[] = $lang["register.ConfirmPasswordEmpty"]; // $lang["error.ConfPassNull"]
@@ -119,7 +123,7 @@ echo "<div class='formcontainer'><form method='post' action=''>
 <div class='forminput'><label></label><small class='fieldhint'>" . $lang["register.UsernameDesc"] . "</small></div>
 <div class='forminput'><label>" . $lang["register.Email"] . "</label><input type='email' name='user_email' value='" . $_POST["user_email"] . "'></div>
 <div class='forminput'><label>" . $lang["register.Password"] . "</label><input type='password' name='user_pass' value='" . $_POST["user_pass"] . "'></div>
-<div class='forminput'><label></label><small class='fieldhint'>" . sprintf($lang["register.PasswordDesc"], "X") . "</small></div>
+<div class='forminput'><label></label><small class='fieldhint'>" . sprintf($lang["register.PasswordDesc"], "6") . "</small></div>
 <div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . $_POST["user_pass_check"] . "'></div>
 <div class='forminput'><label></label><input type='submit' class='buttonbig' value='" . $lang["register.Submit"] . "' /></div>
 </form></div>";

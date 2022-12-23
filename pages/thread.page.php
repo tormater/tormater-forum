@@ -73,12 +73,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			
 			else
 			{
-				if (strlen($_POST["content"]) < 1)
+				if (mb_strlen($_POST["content"]) < 1)
 				{
 					message($lang["thread.PostEmpty"]);
 				}
 			
-				elseif (strlen($_POST["content"]) > $config["maxCharsPerPost"])
+				elseif (mb_strlen($_POST["content"]) > $config["maxCharsPerPost"])
 				{
                     			message(sprintf($lang["thread.PostBig"], $config["maxCharsPerPost"]));
 				}
@@ -432,7 +432,7 @@ else
 				
 				while ($h = $hider->fetch_assoc())
 				{ 
-					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> (hidden by <a href="' . genURL('user/' . $row["deletedby"]) . '/" id="' . $h["role"] . '">' . $h["username"] . '</a>)';
+					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span>' . sprintf($lang["thread.HiddenBy"], (genURL('user/' . $row["deletedby"] . '/')), $h["role"], $h["username"]);
 					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 					{
 						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
