@@ -72,6 +72,7 @@ $lang = array(
     "thread.MoveThreadBtn" => "Move",
     "thread.PostInTitle" => "Posts in",
     "thread.ContentTitle" => "Content:",
+    "thread.HiddenBy" => "(hidden by <a href='%s' id='%s'>%s</a>)",
     // Labels & Buttons
     "thread.PostReplyBtn" => "Post reply",
     "thread.Labels" => "Labels:",
@@ -204,6 +205,7 @@ $lang = array(
     "register.EmailExists" => "An account with this email already exists.",
     "register.InvalidEmailFormat" => "Invalid email.",
     "register.EmailEmpty" => "The email field must not be empty.",
+    "register.PasswordSmall" => "The password must be at least 6 characters.",
     "register.PasswordEmpty" => "The password field must not be empty.",
     "register.ConfirmPasswordEmpty" => "The confirm password field must not be empty.",
     "register.ConfirmPasswordWrong" => "The confirmed password isn't the same as the password.",
