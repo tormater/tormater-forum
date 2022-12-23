@@ -253,10 +253,12 @@ $lang = array(
     // User settings
     "settings.LoginFirst" => "You must be logged in to change user settings.",
     "settings.CurrentPassword" => "Current password",
+
     // Set post color
     "settings.PostColor" => "Post color",
     "settings.SetColorError" => "Sorry, couldn't set requested color.",
     "settings.SetColorSuccess" => "Successfully set post color.",
+
     // Change username
     "settings.ChangeUsername" => "Change Username",
     "settings.NewUsername" => "New Username",
@@ -268,6 +270,7 @@ $lang = array(
     "settings.NewUsernameNonAlph" => "New username cannot contain non-alphanumeric characters.",
     "settings.NewUsernameError" => "Unable to change username.",
     "settings.NewUsernameChanged" => "Username has been changed.",
+
     // Change password
     "settings.ChangePassword" => "Change Password",
     "settings.NewPassword" => "New Password",
@@ -308,6 +311,10 @@ $lang = array(
     "page.Panel" => "Admin Panel",
     "page.PanelCats" => "Categories",
     "page.PanelUsers" => "Users",
+    "page.upgrade" => "Upgrader",
+
+    "upgrade.Success" => "The forum was successfully upgraded.",
+    "upgrade.None" => "No upgrades to peform!",
 );
 
 ?>
