@@ -73,6 +73,7 @@ if (isset($url[3])) $q4 = $url[3];
 // Based on the URL, serve the user with a corresponding page.
 if ($config['installed'] == "no") require "install/install.php";
 elseif (!$q1) require "pages/homepage.page.php";
+elseif ($q1 == "upgrade") require "upgrade/upgrade.page.php";
 elseif ($q1 == "signup") require "pages/signup.page.php";
 elseif ($q1 == "register") require "pages/signup.page.php";
 elseif ($q1 == "login") require "pages/login.page.php";
