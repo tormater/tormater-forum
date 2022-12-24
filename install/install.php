@@ -100,6 +100,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `salt` varchar(255) NOT NULL,
   	        `verified` tinyint(1) NOT NULL DEFAULT '0',
 		`deleted` tinyint(1) NOT NULL DEFAULT '0',
+		`signature` varchar(512) DEFAULT NULL,
+		`bio` varchar(2048) DEFAULT NULL,
   	        PRIMARY KEY (`userid`),
   	        UNIQUE KEY `user_name` (`username`),
   	        UNIQUE KEY `user_email` (`email`)
