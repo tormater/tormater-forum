@@ -45,7 +45,7 @@ else
 		while ($row = $result->fetch_assoc())
 		{
             		if ($row["deleted"] == "1") {
-                		$username = "deleted" . $row["userid"];
+                		$username = $lang["user.Deleted"] . $row["userid"];
             		}
             		else {
                 		$username = $row["username"];
