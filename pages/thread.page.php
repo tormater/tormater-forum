@@ -444,7 +444,7 @@ else
 			else
 			{
 				if ($u["deleted"] == "1") {
-                    			$username = "deleted" . $u["userid"];
+                    			$username = $lang["user.Deleted"] . $u["userid"];
                     			$deletedClass = " deleteduser";
                 		}
                 		else {
