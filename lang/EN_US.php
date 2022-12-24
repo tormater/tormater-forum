@@ -238,6 +238,7 @@ $lang = array(
     "user.VerifiedNo" => "No",
     "user.DeletedYes" => "Yes",
     "user.DeletedNo" => "No",
+    "user.Deleted" => "deleted",
 
     // Roles
     "role.Admin" => "Administrator",
