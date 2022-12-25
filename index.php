@@ -70,6 +70,8 @@ if (isset($url[1])) $q2 = $url[1];
 if (isset($url[2])) $q3 = $url[2];
 if (isset($url[3])) $q4 = $url[3];
 
+require "libs/extensions.php";
+
 // Based on the URL, serve the user with a corresponding page.
 if ($config['installed'] == "no") require "install/install.php";
 elseif (!$q1) require "pages/homepage.page.php";
