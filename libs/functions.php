@@ -248,4 +248,31 @@ function pagination($pageName) {
 	echo '</div></div>';
 }
 
+$hooks = array();
+
+function listener($hook)
+{
+    global $hooks;
+	if (isset($hooks[$hook])) {		
+		foreach ($hooks[$hook] as $function) {
+			return call_user_func($function);
+            echo $function;
+		}
+	}
+}
+
+function hook($hook, $function)
+{
+    global $hooks;
+    if (isset($hooks[$hook]))
+    {
+        $hooks[$hook] = array_push($hooks[$hook], $function);
+    }
+    else
+    {
+        $hooks[$hook] = array($function);
+    }
+    
+}
+
 ?>
