@@ -57,16 +57,16 @@ else
 		
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 		{
-			echo '<a class="item" href="' . genURL("settings") . '">' . $lang["header.Settings"] . '</a> ';
-            if(isset($categoryID))
-            {
-			    echo '<a class="item" href="' . genURL('newthread/' . $categoryID) . '">' . $lang["header.NewThread"] . '</a> ';
-            }
-            else
-            {
-                echo '<a class="item" href="' . genURL("newthread") . '">' . $lang["header.NewThread"] . '</a> ';
-            }
-        }
+			echo '<a class="item" href="' . genURL("userpanel") . '">' . $lang["header.UserPanel"] . '</a> ';
+            		if(isset($categoryID))
+            		{
+				echo '<a class="item" href="' . genURL('newthread/' . $categoryID) . '">' . $lang["header.NewThread"] . '</a> ';
+            		}
+            		else
+            		{
+                		echo '<a class="item" href="' . genURL("newthread") . '">' . $lang["header.NewThread"] . '</a> ';
+            		}
+        	}
         
 		if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true && $_SESSION["role"] == "Administrator")
 		{
