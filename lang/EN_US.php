@@ -26,6 +26,7 @@ $lang = array(
     "error.NoUsers" => "Sadly, there are currently no users on the forum.",
     
     "nav.AdminsOnly" => "Sorry, this page is unavailable to non-admins.",
+    "nav.LoginRequired" => "Hey, you must be <a href='%s'>logged in</a> to see this page!",
     "nav.FirstPage" => "<<",
     "nav.PrevPage" => "<",
     "nav.NextPage" => ">",
@@ -39,6 +40,8 @@ $lang = array(
     "action.UserProfile" => "'s Profile", // e.g. Tormater's Profile
     "action.Settings" => "Viewing: Settings",
     "action.Panel" => "Viewing: Admin Panel",
+    "action.AccountSettings" => "Viewing: Account Settings",
+    "action.ProfileSettings" => "Viewing: Profile Settings",
     
     "header.Home" => "Home",
     "header.Userlist" => "Userlist",
@@ -50,6 +53,7 @@ $lang = array(
     "header.Signup" => "Sign up",
     "header.or" => " or ",
     "header.Hello" => "Hello, ",
+    "header.UserPanel" => "User Panel",
     
     "homepage.CatThreads" => "Threads",
     "homepage.Threads" => "Recent Threads",
@@ -314,8 +318,18 @@ $lang = array(
     "page.PanelUsers" => "Users",
     "page.upgrade" => "Upgrader",
 
+    // Upgrade
     "upgrade.Success" => "The forum was successfully upgraded.",
     "upgrade.None" => "No upgrades to peform!",
+    
+    // User panel
+    "userpanel.AccountSettings" => "Account Settings",
+    "userpanel.ProfileSettings" => "Profile Settings",
+    "userpanel.AvatarSettings" => "Avatar Settings",
+    "userpanel.Signature" => "Signature",
+    "userpanel.bio" => "Bio",
+    "userpanel.UpdateSignature" => "Update Signature",
+    "userpanel.UpdateBio" => "Update Bio",
 );
 
 ?>
