@@ -8,12 +8,12 @@ if (!defined("INDEXED")) exit;
 ?>
 
 </div><!-- content -->
-<?php listener("afterPageContent") ?>
+<?php listener("afterPageContent"); ?>
 
 <div id="footer">
-<?php listener("beforeFooter")
+<?php listener("beforeFooter");
 echo formatFooter($config["footer"]);
-listener("afterFooter") ?>
+listener("afterFooter"); ?>
 </div>
 </div><!-- wrapper -->
 </body>
