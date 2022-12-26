@@ -439,7 +439,8 @@ textarea:focus {
 .hiddenpost {
     margin-bottom: 14px;
     padding: 8px;
-    max-width: 1000px;
+    width: calc(83% + 175px);
+    box-sizing: border-box;
     background: linear-gradient(#e9e9e9, #d8d8d8);
     box-shadow: 0px 1px inset #fff;
     border: 1px solid rgb(173, 173, 173);
@@ -477,7 +478,7 @@ font.sticky, font.locked {
 
 .post {
     display: grid;
-    grid-template-columns: 150px 83%;
+    grid-template-columns: 175px 83%;
     grid-gap: 0px;
     margin-bottom: 14px;
 }
