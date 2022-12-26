@@ -4,19 +4,34 @@
 
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
-// `deleted` tinyint(1) NOT NULL DEFAULT '0',
 
 $deleteduser = $db->query("SHOW COLUMNS FROM `users` LIKE 'deleted'");
+$usersignature = $db->query("SHOW COLUMNS FROM `users` LIKE 'signature'");
+$userbio = $db->query("SHOW COLUMNS FROM `users` LIKE 'bio'");
 
-if ($deleteduser->num_rows == 0)
+if ($deleteduser->num_rows < 1)
 {
-    $addTable = $db->query("ALTER TABLE `users` ADD `deleted` tinyint(1) NOT NULL DEFAULT '0'");
+    $db->query("ALTER TABLE `users` ADD `deleted` tinyint(1) NOT NULL DEFAULT '0'");
     $upgraded = true;
+}
+elseif ($usersignature->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` ADD `signature` varchar(512) DEFAULT NULL");
+    $upgraded = true;
+}
+elseif ($userbio->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` ADD `bio` varchar(2048) DEFAULT NULL");
+    $upgraded = true;
+}
+else
+{
+    $upgraded = false;
 }
 
 require "pages/header.php";
 
-if ($upgraded == true)
+if ($upgraded === true)
 {
     message($lang["upgrade.Success"]);
 }
