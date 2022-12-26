@@ -455,7 +455,7 @@ else
 				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
-                    echo '<div>';
+                    			echo '<div>';
 					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
@@ -471,9 +471,15 @@ else
 				
 				else
 				{
-					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . '</div>';
+                    			if ((!$u["signature"]) or (!isset($u["signature"])) or ($u["signature"] == "")) {
+                        			$signature = "";
+                    			}
+                    			else {
+                        			$signature = '<hr><p>' . formatPost($u["signature"]) . '</p>';
+                    			}
+					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . $signature . '</div>';
 				}
-                echo "</div>";
+                		echo "</div>";
 			}
 		}
 	}
