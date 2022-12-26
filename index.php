@@ -85,7 +85,7 @@ elseif ($q1 == "category") require "pages/category.page.php";
 elseif ($q1 == "thread") require "pages/thread.page.php";
 elseif ($q1 == "userlist") require "pages/userlist.page.php";
 elseif ($q1 == "user") require "pages/user.page.php";
-elseif ($q1 == "settings") require "pages/settings.page.php";
+elseif ($q1 == "userpanel") require "pages/userpanel.page.php";
 elseif ($q1 == "panel") require "pages/panel.page.php";
 else {
 	message($lang["error.PageNotFound"]);
