@@ -160,12 +160,24 @@ else
 			$uthreads +=1;
 		}
 		echo '<div class="userbottom">
+            		<h3>' . $lang["user.UserInformation"] . '</h3>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'</label>' . $uposts . '</span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label>' . $uthreads . '</span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>
-			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleDeleted"].'</label>' . $deleted . '</span></div></div>';
+			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleDeleted"].'</label>' . $deleted . '</span>';
+
+        $bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
+        
+        while ($b = $bioCheck->fetch_assoc()) {
+            if ((!$b["bio"]) or (!isset($b["bio"])) or ($b["bio"] == "")) {
+                // Do nothing
+            }
+            else {
+                echo("<h3>" . $lang["userpanel.Bio"] . "</h3><span class='userstat'>" . formatPost($b["bio"]) . "</span></div></div>");
+            }
+        }
 
 		// If the viewing user is logged in, update their last action.
 		if ($_SESSION['signed_in'] == true)
