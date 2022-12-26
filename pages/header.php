@@ -15,7 +15,7 @@ if (!defined("INDEXED")) exit;
 	<meta name="description" content="Powered by tormater-forum" />
 	<meta name="keywords" content="tormater-forum, tormater, forum" />
     <title><?= $config["forumName"]; ?></title>
-    <?php listener("meta") ?>
+    <?php listener("meta"); ?>
 
 <?php
 if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
@@ -147,5 +147,5 @@ else
 }
 ?>
 </div></div>
-<?php listener("beforePageContent") ?>
+<?php listener("beforePageContent"); ?>
 <div id="content">
