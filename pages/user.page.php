@@ -57,6 +57,8 @@ else
             		$lastactive = $row["lastactive"];
             		$jointime = $row["jointime"];
 			$deleted = $row["deleted"];
+			$avatar = $row["avatar"];
+			$avatarTime = $row["avataruploadtime"];
         	}
 
         	include "header.php";
@@ -69,9 +71,16 @@ else
             		$delClass = " deleteduser";
         	}
 		else $deleted = $lang["user.DeletedNo"];
+		
+		if ($avatar == "none") {
+            		$uAvatar = "";
+        	}
+        	else {
+            		$uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
+        	}
 			
             	echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
-            	echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '"><b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
+            	echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">' . $uAvatar . '<b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
 		if (($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
