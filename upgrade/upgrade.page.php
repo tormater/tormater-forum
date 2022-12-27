@@ -5,6 +5,8 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+$upgraded = false;
+
 $deleteduser = $db->query("SHOW COLUMNS FROM `users` LIKE 'deleted'");
 $usersignature = $db->query("SHOW COLUMNS FROM `users` LIKE 'signature'");
 $userbio = $db->query("SHOW COLUMNS FROM `users` LIKE 'bio'");
@@ -17,39 +19,35 @@ if ($deleteduser->num_rows < 1)
     $db->query("ALTER TABLE `users` ADD `deleted` tinyint(1) NOT NULL DEFAULT '0'");
     $upgraded = true;
 }
-elseif ($usersignature->num_rows < 1)
+if ($usersignature->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` ADD `signature` varchar(512) DEFAULT NULL");
     $upgraded = true;
 }
-elseif ($userbio->num_rows < 1)
+if ($userbio->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` ADD `bio` varchar(2048) DEFAULT NULL");
     $upgraded = true;
 }
-elseif ($userpassword->num_rows < 1)
+if ($userpassword->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` MODIFY `password` varchar(128) NOT NULL");
     $upgraded = true;
 }
-elseif ($userip->num_rows < 1)
+if ($userip->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` MODIFY `ip` varchar(128) NOT NULL");
     $upgraded = true;
 }
-elseif ($usersalt->num_rows < 1)
+if ($usersalt->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` MODIFY `salt` char(64) NOT NULL");
     $upgraded = true;
 }
-else
-{
-    $upgraded = false;
-}
 
 require "pages/header.php";
 
-if ($upgraded === true)
+if ($upgraded == true)
 {
     message($lang["upgrade.Success"]);
 }
