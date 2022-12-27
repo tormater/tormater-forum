@@ -7,11 +7,11 @@ if (!defined("INDEXED")) exit;
 
 include "header.php";
 
-if (!$_SESSION["role"] == "Administrator")
+if ($_SESSION["role"] != "Administrator")
 {
 	message($lang["nav.AdminsOnly"]);
-    include "footer.php";
-    exit;
+	include "footer.php";
+	exit;
 }
 
 echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="' . genURL("panel/user") . '">'.$lang["panel.Users"].'</a> <a class="buttonbig" href="' . genURL("panel/category") . '">'.$lang["panel.Categories"].'</a></div>';
@@ -20,19 +20,19 @@ echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("panel") . '"
 
 if ($q2 == "category")
 {
-    include "panelcategory.page.php";
+	include "panelcategory.page.php";
 }
 elseif ($q2 == "user")
 {
-    include "paneluser.page.php";
+	include "paneluser.page.php";
 }
 elseif ($q2 == "deleteuser")
 {
-    include "paneldeleteuser.page.php";
+	include "paneldeleteuser.page.php";
 }
 else
 {
-    include "panelsettings.page.php";
+	include "panelsettings.page.php";
 }
 
 include "footer.php";
