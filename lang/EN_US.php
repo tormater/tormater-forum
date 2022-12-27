@@ -319,6 +319,9 @@ $lang = array(
     "page.PanelCats" => "Categories",
     "page.PanelUsers" => "Users",
     "page.upgrade" => "Upgrader",
+    "page.userpanel" => "User Panel",
+    "page.accountsettings" => "Account Settings",
+    "page.profilesettings" => "Profile Settings",
 
     // Upgrade
     "upgrade.Success" => "The forum was successfully upgraded.",
