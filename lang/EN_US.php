@@ -332,7 +332,7 @@ $lang = array(
     "userpanel.ProfileSettings" => "Profile Settings",
     "userpanel.AvatarSettings" => "Avatar Settings",
     "userpanel.Signature" => "Signature",
-    "userpanel.bio" => "Bio",
+    "userpanel.Bio" => "Bio",
     "userpanel.UpdateSignature" => "Update Signature",
     "userpanel.UpdateBio" => "Update Bio",
 );
