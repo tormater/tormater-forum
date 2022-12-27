@@ -475,7 +475,7 @@ else
                         			$signature = "";
                     			}
                     			else {
-                        			$signature = '<hr><p>' . formatPost($u["signature"]) . '</p>';
+                        			$signature = '<hr class="sigline"><p class="signature">' . formatPost($u["signature"]) . '</p>';
                     			}
 					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . $signature . '</div>';
 				}
