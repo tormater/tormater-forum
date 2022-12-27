@@ -90,14 +90,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	        `userid` int unsigned NOT NULL AUTO_INCREMENT,
 	        `username` varchar(26) NOT NULL,
 	        `email` varchar(255) NOT NULL,
-	        `password` char(32) NOT NULL,
+	        `password` varchar(128) NOT NULL,
   	        `role` enum('Administrator','Moderator','Member','Suspended') NOT NULL DEFAULT 'Member',
   	        `jointime` int unsigned NOT NULL,
   	        `lastactive` int unsigned DEFAULT NULL,
   	        `lastaction` varchar(255) DEFAULT NULL,
   	        `color` tinyint unsigned NOT NULL DEFAULT '1',
-  	        `ip` char(32) NOT NULL,
-  	        `salt` varchar(255) NOT NULL,
+  	        `ip` varchar(128) NOT NULL,
+  	        `salt` char(64) NOT NULL,
   	        `verified` tinyint(1) NOT NULL DEFAULT '0',
 		`deleted` tinyint(1) NOT NULL DEFAULT '0',
 		`signature` varchar(512) DEFAULT NULL,
@@ -108,9 +108,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         // Create the admin's account, first generating the salt, password hash, and IP address hash.
-        $adminSalt = random_str(32);
-        $adminHash = md5($adminSalt . $_POST["adminPassword"]);
-        $adminIP = md5($_SERVER["REMOTE_ADDR"]);
+        $adminSalt = random_str(64);
+        $adminHash = hashstring($adminSalt . $_POST["adminPassword"]);
+        $adminIP = hashstring($_SERVER["REMOTE_ADDR"]);
         $db->query("INSERT INTO `users` (username, email, password, role, jointime, color, ip, salt, verified) VALUES ('" . $db->real_escape_string($_POST["adminUsername"]) . "', '" . $db->real_escape_string($adminEmail) . "', '" . $db->real_escape_string($adminHash) . "', 'Administrator', '" . time() . "', '1', '" . $db->real_escape_string($adminIP) . "', '" . $db->real_escape_string($adminSalt) . "' ,'1')");
 
         // Now write our MySQL details to the config as well as whether the forum has been installed or not.
