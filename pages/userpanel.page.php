@@ -14,11 +14,15 @@ if ($_SESSION["signed_in"] == false)
     exit;
 }
 
-echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("userpanel/accountsettings") . '">'.$lang["userpanel.AccountSettings"].'</a> <a class="buttonbig" href="' . genURL("userpanel/profilesettings") . '">'.$lang["userpanel.ProfileSettings"].'</a></div>';
+echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("userpanel/avatarsettings") . '">'.$lang["userpanel.AvatarSettings"].'</a> <a class="buttonbig" href="' . genURL("userpanel/accountsettings") . '">'.$lang["userpanel.AccountSettings"].'</a> <a class="buttonbig" href="' . genURL("userpanel/profilesettings") . '">'.$lang["userpanel.ProfileSettings"].'</a></div>';
 
 // Find out which page we're loading
 
-if ($q2 == "accountsettings")
+if ($q2 == "avatarsettings")
+{
+    include "userpanelavatarsettings.page.php";
+}
+elseif ($q2 == "accountsettings")
 {
     include "userpanelaccountsettings.page.php";
 }
@@ -28,7 +32,7 @@ elseif ($q2 == "profilesettings")
 }
 else
 {
-    include "userpanelaccountsettings.page.php";
+    include "userpanelavatarsettings.page.php";
 }
 
 include "footer.php";
