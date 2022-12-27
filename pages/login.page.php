@@ -80,7 +80,7 @@ else
 			}
 				
 			// Now check if the password is correct.
-			$hash = $db->real_escape_string(md5($salt . $_POST["user_pass"]));
+			$hash = $db->real_escape_string(hashstring($salt . $_POST["user_pass"]));
 			
 
 			$result = $db->query("SELECT userid, username, role FROM users WHERE username = '" . $username . "' AND password = '" . $hash . "'");
