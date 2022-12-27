@@ -5,9 +5,25 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+// Hash a string depending on what algorithm is desired by the configuration.
+function hashstring($text) {
+    global $config;
+    
+    if ($config["hashAlgo"] == "md5") {
+        return md5($text);
+    }
+    elseif ($config["hashAlgo"] == "sha512") {
+        return hash("sha512", $text);
+    }
+    // Default to md5.
+    else {
+        return md5($text);
+    }
+}
+
 // Hugely important function which generates a random string.
 function random_str($length = 10) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~`!@#$%^&*()-_=+[{]};:\'"<>,./?|\\';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
