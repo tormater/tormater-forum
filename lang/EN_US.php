@@ -345,6 +345,17 @@ $lang = array(
     "userpanel.AvatarUploadsDisabled" => "Sorry, avatar uploads have been disabled.",
     "userpanel.NoAvatar" => "None.",
     "userpanel.WaitToUpload" => "You've already uploaded an avatar too recently. Please wait a few minutes and try again.",
+    
+    // BBCode
+    "BBCode.Bold" => "Bold",
+    "BBCode.Italic" => "Italic",
+    "BBCode.Underline" => "Underline",
+    "BBCode.Strikethrough" => "Strikethrough",
+    "BBCode.Link" => "Link",
+    "BBCode.Image" => "Image",
+    "BBCode.Spoiler" => "Spoiler",
+    "BBCode.Code" => "Code",
+    "BBCode.Header" => "Header",
 );
 
 ?>
