@@ -194,11 +194,12 @@ $lang = array(
     
     // User register
     "register.Header" => "Sign up",
+    "register.UsernameDesc" => "Username must be between 3 and 24 characters long.",
+    "register.PasswordDesc" => "Password must be at least %s characters long.",
+    "register.EmailDesc" => "eg. tormater@example.com",
     "register.Username" => "Username",
-    "register.UsernameDesc" => "(3-24 characters, alphanumeric)",
     "register.Email" => "Email",
     "register.Password" => "Password",
-    "register.PasswordDesc" => "(minimum %s characters)",
     "register.PasswordConf" => "Confirm Password",
     "register.Submit" => "Register",
     "register.Success" => "Successfully registered. You can now <a href='%s'>log in</a> and start posting!",
