@@ -133,6 +133,25 @@ elseif ($q1 == "panel")
         echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.Panel"] . '</span>';
     }
 }
+elseif ($q1 == "userpanel")
+{
+    if ($q2 == "accountsettings")
+    {
+        echo '<a class="pageButton" href="' . genURL("userpanel") . '">' . $lang["page.userpanel"] . '</a>';
+        echo '<span class="paginationdots">/</span>';
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.accountsettings"] . '</span>';
+    }
+    elseif ($q2 == "profilesettings")
+    {
+        echo '<a class="pageButton" href="' . genURL("userpanel") . '">' . $lang["page.userpanel"] . '</a>';
+        echo '<span class="paginationdots">/</span>';
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.profilesettings"] . '</span>';
+    }
+    else
+    {
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.userpanel"] . '</span>';
+    }
+}
 else
 { 
     if (!$lang["page." . $q1])
