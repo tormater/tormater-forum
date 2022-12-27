@@ -451,7 +451,14 @@ else
                     			$username = $u["username"];
                     			$deletedClass = "";
                 		}
+				if ($u["avatar"] == "none") {
+                    			$displayAvatar = "";
+                		}
+                		else {
+                    			$displayAvatar = "<img class='avatar' src='" . genURL("avatars/" . $u["userid"] . "." . $u["avatar"] . "?t=" . $u["avataruploadtime"]) . "'>";
+                		}
 				echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
+				echo $displayAvatar;
 				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
