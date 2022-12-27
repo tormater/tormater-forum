@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	while($row = $res->fetch_assoc()) {
 		$salt = $row["salt"];
 	}
-	$hash = md5($salt . $_POST["confirmpass"]);
+	$hash = hashstring($salt . $_POST["confirmpass"]);
 	$result = $db->query("SELECT userid, username, role FROM users WHERE username = '" . $_SESSION['username'] . "' AND password = '" . $db->real_escape_string($hash) . "'");
 	$errors = array();
 	if (isset($_POST["newusername"]))
@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 	
 	if (isset($_POST["newpass"]))
 	{
-		$hash = $db->real_escape_string(md5($salt . $_POST["oldpass"]));
+		$hash = $db->real_escape_string(hashstring($salt . $_POST["oldpass"]));
 		$result = $db->query("SELECT userid, username, role FROM users WHERE username = '" . $_SESSION['username'] . "' AND password = '" . $hash . "'");
 		$newpass = $_POST["newpass"];
 		$confirmnewpass = $_POST["confirmnewpass"];
@@ -89,9 +89,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 		}
 		else
 		{
-			$salt = random_str(32);
-			$password = md5($salt . $_POST["newpass"]);
-			$result = $db->query("UPDATE users SET password ='" . $db->real_escape_string($password) . "', salt = '" . $salt . "'  WHERE userid='" . $_SESSION["userid"] . "'");
+			$salt = random_str(64);
+			$password = hashstring($salt . $_POST["newpass"]);
+			$result = $db->query("UPDATE users SET password ='" . $db->real_escape_string($password) . "', salt = '" . $db->real_escape_string($salt) . "'  WHERE userid='" . $_SESSION["userid"] . "'");
 			if (!$result) {
 				message($lang["settings.ChangePasswordError"]);
 			}
