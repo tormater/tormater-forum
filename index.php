@@ -43,18 +43,22 @@ if (!session_id()) {
 
 // Check the user's role, verification status, and deletion status. Then ensure their session reflects it accordingly.
 if ($_SESSION["signed_in"] == true) {
-	$rolecheck = $db->query("SELECT role, verified, deleted FROM users WHERE userid='" . $_SESSION["userid"] . "'");
+	$rolecheck = $db->query("SELECT role, verified, deleted, ip FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 	while ($r = $rolecheck->fetch_assoc())
 	{
+		// Prevent session stealing, log the user out if their IP is different from the one they logged in with.
+		if (hashstring($_SERVER["REMOTE_ADDR"]) != $r["ip"]) {
+			logout();
+		}
 		if ($r["role"] != $_SESSION["role"]) {
 			$_SESSION["role"] = $r["role"];
 		}
-        if ($r["verified"] != $_SESSION["verified"]) {
-            $_SESSION["verified"] = $r["verified"];
-        }
-        if ($r["deleted"] != $_SESSION["deleted"]) {
-            $_SESSION["deleted"] = $r["deleted"];
-        }
+		if ($r["verified"] != $_SESSION["verified"]) {
+			$_SESSION["verified"] = $r["verified"];
+		}
+		if ($r["deleted"] != $_SESSION["deleted"]) {
+			$_SESSION["deleted"] = $r["deleted"];
+		}
 	}
 }
 
