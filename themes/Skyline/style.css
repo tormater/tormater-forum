@@ -136,6 +136,7 @@ button:active {
 label {
     display: inline-block;
     width: 30%;
+    color: #000;
 }
 
 .forminput {
@@ -548,17 +549,6 @@ font.sticky, font.locked {
     background: aliceblue;
 }
 
-/* Fieldsets */
-fieldset {
-    padding: 15px;
-    border: 1px solid #999;
-}
-
-legend {
-    font-size: 18px;
-    font-weight: bold;
-}
-
 /* Userlist Styles. */
 .userlist-grid {
     display: grid;
@@ -822,7 +812,7 @@ legend {
 
 .formcontainer .fieldhint {
     display: inline-block;
-    margin-bottom: 4px;
+    margin: 0px 2px;
 }
 
 .settingscolor {
