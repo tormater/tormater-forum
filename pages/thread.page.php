@@ -471,8 +471,9 @@ else
 				
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true)))
 				{
-					echo '</div><div class="editbox"><form method="post" action="" class="editbox">';				
-					echo '<div class="forminput"><textarea name="saveedit" />' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
+					echo '</div><div class="editbox"><form method="post" action="" class="editbox">';
+					BBCodeButtons(2);
+					echo '<div class="forminput"><textarea name="saveedit" id="textbox2">' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
 					echo '<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="'.$lang["post.SaveEditBtn"].'"> <a class="buttonbig buttonNo" href="">'.$lang["post.DiscardEditBtn"].'</a></form></div></div>';
 				}
 				
@@ -501,9 +502,10 @@ else
 		
 	elseif (($_SESSION['signed_in'] == true) && ($locked == 0) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) && $locked == 1)
 	{
-		echo '<form method="post" action="">';				
+		echo '<form method="post" action="">';
 		echo '<div class="forminput">'.$lang["thread.ContentTitle"].'</div>';
-		echo '<div class="forminput"><textarea name="content" />';
+		BBCodeButtons(1);
+		echo '<div class="forminput"><textarea name="content" id="textbox1">';
 		if (isset($contentSave)) echo $contentSave;
 		echo '</textarea></div>
 			<div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["thread.PostReplyBtn"].'"></div>
