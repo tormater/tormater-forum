@@ -29,6 +29,11 @@ else
     $upgraded = false;
 }
 
+// If this is being run, don't bother even checking column type and length for the following columns, just alter it.
+$db->query("ALTER TABLE `users` MODIFY `password` varchar(128) NOT NULL");
+$db->query("ALTER TABLE `users` MODIFY `ip` varchar(128) NOT NULL");
+$db->query("ALTER TABLE `users` MODIFY `salt` char(64) NOT NULL");
+
 require "pages/header.php";
 
 if ($upgraded === true)
