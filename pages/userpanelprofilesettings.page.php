@@ -60,8 +60,10 @@ while ($row = $userCheck->fetch_assoc()) {
 }
 
 // Show the signature and bio inputs.
-echo "<h3>" . $lang["userpanel.Signature"] . "</h3><div class='formcontainer'><form method='post' action=''><textarea maxlength='512' name='signature'>" . $signature . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateSignature"] . "'></form></div>";
-echo "<h3>" . $lang["userpanel.Bio"] . "</h3><div class='formcontainer'><form method='post' action=''><textarea maxlength='2048' name='bio'>" . $bio . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form></div>";
+echo "<h3>" . $lang["userpanel.Signature"] . "</h3>";
+echo BBCodeButtons(1) . "<form method='post' action=''><textarea maxlength='512' name='signature' id='textbox1'>" . $signature . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateSignature"] . "'></form>";
+echo "</br><h3>" . $lang["userpanel.Bio"] . "</h3>";
+echo BBCodeButtons(2) . "<form method='post' action=''><textarea maxlength='2048' name='bio' id='textbox2'>" . $bio . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form>";
 
 // If the viewing user is logged in, update their last action.
 if ($_SESSION['signed_in'] == true)
