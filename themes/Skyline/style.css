@@ -846,6 +846,12 @@ font.sticky, font.locked {
     filter: grayscale(80%) brightness(90%);
 }
 
+.avatar {
+    max-width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
 /* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
 
