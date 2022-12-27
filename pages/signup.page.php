@@ -15,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	
 	if(isset($_POST['user_name']))
 	{
-		$res = $db->query("SELECT salt FROM users WHERE username = '" . $_POST['user_name'] . "'");
+		$res = $db->query("SELECT salt FROM users WHERE username = '" . $db->real_escape_string($_POST['user_name']) . "'");
 		if($res->num_rows)
 		{
 			$errors[] = $lang["register.UsernameExists"];
@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
 	if(isset($_POST['user_email']))
 	{
-		$res = $db->query("SELECT * FROM users WHERE email ='". $_POST['user_email'] ."'");
+		$res = $db->query("SELECT * FROM users WHERE email ='". $db->real_escape_string($_POST['user_email']) ."'");
 		if($res->num_rows)
 		{
 			$errors[] = $lang["register.EmailExists"];
@@ -73,7 +73,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 
     // Make sure this user hasn't already created the maximum number of accounts.
-    $altCheck = $db->query("SELECT ip FROM users WHERE ip='" . md5($_SERVER["REMOTE_ADDR"]) . "'");
+    $altCheck = $db->query("SELECT ip FROM users WHERE ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "'");
 
     if ($altCheck->num_rows >= $config["maxAccountsPerIP"]) {
         $errors[] = $lang["register.TooManyAccounts"];
@@ -93,18 +93,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		// Construct the query.
 		// First we need to generate our salt in order to salt the password.
-		$salt = random_str(32);
+		$salt = random_str(64);
 		$username = $_POST['user_name'];
 		$email = $_POST['user_email'];
-		$password = md5($salt . $_POST['user_pass']);
+		$password = hashstring($salt . $_POST['user_pass']);
 		$role = "Member";
 		$jointime = time();
-        $lastactive = time();
+        	$lastactive = time();
 		$color = '1';
-		$ip = md5($_SERVER["REMOTE_ADDR"]);
+		$ip = hashstring($_SERVER["REMOTE_ADDR"]);
 		$verified = '1';
 		
-		$result = $db->query("INSERT INTO users (username, email, password, role, jointime, lastactive, color, ip, salt, verified) VALUES('" . $db->real_escape_string($username) . "', '" . $db->real_escape_string($email) . "', '" . $db->real_escape_string($password) . "', '$role', '$jointime', '$lastactive', '$color', '$ip', '$salt', '$verified')");
+		$result = $db->query("INSERT INTO users (username, email, password, role, jointime, lastactive, color, ip, salt, verified) VALUES('" . $db->real_escape_string($username) . "', '" . $db->real_escape_string($email) . "', '" . $db->real_escape_string($password) . "', '" . $db->real_escape_string($role) . "', '" . $db->real_escape_string($jointime) . "', '" . $db->real_escape_string($lastactive) . "', '" . $db->real_escape_string($color) . "', '" . $db->real_escape_string($ip) . "', '" . $db->real_escape_string($salt) . "', '" . $db->real_escape_string($verified) . "')");
 						
 		if(!$result)
 		{
