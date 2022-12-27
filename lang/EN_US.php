@@ -42,6 +42,7 @@ $lang = array(
     "action.Panel" => "Viewing: Admin Panel",
     "action.AccountSettings" => "Viewing: Account Settings",
     "action.ProfileSettings" => "Viewing: Profile Settings",
+    "action.AvatarSettings" => "Viewing: Avatar Settings",
     
     "header.Home" => "Home",
     "header.Userlist" => "Userlist",
@@ -335,6 +336,15 @@ $lang = array(
     "userpanel.Bio" => "Bio",
     "userpanel.UpdateSignature" => "Update Signature",
     "userpanel.UpdateBio" => "Update Bio",
+    "userpanel.CurrentAvatar" => "Current Avatar",
+    "userpanel.ChangeAvatar" => "Change Avatar",
+    "userpanel.UploadAvatar" => "Upload Avatar",
+    "userpanel.RemoveAvatar" => "Remove Avatar",
+    "userpanel.RemoveAvatarSuccess" => "Successfully removed avatar.",
+    "userpanel.AvatarUploadSuccess" => "Successfully uploaded avatar.",
+    "userpanel.AvatarUploadsDisabled" => "Sorry, avatar uploads have been disabled.",
+    "userpanel.NoAvatar" => "None.",
+    "userpanel.WaitToUpload" => "You've already uploaded an avatar too recently. Please wait a few minutes and try again.",
 );
 
 ?>
