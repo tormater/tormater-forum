@@ -13,6 +13,8 @@ $userbio = $db->query("SHOW COLUMNS FROM `users` LIKE 'bio'");
 $userpassword = $db->query("SHOW COLUMNS FROM `users` LIKE 'password' varchar(128) NOT NULL");
 $userip = $db->query("SHOW COLUMNS FROM `users` LIKE 'ip' varchar(128) NOT NULL");
 $usersalt = $db->query("SHOW COLUMNS FROM `users` LIKE 'salt' char(64) NOT NULL");
+$useravatar = $db->query("SHOW COLUMNS FROM `users` LIKE 'avatar'");
+$useravatartime = $db->query("SHOW COLUMNS FROM `users` LIKE `avataruploadtime`");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -42,6 +44,16 @@ if ($userip->num_rows < 1)
 if ($usersalt->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` MODIFY `salt` char(64) NOT NULL");
+    $upgraded = true;
+}
+if ($useravatar->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` ADD `avatar` enum('none', 'png', 'jpg', 'gif') NOT NULL DEFAULT 'none'");
+    $upgraded = true;
+}
+if ($useravatartime->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` ADD `avataruploadtime` int unsigned DEFAULT NULL");
     $upgraded = true;
 }
 
