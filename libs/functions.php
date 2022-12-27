@@ -5,6 +5,32 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+// Display buttons for adding BBCode to textareas.
+function BBCodeButtons($num = "") {
+    global $lang;
+    // Serve the JavaScript.
+    echo("<script type='text/javascript'>
+    function formatText" . $num . "(tag) {
+        var Field = document.getElementById('textbox" . $num . "');
+        var val = Field.value;
+        var selected_txt = val.substring(Field.selectionStart, Field.selectionEnd);
+        var before_txt = val.substring(0, Field.selectionStart);
+        var after_txt = val.substring(Field.selectionEnd, val.length);
+        Field.value += '[' + tag + ']' + '[/' + tag + ']';
+    }
+    </script>");
+    // Serve the BBCode buttons.
+    echo("<input type='button' value='" . $lang["BBCode.Bold"] . "' onclick=formatText" . $num . "('b');> 
+    <input type='button' value='" . $lang["BBCode.Italic"] . "' onclick=formatText" . $num . "('i');> 
+    <input type='button' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');> 
+    <input type='button' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText" . $num . "('s');> 
+    <input type='button' value='" . $lang["BBCode.Link"] . "' onclick=formatText" . $num . "('url');> 
+    <input type='button' value='" . $lang["BBCode.Image"] . "' onclick=formatText" . $num . "('img');> 
+    <input type='button' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText" . $num . "('spoiler');> 
+    <input type='button' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');> 
+    <input type='button' value='" . $lang["BBCode.Header"] . "' onclick=formatText" . $num . "('h');>");
+}
+
 // Hash a string depending on what algorithm is desired by the configuration.
 function hashstring($text) {
     global $config;
