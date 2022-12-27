@@ -8,6 +8,9 @@ if (!defined("INDEXED")) exit;
 $deleteduser = $db->query("SHOW COLUMNS FROM `users` LIKE 'deleted'");
 $usersignature = $db->query("SHOW COLUMNS FROM `users` LIKE 'signature'");
 $userbio = $db->query("SHOW COLUMNS FROM `users` LIKE 'bio'");
+$userpassword = $db->query("SHOW COLUMNS FROM `users` LIKE 'password' varchar(128) NOT NULL");
+$userip = $db->query("SHOW COLUMNS FROM `users` LIKE 'ip' varchar(128) NOT NULL");
+$usersalt = $db->query("SHOW COLUMNS FROM `users` LIKE 'salt' char(64) NOT NULL");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -24,15 +27,25 @@ elseif ($userbio->num_rows < 1)
     $db->query("ALTER TABLE `users` ADD `bio` varchar(2048) DEFAULT NULL");
     $upgraded = true;
 }
+elseif ($userpassword->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` MODIFY `password` varchar(128) NOT NULL");
+    $upgraded = true;
+}
+elseif ($userip->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` MODIFY `ip` varchar(128) NOT NULL");
+    $upgraded = true;
+}
+elseif ($usersalt->num_rows < 1)
+{
+    $db->query("ALTER TABLE `users` MODIFY `salt` char(64) NOT NULL");
+    $upgraded = true;
+}
 else
 {
     $upgraded = false;
 }
-
-// If this is being run, don't bother even checking column type and length for the following columns, just alter it.
-$db->query("ALTER TABLE `users` MODIFY `password` varchar(128) NOT NULL");
-$db->query("ALTER TABLE `users` MODIFY `ip` varchar(128) NOT NULL");
-$db->query("ALTER TABLE `users` MODIFY `salt` char(64) NOT NULL");
 
 require "pages/header.php";
 
@@ -46,4 +59,5 @@ else
 }
 
 require "pages/footer.php";
+
 ?>
