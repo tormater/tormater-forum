@@ -108,7 +108,11 @@ else
 						$_SESSION['username'] = $row['username'];
 						$_SESSION['role'] = $row['role'];
 					}
-                    message(sprintf($lang["login.Welcome"], $_SESSION['username'], genURL("")));
+					
+					// Write the IP to the database.
+					$db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+					
+					message(sprintf($lang["login.Welcome"], $_SESSION['username'], genURL("")));
 					header("Refresh:1; url=" . genURL(""));
 				}
 			}
