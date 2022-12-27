@@ -169,7 +169,8 @@ else
 			echo '</select></div>';	
 					
 			echo '<div class="forminput">' . $lang["newthread.Content"] . '</div>';
-			echo '<div class="forminput"><textarea name="content" />';
+			BBCodeButtons();
+			echo '<div class="forminput"><textarea name="content" id="textbox">';
 			if (isset($contentSave)) echo $contentSave;
 			echo '</textarea></div>';
 			echo '<div class="forminput"><input type="submit" class="buttonbig" value="' . $lang["newthread.CreateBtn"] . '"></form></div>';
