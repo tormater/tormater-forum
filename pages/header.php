@@ -128,6 +128,12 @@ elseif ($q1 == "panel")
         echo '<span class="paginationdots">/</span>';
         echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.PanelCats"] . '</span>';
     }
+    elseif ($q2 == "extensions")
+    {
+        echo '<a class="pageButton" href="' . genURL("panel") . '">' . $lang["page.Panel"] . '</a>';
+        echo '<span class="paginationdots">/</span>';
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.PanelExt"] . '</span>';
+    }
     else
     {
         echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.Panel"] . '</span>';
