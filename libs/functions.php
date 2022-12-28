@@ -84,9 +84,12 @@ function refresh($time) {
 
 // Logs the user out.
 function logout() {
-	session_unset();
-	session_destroy();
-	redirect("");
+	// Log out so long as the user isn't requesting an image.
+	if ($_SERVER["HTTP_ACCEPT"] != "image/avif,image/webp,*/*") {
+		session_unset();
+		session_destroy();
+		redirect("");
+	}
 }
 
 // Makes sure there aren't any bad characters in usernames
