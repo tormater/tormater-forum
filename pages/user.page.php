@@ -184,9 +184,10 @@ else
                 // Do nothing
             }
             else {
-                echo("<h3>" . $lang["userpanel.Bio"] . "</h3><span class='userstat'>" . formatPost($b["bio"]) . "</span></div></div>");
+                echo("<h3>" . $lang["userpanel.Bio"] . "</h3><span class='userstat'>" . formatPost($b["bio"]) . "</span>");
             }
         }
+        echo '</div></div>';
 
 		// If the viewing user is logged in, update their last action.
 		if ($_SESSION['signed_in'] == true)
