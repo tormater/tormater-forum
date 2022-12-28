@@ -20,9 +20,19 @@ else {
     saveConfig("config/config.php", $config);
 }
 
-
 require "libs/database.php";
 require "libs/formatter.php";
+
+// Extensions config
+if (file_exists("config/extensions.php")) {
+    require "config/extensions.php";
+} 
+else {
+    if (file_exists("config/extensions-default.php")) {
+        require "config/extensions-default.php";
+    } 
+    saveExtensionConfig("config/extensions.php", $extensions);
+}
 
 // Get our language file
 if(!isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
