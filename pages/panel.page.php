@@ -14,7 +14,7 @@ if ($_SESSION["role"] != "Administrator")
 	exit;
 }
 
-echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="' . genURL("panel/user") . '">'.$lang["panel.Users"].'</a> <a class="buttonbig" href="' . genURL("panel/category") . '">'.$lang["panel.Categories"].'</a></div>';
+echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="' . genURL("panel/user") . '">'.$lang["panel.Users"].'</a> <a class="buttonbig" href="' . genURL("panel/category") . '">'.$lang["panel.Categories"].'</a> <a class="buttonbig" href="' . genURL("panel/extensions") . '">'.$lang["panel.Extensions"].'</a></div>';
 
 // Find out which page we're loading
 
@@ -25,6 +25,10 @@ if ($q2 == "category")
 elseif ($q2 == "user")
 {
 	include "paneluser.page.php";
+}
+elseif ($q2 == "extensions")
+{
+	include "panelextensions.page.php";
 }
 elseif ($q2 == "deleteuser")
 {
