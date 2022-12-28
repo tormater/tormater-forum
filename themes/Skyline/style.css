@@ -143,13 +143,6 @@ label {
     margin-bottom: 4px;
 }
 
-.sigline {
-    height: 1px;
-    border-width: 0;
-    color: #808080;
-    background-color: #808080;
-    margin-top: 14px;
-}
 input {
     padding: 2px 4px;
     background: linear-gradient(#fff, #d4d4d4);
@@ -428,6 +421,19 @@ textarea:focus {
     word-wrap: break-word;
     color: #000;
 }
+
+.sigline {
+    margin-top: 16px;
+    height: 1px;
+    border-width: 0;
+    background-color: rgb(199, 199, 199);
+}
+
+.signature {
+    font-size: 95%;
+    display: inline;
+}
+
 
 .thread b {
     display: block;
