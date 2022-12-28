@@ -763,7 +763,6 @@ font.sticky, font.locked {
     width: auto;
     max-width: 100%;
     max-height: 90vh;
-    border: 1px outset #000;
 }
 
 .postspoiler {
@@ -849,7 +848,9 @@ font.sticky, font.locked {
 .avatar {
     max-width: 100%;
     box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0, 0.5);
+    max-height: 100px;
+    margin: 2px 0px;
+    display: block;
 }
 
 /* Mobile Support (thanks VegBao!)*/
@@ -933,5 +934,8 @@ font.sticky, font.locked {
     /* Userlist */
     .userlist-grid {
         grid-template-columns: auto;
+    }
+    .avatar {
+        display:none;
     }
 }
