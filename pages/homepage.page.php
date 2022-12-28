@@ -47,7 +47,13 @@ while($row = $threads->fetch_assoc())
 					
 	while ($u = $uinfo->fetch_assoc())
 	{
-		echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
+		if ($u["deleted"] == 1) {
+            		$username = $lang["user.Deleted"] . $u["userid"];
+        		}
+        	else {
+            		$username = $u["username"];
+        	}
+		echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $username . '</a>';
 	}
 					
 	echo "<div class='tddate' title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</div>";
@@ -58,7 +64,13 @@ while($row = $threads->fetch_assoc())
 					
 	while ($u = $uinfo->fetch_assoc())
 	{
-		echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
+		if ($u["deleted"] == 1) {
+            		$username = $lang["user.Deleted"] . $u["userid"];
+        	}
+        	else {
+            		$username = $u["username"];
+        	}
+		echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $username . '</a>';
 	}
 					
 	echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
