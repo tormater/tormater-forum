@@ -15,6 +15,7 @@ $userip = $db->query("SHOW COLUMNS FROM `users` LIKE 'ip' varchar(128) NOT NULL"
 $usersalt = $db->query("SHOW COLUMNS FROM `users` LIKE 'salt' char(64) NOT NULL");
 $useravatar = $db->query("SHOW COLUMNS FROM `users` LIKE 'avatar'");
 $useravatartime = $db->query("SHOW COLUMNS FROM `users` LIKE `avataruploadtime`");
+$logins = $db->query("SHOW TABLES LIKE `logins`");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -54,6 +55,14 @@ if ($useravatar->num_rows < 1)
 if ($useravatartime->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` ADD `avataruploadtime` int unsigned DEFAULT NULL");
+    $upgraded = true;
+}
+if ($logins->num_rows < 1)
+{
+    $db->query("CREATE TABLE `logins` (
+        `ip` varchar(128) NOT NULL,
+        `time` int unsigned NOT NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
     $upgraded = true;
 }
 
