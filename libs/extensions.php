@@ -5,12 +5,15 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-$plugins = scandir("extensions");
+$allExtensions = scandir("extensions");
 
-foreach ($plugins as $p) {
-    if ((file_exists("extensions/" . $p . "/manifest.json" )) && (file_exists("extensions/" . $p . "/extension.php" )))
+foreach ($allExtensions as $e) {
+    if ((file_exists("extensions/" . $e . "/manifest.json" )) && (file_exists("extensions/" . $e . "/extension.php" )))
     {
-        require_once("extensions/" . $p . "/extension.php");
+        if ($extensions[$e] == true || $extensions[$e] != false)
+        {
+            require_once("extensions/" . $e . "/extension.php");
+        }
     }
 }
 
