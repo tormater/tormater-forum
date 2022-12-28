@@ -39,6 +39,16 @@ else
 			$errors[] = $lang["error.PasswordNull"];
 		}
 		
+		// Delete login records older than 5 minutes.
+        	$db->query("DELETE FROM logins WHERE time<" . time() . "-300");
+
+        	// Now check whether too many failed logins have been attempted from this IP.
+        	$logins = $db->query("SELECT * FROM logins WHERE ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "'");
+
+        	if ($logins->num_rows >= $config["maxLoginAttempts"]) {
+            		$errors[] = $lang["error.TooManyLogins"];
+        	}
+		
 		if(!empty($errors))
 		{
 			echo $lang["error.BadFields"];
@@ -119,6 +129,9 @@ else
 
 			if(!empty($errors))
 			{
+				// Log the failed login attempt.
+                		$db->query("INSERT INTO logins (ip, time) VALUES ('" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "', '" . time() . "')");
+				
 				echo $lang["error.BadFields"];
 				echo '<ul>';
 				foreach($errors as $key => $value)
