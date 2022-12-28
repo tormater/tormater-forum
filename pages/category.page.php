@@ -91,7 +91,7 @@ else
 						echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
 					}
 
-                    echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
+                    			echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 
 					echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
 					
@@ -99,7 +99,13 @@ else
 					
 					while ($u = $uinfo->fetch_assoc())
 					{
-						echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
+						if ($u["deleted"] == 1) {
+                            				$username = $lang["user.Deleted"] . $u["userid"];
+                        			}
+						else {
+                            				$username = $u["username"];
+                        			}
+						echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $username . '</a>';
 					}
 					
 					echo "<div class='tddate' title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</div>";
@@ -110,7 +116,13 @@ else
 					
 					while ($u = $uinfo->fetch_assoc())
 					{
-						echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $u['username'] . '</a>';
+						if ($u["deleted"] == 1) {
+                            				$username = $lang["user.Deleted"] . $u["userid"];
+                        			}
+                        			else {
+                            				$username = $u["username"];
+                        			}
+						echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $username . '</a>';
 					}
 					
 					echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
