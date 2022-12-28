@@ -178,19 +178,15 @@ while ($a = $avatarCheck->fetch_assoc()) {
         $avatarURL = "</br>" . $lang["userpanel.NoAvatar"] . "</br>";
     }
     else {
-        $avatarURL = "</br><img src='" . genURL("avatars/" . $_SESSION["userid"] . "." . $a["avatar"] . "?t=" . $a["avataruploadtime"]) . "'>";
+        $avatarURL = "</br><img class='avatarPanel' src='" . genURL("avatars/" . $_SESSION["userid"] . "." . $a["avatar"] . "?t=" . $a["avataruploadtime"]) . "'>";
     }
 }
 
-echo("</br><h3>" . $lang["userpanel.CurrentAvatar"] . "</h3>" . $avatarURL . "</br>
-    <h3>" . $lang["userpanel.ChangeAvatar"] . "</h3>
-    </br><form action='' method='post' enctype='multipart/form-data'>
-    <input type='file' name='uploadedFile'>
-    <input type='submit' value='" . $lang["userpanel.UploadAvatar"] . "' name='submit'>
-    </form>
-    </br><form action='' method='post'>
-    <input type='submit' class='buttonbig' value='" . $lang["userpanel.RemoveAvatar"] . "' name='removeAvatar'>
-    </form>");
+echo("<div class='avatarForm'><h3>" . $lang["userpanel.ChangeAvatar"] . "</h3>" . $avatarURL . "</br>
+    <form action='' method='post' enctype='multipart/form-data' class='inline-block'>
+    <input type='file' name='uploadedFile' class='upload'>
+    <input type='submit' value='" . $lang["userpanel.UploadAvatar"] . "' name='submit'></form> <form action='' method='post' class='inline-block'><input type='submit' value='" . $lang["userpanel.RemoveAvatar"] . "' name='removeAvatar'></form>
+    </div>");
 
 // If the viewing user is logged in, update their last action.
 if ($_SESSION['signed_in'] == true)
