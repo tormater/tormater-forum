@@ -30,7 +30,8 @@ $config = array(
     'avatarWidth' => 200, // Maximum avatar width.
     'avatarHeight' => 200, // Maximum avatar height.
     'avatarUploadsDisabled' => false, // Whether or not avatar uploads are disabled.
-    'timeBetweenAvatarUploads' => 120 // How much time (in seconds) the user should have to wait to upload another avatar.
+    'timeBetweenAvatarUploads' => 120, // How much time (in seconds) the user should have to wait to upload another avatar.
+    'maxLoginAttempts' => 3 // Number of login attempts allowed every 5 minutes.
 );
 
 ?>
