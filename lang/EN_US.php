@@ -229,6 +229,8 @@ $lang = array(
     "register.ConfirmPasswordEmpty" => "The confirm password field must not be empty.",
     "register.ConfirmPasswordWrong" => "The confirmed password isn't the same as the password.",
     "register.TooManyAccounts" => "You've created too many accounts. Try logging into an existing one instead.",
+    "register.Captcha" => "Captcha</p><small>Type the letters and numbers you see in the captcha image.</small>",
+    "register.CaptchaWrong" => "The captcha was filled out incorrectly.",
     
     // User login
     "login.Header" => "Log in",
