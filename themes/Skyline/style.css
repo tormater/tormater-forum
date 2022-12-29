@@ -906,6 +906,20 @@ input[type=file]::file-selector-button:hover {
     filter: brightness(105%);
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    margin-top: 8px;
+    margin-bottom: 6px;
+}
+
+.captcha {
+    width: 37%;
+    height: 37%;
+}
+
 /* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
 
