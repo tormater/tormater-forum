@@ -67,17 +67,21 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$errors[] = $lang["register.ConfirmPasswordEmpty"]; // $lang["error.ConfPassNull"]
 	}
-    elseif($_POST['user_pass'] != $_POST['user_pass_check'])
+    	elseif($_POST['user_pass'] != $_POST['user_pass_check'])
 	{
 		$errors[] = $lang["register.ConfirmPasswordWrong"]; // $lang["error.PassConfFail"]
 	}
+	elseif (($config["captchaEnabled"] == true) and ($_SESSION["captcha"] != $_POST["captcha"]))
+    	{
+        	$errors[] = $lang["register.CaptchaWrong"];
+    	}
 
-    // Make sure this user hasn't already created the maximum number of accounts.
-    $altCheck = $db->query("SELECT ip FROM users WHERE ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "'");
+    	// Make sure this user hasn't already created the maximum number of accounts.
+    	$altCheck = $db->query("SELECT ip FROM users WHERE ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "'");
 
-    if ($altCheck->num_rows >= $config["maxAccountsPerIP"]) {
-        $errors[] = $lang["register.TooManyAccounts"];
-    }
+    	if ($altCheck->num_rows >= $config["maxAccountsPerIP"]) {
+        	$errors[] = $lang["register.TooManyAccounts"];
+    	}
 
 	if(!empty($errors))
 	{
@@ -119,14 +123,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 echo "<div class='formcontainer'><form method='post' action=''>
-<div class='forminput'><label>" . $lang["register.Username"] . "</label><input type='text' name='user_name' value='" . $_POST["user_name"] . "' /></div>
+<div class='forminput'><label>" . $lang["register.Username"] . "</label><input type='text' name='user_name' autocomplete='username' value='" . $_POST["user_name"] . "' /></div>
 <div class='forminput'><small class='fieldhint'>" . $lang["register.UsernameDesc"] . "</small></div>
 <div class='forminput'><label>" . $lang["register.Email"] . "</label><input type='email' name='user_email' value='" . $_POST["user_email"] . "'></div>
 <div class='forminput'><small class='fieldhint'>" . $lang["register.EmailDesc"] . "</small></div>
 <div class='forminput'><label>" . $lang["register.Password"] . "</label><input type='password' name='user_pass' value='" . $_POST["user_pass"] . "'></div>
 <div class='forminput'><small class='fieldhint'>" . sprintf($lang["register.PasswordDesc"], "6") . "</small></div>
-<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . $_POST["user_pass_check"] . "'></div>
-<div class='forminput'><label></label><input type='submit' class='buttonbig' value='" . $lang["register.Submit"] . "' /></div>
+<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . $_POST["user_pass_check"] . "'></div>";
+if ($config["captchaEnabled"] == true) {
+    echo "<div class='forminput'><label>" . $lang["register.Captcha"] . "</label><input type='text' name='captcha'></div><span class='center'>";
+    $_SESSION["captcha"] = generateCaptcha($config["captchaLength"]);
+    echo "</span>";
+}
+echo "<div class='forminput'><label></label><input type='submit' class='buttonbig' value='" . $lang["register.Submit"] . "' /></div>
 </form></div>";
 
 include 'footer.php';
