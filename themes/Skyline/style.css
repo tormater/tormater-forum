@@ -916,10 +916,12 @@ input[type=file]::file-selector-button:hover {
 }
 
 .captcha {
-    width: 37%;
-    height: 37%;
+    width: 159px;
 }
-
+.captchalabel {
+    float: left;
+    width: 30%;
+}
 /* User posts */
 .userposts {
     padding: 8px;
