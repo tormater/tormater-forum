@@ -492,7 +492,7 @@ font.sticky, font.locked {
 
 .post {
     display: grid;
-    grid-template-columns: 175px 83%;
+    grid-template-columns: 175px calc(100% - 175px);
     grid-gap: 0px;
     margin-bottom: 14px;
 }
