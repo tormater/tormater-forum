@@ -325,4 +325,60 @@ function hook($hook, $function)
     
 }
 
+// Generates a random string for the captcha.
+function randomCaptcha($length = 5) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+// Simple captcha generator.
+function generateCaptcha($numChars)
+{
+    $chars = randomCaptcha($numChars);
+    $width = 15 * $numChars;
+    $height = 30;
+
+    // Create a blank image and add some content
+    $new_image = imagecreatetruecolor($width, $height);
+    $bg_color = imagecolorallocate($new_image,  rand(125, 255), rand(125, 255), rand(125, 255));
+
+    // Set the background color
+    imagefill($new_image, 0, 0, $bg_color);
+
+    // Add some noise to the background.
+    for ($i = 0; $i < $numChars; $i++) {
+        imagefilledrectangle($new_image, $width/$numChars*$i+rand(-10, 10), 1, $width*0.8-rand(1, 2), $height*1.4-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+    }
+
+    // Add some noise to the background.
+    for ($i = 0; $i < $numChars*6; $i++) {
+        imagefilledellipse($new_image, $width/$numChars*$i/6+rand(-10, 10), $height/2+rand(-10, 10), $width*0.3-rand(1, 3), $height*0.7-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+    }
+
+    // Add the text to the image.
+    for ($i = 0; $i < $numChars; $i++) {
+        $text = imagecolorallocate($new_image, rand(10, 110), rand(10, 110), rand(10, 110));
+        imagestring($new_image, rand(3,5), $width/$numChars+$i*rand(9, 10), 7,  substr($chars, $i, 1), $text);
+    }
+
+    ob_start();
+
+    // Save the image as png
+    imagepng($new_image, NULL, 9);
+
+    $rawImageBytes = ob_get_clean();
+
+    echo "<img src='data:image/jpeg;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
+
+    // Free the memory
+    imagedestroy($new_image);
+
+    return $chars;
+}
+
 ?>
