@@ -216,7 +216,7 @@ else
 		}
 	}
 }
-echo "</div>";
+echo "</div></div>";
 }
 
 // If the viewing user is logged in, update their last action.
@@ -227,8 +227,5 @@ if ($_SESSION['signed_in'] == true)
 }
 
 include "footer.php";
-
-?>
-
 
 ?>
