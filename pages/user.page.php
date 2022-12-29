@@ -25,7 +25,7 @@ else
 	{
 		if (($_SERVER['REQUEST_METHOD'] == 'POST') and (isset($_POST["role"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
 		{
-            		if (is_numeric($q2) and ($_SESSION["userid"] != $q2)) {
+            		if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
                 		if (($_SESSION["role"] == "Moderator") and ($_POST["role"] != "Member") and ($_POST["role"] != "Suspended")) {
                     			// Do nothing
                 		}
@@ -81,7 +81,7 @@ else
 			
             	echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
             	echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">' . $uAvatar . '<b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
-		if (($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid))
+		if (($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
 				
@@ -122,7 +122,7 @@ else
 				
 		}
 
-            	elseif (($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid))
+            	elseif (($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
 
