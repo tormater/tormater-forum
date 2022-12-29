@@ -189,15 +189,43 @@ else
         }
         echo '</div></div>';
 
-		// If the viewing user is logged in, update their last action.
-		if ($_SESSION['signed_in'] == true)
+	}
+
+echo '<div class="userposts" postcolor="' . htmlspecialchars($color) . '">';
+echo '<span class="userpostsh">' . $lang["user.RecentPosts"] . '</span>';
+$posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL ORDER BY timestamp DESC LIMIT 5");
+
+if($posts->num_rows == 0)
+{
+	message($lang["thread.NoPosts"]);
+}
+	
+else
+{
+	while($row = $posts->fetch_assoc())
+	{
+		$userinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["user"] . "'");
+			
+		while($u = $userinfo->fetch_assoc())
 		{
-			$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $userid) . '/">' . $username . $lang["action.UserProfile"] . '</a>';
-			update_last_action($action);
+			echo '<div class="userpost">' . formatPost($row["content"]) . '</div>';
+            echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span> - <a class='userpostlink' href='" . genURL("thread/" . $row["thread"]) . "'>" . $lang["user.ViewThread"] . "</a>";
 		}
 	}
 }
+echo "</div>";
+}
+
+// If the viewing user is logged in, update their last action.
+if ($_SESSION['signed_in'] == true)
+{
+	$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $userid) . '/">' . $username . $lang["action.UserProfile"] . '</a>';
+	update_last_action($action);
+}
 
 include "footer.php";
+
+?>
+
 
 ?>
