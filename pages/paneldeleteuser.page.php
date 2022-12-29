@@ -8,7 +8,7 @@ if (!defined("INDEXED")) exit;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["deleteKeepPosts"])) {
         // Make sure the inputted userid looks valid.
-        if (($q3) and (isset($q3)) and (is_numeric($q3))) {
+        if (($q3) and (isset($q3)) and (is_numeric($q3)) and ($config["mainAdmin"] != $q3)) {
             $existCheck = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string($q3) . "'");
 
             // Make sure there is actually a user under the specified userid.
@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif (isset($_POST["deleteHidePosts"])) {
         // Make sure the inputted userid looks valid.
-        if (($q3) and (isset($q3)) and (is_numeric($q3))) {
+        if (($q3) and (isset($q3)) and (is_numeric($q3)) and ($config["mainAdmin"] != $q3)) {
             $existCheck = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string($q3) . "'");
 
             // Make sure there is actually a user under the specified userid.
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     elseif (isset($_POST["deleteRemovePosts"])) {
         // Make sure the inputted userid looks valid.
-        if (($q3) and (isset($q3)) and (is_numeric($q3))) {
+        if (($q3) and (isset($q3)) and (is_numeric($q3)) and ($config["mainAdmin"] != $q3)) {
             $existCheck = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string($q3) . "'");
 
             // Make sure there is actually a user under the specified userid.
