@@ -33,7 +33,8 @@ $config = array(
     'timeBetweenAvatarUploads' => 120, // How much time (in seconds) the user should have to wait to upload another avatar.
     'maxLoginAttempts' => 3, // Number of login attempts allowed every 5 minutes.
     'captchaLength' => 5, // Number of characters to use in the captcha.
-    'captchaEnabled' => true // Whether or not the captcha is enabled.
+    'captchaEnabled' => true, // Whether or not the captcha is enabled.
+    'mainAdmin' => 1 // Userid of the main administrator.
 );
 
 ?>
