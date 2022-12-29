@@ -118,6 +118,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $src = imagecreatefrompng($_FILES["uploadedFile"]["tmp_name"]);
                 $dst = imagecreatetruecolor($w, $h);
+
+                imagesavealpha($dst, true);
+                $trans_colour = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+                imagefill($dst, 0, 0, $trans_colour);
+
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
                 removeAvatar();
                 imagepng($dst, "avatars/" . $_SESSION["userid"] . $extension);
@@ -156,6 +161,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $src = imagecreatefromgif($_FILES["uploadedFile"]["tmp_name"]);
                 $dst = imagecreatetruecolor($w, $h);
+                
+                imagesavealpha($dst, true);
+                $trans_colour = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+                imagefill($dst, 0, 0, $trans_colour);
+
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
                 removeAvatar();
                 imagegif($dst, "avatars/" . $_SESSION["userid"] . $extension);
