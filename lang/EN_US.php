@@ -261,6 +261,8 @@ $lang = array(
     "user.DeletedNo" => "No",
     "user.Deleted" => "deleted",
     "user.UserInformation" => "User Information",
+    "user.RecentPosts" => "Recent Posts",
+    "user.ViewThread" => "View Thread",
 
     // Roles
     "role.Admin" => "Administrator",
