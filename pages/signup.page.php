@@ -131,9 +131,9 @@ echo "<div class='formcontainer'><form method='post' action=''>
 <div class='forminput'><small class='fieldhint'>" . sprintf($lang["register.PasswordDesc"], "6") . "</small></div>
 <div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . $_POST["user_pass_check"] . "'></div>";
 if ($config["captchaEnabled"] == true) {
-    echo "<div class='forminput'><label>" . $lang["register.Captcha"] . "</label><input type='text' name='captcha'></div><span class='center'>";
+    echo "<br/><div class='forminput'><label>" . $lang["register.Captcha"] . "</label><input type='text' name='captcha'></div>";
+    echo "<small class='captchalabel'>" . $lang["register.CaptchaHint"] . "</small>";
     $_SESSION["captcha"] = generateCaptcha($config["captchaLength"]);
-    echo "</span>";
 }
 echo "<div class='forminput'><label></label><input type='submit' class='buttonbig' value='" . $lang["register.Submit"] . "' /></div>
 </form></div>";
