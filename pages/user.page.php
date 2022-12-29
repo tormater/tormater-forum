@@ -176,22 +176,25 @@ else
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label>' . $uthreads . '</span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleDeleted"].'</label>' . $deleted . '</span>';
-
-        $bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
-        
-        while ($b = $bioCheck->fetch_assoc()) {
-            if ((!$b["bio"]) or (!isset($b["bio"])) or ($b["bio"] == "")) {
-                // Do nothing
-            }
-            else {
-                echo("<h3>" . $lang["userpanel.Bio"] . "</h3><span class='userstat'>" . formatPost($b["bio"]) . "</span>");
-            }
-        }
-        echo '</div></div>';
-
 	}
 
-echo '<div class="userposts" postcolor="' . htmlspecialchars($color) . '">';
+echo '</div></div>';
+
+echo '<div class="userextra" postcolor="' . htmlspecialchars($color) . '">';
+
+echo "<div class=userbioside>";
+
+$bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
+        
+while ($b = $bioCheck->fetch_assoc()) {
+    if ((!!$b["bio"]) or (isset($b["bio"])) or ($b["bio"] != "")) 
+    {
+        echo '<span class="userpostsh">' . $lang["userpanel.Bio"] . '</span>';
+        echo("<span class='userbio'>" . formatPost($b["bio"]) . "</span>");
+    }
+}
+echo "</div>";
+echo '<div class="userposts">';
 echo '<span class="userpostsh">' . $lang["user.RecentPosts"] . '</span>';
 $posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL ORDER BY timestamp DESC LIMIT 5");
 
