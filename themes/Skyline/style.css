@@ -920,6 +920,37 @@ input[type=file]::file-selector-button:hover {
     height: 37%;
 }
 
+/* User posts */
+.userposts {
+    padding: 8px;
+    box-sizing: border-box;
+    width: calc(100% - 175px);
+    float: right;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    box-shadow: 0px 1px inset rgba(255, 255, 255, 0.5);
+}
+.userpost {
+    margin: 4px 0px;
+    margin-top: 12px;
+    padding: 8px;
+    background: #F6F6F6;
+    box-sizing: border-box;
+    box-shadow: 0px 1px inset #fff;
+    border: 1px solid #adadad;
+    word-wrap: break-word;
+    color: #000;
+}
+.userpostsh {
+    font-weight: bold;
+    color: #000;
+    font-size: 120%;
+}
+
+.userpostlink {
+    font-size: 85%;
+}
+
 /* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
 
@@ -1007,5 +1038,8 @@ input[type=file]::file-selector-button:hover {
     }
     .avatarForm {
         padding: 8px;
+    }
+    .userposts {
+        width: 100%;
     }
 }
