@@ -20,15 +20,17 @@ function BBCodeButtons($num = "") {
     }
     </script>");
     // Serve the BBCode buttons.
-    echo("<input type='button' value='" . $lang["BBCode.Bold"] . "' onclick=formatText" . $num . "('b');> 
-    <input type='button' value='" . $lang["BBCode.Italic"] . "' onclick=formatText" . $num . "('i');> 
-    <input type='button' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');> 
-    <input type='button' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText" . $num . "('s');> 
-    <input type='button' value='" . $lang["BBCode.Link"] . "' onclick=formatText" . $num . "('url');> 
-    <input type='button' value='" . $lang["BBCode.Image"] . "' onclick=formatText" . $num . "('img');> 
-    <input type='button' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText" . $num . "('spoiler');> 
-    <input type='button' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');> 
-    <input type='button' value='" . $lang["BBCode.Header"] . "' onclick=formatText" . $num . "('h');>");
+    echo "<div class='bbcodetray'>";
+    echo "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText" . $num . "('b');>";
+    echo "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText" . $num . "('i');>";
+    echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');>";
+    echo "<input type='button' class='bbcode bstrike' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText" . $num . "('s');>";
+    echo "<input type='button' class='bbcode bheader' value='" . $lang["BBCode.Header"] . "' onclick=formatText" . $num . "('h');>";
+    echo "<input type='button' class='bbcode blink' value='" . $lang["BBCode.Link"] . "' onclick=formatText" . $num . "('url');>";
+    echo "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText" . $num . "('img');>";
+    echo "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText" . $num . "('spoiler');>";
+    echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');>";
+    echo "</div>";
 }
 
 // Hash a string depending on what algorithm is desired by the configuration.
