@@ -366,15 +366,15 @@ $lang = array(
     "userpanel.WaitToUpload" => "You've already uploaded an avatar too recently. Please wait a few minutes and try again.",
     
     // BBCode
-    "BBCode.Bold" => "Bold",
-    "BBCode.Italic" => "Italic",
-    "BBCode.Underline" => "Underline",
-    "BBCode.Strikethrough" => "Strikethrough",
-    "BBCode.Link" => "Link",
+    "BBCode.Bold" => "B",
+    "BBCode.Italic" => "I",
+    "BBCode.Underline" => "U",
+    "BBCode.Strikethrough" => "S",
+    "BBCode.Header" => "H",
+    "BBCode.Link" => "URL",
     "BBCode.Image" => "Image",
     "BBCode.Spoiler" => "Spoiler",
     "BBCode.Code" => "Code",
-    "BBCode.Header" => "Header",
 );
 
 ?>
