@@ -971,7 +971,47 @@ input[type=file]::file-selector-button:hover {
 .userpostlink {
     font-size: 85%;
 }
+.bbcodetray {
+    margin: 2px 0px;
+}
+.bbcode {
+    margin: 0px;
+    border-radius: 0px;
+    border: 1px solid rgb(150, 150, 150);
+    border-left: 1px solid rgb(205, 205, 205);
+    padding: 4px 8px;
+    height: 24px;
+}
 
+.bbcode:hover {
+    cursor:pointer;
+}
+
+.bbcode:first-child {
+    border-left-color: rgb(150, 150, 150);
+}
+.bbold, .bitalic, .bunderline, .bstrike, .bheader {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 120%;
+    padding-top: 2px;
+}
+.bbold {
+    font-weight: 600;
+
+}
+.bitalic {
+    font-style: italic;
+}
+.bunderline {
+    text-decoration: underline;
+}
+.bstrike {
+    text-decoration: line-through;
+}
+.bheader {
+    font-weight: bolder;
+    text-decoration: underline;
+}
 /* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
 
