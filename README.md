@@ -1,6 +1,6 @@
 # Tormater Forum
 ![image](https://user-images.githubusercontent.com/115832947/208813283-4bdfee70-04e4-4cde-b298-ea129599087d.png)<br/>
-![](https://img.shields.io/badge/PHP-v7.4+-8892be.svg) ![](https://img.shields.io/github/license/tormater/tormater-forum) ![](https://img.shields.io/github/v/release/tormater/tormater-forum) ![](https://img.shields.io/github/languages/code-size/tormater/tormater-forum) ![](https://img.shields.io/github/issues/tormater/tormater-forum) ![](https://img.shields.io/badge/tormater-yes-yellowgreen) [![Crowdin](https://badges.crowdin.net/tormater-forum/localized.svg)](https://crowdin.com/project/tormater-forum)
+![](https://img.shields.io/badge/PHP-v7.4+-8892be.svg) ![](https://img.shields.io/github/license/tormater/tormater-forum) ![](https://img.shields.io/github/v/release/tormater/tormater-forum) ![](https://img.shields.io/github/languages/code-size/tormater/tormater-forum) ![](https://img.shields.io/github/issues/tormater/tormater-forum) ![](https://img.shields.io/badge/tormater-yes-yellowgreen)
 # Installation Instructions
 Tormater forum will run on any computer/server with Apache 2.0, MySQL/MariaDB and PHP 7.4.
 This software has been tested on the following Linux distributions: Debian 11, Ubuntu 20.04, Ubuntu 22.04.
