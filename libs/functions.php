@@ -17,6 +17,9 @@ function BBCodeButtons($num = "") {
         var before_txt = val.substring(0, Field.selectionStart);
         var after_txt = val.substring(Field.selectionEnd, val.length);
         Field.value += '[' + tag + ']' + '[/' + tag + ']';
+        var endTag = '[/' + tag + ']'
+        Field.focus();
+        Field.setSelectionRange(Field.selectionStart - endTag.length,Field.selectionEnd - endTag.length);
     }
     </script>");
     // Serve the BBCode buttons.
