@@ -62,6 +62,7 @@ function formatBBCode($post)
         '<blockquote style="border-left: 5px solid rgba(0,0,0,.05); padding: 4px 10px; font-style: italic; margin: 0 0 14px; position: relative;">$1</blockquote>',
     );
 
+    listener("beforeFormatBBCode");
     $returnPost = preg_replace($find, $replace, $returnPost);
     return $returnPost;
 }
@@ -69,11 +70,13 @@ function formatPost($post)
 {
     $returnPost = formatBBCode($post);
     $returnPost = str_replace("\n","<br>",$returnPost);
+    listener("beforeReturnFormattedPost");
     return $returnPost;
 }
 function formatFooter($post)
 {
     $returnPost = formatBBCode($post);
+    listener("beforeReturnFormattedFooter");
     return $returnPost;
 }
 ?>
