@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			}
 			elseif (isset($_POST["edit_edit_cat_name"]) && isset($_POST["edit_cat_description"]))
 			{
-				$result = $db->query("UPDATE categories SET categoryname='" . $name . "',categorydescription='" . $description . "' WHERE categoryid='" . $db->real_escape_string($id) . "'");
+				$result = $db->query("UPDATE categories SET categoryname='" . $db->real_escape_string($name) . "',categorydescription='" . $db->real_escape_string($description) . "' WHERE categoryid='" . $db->real_escape_string($id) . "'");
 				if (!$result)
 				{
 					message($lang["panel.CantUpdateCategory"]);
@@ -88,14 +88,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		if ($_POST["deleteit"])
 		{
 			$id = $_POST["deleteit"];
-			$result = $db->query("DELETE FROM categories WHERE categoryid='" . $id . "'");
+			$result = $db->query("DELETE FROM categories WHERE categoryid='" . $db->real_escape_string($id) . "'");
 			
 			if (!$result) {
 				message($lang["CantDeleteCategory"]);
 			}
 			else
 			{
-				$threads = $db->query("SELECT * FROM threads WHERE category='" . $id . "'");
+				$threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($id) . "'");
 				while($row = $threads->fetch_assoc()) {
 					// thread information.
 					$threadid = $row['threadid'];
