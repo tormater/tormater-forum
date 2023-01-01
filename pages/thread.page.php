@@ -57,6 +57,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		echo $lang["thread.LoginFirst"];
 	}
+    
 	else
 	{
 		// If the user is posting...
@@ -471,7 +472,7 @@ else
 				
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true)))
 				{
-					echo '</div><div class="editbox"><form method="post" action="" class="editbox">';
+					echo '</div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
 					BBCodeButtons(2);
 					echo '<div class="forminput"><textarea name="saveedit" id="textbox2">' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
 					echo '<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="'.$lang["post.SaveEditBtn"].'"> <a class="buttonbig buttonNo" href="">'.$lang["post.DiscardEditBtn"].'</a></form></div></div>';
@@ -523,6 +524,13 @@ else
 	}
 }
 
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    if ($_POST["edit"])
+    {
+        echo "<script>document.getElementById('edit').scrollIntoView();</script>";
+    }
+}
 include 'footer.php';
 
 // If the viewing user is logged in, update their last action.
