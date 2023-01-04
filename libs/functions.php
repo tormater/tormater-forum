@@ -320,7 +320,7 @@ function hook($hook, $function)
     global $hooks;
     if (isset($hooks[$hook]))
     {
-        $hooks[$hook] = array_push($hooks[$hook], $function);
+        array_push($hooks[$hook], $function);   
     }
     else
     {
