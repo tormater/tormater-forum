@@ -311,7 +311,6 @@ function listener($hook)
 	if (isset($hooks[$hook])) {		
 		foreach ($hooks[$hook] as $function) {
 			return call_user_func($function);
-            echo $function;
 		}
 	}
 }
