@@ -34,7 +34,8 @@ $config = array(
     'maxLoginAttempts' => 3, // Number of login attempts allowed every 5 minutes.
     'captchaLength' => 5, // Number of characters to use in the captcha.
     'captchaEnabled' => true, // Whether or not the captcha is enabled.
-    'mainAdmin' => 1 // Userid of the main administrator.
+    'mainAdmin' => 1, // Userid of the main administrator.
+    'forumDescription' => 'Tormater Forum is a lightweight, easy-to-use forum software created with PHP and MySQL.',
 );
 
 ?>
