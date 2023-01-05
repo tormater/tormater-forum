@@ -6,6 +6,8 @@
 if (!defined("INDEXED")) exit;
 
 $lang = array(
+    "locale" => "en_US",
+
     "error.PageNotFound" => "Requested page not found.",
     "error.BadFields" => "Uh-oh.. a couple of fields are not filled in correctly..",
     "error.Database" => "Something went wrong. Please try again later.",
