@@ -7,17 +7,58 @@ if (!defined("INDEXED")) exit;
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta name="description" content="Powered by tormater-forum" />
-	<meta name="keywords" content="tormater-forum, tormater, forum" />
-    <title><?= $config["forumName"]; ?></title>
-    <?php listener("meta"); ?>
 
-<?php
+<?php 
+
+$htmltitle = $config["forumName"];
+$sitename = $config["forumName"];
+
+if (!$config["forumDescription"])
+{
+    $forumdesc = "Tormater Forum is a lightweight, easy-to-use forum software created with PHP and MySQL.";
+}
+else
+{
+    $forumdesc = $config["forumDescription"];
+}
+
+if ($q1 == "thread")
+{
+    $htmltitle = htmlspecialchars($title) . ' • ' . $config["forumName"];
+}
+elseif ($q1 == "category")
+{
+    $htmltitle = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
+}
+elseif ($q1 == "user")
+{
+    $htmltitle = htmlspecialchars($username) . ' • ' . $config["forumName"];
+}
+else
+{ 
+    if (!$lang["page." . $q1])
+    {
+        $htmltitle = $config["forumName"];
+    }
+    else
+    {
+        $htmltitle = $lang["page." . $q1] . ' • ' . $config["forumName"];
+    }
+}
+
+echo '<meta property="og:locale" content="' . $lang["locale"] . '"/>';
+echo '<meta charset="UTF-8">';
+echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+echo '<meta name="description" content="' . $forumdesc . '">';
+echo '<meta name="keywords" content="tormater-forum, tormater, forum">';
+echo '<meta name="author" content="tormater forum, https://github.com/tormater/tormater-forum">';
+echo '<meta property="og:site_name" content="' . $sitename . '">';
+echo '<title>' . $htmltitle . '</title>';
+listener("meta");
+
 if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
 {
 	echo '<link rel="stylesheet" href="' . genURL("themes/Skyline/style.css?v=0.1") . '" type="text/css">';
