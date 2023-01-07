@@ -376,7 +376,7 @@ $lang = array(
     "BBCode.Link" => "URL",
     "BBCode.Image" => "Image",
     "BBCode.Spoiler" => "Spoiler",
-    "BBCode.Code" => "Code",
+    "BBCode.Code" => "</>",
 );
 
 ?>
