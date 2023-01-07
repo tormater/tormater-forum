@@ -204,7 +204,7 @@ function genURL($page) {
 function message($content) {
 	$message = "<div class='message'>" . $content . "</div>";
     listener("beforeReturnMessage");
-    return $message;
+    echo $message;
 }
 
 // Outputs the data of an array into a file, like the config.
@@ -453,5 +453,4 @@ function generateCaptcha($numChars)
 
     return $chars;
 }
-
 ?>
