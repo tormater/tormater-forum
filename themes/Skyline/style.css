@@ -801,8 +801,8 @@ font.sticky, font.locked {
 
 .postheader {
     display: inline-block;
-    margin-bottom: 6px;
-    font-size: 200%;
+    margin: 12px 0px;
+    font-size: 180%;
     font-weight: bold;
 }
 
@@ -971,8 +971,17 @@ input[type=file]::file-selector-button:hover {
 .userpostlink {
     font-size: 85%;
 }
+.bbcodetraycontainer {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
 .bbcodetray {
-    margin: 2px 0px;
+    display: inline-flex;
+    align-items: center;
+    padding-right: 4px;
+    padding-bottom: 4px;
 }
 .bbcode {
     margin: 0px;
@@ -1011,6 +1020,10 @@ input[type=file]::file-selector-button:hover {
 .bheader {
     font-weight: bolder;
     text-decoration: underline;
+}
+.bcolor {
+    display: inline-block;
+    padding: 2px;
 }
 /* Mobile Support (thanks VegBao!)*/
 @media (max-width: 800px) {
