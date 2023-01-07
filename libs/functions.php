@@ -50,10 +50,13 @@ function BBCodeButtons($num = "") {
     echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');>";
     echo "<input type='button' class='bbcode bstrike' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText" . $num . "('s');>";
     echo "<input type='button' class='bbcode bheader' value='" . $lang["BBCode.Header"] . "' onclick=formatText" . $num . "('h');>";
+    echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');>";
+
+    echo "</div><div class='bbcodetray'>";
     echo "<input type='button' class='bbcode blink' value='" . $lang["BBCode.Link"] . "' onclick=formatText" . $num . "('url');>";
     echo "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText" . $num . "('img');>";
     echo "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText" . $num . "('spoiler');>";
-    echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');>";
+
     echo "</div><div class='bbcodetray'>";
     echo "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails" . $num . "('color','colorbox');>";
     echo "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails" . $num . "('size','sizebox');>";
