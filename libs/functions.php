@@ -43,8 +43,15 @@ function BBCodeButtons($num = "") {
         Field.setSelectionRange(Field.selectionStart - endTag.length,Field.selectionEnd - endTag.length);
     }
     </script>");
+
+    listener("beforeRenderBBCodeTray");
+
     // Serve the BBCode buttons.
-    echo "<div class='bbcodetraycontainer'><div class='bbcodetray'>";
+    echo "<div class='bbcodetraycontainer'>";
+
+    listener("beforeRenderBBCodeButtons");
+
+    echo "<div class='bbcodetray'>";
     echo "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText" . $num . "('b');>";
     echo "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText" . $num . "('i');>";
     echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');>";
@@ -66,7 +73,11 @@ function BBCodeButtons($num = "") {
     echo "<option value='200'>200%</option>";
     echo "<option value='300'>300%</option>";
     echo "</select>";
-    echo "</div></div>";
+    echo "</div>";
+
+    listener("afterRenderBBCodeButtons");
+
+    echo "</div>";
 }
 
 // Hash a string depending on what algorithm is desired by the configuration.
@@ -74,15 +85,19 @@ function hashstring($text) {
     global $config;
     
     if ($config["hashAlgo"] == "md5") {
-        return md5($text);
+        $hashedstring = md5($text);
     }
     elseif ($config["hashAlgo"] == "sha512") {
-        return hash("sha512", $text);
+        $hashedstring = hash("sha512", $text);
     }
     // Default to md5.
     else {
-        return md5($text);
+        $hashedstring = md5($text);
     }
+
+    listener("beforeReturnHash");
+
+    return $hashedstring;
 }
 
 // Hugely important function which generates a random string.
@@ -93,6 +108,9 @@ function random_str($length = 10) {
     for ($i = 0; $i < $length; $i++) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
+
+    listener("beforeReturnRandomString");
+
     return $randomString;
 }
 
@@ -122,28 +140,34 @@ function refresh($time) {
 
 // Logs the user out.
 function logout() {
+
+    listener("beforeLogout");
 	// Log out so long as the user isn't requesting an image.
 	if ($_SERVER["HTTP_ACCEPT"] != "image/avif,image/webp,*/*") {
 		session_unset();
 		session_destroy();
 		redirect("");
 	}
+    listener("afterLogout");
 }
 
 // Makes sure there aren't any bad characters in usernames
 function checkUsername($username) {
 if (!preg_match("#^[a-zA-Z0-9\s_-]+$#", $username)) {
-   return false;   
+   $returned = false;   
 } 
 else {
-   return true;
+   $returned = true;
 }
+listener("beforeReturnUsernameCheck");
+return $returned;
 }
 
 // Update the user's last action and set their last active time to now.
 function update_last_action($action) {
 	global $db;
 	$result = $db->query("UPDATE users SET lastactive='" . time() . "', lastaction='" . $db->real_escape_string($action) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+    listener("afterUpdateAction");
 }
 
 // Parse the user's last action as a language string if it is one.
@@ -151,12 +175,14 @@ function update_last_action($action) {
 function parseAction($action, $array) {
     if (stripos($action, "action.") !== false )
     {
-        return $array[$action];
+        $returned = $array[$action];
     }
     else
     {
-        return $action;
+        $returned = $action;
     }
+    listener("beforeReturnAction");
+    return $returned;
 }
 
 // Generates a URL for a page based on the site's baseURL
@@ -170,23 +196,30 @@ function genURL($page) {
     {
         $generated = $config["baseURL"] . "/" . $page;
     }
+    listener("beforeReturnGeneratedURL");
     return $generated;
 }
 
 // Display a nice message.
 function message($content) {
-	echo "<div class='message'>" . $content . "</div>";
+	$message = "<div class='message'>" . $content . "</div>";
+    listener("beforeReturnMessage");
+    return $message;
 }
 
 // Outputs the data of an array into a file, like the config.
 function saveConfig($file, $array) {
     $getArray = var_export($array, true);
+    listener("beforeSaveConfig");
     file_put_contents($file, '<?php '.PHP_EOL. '$config = '. $getArray .';' .PHP_EOL. '?>');
+    listener("afterSaveConfig");
 }
 
 function saveExtensionConfig($file, $array) {
     $getArray = var_export($array, true);
+    listener("beforeSaveExtensionConfig");
     file_put_contents($file, '<?php '.PHP_EOL. '$extensions = '. $getArray .';' .PHP_EOL. '?>');
+    listener("afterSaveExtensionConfig");
 }
 
 // Convert a unix timestamp into a human readable time format.
@@ -370,6 +403,7 @@ function randomCaptcha($length = 5) {
     for ($i = 0; $i < $length; $i++) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
+    listener("beforeReturnCaptchaString");
     return $randomString;
 }
 
@@ -409,6 +443,8 @@ function generateCaptcha($numChars)
     imagepng($new_image, NULL, 9);
 
     $rawImageBytes = ob_get_clean();
+
+    listener("beforeDrawCaptcha");
 
     echo "<img src='data:image/jpeg;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
 
