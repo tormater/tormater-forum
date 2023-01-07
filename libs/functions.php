@@ -21,9 +21,30 @@ function BBCodeButtons($num = "") {
         Field.focus();
         Field.setSelectionRange(Field.selectionStart - endTag.length,Field.selectionEnd - endTag.length);
     }
+    function formatTextWithDetails" . $num . "(tag, input) {
+        var Field = document.getElementById('textbox" . $num . "');
+        var val = Field.value;
+
+        var Details = document.getElementById(input + '" . $num . "');
+        if (Details.nodeName == 'SELECT')
+        {
+            var detailsVal = Details.options[Details.selectedIndex].value;
+        }
+        else {
+            var detailsVal = Details.value;
+        }
+
+        var selected_txt = val.substring(Field.selectionStart, Field.selectionEnd);
+        var before_txt = val.substring(0, Field.selectionStart);
+        var after_txt = val.substring(Field.selectionEnd, val.length);
+        Field.value += '[' + tag + '=' + detailsVal + ']' + '[/' + tag + ']';
+        var endTag = '[/' + tag + ']'
+        Field.focus();
+        Field.setSelectionRange(Field.selectionStart - endTag.length,Field.selectionEnd - endTag.length);
+    }
     </script>");
     // Serve the BBCode buttons.
-    echo "<div class='bbcodetray'>";
+    echo "<div class='bbcodetraycontainer'><div class='bbcodetray'>";
     echo "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText" . $num . "('b');>";
     echo "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText" . $num . "('i');>";
     echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');>";
@@ -33,7 +54,16 @@ function BBCodeButtons($num = "") {
     echo "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText" . $num . "('img');>";
     echo "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText" . $num . "('spoiler');>";
     echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');>";
-    echo "</div>";
+    echo "</div><div class='bbcodetray'>";
+    echo "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails" . $num . "('color','colorbox');>";
+    echo "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails" . $num . "('size','sizebox');>";
+    echo "<option value='80'>80%</option>";
+    echo "<option value='100'>100%</option>";
+    echo "<option value='150'>150%</option>";
+    echo "<option value='200'>200%</option>";
+    echo "<option value='300'>300%</option>";
+    echo "</select>";
+    echo "</div></div>";
 }
 
 // Hash a string depending on what algorithm is desired by the configuration.
