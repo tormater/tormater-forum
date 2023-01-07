@@ -792,6 +792,8 @@ font.sticky, font.locked {
     border: 1px solid #808080;
     border-radius: 3px;
     color: #10484e;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 100%;
 }
 
 .postpre {
@@ -1004,9 +1006,13 @@ input[type=file]::file-selector-button:hover {
     font-size: 120%;
     padding-top: 2px;
 }
+.bcode {
+    font-family: 'Courier New', Courier, monospace;
+    color: #10484e;
+    font-size: 90%;
+}
 .bbold {
     font-weight: 600;
-
 }
 .bitalic {
     font-style: italic;
