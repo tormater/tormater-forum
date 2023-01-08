@@ -33,6 +33,7 @@ function formatBBCode($post)
         '/(\n|\r\n?)\[hr\]\[\/hr\](\n|\r\n?)/is',
         '/(\n|\r\n?)\[hr\]\[\/hr\]/is',
         '/\[quote\](.+?)\[\/quote\]/is',
+        '/\[blockquote\](.+?)\[\/blockquote\]/is',
     );
 
     $replace = array(
@@ -59,7 +60,8 @@ function formatBBCode($post)
         '<li>$1</li>',
         '<hr class="posthr"></hr>',
         '<hr class="posthr"></hr>',
-        '<blockquote style="border-left: 5px solid rgba(0,0,0,.05); padding: 4px 10px; font-style: italic; margin: 0 0 14px; position: relative;">$1</blockquote>',
+        '<blockquote class="postquote">$1</blockquote>',
+        '<blockquote class="postquote">$1</blockquote>',
     );
 
     listener("beforeFormatBBCode");
