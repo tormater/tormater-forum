@@ -831,7 +831,7 @@ font.sticky, font.locked {
 
 .settingscolor {
     display: inline-block;
-    margin: 1px;
+    margin: 3px;
     padding: 20px;
     box-shadow: 0px 1px inset rgba(255, 255, 255, 0.5);
     box-sizing: border-box;
@@ -844,7 +844,6 @@ font.sticky, font.locked {
 }
 
 .userscolor {
-    border-style: solid;
     border-width: 3px;
     margin: -1px 1px;
 }
@@ -951,7 +950,7 @@ input[type=file]::file-selector-button:hover {
     box-sizing: border-box;
     box-shadow: 0px 1px inset #fff;
     border: 1px solid #adadad;
-    display: inline-block;
+    display: block;
 }
 .userpost {
     margin: 4px 0px;
@@ -1036,6 +1035,7 @@ input[type=file]::file-selector-button:hover {
 
     .tormater-forum {
         padding: 1px;
+        padding-bottom: 20px;
         margin-top: 10px;
     }
     /* Menu */
