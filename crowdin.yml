@@ -1,3 +1,0 @@
-files:
-  - source: /lang/*.php
-    translation: /lang/%locale_with_underscore%.php
