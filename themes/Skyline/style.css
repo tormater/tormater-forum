@@ -763,6 +763,12 @@ font.sticky, font.locked {
     font-size: 20px;
 }
 
+.postquote {
+    border-left: 5px solid #3eaeff; 
+    background-color: rgba(0,0,0,.05);
+    padding: 8px 15px;
+    margin: 0px;
+}
 /* Settings/Admin panel */
 
 .formcontainer {
