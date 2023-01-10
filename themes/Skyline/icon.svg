@@ -1,0 +1,60 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+	<title>tormater-forum</title>
+	<defs>
+		<linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      			<stop offset="0%" style="stop-color:#cde3ff;stop-opacity:1" />
+      			<stop offset="30%" style="stop-color:#3584e4;stop-opacity:1" />
+      			<stop offset="55%" style="stop-color:#1a5aa7;stop-opacity:1" />
+      			<stop offset="63%" style="stop-color:#cde3ff;stop-opacity:1" />
+      			<stop offset="80%" style="stop-color:#3584e4;stop-opacity:1" />
+      			<stop offset="100%" style="stop-color:#1a5aa7;stop-opacity:1" />
+    		</linearGradient>
+    		
+    		<linearGradient id="book" x1="0%" y1="0%" x2="0%" y2="100%">
+      			<stop offset="0%" style="stop-color:#00A700;stop-opacity:1" />
+      			<stop offset="30%" style="stop-color:#008000;stop-opacity:1" />
+      			<stop offset="40%" style="stop-color:#005E00;stop-opacity:1" />
+      			<stop offset="60%" style="stop-color:#005E00;stop-opacity:1" />
+      			<stop offset="70%" style="stop-color:#008000;stop-opacity:1" />
+      			<stop offset="100%" style="stop-color:#00A700;stop-opacity:1" />
+    		</linearGradient>
+    		<linearGradient id="stripe1" x1="0%" y1="0%" x2="100%" y2="0%">
+      			<stop offset="0%" style="stop-color:#DEDDDA;stop-opacity:1" />
+      			<stop offset="40%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      			<stop offset="60%" style="stop-color:#FFFFFF;stop-opacity:1" />
+      			<stop offset="100%" style="stop-color:#DEDDDA;stop-opacity:1" />
+    		</linearGradient>
+    		<linearGradient id="stripe2" x1="0%" y1="0%" x2="100%" y2="0%">
+      			<stop offset="0%" style="stop-color:#c0c0c0;stop-opacity:1" />
+      			<stop offset="40%" style="stop-color:#DEDDDA;stop-opacity:1" />
+      			<stop offset="60%" style="stop-color:#DEDDDA;stop-opacity:1" />
+      			<stop offset="100%" style="stop-color:#c0c0c0;stop-opacity:1" />
+    		</linearGradient>
+  	</defs>
+	<style>
+		.outer { fill: #0f488f } 
+		.inner { fill: url(#bg) } 
+		.bookbase { fill: url(#book)}
+		.bookside { fill: #005E00}
+		.stripe1 { fill: url(#stripe1) }
+		.stripe2 { fill: url(#stripe2) }
+		.stripe3 { fill: #acacac }
+		.stripe4 { fill: #c0c0c0 }
+	</style>
+	<g id="Background">
+		<path id="Path 0" class="outer" d="m95.5 0.1c7.4 0 14.4 0.5 18.3 1.4 3.4 0.8 8.6 2.6 11.4 3.8 2.9 1.3 6.8 4 8.5 6 1.8 2.1 4.1 5.4 5.2 7.5 1 2 2.7 6.2 3.7 9.2 1.5 4.3 1.9 8.4 1.9 19 0 11.6-0.3 14.5-2.4 20.5-1.3 3.8-4.3 10.8-6.6 15.5-2.4 4.7-6.2 10.7-8.6 13.4-2.4 2.7-6.7 6.4-14.4 11.6h10.5c6.7 0 13.9 0.8 19.8 2 5.9 1.3 12.4 3.6 18.2 6.5 5 2.5 11.3 6.6 14.1 9.3 2.8 2.6 6.3 6.7 7.9 9.2 1.6 2.5 4.3 8.7 5.9 13.8 3 8.8 3.1 9.9 3.1 43.2h-192v-17c0-16.3 0.1-17.4 3.1-26.3 1.6-5 4.3-11.2 5.9-13.7 1.6-2.5 5.1-6.6 7.9-9.3 2.8-2.6 9.1-6.7 14.1-9.2 5.8-2.9 12.3-5.2 18.2-6.5 5.9-1.2 13.1-2 30.3-2l-5-3.3c-2.8-1.9-7-5.6-9.4-8.3-2.4-2.7-6.2-8.7-8.6-13.4-2.3-4.7-5.3-11.7-6.6-15.5-2.1-6-2.4-8.9-2.4-20.5 0-10.6 0.4-14.7 1.9-19 1-3 2.7-7.2 3.7-9.3 1.1-2 3.4-5.3 5.1-7.4 1.8-2 5.8-4.7 8.8-6.1 3-1.3 8-3 11-3.7 3-0.7 10.9-1.4 17.5-1.4z"/>
+		<path id="Path 1" class="inner" d="m95.8 10.1c15.9-0.1 17.6 0.1 22.5 2.2 2.8 1.3 6.7 4.1 8.6 6.3 1.9 2.1 4.7 6.6 6.3 9.9 2.6 5.5 2.8 6.9 2.8 17.8q0 11.7-1.6 17.4c-0.9 3.2-3.2 8.7-5.1 12.3-1.8 3.6-4.5 8.1-5.9 10-1.4 1.9-3.3 4.3-4.2 5.4-0.9 1-4.9 4.4-8.7 7.4-3.8 3.1-8.6 6.2-10.5 7-2.7 1.1-4.3 1.2-7 0.4-1.9-0.6-6.9-3.7-11-7-4.1-3.2-8.3-6.8-9.2-7.8-0.9-1-2.8-3.5-4.2-5.4-1.4-1.9-4.1-6.4-5.9-10-1.9-3.6-4.2-9.1-5.1-12.3q-1.6-5.7-1.6-17.4c0-10.9 0.2-12.3 2.8-17.8 1.6-3.3 4.4-7.8 6.3-9.9 1.9-2.2 5.7-5 8.4-6.2 4.6-2.1 6.5-2.3 22.3-2.3zm-0.5 107c30-0.1 39.3 0.2 45.5 1.4 4.2 0.9 8.8 2 10.2 2.6 1.4 0.6 4.8 2.5 7.5 4.3 2.8 1.9 7.4 6 10.4 9.2 2.9 3.3 6.5 8.2 8 10.9 2.4 4.7 2.6 5.9 3.1 37.5h-168l0.3-16.2c0.2-15.4 0.4-16.6 2.8-21.3 1.5-2.7 5.1-7.6 8-10.9 3-3.2 7.2-7.1 9.4-8.5 2.2-1.5 5.1-3.3 6.5-4.1 1.4-0.8 6.1-2.2 10.5-3.1 6.8-1.5 13.8-1.8 45.8-1.8z"/>
+		<rect x="71" y="107" width="97" height="85" class="bookbase"/>
+		<rect x="84" y="120" width="84" height="13" class="stripe1"/>
+		<rect x="84" y="133" width="84" height="11" class="stripe2"/>
+		<rect x="84" y="144" width="84" height="13" class="stripe1"/>
+		<rect x="84" y="157" width="84" height="11" class="stripe2"/>
+		<rect x="84" y="168" width="84" height="13" class="stripe1"/>
+		<rect x="168" y="107" width="24" height="85" class="bookside"/>
+		<rect x="168" y="120" width="24" height="13" class="stripe4"/>
+		<rect x="168" y="133" width="24" height="11" class="stripe3"/>
+		<rect x="168" y="144" width="24" height="13" class="stripe4"/>
+		<rect x="168" y="157" width="24" height="11" class="stripe3"/>
+		<rect x="168" y="168" width="24" height="13" class="stripe4"/>
+	</g>
+</svg>
