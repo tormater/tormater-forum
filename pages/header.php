@@ -56,6 +56,7 @@ echo '<meta name="description" content="' . $forumdesc . '">';
 echo '<meta name="keywords" content="tormater-forum, tormater, forum">';
 echo '<meta name="author" content="tormater forum, https://github.com/tormater/tormater-forum">';
 echo '<meta property="og:site_name" content="' . $sitename . '">';
+
 echo '<title>' . $htmltitle . '</title>';
 listener("meta");
 
@@ -68,6 +69,17 @@ else
 {
 	echo '<link rel="stylesheet" href="' . genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1') . '" type="text/css">';
     echo '<link rel="icon" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.ico') . '">';
+}
+
+// Extra icons
+
+if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/icon.svg"))
+{
+    echo '<link rel="icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.svg') . '" sizes="any" type="image/svg+xml">';
+}
+if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/icon.png"))
+{
+    echo '<meta property="og:image" content="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '"/>';
 }
 ?>
 
