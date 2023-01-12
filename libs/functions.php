@@ -376,7 +376,7 @@ function listener($hook)
     global $hooks;
 	if (isset($hooks[$hook])) {		
 		foreach ($hooks[$hook] as $function) {
-			return call_user_func($function);
+			call_user_func($function);
 		}
 	}
 }
@@ -384,12 +384,10 @@ function listener($hook)
 function hook($hook, $function)
 {
     global $hooks;
-    if (isset($hooks[$hook]))
-    {
-        array_push($hooks[$hook], $function);   
+    if (isset($hooks[$hook])) {
+        array_push($hooks[$hook], $function);
     }
-    else
-    {
+    else {
         $hooks[$hook] = array($function);
     }
     
