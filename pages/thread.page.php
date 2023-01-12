@@ -347,6 +347,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 				refresh(0);
 			}
 		}
+		// If the user is requesting to edit the thread title...
+		elseif (($_POST["editthread"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		{
+			// First make sure the user has permission to edit the specified post.
+			$permission = $db->query("SELECT startuser FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
+			while ($p = $permission->fetch_assoc())
+			{
+				if ($p["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator")
+				{
+					$result = $db->query("UPDATE threads SET title='" . $db->real_escape_string($_POST["editthread"]) . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+			
+					if (!$result)
+					{
+						message($lang["thread.PostRestoredError"]);
+					}
+			
+					else
+					{
+						refresh(0);
+					}
+				}
+                else
+                {
+					message($lang["thread.PostEditError"]);
+				}
+			}
+		}
 	}
 }
 
@@ -362,7 +389,20 @@ elseif($posts->num_rows == 0)
 	
 else
 {
-	echo '<h2>'. htmlspecialchars($title); // $lang["thread.PostInTitle"]
+
+    $titleEdit = $db->query("SELECT startuser FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
+	while ($p = $titleEdit->fetch_assoc())
+	{
+		if ($p["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator")
+		{
+			echo '<form action="" method="post"><input type="text" id="editthread" name="editthread" autocomplete="off" onchange="form.submit();" value="' . htmlspecialchars($title) . '">';
+        }
+        else
+        {
+            echo '<span class="threadtitle">' . htmlspecialchars($title) . '</span>';
+        }
+    }
+
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
 	{
 		echo '<div class="modtools">';
@@ -377,7 +417,7 @@ else
                     		if ($category == $row["categoryid"]) echo "selected ";
 				echo 'value="' . $row['categoryid'] . '">' . htmlspecialchars($row['categoryname']) . '</option>';
 			}
-			echo '</select> <button name="movethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.MoveThreadBtn"].'</button></form>';	
+			echo '</select> <button name="movethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.MoveThreadBtn"].'</button></form> ';	
         	}
 
         	echo '<form action="" method="post"><button name="deletethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.DeleteThreadBtn"].'</button></form>';
@@ -400,7 +440,6 @@ else
 		}
 		echo '</div>';
 	}
-    	echo '</h2>';
 	if ($locked == 1 or $stickied == 1)
 	{
 		echo '<div>'.$lang["thread.Labels"];
