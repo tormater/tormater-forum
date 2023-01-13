@@ -71,7 +71,7 @@ $lang = array(
     "category.LastPost" => "Last post",
 
     // Threads & Posts
-    "thread.Info" => "by %s, %s",
+    "thread.Info" => "by <a id='%s' href='%s'>%s</a>, <span title='%s'>%s</span>",
     "thread.BackToCategory" => "Back to category",
     "thread.DeleteThreadBtn" => "Delete",
     "thread.UnlockThreadBtn" => "Unlock",
