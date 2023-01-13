@@ -550,6 +550,7 @@ td {
     font-weight: normal;
     font-size: 1.5em;
     display: block;
+    cursor: default;
 }
 .threadinfo {
     display: block;
@@ -567,7 +568,7 @@ td {
     width: 100%;
     background: unset;
     border: unset;
-    outline: #dcdcdc 1px solid;
+    outline: unset;
 }
 
 #editthread:focus {
