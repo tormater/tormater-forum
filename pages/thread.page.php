@@ -401,9 +401,15 @@ else
         {
             echo '<span class="threadtitle">' . htmlspecialchars($title) . '</span>';
         }
-        $userinfo = $db->query("SELECT username FROM users WHERE userid='" . $row["startuser"] . "'");
-        while ($r = $userinfo->fetch_assoc()) {
-            printf("<span class='threadinfo'>" .$lang["thread.Info"] . "</span>", "<a href='" . genURL("user/" .htmlspecialchars($row["startuser"])) . "'>" . htmlspecialchars($r["username"]) . "</a>", relativeTime($row["starttime"]));
+        $userinfo = $db->query("SELECT username, role, deleted FROM users WHERE userid='" . $row["startuser"] . "'");
+        while ($u = $userinfo->fetch_assoc()) {
+            if ($u["deleted"] == 1) {
+                $username = $lang["user.Deleted"] . $u["userid"];
+            }
+			else {
+                $username = $u["username"];
+            }
+            printf("<span class='threadinfo'>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"]));
         }
         
     }
