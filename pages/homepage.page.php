@@ -18,7 +18,7 @@ while($row = $result->fetch_assoc()) {
 	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
 	$number = $numthreads->num_rows;
 	echo '<tr><td><h3><a href="' . genURL("category/" . $row["categoryid"]) . '">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
-	echo '<div>' . htmlspecialchars($row["categorydescription"]) . '</div></td>';
+	echo '<div>' . formatPost($row["categorydescription"]) . '</div></td>';
 	echo '<td class="tdthreads"><div><center>' . $number . '</center></div></td></tr>';
 }
 echo '</table>';
