@@ -403,7 +403,7 @@ else
         }
         $userinfo = $db->query("SELECT username FROM users WHERE userid='" . $row["startuser"] . "'");
         while ($r = $userinfo->fetch_assoc()) {
-            printf("<span class='threadinfo'>" .$lang["thread.Info"] . "</span>", htmlspecialchars($r["username"]), relativeTime($row["starttime"]));
+            printf("<span class='threadinfo'>" .$lang["thread.Info"] . "</span>", "<a href='" . genURL("user/" .htmlspecialchars($row["startuser"])) . "'>" . htmlspecialchars($r["username"]) . "</a>", relativeTime($row["starttime"]));
         }
         
     }
