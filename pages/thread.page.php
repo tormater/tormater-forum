@@ -390,10 +390,10 @@ elseif($posts->num_rows == 0)
 else
 {
 
-    $titleEdit = $db->query("SELECT startuser FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
-	while ($p = $titleEdit->fetch_assoc())
+    $titleEdit = $db->query("SELECT startuser, starttime FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
+	while ($row = $titleEdit->fetch_assoc())
 	{
-		if ($p["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator")
+		if ($row["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator")
 		{
 			echo '<form action="" method="post"><input type="text" id="editthread" name="editthread" autocomplete="off" onchange="form.submit();" value="' . htmlspecialchars($title) . '">';
         }
@@ -401,6 +401,11 @@ else
         {
             echo '<span class="threadtitle">' . htmlspecialchars($title) . '</span>';
         }
+        $userinfo = $db->query("SELECT username FROM users WHERE userid='" . $row["startuser"] . "'");
+        while ($r = $userinfo->fetch_assoc()) {
+            printf("<span class='threadinfo'>" .$lang["thread.Info"] . "</span>", htmlspecialchars($r["username"]), relativeTime($row["starttime"]));
+        }
+        
     }
 
 	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
