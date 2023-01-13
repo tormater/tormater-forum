@@ -71,6 +71,7 @@ $lang = array(
     "category.LastPost" => "Last post",
 
     // Threads & Posts
+    "thread.Info" => "by %s, %s",
     "thread.BackToCategory" => "Back to category",
     "thread.DeleteThreadBtn" => "Delete",
     "thread.UnlockThreadBtn" => "Unlock",
@@ -350,6 +351,7 @@ $lang = array(
     "upgrade.None" => "No upgrades to peform!",
     
     // User panel
+    "userpanel.PMs" => "PMs",
     "userpanel.AccountSettings" => "Account Settings",
     "userpanel.ProfileSettings" => "Profile Settings",
     "userpanel.AvatarSettings" => "Avatar Settings",
@@ -366,7 +368,7 @@ $lang = array(
     "userpanel.AvatarUploadsDisabled" => "Sorry, avatar uploads have been disabled.",
     "userpanel.NoAvatar" => "None.",
     "userpanel.WaitToUpload" => "You've already uploaded an avatar too recently. Please wait a few minutes and try again.",
-    
+
     // BBCode
     "BBCode.Bold" => "B",
     "BBCode.Italic" => "I",
