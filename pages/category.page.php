@@ -111,7 +111,7 @@ else
                     
 					
                     
-                    echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
+                    echo '</td><td class="tdposts"><center>' . $row['posts'] . '</center></td><td>';
 					
 					$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["lastpostuser"] . "'");
 					
