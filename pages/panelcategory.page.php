@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     	echo '<div class="category"><tr>';
     		echo '<td class="leftpart">';
     		echo '<h3><span>' . htmlspecialchars($row["categoryname"]) . ' (#' . $row["categoryid"] . ')</span></h3>';
-			echo '<div>' . htmlspecialchars($row["categorydescription"]) . '</div>';
+			echo '<div>' . formatPost($row["categorydescription"]) . '</div>';
     		echo '<div><div style="float:right">';
 			echo '<form style="display:inline-block;" method="post" action=""><button name="edit" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryEditBtn"].'</button></form> 
 				<form style="display:inline-block;" method="post" action=""><button name="delete" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryDeleteBtn"].'</button></form>';
