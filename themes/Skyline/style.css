@@ -538,21 +538,25 @@ td {
 
 
 .threadtitle {
-    margin: 20px 0;
     margin-top: 10px;
+    margin-bottom: 5px;
     word-wrap: break-word;
     color: #000;
     font-weight: normal;
-    font-size: 200%;
+    font-size: 1.5em;
     display: block;
 }
+.threadinfo {
+    display: block;
+    margin-bottom: 10px;
+}
 #editthread {
-    margin: 20px 0;
     margin-top: 10px;
+    margin-bottom: 5px;
     word-wrap: break-word;
     color: #000;
     font-weight: normal;
-    font-size: 200%;
+    font-size: 1.5em;
     display: block;
     box-sizing: border-box;
     width: 100%;
