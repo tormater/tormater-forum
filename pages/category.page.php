@@ -52,7 +52,8 @@ else
 	
 	else
 	{
-		echo '<h2>' . $lang["category.ThreadsIn"] . htmlspecialchars($categoryName) . '</h2>';
+		echo '<span class="categorytitle">' . $lang["category.ThreadsIn"] . htmlspecialchars($categoryName) . '</span>';
+        echo '<span class="categorydesc">' . formatPost($categoryDescription) .'</span>';
 	
 		$result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
 		
