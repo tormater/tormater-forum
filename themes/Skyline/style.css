@@ -492,7 +492,7 @@ td {
     font-size: 110%;
 }
 
-.tdthreads {
+.tdthreads, .tdposts {
     width: 60px;
 }
 .tddate, .postdate {
@@ -518,7 +518,7 @@ td {
 }
 
 .leftpart {
-    width: 60%;
+    width: 70%;
 }
 
 .rightpart {
@@ -1159,7 +1159,7 @@ input[type=file]::file-selector-button:hover {
         display: inline-block
     }
 
-    .tdthreads {
+    .tdthreads, .tdposts {
         width: 20%;
     }
     
