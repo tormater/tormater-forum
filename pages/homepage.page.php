@@ -22,7 +22,7 @@ while($row = $result->fetch_assoc()) {
 	echo '<td class="tdthreads"><div><center>' . $number . '</center></div></td></tr>';
 }
 echo '</table>';
-echo '<table><tr><th>' . $lang["homepage.Threads"] . '</th><th><center>' . $lang["category.Posts"] . '</center></th><th>' . $lang["category.CreatedBy"] . '</th><th>' . $lang["category.LastPost"] . '</th></tr>';
+echo '<table><tr><th>' . $lang["homepage.Threads"] . '</th><th><center>' . $lang["category.Posts"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
 					
 while($row = $threads->fetch_assoc())
 {				
@@ -41,25 +41,25 @@ while($row = $threads->fetch_assoc())
     echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 
 
-	echo '</td><td><center>' . $row['posts'] . '</center></td><td>';
+
 					
 	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");
 					
 	while ($u = $uinfo->fetch_assoc())
 	{
 		if ($u["deleted"] == 1) {
-            		$username = $lang["user.Deleted"] . $u["userid"];
-        		}
-        	else {
-            		$username = $u["username"];
-        	}
-		echo '<a href="' . genURL('user/' . $row['startuser']) . '" id="' . $u["role"] . '">' . $username . '</a>';
+        	$username = $lang["user.Deleted"] . $u["userid"];
+        }
+		else {
+            $username = $u["username"];
+        }
+        echo "<div class='tdinfo'>";
+		printf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"]));
+        echo "</div>";
 	}
-					
-	echo "<div class='tddate' title='" . date('m-d-Y h:i:s A', $row['starttime']) . "'>" . relativeTime($row["starttime"]) . "</div>";
-					
-	echo '</td><td>';
-					
+
+	echo '</td><td class="tdposts"><center>' . $row['posts'] . '</center></td><td>';
+    				
 	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["lastpostuser"] . "'");
 					
 	while ($u = $uinfo->fetch_assoc())
