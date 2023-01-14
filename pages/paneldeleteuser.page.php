@@ -19,6 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // If everything checks out, mark the user as deleted.
                 $db->query("UPDATE users SET deleted='1' WHERE userid='" . $db->real_escape_string($q3) . "'");
 
+                // Remove the user's avatar as well.
+                removeAvatar($q3);
+
                 echo("</br>" . $lang["panel.DeleteUserSuccess"]);
             }
         }
@@ -36,6 +39,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 // If everything checks out, mark the user as deleted and hide all of their posts.
                 $db->query("UPDATE users SET deleted='1' WHERE userid='" . $db->real_escape_string($q3) . "'");
                 $db->query("UPDATE posts SET deletedby='" . $db->real_escape_string($_SESSION["userid"]) . "' WHERE user='" . $db->real_escape_string($q3) . "'");
+
+                // Remove the user's avatar as well.
+                removeAvatar($q3);
 
                 echo("</br>" . $lang["panel.DeleteUserSuccessHide"]);
             }
@@ -97,6 +103,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         }
                     }
                 }
+
+                // Remove the user's avatar as well.
+                removeAvatar($q3);
 
                 echo("</br>" . $lang["panel.DeleteUserSuccess"]);
             }

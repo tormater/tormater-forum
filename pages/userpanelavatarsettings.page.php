@@ -11,25 +11,6 @@ if ($config["avatarUploadsDisabled"] == true) {
     exit;
 }
 
-function removeAvatar()
-{
-    global $db;
-
-    $typeCheck = $db->query("SELECT avatar FROM users WHERE userid='" . $_SESSION["userid"] . "'");
-
-    while ($t = $typeCheck->fetch_assoc()) {
-        $typeOfFile = $t["avatar"];
-    }
-
-    if ($typeOfFile != "none") {
-        unlink("avatars/" . $_SESSION["userid"] . "." . $typeOfFile);
-        $db->query("UPDATE users SET avatar='none' WHERE userid='" . $_SESSION["userid"] . "'");
-        return true;
-    }
-
-    return false;
-}
-
 // Handle post requests.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES["uploadedFile"])) {
@@ -81,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $src = imagecreatefromjpeg($_FILES["uploadedFile"]["tmp_name"]);
                 $dst = imagecreatetruecolor($w, $h);
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
-                removeAvatar();
+                removeAvatar($_SESSION["userid"]);
                 imagejpeg($dst, "avatars/" . $_SESSION["userid"] . $extension);
                 if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
                     $db->query("UPDATE users SET avatar='jpg', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
@@ -124,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 imagefill($dst, 0, 0, $trans_colour);
 
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
-                removeAvatar();
+                removeAvatar($_SESSION["userid"]);
                 imagepng($dst, "avatars/" . $_SESSION["userid"] . $extension);
                 if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
                     $db->query("UPDATE users SET avatar='png', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
@@ -167,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 imagefill($dst, 0, 0, $trans_colour);
 
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
-                removeAvatar();
+                removeAvatar($_SESSION["userid"]);
                 imagegif($dst, "avatars/" . $_SESSION["userid"] . $extension);
                 if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
                     $db->query("UPDATE users SET avatar='gif', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
@@ -177,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
     elseif (isset($_POST["removeAvatar"])) {
-        if (removeAvatar()) message($lang["userpanel.RemoveAvatarSuccess"]);
+        if (removeAvatar($_SESSION["userid"])) message($lang["userpanel.RemoveAvatarSuccess"]);
     }
 }
 

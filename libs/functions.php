@@ -451,4 +451,25 @@ function generateCaptcha($numChars)
 
     return $chars;
 }
+
+// Remove an account's avatar.
+function removeAvatar($userid)
+{
+    global $db;
+
+    $typeCheck = $db->query("SELECT avatar FROM users WHERE userid='" . $db->real_escape_string($userid) . "'");
+
+    while ($t = $typeCheck->fetch_assoc()) {
+        $typeOfFile = $t["avatar"];
+    }
+
+    if ($typeOfFile != "none") {
+        unlink("avatars/" . $userid . "." . $typeOfFile);
+        $db->query("UPDATE users SET avatar='none' WHERE userid='" . $db->real_escape_string($userid) . "'");
+        return true;
+    }
+
+    return false;
+}
+
 ?>
