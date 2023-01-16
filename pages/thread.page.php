@@ -554,7 +554,7 @@ else
                     echo '</div><div class="threadcontent">';
                     echo '<div class="infobar">';
                     echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
-                    echo "<button class='buttoninput buttonquote' onclick='quotePost(" . $row["postid"] . ")'>Quote</button>";
+                    echo "<button class='buttoninput buttonquote' onclick='quotePost(" . $row["postid"] . ")'>" . $lang["thread.QuotePost"] . "</button>";
                     echo '</div>';
                     			if ((!$u["signature"]) or (!isset($u["signature"])) or ($u["signature"] == "")) {
                         			$signature = "";
