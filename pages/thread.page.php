@@ -32,6 +32,27 @@ while($row = $thread->fetch_assoc()) {
 
 include 'header.php';
 
+echo ("<script type='text/javascript'>
+function quotePost(id) {
+    var Field = document.getElementById('textbox1');
+    var val = Field.value;
+    var selected_txt = val.substring(Field.selectionStart, Field.selectionEnd);
+    var before_txt = val.substring(0, Field.selectionStart);
+    var after_txt = val.substring(Field.selectionEnd, val.length);
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            Field.value += this.responseText;;
+            Field.focus();
+            Field.setSelectionRange(Field.selectionStart,Field.selectionEnd);
+       }
+    };
+    xhttp.open('POST', '" . genURL("pages/thread.ajax.php") . "', true);
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.send('postid=' + id); 
+}
+</script>");
+
 // Calculate the offset for the posts query.
 $offset = (($currentPage * $config["postsPerPage"]) - $config["postsPerPage"]);
 
@@ -510,7 +531,7 @@ else
                 		}
 				echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
 				echo $displayAvatar;
-				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b><span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
+				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
                     			echo '<div>';
@@ -530,13 +551,18 @@ else
 				
 				else
 				{
+                    echo '</div><div class="threadcontent">';
+                    echo '<div class="infobar">';
+                    echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
+                    echo "<button class='buttoninput buttonquote' onclick='quotePost(" . $row["postid"] . ")'>Quote</button>";
+                    echo '</div>';
                     			if ((!$u["signature"]) or (!isset($u["signature"])) or ($u["signature"] == "")) {
                         			$signature = "";
                     			}
                     			else {
                         			$signature = '<hr class="sigline"><p class="signature">' . formatPost($u["signature"]) . '</p>';
                     			}
-					echo '</div><div class="threadcontent">' . formatPost($row["content"]) . $signature . '</div>';
+					echo formatPost($row["content"]) . $signature . '</div>';
 				}
                 		echo "</div>";
 			}
