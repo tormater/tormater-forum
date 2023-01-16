@@ -82,6 +82,7 @@ $lang = array(
     "thread.PostInTitle" => "Posts in",
     "thread.ContentTitle" => "Content:",
     "thread.HiddenBy" => "(hidden by <a href='%s' id='%s'>%s</a>)",
+    "thread.QuotePost" => "Quote",
     // Labels & Buttons
     "thread.PostReplyBtn" => "Post reply",
     "thread.Labels" => "Labels:",
