@@ -19,4 +19,3 @@ function connect($server, $database, $username, $password)
 }
 
 ?>
-
