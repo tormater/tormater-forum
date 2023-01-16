@@ -168,13 +168,13 @@ body {
     background: linear-gradient(#fff, #d3d3d3);
     border: 1px solid #808080;
     border-radius: 3px;
-    font-size: 14px;
+    font-size: 12px;
+    padding: 3px 6px;
     cursor: pointer;
 }
 
 .buttoninput:hover {
     filter: brightness(110%);
-    text-decoration: underline;
 }
 
 .buttoninput:active {
@@ -388,6 +388,15 @@ textarea:focus {
 .message a {
     color: #7cb7fc;
     text-decoration: none;
+}
+
+.buttonquote {
+    float:right;
+    margin-top: -3px;
+}
+
+.infobar {
+    margin-bottom:10px;
 }
 
 /* Page bar styles. */
