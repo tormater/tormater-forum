@@ -416,7 +416,7 @@ else
 	{
 		if ($row["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator")
 		{
-			echo '<form action="" method="post"><input type="text" id="editthread" name="editthread" autocomplete="off" onchange="form.submit();" value="' . htmlspecialchars($title) . '">';
+			echo '<form action="" method="post"><input type="text" id="editthread" name="editthread" autocomplete="off" onchange="form.submit();" value="' . htmlspecialchars($title) . '"></form>';
         }
         else
         {
@@ -534,7 +534,7 @@ else
 				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b>";
 				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
 				{
-                    			echo '<div>';
+                    echo '<div>';
 					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
 					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
