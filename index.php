@@ -20,8 +20,10 @@ else {
     saveConfig("config/config.php", $config);
 }
 
-// Now that we have the config, connect to the MySQL database.
-$db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
+// Now that we have the config, connect to the MySQL database if the forum is installed.
+if ($config["installed"] == "yes") {
+	$db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
+}
 
 // Load up the formatter.
 require "libs/formatter.php";
