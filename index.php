@@ -20,7 +20,10 @@ else {
     saveConfig("config/config.php", $config);
 }
 
-require "libs/database.php";
+// Now that we have the config, connect to the MySQL database.
+$db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
+
+// Load up the formatter.
 require "libs/formatter.php";
 
 // Extensions config
