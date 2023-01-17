@@ -27,6 +27,7 @@ $lang = array(
     "error.FailedFetchUsers" => "Failed to fetch users.",
     "error.NoUsers" => "Sadly, there are currently no users on the forum.",
     "error.TooManyLogins" => "You've tried to log in too many times. Please wait a few minutes and try again later.",
+    "error.MySQLNoResult" => "An error occurred whilst attempting to connect to the database, please try again later.",
     
     "nav.AdminsOnly" => "Sorry, this page is unavailable to non-admins.",
     "nav.LoginRequired" => "Hey, you must be <a href='%s'>logged in</a> to see this page!",
@@ -49,7 +50,6 @@ $lang = array(
     
     "header.Home" => "Home",
     "header.Userlist" => "Userlist",
-    "header.Settings" => "Settings",
     "header.NewThread" => "New thread",
     "header.Panel" => "Admin Panel",
     "header.Logout" => "Logout",
@@ -126,12 +126,12 @@ $lang = array(
     "newthread.CreateBtn" => "Create thread",
     // Error
     "newthread.LoginToCreate" => "Sorry, you have to be <a href='%s'>logged in</a> to create a thread.",
-    "newthread.SuspendCantCreate" => "Unfortunately, you're suspended. Suspended users cannot create a thread.",
+    "newthread.SuspendCantCreate" => "Your account has been suspended. You can no longer start threads.",
     "newthread.TitleEmpty" => "Your title cannot be blank.",
-    "newthread.TitleBig1" => "Your title was too long. The maximum number of characters a title may contain is currently set to %s.",
+    "newthread.TitleBig1" => "Your title must be shorter than %s characters long.",
     "newthread.PostEmpty" => "Your post cannot be blank.",
-    "newthread.PostBig1" => "Your post was too long. The maximum number of characters a post may contain is currently set to %s.",
-    "newthread.InvalidCategory" => "Invalid category selection. Please select a category that actually exists.",
+    "newthread.PostBig1" => "Your post must be shorter than %s characters long.",
+    "newthread.InvalidCategory" => "There is no category with that name.",
     "newthread.PostSoon1" => "You tried to post too soon after a previous post. The post delay is currently %s seconds between posts.",
     "newthread.CreateError" => "An error occured while creating your thread. Please try again later.",
     "newthread.InsertThreadError" => "An error occured while inserting your thread. Please try again later.",
@@ -140,7 +140,7 @@ $lang = array(
     "newthread.SuccessCreate2" => "your new thread.",
     "newthread.DataError" => "Error while selecting from database. Please try again later.",
     "newthread.NoCategoryAdmin" => "You have not created categories yet.",
-    "newthread.NoCategoryUser" => "Before you can post a topic, you must wait for an admin to create some categories.",
+    "newthread.NoCategoryUser" => "Before you can post a thread, you must wait for an admin to create some categories.",
     
     // Admin panel
     "panel.ForumSettings" => "Forum Settings",
@@ -183,7 +183,7 @@ $lang = array(
     "panel.CantUpdateCategory" => "Sorry, the category couldn't be updated. Try again later.",
     "panel.SuccessUpdateCategory" => "The category was successfully updated.",
     "panel.DeleteCategory" => "Delete category",
-    "panel.CategoryDataWillGone" => "All threads and posts in this category will be gone forever...",
+    "panel.CategoryDataWillGone" => "All threads and posts in this category will be gone forever (a really long time)...",
     "panel.CategoryDeleteLastCheck" => "Are you sure?",
     "panel.CantDeleteCategory" => "Sorry, the category couldn't be deleted. Try again later.",
     "panel.DeleteCategoryBtn" => "Delete category",
@@ -239,7 +239,7 @@ $lang = array(
     
     // User login
     "login.Header" => "Log in",
-    "login.Username" => "Username / Email",
+    "login.Username" => "Username or Email",
     "login.Password" => "Password",
     "login.Submit" => "Log in",
     "login.Welcome" => "Welcome, %s. <a href='%s'>Proceed to the forum overview</a>.",
@@ -291,10 +291,10 @@ $lang = array(
 
     // Change username
     "settings.ChangeUsername" => "Change Username",
-    "settings.NewUsername" => "New Username",
+    "settings.NewUsername" => "New username",
     "settings.ChangeUsernameBtn" => "Change Username",
-    "settings.NewUsernameEmpty" => "New username cannot be empty.",
-    "settings.PasswordEmpty" => "Password cannot be empty.",
+    "settings.NewUsernameEmpty" => "You must enter a username.",
+    "settings.PasswordEmpty" => "You must enter a password.",
     "settings.NewUsernameSame" => "New username cannot be the same as old username.",
     "settings.NewUsernameBig" => "New username cannot be longer than 24 characters.",
     "settings.NewUsernameNonAlph" => "New username cannot contain non-alphanumeric characters.",
@@ -303,8 +303,8 @@ $lang = array(
 
     // Change password
     "settings.ChangePassword" => "Change Password",
-    "settings.NewPassword" => "New Password",
-    "settings.ConfirmNewPassword" => "Confirm New Password",
+    "settings.NewPassword" => "New password",
+    "settings.ConfirmNewPassword" => "Confirm new password",
     "settings.ChangePasswordBtn" => "Change Password",
     "settings.NewPasswordEmpty" => "New password cannot be empty.",
     "settings.ConfirmNewPasswordEmpty" => "Confirm new password cannot be empty.",
@@ -352,7 +352,6 @@ $lang = array(
     "upgrade.None" => "No upgrades to peform!",
     
     // User panel
-    "userpanel.PMs" => "PMs",
     "userpanel.AccountSettings" => "Account Settings",
     "userpanel.ProfileSettings" => "Profile Settings",
     "userpanel.AvatarSettings" => "Avatar Settings",
