@@ -80,8 +80,15 @@ if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" .
 if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/icon.png"))
 {
     echo '<meta property="og:image" content="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '"/>';
+    echo '<link rel="icon" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '" sizes="256">';
 }
+
+// Use config variables in JS
 ?>
+
+<script>
+    var baseURL = "<?php echo htmlspecialchars($config["baseURL"]); ?>"; 
+</script>
 
 </head>
 <body>
