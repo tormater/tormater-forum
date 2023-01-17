@@ -1,0 +1,115 @@
+* {
+    font-family: Arial, sans-serif;
+}
+body {
+    background: rgb(214, 214, 214);
+    font-size: 75%;
+    margin: 0;
+    color: #333333;
+}
+
+#titlebar {
+    padding: 10px 30px;
+    width: 100%;
+    box-sizing: border-box;
+    background: linear-gradient(rgb(68, 68, 68), #000);
+    border-top: #000 1px solid;
+    color: #fff;
+    font-size: 200%;
+}
+#content {
+    padding: 20px 30px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #a0a0a0;
+    text-align: left;
+    min-height: calc(100vh - 49px);
+}
+
+
+.formcontainer {
+    display: inline-block;
+    box-sizing: border-box;
+    min-width: calc(50% - 4px);
+    margin: 2px;
+}
+
+label {
+    display: inline-block;
+    width: 30%;
+    color: #000;
+}
+
+input {
+    display:inline-block;
+    padding: 2px 4px;
+    background: linear-gradient(#fff, #d4d4d4);
+    border: 1px solid #808080;
+    border-radius: 3px;
+    font-size: 100%;
+    margin: 4px 0px;
+}
+
+input:hover {
+    filter: brightness(105%);
+}
+
+input:focus {
+    background: #fff;
+    border: #0000ff 1px solid;
+    outline: #9c9cff 1px solid;
+}
+
+h3 {
+    color: #000;
+    display:inline-block;
+}
+
+.buttonbig {
+    padding: 5px 10px;
+    background: linear-gradient(#fff, #d3d3d3);
+    border: 1px solid #808080;
+    border-radius: 3px;
+    color: #000;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.buttonbig:hover {
+    filter: brightness(110%);
+    text-decoration: none;
+}
+
+.buttonbig:active {
+    filter: brightness(80%);
+    outline: none;
+    border: 1px solid #808080;
+}
+
+.buttonbig:focus {
+    filter: brightness(80%);
+    outline: none;
+    border: 1px solid #808080;
+}
+
+hr {
+    margin: 16px 0px;
+    margin-top: 32px;
+    height: 1px;
+    border-width: 0;
+    background-color: rgb(199, 199, 199);
+}
+
+.message {
+    padding: 8px 12px;
+    background: linear-gradient(#4a5269, #656c81);
+    box-shadow: 0px 1px inset #727b97;
+    text-shadow: 0 1px #3a3f4e;
+    border: 1px solid #3a4050;
+    color: #fff;
+}
+
+.message a {
+    color: #7cb7fc;
+    text-decoration: none;
+}
