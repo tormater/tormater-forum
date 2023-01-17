@@ -136,35 +136,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-require "pages/header.php";
 
-echo("<title>Installer</title>
-<link rel='stylesheet' href='themes/Skyline/style.css'>
+echo "<head>";
+echo "<title>Tormater Forum Installer</title>";
+echo "<link rel='stylesheet' href='install/install.css'>";
+echo '<link rel="icon" type="image/x-icon" href="install/install.ico">';
+echo "</head>";
+echo "<body>";
+echo "<div id='titlebar'>Tormater Forum Installer</div>";
+echo "<div id='content'>";
+echo("
 <form method='post' autocomplete='on'>
-<fieldset>
-<legend>Installation Information</legend>
-<h3>MySQL Details</h3>
-<label for='MySQLServer'>MySQL Server:</label></br>
-<input type='text' id='MySQLServer' name='MySQLServer' value='" . $_POST["MySQLServer"] . "'></p>
-<label for='MySQLDatabase'>MySQL Database:</label></br>
-<input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . $_POST["MySQLDatabase"] . "'></p>
-<label for='MySQLUser'>MySQL User:</label></br>
-<input type='text' id='MySQLUser' name='MySQLUser' value='" . $_POST["MySQLUser"] . "'></p>
-<label for='MySQLPassword'>MySQL Password:</label></br>
-<input type='text' id='MySQLPassword' name='MySQLPassword' value='" . $_POST["MySQLPassword"] . "'></p>
-<h3>Administrator Account</h3>
-<label for='adminUsername'>Username:</label></br>
-<input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . $_POST["adminUsername"] . "'></p>
-<label for='adminEmail'>Email:</label></br>
-<input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . $_POST["adminEmail"] . "'></p>
-<label for='adminPassword'>Password:</label></br>
-<input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . $_POST["adminPassword"] . "'></p>
-<label for='adminConfirm'>Confirm Password:</label></br>
-<input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . $_POST["adminConfirm"] . "'></p>
-<input type='submit' value='Submit'>
-</fieldset>
+<div class='formcontainer'>
+<h3>MySQL Details</h3><br/>
+<label>MySQL Server:</label>
+<input type='text' id='MySQLServer' name='MySQLServer' value='" . $_POST["MySQLServer"] . "'><br/>
+<label>MySQL Database:</label>
+<input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . $_POST["MySQLDatabase"] . "'><br/>
+<label>MySQL User:</label>
+<input type='text' id='MySQLUser' name='MySQLUser' value='" . $_POST["MySQLUser"] . "'><br/>
+<label>MySQL Password:</label>
+<input type='text' id='MySQLPassword' name='MySQLPassword' value='" . $_POST["MySQLPassword"] . "'><br/>
+</div><div class='formcontainer'>
+<h3>Administrator Account</h3><br/>
+<label>Username:</label>
+<input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . $_POST["adminUsername"] . "'><br/>
+<label>Email:</label>
+<input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . $_POST["adminEmail"] . "'><br/>
+<label>Password:</label>
+<input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . $_POST["adminPassword"] . "'><br/>
+<label>Confirm Password:</label>
+<input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . $_POST["adminConfirm"] . "'><br/>
+</div>
+<hr>
+<input class='buttonbig' type='submit' value='Submit'>
 </form>");
 
-require "pages/footer.php";
-
+echo "</div></body>"
 ?>
