@@ -18,7 +18,11 @@ if (file_exists("config/config.php")) {
     require "config/config.php";
 }
 
-require "libs/database.php";
+// Now that we have the config, connect to the MySQL database if the forum is installed.
+if ($config["installed"] == "yes") {
+	$db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
+}
+
 require "libs/formatter.php";
 
 // Extensions config
