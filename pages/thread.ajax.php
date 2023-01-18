@@ -12,8 +12,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
             if (!isset($row["deletedby"]))
             {
                 echo "[quote]";
-                $quotecontent = preg_replace("/\[quote\](.+?)\[\/quote\]/is", "", htmlspecialchars($row["content"]));
-                $quotecontent = preg_replace("/\[blockquote\](.+?)\[\/blockquote\]/is", "", $quotecontent);
+                $quotecontent = preg_replace("/\[quote\](.+?)\[\/quote\]\s+/is", "", htmlspecialchars($row["content"]));
+                $quotecontent = preg_replace("/\[blockquote\](.+?)\[\/blockquote\]\s+/is", "", $quotecontent);
                 echo $quotecontent;
                 echo "[/quote]";
                 echo "\n";
