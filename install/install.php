@@ -113,6 +113,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             `ip` varchar(128) NOT NULL,
             `time` int unsigned NOT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+	    
+	$db->query("CREATE TABLE `drafts` (
+            `user` int unsigned NOT NULL,
+            `thread` int unsigned NOT NULL,
+            `timestamp` int unsigned NOT NULL,
+            `content` text NOT NULL
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         // Create the admin's account, first generating the salt, password hash, and IP address hash.
         $adminSalt = random_str(64);
