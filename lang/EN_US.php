@@ -85,6 +85,8 @@ $lang = array(
     "thread.QuotePost" => "Quote",
     // Labels & Buttons
     "thread.PostReplyBtn" => "Post reply",
+    "thread.PostSaveDraftBtn" => "Save draft",
+    "thread.PostDiscardDraftBtn" => "Discard draft",
     "thread.Labels" => "Labels:",
     "label.Locked" => "Locked",
     "label.Sticky" => "Sticky",
@@ -117,6 +119,7 @@ $lang = array(
     "thread.SuspendCantPost" => "Unfortunately, you're suspended. Suspended users cannot post.",
     "thread.ThreadLocked" => "Sorry, this thread is locked. Only moderators and administrators can post in it.",
     "thread.LoginToPost" => "You must be signed in to post.",
+    "thread.DraftError" => "Sorry, you've made too many draft posts recently. Please wait a minute or two and try again.",
     
     // New Thread
     "newthread.Header" => "Create a thread",
