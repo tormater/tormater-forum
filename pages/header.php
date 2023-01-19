@@ -54,7 +54,6 @@ echo '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
 echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
 echo '<meta name="description" content="' . $forumdesc . '">';
 echo '<meta name="keywords" content="tormater-forum, tormater, forum">';
-echo '<meta name="author" content="tormater forum, https://github.com/tormater/tormater-forum">';
 echo '<meta property="og:site_name" content="' . $sitename . '">';
 
 echo '<title>' . $htmltitle . '</title>';
@@ -63,24 +62,25 @@ listener("meta");
 if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
 {
 	echo '<link rel="stylesheet" href="' . genURL("themes/Skyline/style.css?v=0.1") . '" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="' . genURL("themes/Skyline/icon.ico") . '">';
+    echo '<link rel="shortcut icon" sizes="16x16" type="image/x-icon" href="' . genURL("themes/Skyline/icon.ico") . '">';
 }
 else
 {
 	echo '<link rel="stylesheet" href="' . genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1') . '" type="text/css">';
-    echo '<link rel="icon" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.ico') . '">';
+    echo '<link rel="shortcut icon" sizes="16x16" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.ico') . '">';
 }
 
 // Extra icons
 
 if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/icon.svg"))
 {
-    echo '<link rel="icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.svg') . '" sizes="any" type="image/svg+xml">';
+    echo '<link rel="icon" type="image/svg+xml" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.svg') . '">';
 }
 if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/icon.png"))
 {
     echo '<meta property="og:image" content="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '"/>';
-    echo '<link rel="icon" type="image/x-icon" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '" sizes="256">';
+    echo '<link rel="icon" type="image/png" sizes="256x256" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '">';
+    echo '<link rel="apple-touch-icon" sizes="256x256" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '">';
 }
 
 // Use config variables in JS
