@@ -63,6 +63,9 @@ else
             		if (($config["mainAdmin"] != $row["userid"]) and ($row["deleted"] != "1")) {
                 		echo '<a href="' . genURL("panel/deleteuser/" . $row["userid"]) . '">' . $lang["panel.DeleteUser"] . '</a>';
             		}
+			elseif ($row["deleted"] == "1") {
+                        	echo '<a href="' . genURL("panel/restoreuser/" . $row["userid"]) . '">' . $lang["panel.RestoreUser"] . '</a>';
+                    	}
             		echo '</div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
         	echo "</div>";
