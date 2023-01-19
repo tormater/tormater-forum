@@ -82,7 +82,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	else
 	{
 		// If the user is posting...
-		if (($_POST["content"]) && ($_SESSION['signed_in'] == true) && (!($_SESSION["role"] == "Suspended")) && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
+		if (($_POST["postReply"]) && ($_POST["content"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] != "Suspended") && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
 		{
 			// First check and see if the user has made a post too recently according to the post delay.
 			$delaycheck = $db->query("SELECT 1 FROM posts WHERE user='" . $_SESSION["userid"] . "' AND timestamp>'" . (time() - $config["postDelay"]) . "'");
@@ -116,11 +116,61 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 					}
 					else
 					{
+                        // If the post was successful, remove any drafts the user might have.
+                        $db->query("DELETE FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
+
 						redirect("thread/" . $q2 . "/" . $pages . "/#footer");
 					}
 				}
 			}
 		}
+
+        // If the user is saving a draft...
+		elseif (($_POST["saveDraft"]) && ($_POST["content"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] != "Suspended") && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
+        {
+            // Check and make sure the user hasn't made too many drafts in the past minute.
+            $draftCheck = $db->query("SELECT 1 FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND timestamp>'" . (time() - 60) . "'");
+
+            // If the user made too many drafts, print an error message.
+            if ($draftCheck->num_rows >= $config["draftsPerMinute"]) {
+                echo $lang["thread.DraftError"];
+            }
+
+            // Otherwise go ahead and save the user's draft.
+            else {
+                // Check and make sure the draft content isn't too small...
+                if (mb_strlen($_POST["content"]) < 1)
+				{
+					message($lang["thread.PostEmpty"]);
+				}
+			
+                // ...and isn't too big.
+				elseif (mb_strlen($_POST["content"]) > $config["maxCharsPerPost"])
+				{
+                    message(sprintf($lang["thread.PostBig"], $config["maxCharsPerPost"]));
+				}
+
+                // Now actually save the draft post.
+                else {
+                    $result = $db->query("INSERT INTO drafts (user, thread, timestamp, content) VALUES ('" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "', '" . time() . "', '" . $db->real_escape_string($_POST["content"]) . "')");
+
+                    if(!$result)
+					{
+						echo $lang["thread.PostError"];
+					}
+					else
+					{
+						redirect("thread/" . $q2 . "/" . $pages . "/#footer");
+					}
+                }
+            }
+        }
+
+        // If the user is discarding a draft...
+		elseif (($_POST["discardDraft"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] != "Suspended"))
+        {
+            $db->query("DELETE FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
+        }
 		
 		// If the user is requesting to delete a post...
 		elseif (($_POST["delete"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
@@ -582,13 +632,25 @@ else
 		
 	elseif (($_SESSION['signed_in'] == true) && ($locked == 0) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) && $locked == 1)
 	{
+        // Check if the user has a draft post in this thread.
+        $draft = $db->query("SELECT content FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
+
+        if ($draft->num_rows > 0) {
+            while ($d = $draft->fetch_assoc()) {
+                $draftPost = $d["content"];
+            }
+        }
+
 		echo '<form method="post" action="">';
 		echo '<div class="forminput">'.$lang["thread.ContentTitle"].'</div>';
 		BBCodeButtons(1);
 		echo '<div class="forminput"><textarea name="content" id="textbox1">';
 		if (isset($contentSave)) echo $contentSave;
+        elseif (isset($draftPost)) echo $draftPost;
 		echo '</textarea></div>
-			<div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["thread.PostReplyBtn"].'"></div>
+            <div class="forminput"><input type="submit" class="buttonbig" name="saveDraft" value="'.$lang["thread.PostSaveDraftBtn"].'">
+            <input type="submit" class="buttonbig" name="discardDraft" value="'.$lang["thread.PostDiscardDraftBtn"].'">
+			<input type="submit" class="buttonbig" name="postReply" value="'.$lang["thread.PostReplyBtn"].'"></div>
 			</form>';
 	}
 	
