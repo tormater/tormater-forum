@@ -117,7 +117,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		else
 		{
 			printf($lang["register.Success"], genURL("login"));
-            exit;
+			include 'footer.php';
+			exit;
 		}
 	}
 }
