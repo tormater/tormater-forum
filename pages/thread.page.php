@@ -647,11 +647,13 @@ else
 		echo '<div class="forminput"><textarea name="content" id="textbox1">';
 		if (isset($contentSave)) echo $contentSave;
         elseif (isset($draftPost)) echo $draftPost;
-		echo '</textarea></div>
-            <div class="forminput"><input type="submit" class="buttonbig" name="saveDraft" value="'.$lang["thread.PostSaveDraftBtn"].'">
-            <input type="submit" class="buttonbig" name="discardDraft" value="'.$lang["thread.PostDiscardDraftBtn"].'">
-			<input type="submit" class="buttonbig" name="postReply" value="'.$lang["thread.PostReplyBtn"].'"></div>
-			</form>';
+		echo '</textarea></div>';
+		echo '<div class="forminput left"><input type="submit" class="buttonbig" name="postReply" value="'.$lang["thread.PostReplyBtn"].'">';
+        echo '</div><div class="draftbuttons"><input type="submit" class="buttonbig" name="saveDraft" value="'.$lang["thread.PostSaveDraftBtn"].'">';
+        if (isset($draftPost)) {
+            echo '<input type="submit" class="buttonbig buttonNo" name="discardDraft" value="'.$lang["thread.PostDiscardDraftBtn"].'">';
+        }
+		echo '</div></form>';
 	}
 	
 	elseif ($_SESSION['signed_in'] == true && $locked == 1)
