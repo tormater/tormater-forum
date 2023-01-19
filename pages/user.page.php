@@ -180,7 +180,7 @@ else
 
 echo '</div></div>';
 
-echo '<div class="userextra" postcolor="' . htmlspecialchars($color) . '">';
+echo '<div class="userextra' . $delClass . '" postcolor="' . htmlspecialchars($color) . '">';
 
 echo "<div class=userbioside>";
 
