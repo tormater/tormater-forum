@@ -168,7 +168,6 @@ else
 				}
 			echo '</select></div>';	
 					
-			echo '<div class="forminput">' . $lang["newthread.Content"] . '</div>';
 			BBCodeButtons();
 			echo '<div class="forminput"><textarea name="content" id="textbox">';
 			if (isset($contentSave)) echo $contentSave;
