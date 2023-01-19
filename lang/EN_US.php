@@ -162,6 +162,7 @@ $lang = array(
     // Admin panel / Users
     "panel.Users" => "Users",
     "panel.DeleteUser" => "Delete User",
+    "panel.RestoreUser" => "Restore User",
 
     // Admin panel / Categories
     "panel.Categories" => "Categories",
