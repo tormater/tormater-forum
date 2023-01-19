@@ -92,20 +92,42 @@ if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" .
 
 </head>
 <body>
-	<div class="tormater-forum">
-    <div id="forumheader">
-    <?php echo '<a class="forumtitle" href="' . genURL("") . '">' . $config["forumName"] . '</a>';
-    		echo '<div id="userbar">';
- 			if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
- 			{
- 	 			echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
- 			}
- 			else
- 			{
- 				echo '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
- 			}
-		echo "</div>";
-    ?>
+<div class="tormater-forum">
+<div id="forumheader">
+
+<?php 
+
+// If there's an image with the name "forumLogo" in the assets dir, draw that instead of the forum title.
+$files = scandir("assets/");
+$matches = preg_grep("/forumLogo\.(png|jpg|svg|gif)/i", $files);
+sort($matches);
+
+if (isset($matches[0]))
+{
+    echo '<a class="forumtitle" href="' . genURL("") . '"><img class="forumLogo" alt="' . $config["forumName"] . '" src="' . genURL("assets/" . $matches[0]) . '"></a>';
+}
+
+else 
+{
+    echo '<a class="forumtitle" href="' . genURL("") . '">' . $config["forumName"] . '</a>';
+}
+
+echo '<div id="userbar">';
+
+if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
+{
+	echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
+}
+
+else
+{
+	echo '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
+}
+
+echo "</div>";
+
+?>
+
     </div>
 	<div id="menu">
 		<?php
