@@ -9,40 +9,7 @@ if (!defined("INDEXED")) exit;
 function BBCodeButtons($num = "") {
     global $lang;
     // Serve the JavaScript.
-    echo("<script type='text/javascript'>
-    function formatText" . $num . "(tag) {
-        var Field = document.getElementById('textbox" . $num . "');
-        var val = Field.value;
-        var selected_txt = val.substring(Field.selectionStart, Field.selectionEnd);
-        var before_txt = val.substring(0, Field.selectionStart);
-        var after_txt = val.substring(Field.selectionEnd, val.length);
-        Field.value += '[' + tag + ']' + '[/' + tag + ']';
-        var endTag = '[/' + tag + ']'
-        Field.focus();
-        Field.setSelectionRange(Field.selectionStart - endTag.length,Field.selectionEnd - endTag.length);
-    }
-    function formatTextWithDetails" . $num . "(tag, input) {
-        var Field = document.getElementById('textbox" . $num . "');
-        var val = Field.value;
-
-        var Details = document.getElementById(input + '" . $num . "');
-        if (Details.nodeName == 'SELECT')
-        {
-            var detailsVal = Details.options[Details.selectedIndex].value;
-        }
-        else {
-            var detailsVal = Details.value;
-        }
-
-        var selected_txt = val.substring(Field.selectionStart, Field.selectionEnd);
-        var before_txt = val.substring(0, Field.selectionStart);
-        var after_txt = val.substring(Field.selectionEnd, val.length);
-        Field.value += '[' + tag + '=' + detailsVal + ']' + '[/' + tag + ']';
-        var endTag = '[/' + tag + ']'
-        Field.focus();
-        Field.setSelectionRange(Field.selectionStart - endTag.length,Field.selectionEnd - endTag.length);
-    }
-    </script>");
+    echo("<script type='text/javascript' src='" . genURL("assets/bbcode.js") . "'></script>");
 
     listener("beforeRenderBBCodeTray");
 
@@ -52,21 +19,21 @@ function BBCodeButtons($num = "") {
     listener("beforeRenderBBCodeButtons");
 
     echo "<div class='bbcodetray'>";
-    echo "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText" . $num . "('b');>";
-    echo "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText" . $num . "('i');>";
-    echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText" . $num . "('u');>";
-    echo "<input type='button' class='bbcode bstrike' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText" . $num . "('s');>";
-    echo "<input type='button' class='bbcode bheader' value='" . $lang["BBCode.Header"] . "' onclick=formatText" . $num . "('h');>";
-    echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText" . $num . "('code');>";
+    echo "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText('b'," . $num . ");>";
+    echo "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText('i'," . $num . ");>";
+    echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText('u'," . $num . ");>";
+    echo "<input type='button' class='bbcode bstrike' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText('s'," . $num . ");>";
+    echo "<input type='button' class='bbcode bheader' value='" . $lang["BBCode.Header"] . "' onclick=formatText('h'," . $num . ");>";
+    echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText('code'," . $num . ");>";
 
     echo "</div><div class='bbcodetray'>";
-    echo "<input type='button' class='bbcode blink' value='" . $lang["BBCode.Link"] . "' onclick=formatText" . $num . "('url');>";
-    echo "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText" . $num . "('img');>";
-    echo "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText" . $num . "('spoiler');>";
+    echo "<input type='button' class='bbcode blink' value='" . $lang["BBCode.Link"] . "' onclick=formatText('url'," . $num . ");>";
+    echo "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText('img'," . $num . ");>";
+    echo "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText('spoiler'," . $num . ");>";
 
     echo "</div><div class='bbcodetray'>";
-    echo "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails" . $num . "('color','colorbox');>";
-    echo "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails" . $num . "('size','sizebox');>";
+    echo "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails('color','colorbox'," . $num . ");>";
+    echo "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails('size','sizebox'," . $num . ");>";
     echo "<option value='80'>80%</option>";
     echo "<option value='100'>100%</option>";
     echo "<option value='150'>150%</option>";
