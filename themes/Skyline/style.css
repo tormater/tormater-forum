@@ -551,6 +551,20 @@ td {
 /* Thread styles. */
 
 
+.left {
+    width: 50%;
+    box-sizing: border-box;
+    display: inline-block;
+}
+.draftbuttons {
+    width: 50%;
+    box-sizing: border-box;
+    float: right;
+    text-align: right;
+}
+.draftbuttons .buttonbig {
+    margin-left: 4px;
+}
 .threadtitle {
     margin-top: 10px;
     margin-bottom: 5px;
