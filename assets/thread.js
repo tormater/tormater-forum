@@ -35,7 +35,9 @@ function previewPost(num) {
                 HidePreviewButton.style = "";
                 PreviewBox.innerHTML = this.responseText;
                 PreviewBox.style = "";
-                PreviewButton.blur()
+                PreviewButton.blur();
+                HidePreviewButton.scrollIntoView();
+
            }
         };
     
@@ -48,6 +50,7 @@ function previewPost(num) {
         HidePreviewButton.style = "display: none";
         PreviewBox.style = "display: none";
         PreviewBox.innerHTML = ""
-        HidePreviewButton.blur()
+        HidePreviewButton.blur();
+        PreviewButton.scrollIntoView();
     }
 }
