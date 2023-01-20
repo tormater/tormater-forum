@@ -793,6 +793,20 @@ font.sticky, font.locked {
 
 /* Post Formatting */
 
+.previewbox {
+    display: block;
+    padding: 8px;
+    background: #F6F6F6;
+    box-sizing: border-box;
+    box-shadow: 0px 1px inset #fff;
+    border: 1px solid #808080;
+    border-radius: 0 0 8px 8px;
+    margin-bottom: 8px;
+    margin-top: -12px;
+    border-top-width: 4px;
+    color: #000000;
+}
+
 .postimg {
     box-sizing: border-box;
     width: auto;
