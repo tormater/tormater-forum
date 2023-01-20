@@ -629,7 +629,10 @@ else
 		if (isset($contentSave)) echo $contentSave;
         elseif (isset($draftPost)) echo $draftPost;
 		echo '</textarea></div>';
-		echo '<div class="forminput left"><input type="submit" class="buttonbig" name="postReply" value="'.$lang["thread.PostReplyBtn"].'">';
+        echo '<div id="previewbox1" class="previewbox" style="display:none"></div>';
+		echo '<div class="forminput left"><input type="submit" class="buttonbig" name="postReply" value="'.$lang["thread.PostReplyBtn"].'"> ';
+        echo '<input type="button" class="buttonbig previewbutton" id="showpreview1" value="' . $lang["nav.ShowPreview"] . '" onclick="previewPost(1);">';
+        echo '<input type="button" class="buttonbig previewbutton" id="hidepreview1" value="' . $lang["nav.HidePreview"] . '" onclick="previewPost(1);" style="display:none">';
         echo '</div><div class="draftbuttons"><input type="submit" class="buttonbig" name="saveDraft" value="'.$lang["thread.PostSaveDraftBtn"].'">';
         if (isset($draftPost)) {
             echo '<input type="submit" class="buttonbig buttonNo" name="discardDraft" value="'.$lang["thread.PostDiscardDraftBtn"].'">';
