@@ -35,6 +35,8 @@ $lang = array(
     "nav.PrevPage" => "<",
     "nav.NextPage" => ">",
     "nav.LastPage" => ">>",
+    "nav.ShowPreview" => "Preview",
+    "nav.HidePreview" => "Hide preview",
     
     // Viewing:
     "action.Generic" => "Viewing: ",
