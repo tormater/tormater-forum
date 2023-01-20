@@ -18,7 +18,7 @@ function quotePost(id) {
     xhttp.send('postid=' + id); 
 }
 
-function previewPost(num) {
+function previewPost(num, type) {
     let ajaxPath = new URL(baseURL + '/pages/thread.ajax.php');
     var Field = document.getElementById('textbox' + num);
     var PreviewBox = document.getElementById("previewbox" + num)
@@ -26,7 +26,7 @@ function previewPost(num) {
     var HidePreviewButton = document.getElementById("hidepreview" + num)
     var val = Field.value;
 
-    if (PreviewBox.innerHTML == "") {
+    if (type == 1) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
