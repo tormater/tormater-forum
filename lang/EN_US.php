@@ -53,6 +53,7 @@ $lang = array(
     "action.CreateAThread" => "Creating a thread...",
     "action.UserProfile" => "'s Profile", // e.g. Tormater's Profile
     "action.Settings" => "Viewing: Settings",
+    "action.Search" => "Searching the forum...",
     "action.Panel" => "Viewing: Admin Panel",
     "action.AccountSettings" => "Viewing: Account Settings",
     "action.ProfileSettings" => "Viewing: Profile Settings",
