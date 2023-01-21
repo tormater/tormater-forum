@@ -37,6 +37,14 @@ $lang = array(
     "nav.LastPage" => ">>",
     "nav.ShowPreview" => "Preview",
     "nav.HidePreview" => "Hide preview",
+
+    // Searching
+
+    "search.Placeholder" => "Type here to search...",
+    "search.Button" => "Search",
+    "search.Header" => "Search results for '%s'",
+    "search.NoResults" => "No thread matches that search.",
+    "search.EmptySearch" => "Your search query must contain at least one character.",
     
     // Viewing:
     "action.Generic" => "Viewing: ",
