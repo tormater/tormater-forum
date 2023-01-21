@@ -360,6 +360,7 @@ $lang = array(
     "page.userpanel" => "User Panel",
     "page.accountsettings" => "Account Settings",
     "page.profilesettings" => "Profile Settings",
+    "page.search" => "Search",
 
     // Upgrade
     "upgrade.Success" => "The forum was successfully upgraded.",
