@@ -106,6 +106,7 @@ elseif ($q1 == "userlist") require "pages/userlist.page.php";
 elseif ($q1 == "user") require "pages/user.page.php";
 elseif ($q1 == "userpanel") require "pages/userpanel.page.php";
 elseif ($q1 == "panel") require "pages/panel.page.php";
+elseif ($q1 == "search") require "pages/search.page.php";
 else {
 	message($lang["error.PageNotFound"]);
 	require "pages/homepage.page.php";
