@@ -257,10 +257,11 @@ else
 </div>
 <?php
 
-$search = parse_url($_SERVER['REQUEST_URI']);
-$search = $search['query'];
-if (strpos($search, "search=") === 0) $search = substr($search, strlen("search="));
-$search = urldecode($search);
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $search = urldecode($search);
+}
+
 
 echo '<div class="searcharea"><input type="text" id="searchbox" autocomplete="off" placeholder="' . $lang["search.Placeholder"] . '" value="' . $search . '"><span class="searchbutton" onclick="search()">' . $lang["search.Button"] . '</span></div>';
 
