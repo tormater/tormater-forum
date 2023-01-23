@@ -7,10 +7,10 @@ if (!defined("INDEXED")) exit;
 
 include "header.php";
 
-$search = parse_url($_SERVER['REQUEST_URI']);
-$search = $search['query'];
-if (strpos($search, "search=") === 0) $search = substr($search, strlen("search="));
-$search = urldecode($search);
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $search = urldecode($search);
+}
 
 if(!$search || strlen($search) < 1)
 {
