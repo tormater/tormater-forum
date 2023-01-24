@@ -5,10 +5,9 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-echo '<h2>' . $lang["panel.ForumSettings"]  . '</h2>';
-
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
+    echo '<br/>';
 	// Display the change forum name form.
 	echo '<h3>' . $lang["panel.BasicSettings"] . '</h3>
    <form method="post" action=""><div class="formcontainer">
@@ -48,7 +47,26 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
         }
         echo '<option ' . $selected . 'value="' . $file . '">' . $file . '</option>';
     }
-    echo '</select></div></div>';
+    echo '</select></div>';
+
+    // Display the change forum color form.
+    $presetColor = "#000000";
+    if ($config["forumColor"] != null)
+    {
+        $presetColor = $config["forumColor"];
+        $newchecked = 'checked=""';
+    }
+    else
+    {
+        $defaultchecked = 'checked=""';
+    }
+    echo '</div><h3>' . $lang["panel.ForumColor"] . '</h3><div class="formcontainer">';
+    echo '<div class="forminput"><label class="colorLabel">' . $lang["panel.NewColor"] . '</label>';
+    echo '<input type="radio" class="colorRadio" name="color" ' . $newchecked . ' value="new">';
+    echo "<input type='color' class='forumColor' name='newcolor' value='" . $presetColor . "';></div>";
+    echo '<div class="forminput"><label class="colorLabel">' . $lang["panel.Reset"] . '</label>';
+    echo '<input type="radio" class="colorRadio" name="color" ' . $defaultchecked . ' value="default">';
+    echo '</div></div>';
 
     // Display the advanced settings.
 	echo '<h3>' . $lang["panel.AdvancedSettings"] . '</h3>';
@@ -108,6 +126,8 @@ else
         $newpostsPerPage = $_POST["newpostsPerPage"];
 		$newtheme = $_POST["newtheme"];
 		$newlang = $_POST["newlang"];
+        $newcolor = $_POST["newcolor"];
+        $color = $_POST["color"];
 		$newfooter = $_POST["newfooter"];
         
         $config["forumName"] = htmlspecialchars($newforumname);
@@ -117,6 +137,16 @@ else
         $config['userlistMembersOnly'] = $newuserlistMembersOnly;
         $config["forumTheme"] = $newtheme;
         $config["forumLang"] = $newlang;
+
+        if ($color == "new")
+        {
+            $config["forumColor"] = $newcolor;
+        }
+        else 
+        {
+            $config["forumColor"] = null;
+        }
+
         $config["footer"] = $newfooter;
         saveConfig("./config/config.php", $config);
         message($lang["panel.ChangesSaved"]);
