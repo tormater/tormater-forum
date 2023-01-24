@@ -1,4 +1,12 @@
 /* Base Styles. */
+:root {
+  --c-gradient-top: #5dbcff;
+  --c-gradient-bottom: #0292fc;
+  --c-gradient-bottom-darker: #006dbb;
+  --c-highlight: #8adef9;
+  --c-border: #1f4f83;
+}
+
 * {
     font-family: Arial, sans-serif;
 }
@@ -69,9 +77,9 @@ body {
 #forumheader {
     display:block;
     padding: 25px;
-    background: linear-gradient(#5dbcff, #0292fc);
-    box-shadow: 0px 1px inset #8adef9;
-    border: 1px solid #1f4f83;
+    background: linear-gradient( var(--c-gradient-top), var(--c-gradient-bottom));
+    box-shadow: 0px 1px inset var(--c-highlight);
+    border: 1px solid var(--c-border);
     margin: 1px 0;
     border-radius: 10px 10px 0 0;
 }
@@ -85,7 +93,7 @@ body {
     color: #fff;
     font-size:200%;
     font-weight:bold;
-    text-shadow: 0px 2px #1f4f83;
+    text-shadow: 0px 2px var(--c-border);
     display: inline-block;
 }
 
@@ -326,14 +334,14 @@ select:hover {
 
 .threadbutton {
     padding: 3px 6px;
-    background: linear-gradient(#56abf0, #265e9b);
-    box-shadow: 0px 1px inset #8adef9;
-    border: 1px solid #1f4f83;
+    background: linear-gradient( var(--c-gradient-top) 0%, var(--c-gradient-bottom) 40%, var(--c-gradient-bottom-darker));
+    box-shadow: 0px 1px inset var(--c-highlight);
+    border: 1px solid var(--c-border);
     border-radius: 4px;
     color: #fff;
     font-size: 95%;
     text-decoration: none;
-    text-shadow: 0px -1px #0f5aa9;
+    text-shadow: 0px 1px var(--c-border);
 }
 
 .threadbutton:hover {
@@ -434,12 +442,9 @@ textarea:focus {
 .pagendr .pageButton:nth-child(2n), .pagendr .pageButtonDisabled:nth-child(2n), .pageButtonLast {
     border-right: 1px solid rgb(68, 68, 68);
 }
-.pageButton:hover {
-    box-shadow: 0 2px rgb(165, 183, 207);
-}
 .pageButtonDisabled {
     color:rgb(40, 40, 40);
-    box-shadow: 0 2px rgb(113, 164, 231);
+    box-shadow: 0 2px var(--c-gradient-top);
 }
 .paginationdots {
     background:linear-gradient(rgb(128, 128, 128),rgb(96, 96, 96));
@@ -469,7 +474,7 @@ table {
     width: 100%;
     box-sizing: border-box;
     border-collapse: collapse;
-    border: 1px solid #1f4f83;
+    border: 1px solid var(--c-border);
     margin-bottom: 10px;
 }
 
@@ -484,11 +489,11 @@ table a:hover {
 
 th {
     padding: 4px 10px;
-    background: linear-gradient(#56abf0, #265e9b);
-    box-shadow: 0px 1px inset #8adef9;
-    border-bottom: 1px solid #1f4f83;
+    background: linear-gradient(var(--c-gradient-top), var(--c-gradient-bottom), var(--c-gradient-bottom-darker));
+    box-shadow: 0px 1px inset var(--c-highlight);
+    border-bottom: 1px solid var(--c-border);
     color: #fff;
-    text-shadow: 0px -1px #0f5aa9;
+    text-shadow: 0px -1px var(--c-border);
 }
 
 tr:nth-child(even) {
@@ -1088,11 +1093,11 @@ input[type=file]::file-selector-button:hover {
 .searchbutton {
     padding: 5px 10px;
     color:#fff;
-    background: linear-gradient(#4eb6ff, #0081df);
-    box-shadow: 0px 1px inset #8adef9;
-    border: 1px solid #1f4f83;
+    background: linear-gradient(var(--c-gradient-top), var(--c-gradient-bottom));
+    box-shadow: 0px 1px inset var(--c-highlight);
+    border: 1px solid var(--c-border);
     border-left: none;
-    text-shadow: 0px 1px #1f4f83;
+    text-shadow: 0px 1px var(--c-border);
     font-weight: bold;
 }
 
@@ -1279,6 +1284,12 @@ input[type=file]::file-selector-button:hover {
         width: 100%;
     }
     .userbio {
+        width: 100%;
+    }
+
+    .searcharea {
+        float: left;
+        display: block;
         width: 100%;
     }
 }
