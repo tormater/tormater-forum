@@ -85,6 +85,24 @@ if(isset($config["forumTheme"]) or file_exists(dirname(__DIR__,1) . "/themes/" .
     echo '<link rel="apple-touch-icon" sizes="256x256" href="' . genURL('themes/' . $config["forumTheme"] . '/icon.png') . '">';
 }
 
+if ($config["forumColor"] != null)
+{
+    $grTop = hexAdjustLight($config["forumColor"], 0.5);
+    $grBottom = hexAdjustLight($config["forumColor"], -0.2);
+    $grBottomDarker = hexAdjustLight($config["forumColor"], -0.4);
+    $grHighlight = hexAdjustLight($config["forumColor"], 0.2);
+    $grBorder = hexAdjustLight($config["forumColor"], -0.8);
+    echo "<style>";
+    echo ":root {";
+    echo "--c-gradient-top: " . $grTop .";";
+    echo "--c-gradient-bottom: " . $grBottom .";";
+    echo "--c-gradient-bottom-darker: " . $grBottomDarker .";";
+    echo "--c-highlight: " . $grHighlight .";";
+    echo "--c-border: " . $grBorder .";";
+    echo "}";
+    echo "</style>";
+}
+
 // Use config variables in JS
 ?>
 
