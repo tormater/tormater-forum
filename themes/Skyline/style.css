@@ -7,6 +7,7 @@
   --c-border: #1f4f83;
 }
 
+
 * {
     font-family: Arial, sans-serif;
 }
@@ -1121,6 +1122,24 @@ input[type=file]::file-selector-button:hover {
     margin: 10px 0;
     margin-top: 4px;
 }
+
+.forumColor {
+    display: inline-block;
+    height: 20px;
+}
+.formcontainer .forumColor {
+    margin: 0px;
+}
+.colorLabel {
+    height: 20px;
+    vertical-align: top;
+}
+.formcontainer .colorRadio {
+    vertical-align: top;
+    padding: 0px;
+    margin-right: 8px;
+}
+
 /* Post colors. */
 
 [postcolor="1"] {
