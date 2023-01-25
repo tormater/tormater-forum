@@ -101,8 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $dst = imagecreatetruecolor($w, $h);
 
                 imagesavealpha($dst, true);
-                $trans_colour = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-                imagefill($dst, 0, 0, $trans_colour);
+                $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+                imagefill($dst, 0, 0, $transparent);
 
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
                 removeAvatar($_SESSION["userid"]);
@@ -144,8 +144,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $dst = imagecreatetruecolor($w, $h);
                 
                 imagesavealpha($dst, true);
-                $trans_colour = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-                imagefill($dst, 0, 0, $trans_colour);
+                $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+                imagefill($dst, 0, 0, $transparent);
 
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
                 removeAvatar($_SESSION["userid"]);
@@ -165,10 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $avatarCheck = $db->query("SELECT avatar, avataruploadtime FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 
 while ($a = $avatarCheck->fetch_assoc()) {
-    if ($a["avatar"] == "none") {
-        $avatarURL = "</br>" . $lang["userpanel.NoAvatar"] . "</br>";
-    }
-    else {
+    if ($a["avatar"] != "none") {
         $avatarURL = "</br><img class='avatarPanel' src='" . genURL("avatars/" . $_SESSION["userid"] . "." . $a["avatar"] . "?t=" . $a["avataruploadtime"]) . "'>";
     }
 }
