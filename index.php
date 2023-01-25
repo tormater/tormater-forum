@@ -5,6 +5,27 @@
 // Define a constant to ensure pages are only loaded through this index file.
 define("INDEXED", "1");
 
+// Define all the accessable pages
+
+$pages = array(
+    "upgrade" => "pages/upgrade.page.php",
+    "signup" => "pages/signup.page.php",
+    "register" => "pages/signup.page.php",
+    "login" => "pages/login.page.php",
+    "newthread" => "pages/newthread.page.php",
+    "category" => "pages/category.page.php",
+    "thread" => "pages/thread.page.php",
+    "userlist" => "pages/userlist.page.php",
+    "user" => "pages/user.page.php",
+    "userpanel" => "pages/userpanel.page.php",
+    "panel" => "pages/panel.page.php",
+    "search" => "pages/search.page.php"
+);
+$functionPages = array(
+    "logout" => "logout",
+);
+$fallbackPage = "pages/homepage.page.php";
+
 // Require all the necessary files for the forum to function.
 require "libs/functions.php";
 
@@ -93,23 +114,12 @@ require "libs/extensions.php";
 
 // Based on the URL, serve the user with a corresponding page.
 if ($config['installed'] == "no") require "install/install.php";
-elseif (!$q1) require "pages/homepage.page.php";
-elseif ($q1 == "upgrade") require "upgrade/upgrade.page.php";
-elseif ($q1 == "signup") require "pages/signup.page.php";
-elseif ($q1 == "register") require "pages/signup.page.php";
-elseif ($q1 == "login") require "pages/login.page.php";
-elseif ($q1 == "logout") logout();
-elseif ($q1 == "newthread") require "pages/newthread.page.php";
-elseif ($q1 == "category") require "pages/category.page.php";
-elseif ($q1 == "thread") require "pages/thread.page.php";
-elseif ($q1 == "userlist") require "pages/userlist.page.php";
-elseif ($q1 == "user") require "pages/user.page.php";
-elseif ($q1 == "userpanel") require "pages/userpanel.page.php";
-elseif ($q1 == "panel") require "pages/panel.page.php";
-elseif ($q1 == "search") require "pages/search.page.php";
+elseif (isset($pages[$q1])) require $pages[$q1];
+elseif (isset($functionPages[$q1])) call_user_func($functionPages[$q1]);
+elseif (!$q1) require $fallbackPage;
 else {
 	message($lang["error.PageNotFound"]);
-	require "pages/homepage.page.php";
+	require $fallbackPage;
 }
 
 ?>
