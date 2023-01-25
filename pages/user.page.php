@@ -44,43 +44,43 @@ else
 
 		while ($row = $result->fetch_assoc())
 		{
-            		if ($row["deleted"] == "1") {
-                		$username = $lang["user.Deleted"] . $row["userid"];
-            		}
-            		else {
-                		$username = $row["username"];
-            		}
-            		$userid = $row["userid"];
-            		$color = $row["color"];
-            		$role = $row["role"];
-            		$verified = $row["verified"];
-            		$lastactive = $row["lastactive"];
-            		$jointime = $row["jointime"];
+      		if ($row["deleted"] == "1") $username = $lang["user.Deleted"] . $row["userid"];
+            else $username = $row["username"];
+            
+            $userid = $row["userid"];
+            $color = $row["color"];
+            $role = $row["role"];
+            $verified = $row["verified"];
+            $lastactive = $row["lastactive"];
+            $jointime = $row["jointime"];
 			$deleted = $row["deleted"];
 			$avatar = $row["avatar"];
 			$avatarTime = $row["avataruploadtime"];
-        	}
+        }
 
-        	include "header.php";
+        include "header.php";
+
+        // Get the profile's status
 
 		if ($verified == "1") $verified = $lang["user.VerifiedYes"];
 		else $verified = $lang["user.VerifiedNo"];
 		
-		if ($deleted == "1") {
-            		$deleted = $lang["user.DeletedYes"];
-            		$delClass = " deleteduser";
-        	}
+		if ($deleted == "1") 
+        {
+            $deleted = $lang["user.DeletedYes"];
+            $delClass = " deleteduser";
+        }
+
 		else $deleted = $lang["user.DeletedNo"];
 		
-		if ($avatar == "none") {
-            		$uAvatar = "";
-        	}
-        	else {
-            		$uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
-        	}
+		if ($avatar == "none") $uAvatar = "";
+        else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
 			
-            	echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
-            	echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">' . $uAvatar . '<b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
+        echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
+        echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">' . $uAvatar . '<b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
+
+        // Draw the role box
+
 		if (($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
@@ -122,7 +122,7 @@ else
 				
 		}
 
-            	elseif (($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
+        elseif (($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
 
@@ -149,25 +149,14 @@ else
 			echo '<div class="userrole">' . $lang["role." . $role] . '</div></div>';
 		}
 		
+        // Get user statistics
+
 		$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
-				
-		$uposts = 0;
-				
-		while ($p = $posts->fetch_assoc())
-		{
-			// Had to be ghetto here and increment a custom variable because num_rows was throwing tons of
-			// notices for no reason and wouldn't return with a number like it's supposed to.
-			$uposts += 1;
-		}
+        $uposts = mysqli_num_rows($posts);
 				
 		$threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
-				
-		$uthreads = 0;
-				
-		while ($t = $threads->fetch_assoc())
-		{
-			$uthreads +=1;
-		}
+		$uthreads = mysqli_num_rows($threads);
+
 		echo '<div class="userbottom">
             		<h3>' . $lang["user.UserInformation"] . '</h3>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></span>
@@ -196,6 +185,7 @@ while ($b = $bioCheck->fetch_assoc()) {
 echo "</div>";
 echo '<div class="userposts">';
 echo '<span class="userpostsh">' . $lang["user.RecentPosts"] . '</span>';
+
 $posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL ORDER BY timestamp DESC LIMIT 5");
 
 if($posts->num_rows == 0)
