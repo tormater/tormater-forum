@@ -8,7 +8,7 @@ define("INDEXED", "1");
 // Define all the accessable pages
 
 $pages = array(
-    "upgrade" => "pages/upgrade.page.php",
+    "upgrade" => "upgrade/upgrade.page.php",
     "signup" => "pages/signup.page.php",
     "register" => "pages/signup.page.php",
     "login" => "pages/login.page.php",
