@@ -14,7 +14,7 @@ $config = array(
     'baseURL' => 'http://example.com', // The base URL for the website that the forum is on.
     'cookieName' => 'forum', // The name of cookies set by the forum.
     'forumName' => 'Tormater Forum', // The forum's name.
-    'footer' => 'Powered by [url=tormater-forum]https://github.com/tormater/tormater-forum[/url]', // The text that appears on the footer.
+    'footer' => '', // The text that appears on the footer. Supports BBCode.
     'postsPerPage' => 10, // Number of posts to display on a page in a thread.
     'threadsPerPage' => 20, // Number of threads to display on a page in a category.
     'maxCharsPerPost' => 50000, // Maximum number of characters allowable in a single post.
