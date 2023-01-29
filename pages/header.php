@@ -5,12 +5,10 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-?>
-<!DOCTYPE html>
-<html>
-<head>
+echo '<!DOCTYPE html>';
+echo '<html lang="' .  str_replace("_", "-", $lang["locale"]) . '">';
 
-<?php 
+echo '<head>';
 
 echo ("<script type='text/javascript' src='" . genURL("assets/search.js") . "'></script>");
 
@@ -59,6 +57,7 @@ echo '<meta name="keywords" content="tormater-forum, tormater, forum">';
 echo '<meta property="og:site_name" content="' . $sitename . '">';
 
 echo '<title>' . $htmltitle . '</title>';
+
 listener("meta");
 
 if(!isset($config["forumTheme"]) or !file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/style.css"))
