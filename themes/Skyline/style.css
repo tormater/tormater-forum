@@ -157,7 +157,19 @@ body {
     padding: 14px;
     font-size: 95%;
 }
-
+#copyright {
+    padding: 14px;
+    font-size: 95%;
+    display: inline-block;
+    margin: auto;
+}
+#copyright a {
+    color: #333333;
+}
+#copyright img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
 /* Navigation */
 
 .button {
