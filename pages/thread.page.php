@@ -571,7 +571,7 @@ else
 					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
 					echo '</div>';
 				}
-				
+				listener("afterPostInfo");
 				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true)))
 				{
 					echo '</div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
