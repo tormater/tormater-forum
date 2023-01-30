@@ -717,7 +717,8 @@ font.sticky, font.locked {
 
 .post {
     display: grid;
-    grid-template-columns: 175px calc(100% - 175px);
+    grid-auto-rows: 1fr;
+    grid-template-columns: minmax(150px, min-content) auto;
     grid-gap: 0px;
     margin-bottom: 14px;
 }
