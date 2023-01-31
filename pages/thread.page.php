@@ -270,7 +270,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 			$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
 			while ($p = $permission->fetch_assoc())
 			{
-				if (($p["user"] != $_SESSION["userid"]) && (($_SESSION["role"] != "Moderator") or ($_SESSION["role"] != "Administrator")))
+				if (($p["user"] != $_SESSION["userid"]) && (($_SESSION["role"] != "Moderator") && ($_SESSION["role"] != "Administrator")))
 				{
 					message($lang["thread.PostEditError"]);
 				}
