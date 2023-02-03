@@ -534,8 +534,14 @@ else
 				$hider = $db->query("SELECT * FROM users WHERE userid='" . $row["deletedby"] . "'");
 				
 				while ($h = $hider->fetch_assoc())
-				{ 
-					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($u["username"]) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> ' . sprintf($lang["thread.HiddenBy"], (genURL('user/' . $row["deletedby"] . '/')), $h["role"], $h["username"]);
+				{
+					if ($u["deleted"] == "1") {
+						$username = $lang["user.Deleted"] . $u["userid"];
+					}
+					else {
+						$username = $u["username"];
+					}
+					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> ' . sprintf($lang["thread.HiddenBy"], (genURL('user/' . $row["deletedby"] . '/')), $h["role"], $h["username"]);
 					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 					{
 						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
