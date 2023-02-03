@@ -60,7 +60,7 @@ while($row = $threads->fetch_assoc())
 
 	echo '</td><td class="tdposts"><center>' . $row['posts'] . '</center></td><td>';
     				
-	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["lastpostuser"] . "'");
+	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_string($row["lastpostuser"]) . "'");
 					
 	while ($u = $uinfo->fetch_assoc())
 	{
@@ -70,7 +70,7 @@ while($row = $threads->fetch_assoc())
         	else {
             		$username = $u["username"];
         	}
-		echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . $username . '</a>';
+		echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>';
 	}
 					
 	echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
