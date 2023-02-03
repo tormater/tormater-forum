@@ -134,7 +134,7 @@ echo '<div id="userbar">';
 
 if(isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 {
-	echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . $_SESSION["username"] . '</a></b>';
+	echo $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . htmlspecialchars($_SESSION["username"]) . '</a></b>';
 }
 
 else
