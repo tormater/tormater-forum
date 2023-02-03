@@ -456,7 +456,7 @@ else
         $userinfo = $db->query("SELECT username, role, deleted FROM users WHERE userid='" . $row["startuser"] . "'");
         while ($u = $userinfo->fetch_assoc()) {
             if ($u["deleted"] == 1) {
-                $username = $lang["user.Deleted"] . $u["userid"];
+                $username = $lang["user.Deleted"] . $row["startuser"];
             }
 			else {
                 $username = $u["username"];
