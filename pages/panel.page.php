@@ -39,6 +39,10 @@ elseif ($q2 == "restoreuser")
     $db->query("UPDATE users SET deleted=0 WHERE userid='" . $db->real_escape_string($q3) . "'");
     include "paneluser.page.php";
 }
+elseif ($q2 == "viewalts")
+{
+    include "panelviewalts.page.php";
+}
 else
 {
 	include "panelsettings.page.php";
