@@ -180,6 +180,7 @@ $lang = array(
     "panel.Users" => "Users",
     "panel.DeleteUser" => "Delete User",
     "panel.RestoreUser" => "Restore User",
+    "panel.ViewAlts" => "View Alts",
 
     // Admin panel / Categories
     "panel.Categories" => "Categories",
