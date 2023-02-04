@@ -61,12 +61,12 @@ else
 
 			echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; <small>';
             		if (($config["mainAdmin"] != $row["userid"]) and ($row["deleted"] != "1")) {
-                		echo '<a href="' . genURL("panel/deleteuser/" . $row["userid"]) . '">' . $lang["panel.DeleteUser"] . '</a>';
+                		echo '<a href="' . genURL("panel/deleteuser/" . $row["userid"]) . '">' . $lang["panel.DeleteUser"] . '</a>&nbsp; ';
             		}
 			elseif ($row["deleted"] == "1") {
-                        	echo '<a href="' . genURL("panel/restoreuser/" . $row["userid"]) . '">' . $lang["panel.RestoreUser"] . '</a>';
+                        	echo '<a href="' . genURL("panel/restoreuser/" . $row["userid"]) . '">' . $lang["panel.RestoreUser"] . '</a>&nbsp; ';
                     	}
-            		echo '</div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
+            		echo '<a href="' . genURL("panel/viewalts/" . $row["userid"]) . '">' . $lang["panel.ViewAlts"] . '</a></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
         	echo "</div>";
 	}
