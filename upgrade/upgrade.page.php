@@ -7,16 +7,16 @@ if (!defined("INDEXED")) exit;
 
 $upgraded = false;
 
-$deleteduser = $db->query("SHOW COLUMNS FROM `users` LIKE 'deleted'");
-$usersignature = $db->query("SHOW COLUMNS FROM `users` LIKE 'signature'");
-$userbio = $db->query("SHOW COLUMNS FROM `users` LIKE 'bio'");
-$userpassword = $db->query("SHOW COLUMNS FROM `users` LIKE 'password' varchar(128) NOT NULL");
-$userip = $db->query("SHOW COLUMNS FROM `users` LIKE 'ip' varchar(128) NOT NULL");
-$usersalt = $db->query("SHOW COLUMNS FROM `users` LIKE 'salt' char(64) NOT NULL");
-$useravatar = $db->query("SHOW COLUMNS FROM `users` LIKE 'avatar'");
-$useravatartime = $db->query("SHOW COLUMNS FROM `users` LIKE `avataruploadtime`");
-$logins = $db->query("SHOW TABLES LIKE `logins`");
-$drafts = $db->query("SHOW TABLES LIKE `drafts`");
+$deleteduser = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'deleted'");
+$usersignature = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'signature'");
+$userbio = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'bio'");
+$userpassword = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'password' AND type LIKE 'varchar(128)'");
+$userip = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'ip' AND type LIKE 'varchar(128)'");
+$usersalt = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'salt' AND type LIKE 'char(64)'");
+$useravatar = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'avatar'");
+$useravatartime = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'avataruploadtime'");
+$logins = $db->query("SHOW TABLES LIKE 'logins'");
+$drafts = $db->query("SHOW TABLES LIKE 'drafts'");
 
 if ($deleteduser->num_rows < 1)
 {
