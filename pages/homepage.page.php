@@ -11,7 +11,15 @@ echo '<h2>' . $lang["homepage.Title"] . '</h2>';
 
 $result = $db->query("SELECT * FROM categories");
 
-$threads = $db->query("SELECT * FROM threads ORDER BY lastposttime DESC LIMIT 5");
+if ($_SESSION["signed_in"] != true) {
+    $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");
+}
+elseif (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+    $threads = $db->query("SELECT * FROM threads ORDER BY lastposttime DESC LIMIT 5");
+}
+else {
+    $threads = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY lastposttime DESC LIMIT 5");
+}
 
 echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center>' . $lang["homepage.CatThreads"] . '</center></th></tr>';
 while($row = $result->fetch_assoc()) {
@@ -38,10 +46,12 @@ while($row = $threads->fetch_assoc())
 		echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
 	}
 
+    if ($row["draft"] == 1)
+    {
+        echo '<span class="draft">' . $lang["label.Draft"] . '</span>';
+    }
+
     echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
-
-
-
 					
 	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");
 					
