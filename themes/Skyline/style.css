@@ -685,7 +685,7 @@ td {
     border-radius: 6px;
 }
 
-.sticky, .locked {
+.sticky, .locked, .draft {
     display: inline-block;
     margin-right: 6px;
     padding: 2px 6px;
@@ -706,7 +706,13 @@ td {
     text-shadow: 0 1px rgb(255, 233, 133);
 }
 
-font.sticky, font.locked {
+.draft {
+    background:linear-gradient(rgb(111, 255, 111),rgb(47, 255, 28));
+    border: 1px solid rgb(19, 160, 0);
+    text-shadow: 0 1px rgb(137, 255, 133);
+}
+
+font.sticky, font.locked, font.draft {
     margin-left: 8px;
     margin-right: 0;
     font-size: 90%;
