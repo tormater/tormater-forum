@@ -83,6 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `lastpostuser` int unsigned NOT NULL,
   	        `lastposttime` int unsigned NOT NULL,
   	        `category` int unsigned NOT NULL,
+		`draft` tinyint(1) NOT NULL DEFAULT '0',
   	        PRIMARY KEY (`threadid`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
