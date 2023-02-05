@@ -20,7 +20,15 @@ if(!$search || strlen($search) < 1)
 else
 {
         printf('<h2>' . $lang["search.Header"] . '</h2>', htmlspecialchars($search));
-		$result = $db->query("SELECT * FROM threads WHERE (`title` LIKE '%" . $db->real_escape_string($search) . "%') LIMIT " . $config["threadsPerPage"]);
+        if ($_SESSION["signed_in"] != true) {
+            $result = $db->query("SELECT * FROM threads WHERE draft='0' AND (`title` LIKE '%" . $db->real_escape_string($search) . "%') ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
+        }
+        elseif (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+            $result = $db->query("SELECT * FROM threads WHERE (`title` LIKE '%" . $db->real_escape_string($search) . "%') ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
+        }
+        else {
+            $result = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') AND (`title` LIKE '%" . $db->real_escape_string($search) . "%') ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
+        }
 
 		if(!$result)
 		{
@@ -51,6 +59,11 @@ else
 					{
 						echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
 					}
+
+                    if ($row["draft"] == 1)
+                    {
+                        echo '<span class="draft">' . $lang["label.Draft"] . '</span>';
+                    }
 
                     			echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 					
