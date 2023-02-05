@@ -98,9 +98,11 @@ $lang = array(
     "thread.PostReplyBtn" => "Post reply",
     "thread.PostSaveDraftBtn" => "Save draft",
     "thread.PostDiscardDraftBtn" => "Discard draft",
+    "thread.PublishDraftBtn" => "Publish Draft",
     "thread.Labels" => "Labels:",
     "label.Locked" => "Locked",
     "label.Sticky" => "Sticky",
+    "label.Draft" => "Draft",
     "post.RestoreHiddenBtn" => "Restore",
     "post.EditBtn" => "Edit",
     "post.HideBtn" => "Hide",
@@ -367,6 +369,7 @@ $lang = array(
     "page.accountsettings" => "Account Settings",
     "page.profilesettings" => "Profile Settings",
     "page.search" => "Search",
+    "page.nothread" => "Thread Not Found",
 
     // Upgrade
     "upgrade.Success" => "The forum was successfully upgraded.",
