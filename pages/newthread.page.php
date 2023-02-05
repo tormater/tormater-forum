@@ -20,6 +20,8 @@ if ($_SESSION["role"] == "Suspended")
 }
 else
 {
+    echo ("<script type='text/javascript' src='" . genURL("assets/thread.js") . "'></script>");
+    
 	if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		$cat = $db->query("SELECT 1 FROM categories WHERE categoryid='" . $db->real_escape_string($_POST["category"]) . "'");
@@ -91,8 +93,15 @@ else
 				{
 					$justnow = time();
 					$userid = $_SESSION["userid"];
+
+                    if (isset($_POST["saveDraft"])) {
+                        $draft = "1";
+                    }
+                    else {
+                        $draft = "0";
+                    }
 		
-					$threadresult = $db->query("INSERT INTO threads (title, sticky, locked, posts, startuser, starttime, lastpostuser, lastposttime, category) VALUES ('" . $db->real_escape_string($_POST["title"]) . "', '0', '0', '1', '$userid', '$justnow', '$userid', '$justnow', '" . $db->real_escape_string($_POST["category"]) . "')");
+					$threadresult = $db->query("INSERT INTO threads (title, sticky, locked, posts, startuser, starttime, lastpostuser, lastposttime, category, draft) VALUES ('" . $db->real_escape_string($_POST["title"]) . "', '0', '0', '1', '$userid', '$justnow', '$userid', '$justnow', '" . $db->real_escape_string($_POST["category"]) . "', '" . $db->real_escape_string($draft) . "')");
 			
 					if (!$threadresult)
 					{
@@ -172,7 +181,12 @@ else
 			echo '<div class="forminput"><textarea name="content" id="textbox1">';
 			if (isset($contentSave)) echo $contentSave;
 			echo '</textarea></div>';
-			echo '<div class="forminput"><input type="submit" class="buttonbig" value="' . $lang["newthread.CreateBtn"] . '"></form></div>';
+            echo '<div id="previewbox1" class="previewbox" style="display:none"></div>';
+			echo '<div class="forminput"><div class="forminput left"><input type="submit" class="buttonbig" value="' . $lang["newthread.CreateBtn"] . '"> ';
+            echo '<input type="button" class="buttonbig previewbutton" id="showpreview1" value="' . $lang["nav.ShowPreview"] . '" onclick="previewPost(1, 1);">';
+            echo '<input type="button" class="buttonbig previewbutton" id="hidepreview1" value="' . $lang["nav.HidePreview"] . '" onclick="previewPost(1, 0);" style="display:none"></div>';
+            echo '<div class="draftbuttons"><input type="submit" class="buttonbig" name="saveDraft" value="'.$lang["thread.PostSaveDraftBtn"].'">';
+            echo '</div></form></div>';
 		}
 	}
 }
