@@ -186,7 +186,18 @@ echo "</div>";
 echo '<div class="userposts">';
 echo '<span class="userpostsh">' . $lang["user.RecentPosts"] . '</span>';
 
-$posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL ORDER BY timestamp DESC LIMIT 5");
+// Get the user's last 5 recent posts, excluding any draft posts.
+$postspre = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL");
+
+while ($p = $postspre->fetch_assoc()) {
+    $threads = $db->query("SELECT threadid FROM threads WHERE threadid='" . $db->real_escape_string($p["thread"]) . "' AND draft='1' AND startuser='" . $db->real_escape_string($q2) . "'");
+
+    while ($t = $threads->fetch_assoc()) {
+        $exclude .= " AND thread<>" . $t["threadid"];
+    }
+}
+
+$posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL" . $exclude . " ORDER BY timestamp DESC LIMIT 5");
 
 if($posts->num_rows == 0)
 {
