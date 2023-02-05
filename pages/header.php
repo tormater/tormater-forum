@@ -24,9 +24,14 @@ else
     $forumdesc = $config["forumDescription"];
 }
 
-if ($q1 == "thread")
+if (($q1 == "thread") and ($threadExists == true))
 {
-    $htmltitle = htmlspecialchars($title) . ' • ' . $config["forumName"];
+    if (($draft == 0) or ($_SESSION["userid"] == $startuser) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
+        $htmltitle = htmlspecialchars($title) . ' • ' . $config["forumName"];
+    }
+    else {
+        $htmltitle = $config["forumName"];
+    }
 }
 elseif ($q1 == "category")
 {
@@ -192,17 +197,22 @@ if (!$q1)
 }
 elseif ($q1 == "thread")
 {
-    // Get the category information.
-    $categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($category) . "'");
+    if (($threadExists == true) and (($draft == 0) or ($_SESSION["userid"] == $startuser) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))) {
+        // Get the category information.
+        $categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($category) . "'");
 
 
-    while ($row = $categoryDB->fetch_assoc()) {
-	    $categoryName = $row['categoryname'];
-	    $categoryDescription = $row['categorydescription'];
+        while ($row = $categoryDB->fetch_assoc()) {
+	        $categoryName = $row['categoryname'];
+	        $categoryDescription = $row['categorydescription'];
+        }
+        echo '<a class="pageButton" href="' . genURL('category/' . $category). '">' . htmlspecialchars($categoryName) . '</a>';
+        echo '<span class="paginationdots">/</span>';
+        echo '<span class="pageButtonDisabled pageButtonLast">' . htmlspecialchars($title) . '</span>';
     }
-    echo '<a class="pageButton" href="' . genURL('category/' . $category). '">' . htmlspecialchars($categoryName) . '</a>';
-    echo '<span class="paginationdots">/</span>';
-    echo '<span class="pageButtonDisabled pageButtonLast">' . htmlspecialchars($title) . '</span>';
+    else {
+        echo '<span class="pageButtonDisabled pageButtonLast">' . $lang["page.nothread"] . '</span>';
+    }
 }
 elseif ($q1 == "category")
 {
