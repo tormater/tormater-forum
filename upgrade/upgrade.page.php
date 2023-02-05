@@ -17,6 +17,7 @@ $useravatar = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'avatar'");
 $useravatartime = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'avataruploadtime'");
 $logins = $db->query("SHOW TABLES LIKE 'logins'");
 $drafts = $db->query("SHOW TABLES LIKE 'drafts'");
+$draft = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'draft'");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -74,6 +75,11 @@ if ($drafts->num_rows < 1)
         `timestamp` int unsigned NOT NULL,
         `content` text NOT NULL
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+    $upgraded = true;
+}
+if ($draft->num_rows < 1)
+{
+    $db->query("ALTER TABLE `threads` ADD `draft` tinyint(1) NOT NULL DEFAULT '0'");
     $upgraded = true;
 }
 
