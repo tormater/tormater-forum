@@ -54,9 +54,16 @@ else
 	{
 		echo '<span class="categorytitle">' . $lang["category.ThreadsIn"] . htmlspecialchars($categoryName) . '</span>';
         echo '<span class="categorydesc">' . formatPost($categoryDescription) .'</span>';
-	
-		$result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
-		
+
+        if ($_SESSION["signed_in"] != true) {
+            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+        }
+        elseif (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+        }
+        else {
+            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+        }
 		
 		if(!$result)
 		{
@@ -73,8 +80,8 @@ else
 			else
 			{
 
-    // Draw page bar
-	pagination("category");
+			// Draw page bar
+			pagination("category");
 
 				echo '<table><tr><th>' . $lang["category.Thread"] . '</th><th><center>' . $lang["category.Posts"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
 					
@@ -91,6 +98,11 @@ else
 					{
 						echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
 					}
+
+                    if ($row["draft"] == 1)
+                    {
+                        echo '<span class="draft">' . $lang["label.Draft"] . '</span>';
+                    }
 
                     			echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 					
