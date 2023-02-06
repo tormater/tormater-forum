@@ -409,6 +409,9 @@ $lang = array(
     "BBCode.Image" => "Image",
     "BBCode.Spoiler" => "Spoiler",
     "BBCode.Code" => "</>",
+    
+    // Userlist
+    "userlist.Approve" => "Approve",
 );
 
 ?>
