@@ -258,6 +258,10 @@ $lang = array(
     "register.Captcha" => "Captcha",
     "register.CaptchaHint" => "Type the letters and numbers you see in the captcha image.",
     "register.CaptchaWrong" => "The captcha was filled out incorrectly.",
+    "register.EmailShort" => "The email cannot be less than 1 character in length.",
+    "register.EmailLong" => "The email cannot be greater than 254 characters in length.",
+    "register.Approval" => "Successfully registered. Your account must be approved by a mod or an admin before you can <a href='%s'>log in</a> and start posting. Come back and check in on your account later on.",
+    "register.Closed" => "Sorry, account registration is disabled on this forum. Try coming back and checking in again later.",
     
     // User login
     "login.Header" => "Log in",
