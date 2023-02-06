@@ -23,13 +23,13 @@ else
 	
 	else
 	{
-		if (($_SERVER['REQUEST_METHOD'] == 'POST') and (isset($_POST["role"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
+		if ((isset($_POST["role"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
 		{
-            		if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
-                		if (($_SESSION["role"] == "Moderator") and ($_POST["role"] != "Member") and ($_POST["role"] != "Suspended")) {
-                    			// Do nothing
-                		}
-                	else {
+            if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
+                if (($_SESSION["role"] == "Moderator") and ($_POST["role"] != "Member") and ($_POST["role"] != "Suspended")) {
+                    // Do nothing
+                }
+                else {
 			        $setrole = $db->query("UPDATE users SET role='" . $db->real_escape_string($_POST["role"]) . "' WHERE userid='" . $db->real_escape_string($q2) . "'");
 			
 			        if (!$setrole)
@@ -38,9 +38,15 @@ else
 			        }
 			
 			        refresh(0);
-                		}
-            		}
+                }
+            }
 		}
+        elseif ((isset($_POST["removeAvatar"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
+        {
+            removeAvatar($q2);
+
+            refresh(0);
+        }
 
 		while ($row = $result->fetch_assoc())
 		{
@@ -117,7 +123,7 @@ else
 				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
 			}
 				
-			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form></div></div>';
+			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form></div>';
 			
 				
 		}
@@ -139,15 +145,21 @@ else
 				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
 			}
 				
-			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form></div></div>';
+			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form></div>';
 			
 				
 		}
 			
 		else
 		{				
-			echo '<div class="userrole">' . $lang["role." . $role] . '</div></div>';
+			echo '<div class="userrole">' . $lang["role." . $role] . '</div>';
 		}
+
+        if (($avatar != "none") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
+            echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
+        }
+
+        echo "</div>";
 		
         // Get user statistics
 
