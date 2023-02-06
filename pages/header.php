@@ -186,7 +186,30 @@ echo "</div>";
 
 		?>
 	</div>
-<div id="pageBar"><div class="pagination left">
+<div id="pageBar">
+
+<?php
+
+if (isset($_GET["search"])) {
+    $search = $_GET["search"];
+    $search = urldecode($search);
+}
+
+
+echo '<div class="searcharea"><input type="text" id="searchbox" autocomplete="off" placeholder="' . $lang["search.Placeholder"] . '" value="' . $search . '"><span class="searchbutton" onclick="search()">' . $lang["search.Button"] . '</span></div>';
+
+?>
+
+<script>
+searchBox = document.getElementById('searchbox');
+searchBox.addEventListener('keyup', function onEvent(e) {
+    if (e.keyCode === 13) {
+        search();
+    }
+});
+</script>
+
+<div class="pagination left">
 <?php 
 echo '<a class="pageButton" href="' . genURL("") . '">' . $config["forumName"] . '</a>';
 echo '<span class="paginationdots">/</span>';
@@ -282,27 +305,6 @@ else
 }
 ?>
 </div>
-<?php
-
-if (isset($_GET["search"])) {
-    $search = $_GET["search"];
-    $search = urldecode($search);
-}
-
-
-echo '<div class="searcharea"><input type="text" id="searchbox" autocomplete="off" placeholder="' . $lang["search.Placeholder"] . '" value="' . $search . '"><span class="searchbutton" onclick="search()">' . $lang["search.Button"] . '</span></div>';
-
-?>
-
-<script>
-searchBox = document.getElementById('searchbox');
-searchBox.addEventListener('keyup', function onEvent(e) {
-    if (e.keyCode === 13) {
-        search();
-    }
-});
-</script>
-
 </div>
 <?php listener("beforePageContent"); ?>
 <div id="content">
