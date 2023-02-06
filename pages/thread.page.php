@@ -351,84 +351,113 @@ else
 		$userinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["user"] . "'");
 			
 		while($u = $userinfo->fetch_assoc())
-		{
-			if (isset($row["deletedby"]))
+		{			
+
+			if ($u["deleted"] == "1") 
+            {
+                $username = $lang["user.Deleted"] . $u["userid"];
+                $deletedClass = " deleteduser";
+            }
+            else {
+
+            	$username = $u["username"];
+            	$deletedClass = "";
+            }
+			if ($u["avatar"] == "none" or isset($row["deletedby"])) 
+            {
+                $displayAvatar = "";
+            }
+            else 
+            {
+                $displayAvatar = "<img class='avatar' src='" . genURL("avatars/" . $u["userid"] . "." . $u["avatar"] . "?t=" . $u["avataruploadtime"]) . "'>";     
+            }
+            
+			echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
+			echo $displayAvatar;
+			echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b>";
+
+			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true)) && (!isset($row["deletedby"])))
 			{
-				$hider = $db->query("SELECT * FROM users WHERE userid='" . $row["deletedby"] . "'");
-				
-				while ($h = $hider->fetch_assoc())
-				{
-                    if ($u["deleted"] == "1") {
-                        $username = $lang["user.Deleted"] . $u["userid"];
-                    }
-                    else {
-                        $username = $u["username"];
-                    }
-					echo '<div class="hiddenpost"><b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b> <span title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "' class='postdate'>" . relativeTime($row["timestamp"]) . '</span> ' . sprintf($lang["thread.HiddenBy"], (genURL('user/' . $row["deletedby"] . '/')), $h["role"], htmlspecialchars($h["username"]));
-					if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
-					{
-						echo '<form class="rpostc" action="" method="post"><button name="restore" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
-					}
-					echo '</div>';
-				}
+                echo '<div>';
+				echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
+				echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
+				echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
+				echo '</div>';
 			}
-			
+
+			listener("afterPostInfo");
+
+			if ((isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))) && (!isset($row["deletedby"])))
+			{
+				echo '</div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
+				BBCodeButtons(2);
+				echo '<div class="forminput"><textarea name="saveedit" id="textbox2">' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
+				echo '<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="'.$lang["post.SaveEditBtn"].'"> <a class="buttonbig buttonNo" href="">'.$lang["post.DiscardEditBtn"].'</a></form></div></div>';
+			}
+				
 			else
 			{
-				if ($u["deleted"] == "1") {
-                    			$username = $lang["user.Deleted"] . $u["userid"];
-                    			$deletedClass = " deleteduser";
-                		}
-                		else {
-                    			$username = $u["username"];
-                    			$deletedClass = "";
-                		}
-				if ($u["avatar"] == "none") {
-                    			$displayAvatar = "";
-                		}
-                		else {
-                    			$displayAvatar = "<img class='avatar' src='" . genURL("avatars/" . $u["userid"] . "." . $u["avatar"] . "?t=" . $u["avataruploadtime"]) . "'>";
-                		}
-				echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
-				echo $displayAvatar;
-				echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b>";
-				if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true))
-				{
-                    echo '<div>';
-					echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
-					echo '<form class="postc" action="" method="post"><button name="hide" value="' . $row["postid"] . '">'.$lang["post.HideBtn"].'</button></form>';
-					echo '<form class="postc" action="" method="post"><button name="delete" value="' . $row["postid"] . '">'.$lang["post.DeleteBtn"].'</button></form>';
-					echo '</div>';
-				}
-				listener("afterPostInfo");
-				if (isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true)))
-				{
-					echo '</div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
-					BBCodeButtons(2);
-					echo '<div class="forminput"><textarea name="saveedit" id="textbox2">' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
-					echo '<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="'.$lang["post.SaveEditBtn"].'"> <a class="buttonbig buttonNo" href="">'.$lang["post.DiscardEditBtn"].'</a></form></div></div>';
-				}
-				
-				else
-				{
-                    echo '</div><div class="threadcontent">';
+
+                echo '</div><div class="threadcontent">';
+                if (isset($row["deletedby"]))
+			    {
+                    echo '<div class="infobar hiddenBar">';
+                }
+                else 
+                {
                     echo '<div class="infobar">';
-                    echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
-                    if (($_SESSION['signed_in'] == true) and (($locked == 0) or (($locked == 1) and (($_SESSION["role"] == "Moderator") or $_SESSION["role"] == "Administrator"))) and ($draft == 0))
+                }
+                
+                echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
+
+                if (isset($row["deletedby"]))
+			    {
+                    $hider = $db->query("SELECT * FROM users WHERE userid='" . $row["deletedby"] . "'");
+    
+			        while ($h = $hider->fetch_assoc())
+			        {
+                        if ($h["deleted"] == "1") {
+                            $hideusername = $lang["user.Deleted"] . $row["deletedby"];
+                        }
+                        else {
+                            $hideusername = $h["username"];
+                        }
+                    }
+
+                    echo '<span class="hiddenText">' . sprintf($lang["thread.HiddenBy"], (genURL('user/' . $row["deletedby"] . '/')), $h["role"], htmlspecialchars($hideusername)) . '</span>';
+                }
+                
+                if (($_SESSION['signed_in'] == true) and (($locked == 0) or (($locked == 1) and (($_SESSION["role"] == "Moderator") or $_SESSION["role"] == "Administrator"))) and ($draft == 0))
+                {
+                    if ((isset($row["deletedby"]) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
+                    {
+						echo '<form class="rpostc" method="post"><button name="restore" class="buttoninput buttonquote restoreButton" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
+                    }
+                    else
                     {
                         echo "<button class='buttoninput buttonquote' onclick='quotePost(" . $row["postid"] . ")'>" . $lang["thread.QuotePost"] . "</button>";
                     }
+                }
+                echo '</div>';
+                if ((!$u["signature"]) or (!isset($u["signature"])) or ($u["signature"] == "")) {
+                    $signature = "";
+                }
+                else 
+                {
+                    $signature = '<hr class="sigline"><p class="signature">' . formatPost($u["signature"]) . '</p>';
+                }
+
+                if (!isset($row["deletedby"]))
+			    {
+			    	echo formatPost($row["content"]) . $signature . '</div>';
+                }
+                else 
+                {
                     echo '</div>';
-                    			if ((!$u["signature"]) or (!isset($u["signature"])) or ($u["signature"] == "")) {
-                        			$signature = "";
-                    			}
-                    			else {
-                        			$signature = '<hr class="sigline"><p class="signature">' . formatPost($u["signature"]) . '</p>';
-                    			}
-					echo formatPost($row["content"]) . $signature . '</div>';
-				}
-                		echo "</div>";
+                }
+
 			}
+            echo "</div>";
 		}
 	}
 		
