@@ -28,6 +28,7 @@ $lang = array(
     "error.NoUsers" => "Sadly, there are currently no users on the forum.",
     "error.TooManyLogins" => "You've tried to log in too many times. Please wait a few minutes and try again later.",
     "error.MySQLNoResult" => "An error occurred whilst attempting to connect to the database, please try again later.",
+    "error.NeedsApproval" => "Your account must be approved by a mod or an admin before you can log in.",
     
     "nav.AdminsOnly" => "Sorry, this page is unavailable to non-admins.",
     "nav.LoginRequired" => "Hey, you must be <a href='%s'>logged in</a> to see this page!",
