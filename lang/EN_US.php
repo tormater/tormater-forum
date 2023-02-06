@@ -177,6 +177,7 @@ $lang = array(
     "panel.ChangeSettingsBtn" => "Change settings",
     "panel.ChangesSaved" => "Your changes were saved.",
     "panel.ChangeError" => "Some fields are left blank, or something went wrong.",
+    "panel.Registration" => "Registration options",
 
     // Admin panel / Users
     "panel.Users" => "Users",
