@@ -88,7 +88,19 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     {
         echo 'checked';
     }
-    echo '> <label for="userlistMember">' . $lang["panel.EnabledBtn"] . '</label></div></div>';
+    echo '> <label for="userlistMember">' . $lang["panel.EnabledBtn"] . '</label></div>';
+
+    $options = array("open", "closed", "approval");
+    echo "<label>" . $lang["panel.Registration"] . "</label><select name='registration'>";
+    foreach ($options as $option) {
+        if ($config["registration"] == $option) {
+            echo "<option selected='' value='" . $option . "'>" . $option . "</option>";
+        }
+        else {
+            echo "<option value='" . $option . "'>" . $option . "</option>";
+        }
+    }
+    echo "</select></div>";
 
     // Display the change footer form.
 	echo '<h3>' . $lang["panel.ChangeFooter"]  . '</h3>
@@ -137,6 +149,7 @@ else
         $config['userlistMembersOnly'] = $newuserlistMembersOnly;
         $config["forumTheme"] = $newtheme;
         $config["forumLang"] = $newlang;
+        $config["registration"] = $_POST["registration"];
 
         if ($color == "new")
         {
@@ -150,6 +163,7 @@ else
         $config["footer"] = $newfooter;
         saveConfig("./config/config.php", $config);
         message($lang["panel.ChangesSaved"]);
+        include "footer.php";
         refresh(1, "panel");
     }
 }
