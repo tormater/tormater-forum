@@ -7,6 +7,15 @@ if (!defined("INDEXED")) exit;
 
 include "header.php";
 
+// Handle requests to approve accounts.
+if ((isset($_POST["approve"])) and (is_numeric($_POST["approve"])) and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
+    $check = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string($_POST["approve"]) . "'");
+
+    if ($check->num_rows > 0) {
+        $db->query("UPDATE users SET verified='1' WHERE userid='" . $db->real_escape_string($_POST["approve"]) . "'");
+    }
+}
+
 if (($q1 == "userlist") && ($config["userlistEnabled"] == false)) {
     message($lang["error.UserlistDisabled"]);
     require "pages/footer.php";
@@ -67,13 +76,17 @@ else
             		else $deletedClass = "";
 			
 			if ($row["deleted"] == "1") {
-                		$username = $lang["user.Deleted"] . $row["userid"];
-            		}
-            		else {
-                		$username = $row["username"];
-            		}
+                $username = $lang["user.Deleted"] . $row["userid"];
+            }
+            else {
+                $username = $row["username"];
+            }
 
-			echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; <small></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
+            if (($row["verified"] == "0") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
+                $verify = "<form method='post' action='' class='postc'><button name='approve' value='" . $row["userid"] . "'>" . $lang["userlist.Approve"] . "</button></form>";
+            }
+
+			echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; ' . $verify . '<small></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
 	}
 }
