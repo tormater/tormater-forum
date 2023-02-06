@@ -93,7 +93,7 @@ else
 			$hash = $db->real_escape_string(hashstring($salt . $_POST["user_pass"]));
 			
 
-			$result = $db->query("SELECT userid, username, role FROM users WHERE username = '" . $username . "' AND password = '" . $hash . "'");
+			$result = $db->query("SELECT userid, username, role, verified FROM users WHERE username = '" . $username . "' AND password = '" . $hash . "'");
 			
 			
 			if(!$result)
@@ -103,27 +103,32 @@ else
 			
 			else
 			{
-				if (!$result->num_rows)
-				{
-					$errors[] = $lang["error.PasswordWrong"];
-				}
+                while($row = $result->fetch_assoc())
+                {
+				    if (!$result->num_rows)
+				    {
+					    $errors[] = $lang["error.PasswordWrong"];
+				    }
+
+                    elseif ($row["verified"] == "0")
+                    {
+                        $errors[] = $lang["error.NeedsApproval"];
+                    }
 				
-				else
-				{
-					$_SESSION['signed_in'] = true;
+				    else
+				    {
+					    $_SESSION['signed_in'] = true;
 					
-					while($row = $result->fetch_assoc())
-					{
-						$_SESSION['userid'] = $row['userid'];
-						$_SESSION['username'] = $row['username'];
-						$_SESSION['role'] = $row['role'];
-					}
+					    $_SESSION['userid'] = $row['userid'];
+					    $_SESSION['username'] = $row['username'];
+					    $_SESSION['role'] = $row['role'];
 					
-					// Write the IP to the database.
-					$db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+					    // Write the IP to the database.
+					    $db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
 					
-					message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL("")));
-					header("Refresh:1; url=" . genURL(""));
+					    message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL("")));
+					    header("Refresh:1; url=" . genURL(""));
+                    }
 				}
 			}
 
