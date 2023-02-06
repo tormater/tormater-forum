@@ -1322,5 +1322,18 @@ input[type=file]::file-selector-button:hover {
         float: left;
         display: block;
         width: 100%;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    #searchbox {
+        box-sizing: border-box;
+        width:100%;
+        position: absolute;
+        left: 0;
+    }
+    .searchbutton {
+        position: absolute;
+        right: 0;
+        border-left: 1px solid var(--c-border);
     }
 }
