@@ -172,6 +172,9 @@ body {
 }
 /* Navigation */
 
+.panelMenu {
+    margin-bottom: 12px;
+}
 .button {
     background: linear-gradient(#fff, #d3d3d3);
     border: 1px solid gray;
@@ -653,6 +656,7 @@ td {
     border-left: none;
     border-radius: 0 8px 8px 0;
     word-wrap: break-word;
+    word-break: break-all;
     color: #000;
 }
 
