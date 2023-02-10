@@ -489,7 +489,7 @@ function deleteUser($mode, $userid) {
 
     switch ($mode) {
         case "deleteKeepPosts":
-            // Make sure the inputted userid looks valid.
+	    // Make sure the inputted userid looks valid.
             if (($userid) and (isset($userid)) and (is_numeric($userid)) and ($config["mainAdmin"] != $userid)) {
                 $existCheck = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string($userid) . "'");
 
@@ -507,6 +507,7 @@ function deleteUser($mode, $userid) {
                     echo("</br>" . $lang["panel.DeleteUserSuccess"]);
                 }
             }
+	    break;    
         case "deleteHidePosts":
             // Make sure the inputted userid looks valid.
             if (($userid) and (isset($userid)) and (is_numeric($userid)) and ($config["mainAdmin"] != $userid)) {
@@ -527,6 +528,7 @@ function deleteUser($mode, $userid) {
                     echo("</br>" . $lang["panel.DeleteUserSuccessHide"]);
                 }
             }
+	    break;
         case "deleteRemovePosts":
             // Make sure the inputted userid looks valid.
             if (($userid) and (isset($userid)) and (is_numeric($userid)) and ($config["mainAdmin"] != $userid)) {
@@ -590,6 +592,7 @@ function deleteUser($mode, $userid) {
                     echo("</br>" . $lang["panel.DeleteUserSuccess"]);
                 }
             }
+	    break;
     }
 }
 
