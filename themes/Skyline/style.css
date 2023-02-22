@@ -656,7 +656,7 @@ td {
     border-left: none;
     border-radius: 0 8px 8px 0;
     word-wrap: break-word;
-    word-break: break-all;
+    word-break: break-word;
     color: #000;
 }
 
