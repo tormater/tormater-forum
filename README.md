@@ -1,5 +1,4 @@
-# Tormater Forum
-![image](https://user-images.githubusercontent.com/115832947/213847693-ecd7c1e7-eb62-46ac-a0f9-038e8cfbf595.png)<br/>
+# ![image](https://user-images.githubusercontent.com/115832947/221028295-c7844784-9096-4ea8-a812-7754d8765540.png)<br/>
 ![](https://img.shields.io/badge/PHP-v7.4+-8892be.svg) ![](https://img.shields.io/github/license/tormater/tormater-forum) ![](https://img.shields.io/github/v/release/tormater/tormater-forum) ![](https://img.shields.io/github/languages/code-size/tormater/tormater-forum) ![](https://img.shields.io/github/issues/tormater/tormater-forum) ![](https://img.shields.io/badge/tormater-yes-yellowgreen)
 # Installation Instructions
 Tormater forum will run on any computer/server with Apache 2.0, MySQL/MariaDB and PHP 7.4.
@@ -14,3 +13,5 @@ The following instructions will install Tormater forum on most Linux distributio
 5. Enjoy! It should be smooth sailing from here.
 
 Need help with something in the software? Check out the Tormater Forum <a href="https://github.com/tormater/tormater-forum/wiki">wiki</a> or our <a href="http://torum.rf.gd">support forum</a>.
+
+![image](https://user-images.githubusercontent.com/115832947/213847693-ecd7c1e7-eb62-46ac-a0f9-038e8cfbf595.png)
