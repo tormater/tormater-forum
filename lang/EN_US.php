@@ -184,8 +184,6 @@ $lang = array(
     "panel.Users" => "Users",
     "panel.DeleteUser" => "Delete User",
     "panel.RestoreUser" => "Restore User",
-    "panel.ViewAlts" => "View Alts",
-    "panel.Alts" => "Alternate Accounts",
 
     // Admin panel / Categories
     "panel.Categories" => "Categories",
@@ -216,14 +214,19 @@ $lang = array(
     "panel.NoNewCategoriesCreate" => "Sorry, no more new categories can be created.",
     "panel.CatThreads" => "Threads: ",
 
-    // Admin panel / Delete User
-    "panel.DeleteUserMessage" => "Attention, you are about to delete this user. Make absolutely sure you want to do this before proceeding because of the potentially irreversible nature of this action.",
+    // Admin panel / User Admin
+    "panel.DeleteUserMessage" => "Attention, these options can permanently delete and remove any content created by a user. Use with caution.",
     "panel.DeleteKeepPosts" => "Delete user and keep posts",
     "panel.DeleteHidePosts" => "Delete user and hide posts",
     "panel.DeleteRemovePosts" => "Delete user and remove posts",
     "panel.DeleteUserSuccess" => "Successfully deleted user.",
-    "panel.UseridError" => "Error: there is no user with the specified userid.",
+    "panel.UseridError" => "That user does not exist.",
     "panel.DeleteUserSuccessHide" => "Successfully deleted user and hid all of their posts.",
+    "panel.PurgeUser" => "Purge User",
+    "panel.PurgeWarning" => "Purging a user will delete all their threads, posts, and account forever (a long time!).<br/>You cannot recover a purged account.",
+    "panel.sameIP" => "Accounts on the same IP as '%s'",
+    "panel.noSameIP" => "There are no accounts that share the same IP as this user.",
+    "panel.Administrate" => "Administrate",
     
     // Admin panel / Extensions
     "panel.Extensions" => "Extensions",
