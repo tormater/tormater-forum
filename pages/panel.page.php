@@ -32,16 +32,16 @@ elseif ($q2 == "extensions")
 }
 elseif ($q2 == "deleteuser")
 {
-	include "paneldeleteuser.page.php";
+	include "paneluseradmin.page.php";
+}
+elseif ($q2 == "useradmin")
+{
+	include "paneluseradmin.page.php";
 }
 elseif ($q2 == "restoreuser")
 {
     $db->query("UPDATE users SET deleted=0 WHERE userid='" . $db->real_escape_string($q3) . "'");
     include "paneluser.page.php";
-}
-elseif ($q2 == "viewalts")
-{
-    include "panelviewalts.page.php";
 }
 else
 {
