@@ -28,26 +28,7 @@ else
 		
 		while($row = $result->fetch_assoc())
 		{
-			if ($row["role"] == "Administrator")
-			{
-				$role = $lang["role.Admin"];
-			}
-			elseif ($row["role"] == "Moderator")
-			{
-				$role = $lang["role.Mod"];
-			}
-			elseif ($row["role"] == "Member")
-			{
-				$role = $lang["role.Member"];
-			}
-			elseif ($row["role"] == "Suspended")
-			{
-				$role = $lang["role.Suspend"];
-			}
-			else
-			{
-				$role = $lang["role.Member"];
-			}
+            $role = $lang["role." . $row["role"]];
 			
 			if ($row["deleted"] == "1") $deletedClass = " deleteduser";
             		else $deletedClass = "";
@@ -60,13 +41,10 @@ else
             		}
 
 			echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; <small>';
-            		if (($config["mainAdmin"] != $row["userid"]) and ($row["deleted"] != "1")) {
-                		echo '<a href="' . genURL("panel/deleteuser/" . $row["userid"]) . '">' . $lang["panel.DeleteUser"] . '</a>&nbsp; ';
+            		if ($config["mainAdmin"] != $row["userid"]) {
+                		echo '<a href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a>&nbsp; ';
             		}
-			elseif ($row["deleted"] == "1") {
-                        	echo '<a href="' . genURL("panel/restoreuser/" . $row["userid"]) . '">' . $lang["panel.RestoreUser"] . '</a>&nbsp; ';
-                    	}
-            		echo '<a href="' . genURL("panel/viewalts/" . $row["userid"]) . '">' . $lang["panel.ViewAlts"] . '</a></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
+            		echo '</div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
 		}
         	echo "</div>";
 	}
