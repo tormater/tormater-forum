@@ -379,6 +379,7 @@ $lang = array(
     "page.profilesettings" => "Profile Settings",
     "page.search" => "Search",
     "page.nothread" => "Thread Not Found",
+    "page.useradmin" => "User Admin",
 
     // Upgrade
     "upgrade.Success" => "The forum was successfully upgraded.",
