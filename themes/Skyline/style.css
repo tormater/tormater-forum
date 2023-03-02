@@ -5,6 +5,7 @@
   --c-gradient-bottom-darker: #006dbb;
   --c-highlight: #8adef9;
   --c-border: #1f4f83;
+  accent-color: var(--c-gradient-bottom);
 }
 
 
