@@ -94,10 +94,10 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     echo "<label>" . $lang["panel.Registration"] . "</label><select name='registration'>";
     foreach ($options as $option) {
         if ($config["registration"] == $option) {
-            echo "<option selected='' value='" . $option . "'>" . $option . "</option>";
+            echo "<option selected='' value='" . $option . "'>" . $lang["panel." . $option] . "</option>";
         }
         else {
-            echo "<option value='" . $option . "'>" . $option . "</option>";
+            echo "<option value='" . $option . "'>" . $lang["panel." . $option] . "</option>";
         }
     }
     echo "</select></div>";
