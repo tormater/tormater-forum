@@ -14,7 +14,7 @@
 
 ::selection {
   color: #fff;
-  background: #3eaeff;
+  background: var(--c-gradient-bottom);
   text-shadow:none;
 }
 
@@ -889,7 +889,7 @@ font.sticky, font.locked, font.draft {
 }
 
 .postquote {
-    border-left: 5px solid #3eaeff; 
+    border-left: 5px solid var(--c-gradient-top); 
     background-color: rgba(0,0,0,.05);
     padding: 8px 15px;
     margin: 0px;
