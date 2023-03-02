@@ -179,6 +179,9 @@ $lang = array(
     "panel.ChangesSaved" => "Your changes were saved.",
     "panel.ChangeError" => "Some fields are left blank, or something went wrong.",
     "panel.Registration" => "Registration options",
+    "panel.open" => "Open",
+    "panel.closed" => "Closed",
+    "panel.approval" => "Approval",
 
     // Admin panel / Users
     "panel.Users" => "Users",
