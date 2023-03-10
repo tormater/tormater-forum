@@ -83,83 +83,15 @@ else
         else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
 			
         echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
-        echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">' . $uAvatar . '<b id="' . $role . '">' . htmlspecialchars($username) . '</b>';
+        echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">';	
 
-        // Draw the role box
-
-		if (($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
-		{
-			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
-				
-			if ($role == "Administrator")
-			{
-				echo '<option value="Administrator" selected>'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Moderator")
-			{
-				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator" selected>'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Member")
-			{
-				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member" selected>'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Suspended")
-			{
-				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form></div>';
-			
-				
-		}
-
-        elseif (($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
-		{
-			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
-
-				
-			if ($role == "Member")
-			{
-				echo '<option value="Member" selected>'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Suspended")
-			{
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form></div>';
-			
-				
-		}
-			
-		else
-		{				
-			echo '<div class="userrole">' . $lang["role." . $role] . '</div>';
-		}
+        drawUserProfile($userid, 1);
 
         if (($avatar != "none") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
             echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
         }
 
-        echo "</div>";
+        echo "</div></div>";
 		
         // Get user statistics
 
