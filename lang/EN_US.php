@@ -38,6 +38,7 @@ $lang = array(
     "nav.LastPage" => ">>",
     "nav.ShowPreview" => "Preview",
     "nav.HidePreview" => "Hide preview",
+    "nav.Online" => "Online",
 
     // Searching
 
