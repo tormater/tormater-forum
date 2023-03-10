@@ -596,4 +596,102 @@ function deleteUser($mode, $userid) {
     }
 }
 
+function drawUserProfile($userid, $type) {
+
+    global $db, $lang, $config;
+
+    $result = $db->query("SELECT * FROM users WHERE userid='" . $userid . "'");
+
+    while ($row = $result->fetch_assoc())
+	{
+      	if ($row["deleted"] == "1") $username = $lang["user.Deleted"] . $row["userid"];
+        else $username = $row["username"];
+            
+        $role = $row["role"];
+        $lastactive = $row["lastactive"];
+        $jointime = $row["jointime"];
+		$deleted = $row["deleted"];
+		$avatar = $row["avatar"];
+		$avatarTime = $row["avataruploadtime"];
+    }
+        if ((time() - $lastactive) <= $config["onlinePeriod"])
+	    {
+	    	echo '<span class="online">' . $lang["nav.Online"] . '</span>';
+	    }
+		if ($avatar == "none") $uAvatar = "";
+        else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
+
+        echo $uAvatar . '<b><a id="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a>';
+        echo '</b>';
+
+        // Draw the role box
+
+		if ($type == 1 and ($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
+		{
+			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
+				
+			if ($role == "Administrator")
+			{
+				echo '<option value="Administrator" selected>'.$lang["user.OptionAdmin"].'</option>';
+				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
+				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
+				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
+			}
+				
+			elseif ($role == "Moderator")
+			{
+				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
+				echo '<option value="Moderator" selected>'.$lang["user.OptionMod"].'</option>';
+				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
+				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
+			}
+				
+			elseif ($role == "Member")
+			{
+				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
+				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
+				echo '<option value="Member" selected>'.$lang["user.OptionMember"].'</option>';
+				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
+			}
+				
+			elseif ($role == "Suspended")
+			{
+				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
+				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
+				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
+				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
+			}
+				
+			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form>';
+			
+				
+		}
+
+        elseif ($type == 1 and ($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
+		{
+			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
+
+				
+			if ($role == "Member")
+			{
+				echo '<option value="Member" selected>'.$lang["user.OptionMember"].'</option>';
+				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
+			}
+				
+			elseif ($role == "Suspended")
+			{
+				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
+				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
+			}
+				
+			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form>';
+			
+				
+		}
+			
+		else
+		{				
+			echo '<div class="userrole">' . $lang["role." . $role];
+		}
+}
 ?>
