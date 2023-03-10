@@ -77,7 +77,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	{
 		echo $lang["thread.LoginFirst"];
 	}
-    // If the thread isn't a draft, proceed normally.
 	elseif ($draft == 0)
 	{
 		// If the user is posting...
@@ -355,26 +354,15 @@ else
 
 			if ($u["deleted"] == "1") 
             {
-                $username = $lang["user.Deleted"] . $u["userid"];
                 $deletedClass = " deleteduser";
             }
             else {
-
-            	$username = $u["username"];
             	$deletedClass = "";
-            }
-			if ($u["avatar"] == "none" or isset($row["deletedby"])) 
-            {
-                $displayAvatar = "";
-            }
-            else 
-            {
-                $displayAvatar = "<img class='avatar' src='" . genURL("avatars/" . $u["userid"] . "." . $u["avatar"] . "?t=" . $u["avataruploadtime"]) . "'>";     
             }
             
 			echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
-			echo $displayAvatar;
-			echo '<b><a href="' . genURL('user/' . $u["userid"]) . '/" id="' . $u["role"] . '">' . htmlspecialchars($username) . "</a></b>";
+            
+			drawUserProfile($u["userid"], 0);
 
 			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true)) && (!isset($row["deletedby"])))
 			{
@@ -389,7 +377,7 @@ else
 
 			if ((isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))) && (!isset($row["deletedby"])))
 			{
-				echo '</div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
+				echo '</div></div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
 				BBCodeButtons(2);
 				echo '<div class="forminput"><textarea name="saveedit" id="textbox2">' . ($row["content"]) . '</textarea><textarea style="display:none;" name="saveeditpostid">' . $row["postid"] . '</textarea></div>';
 				echo '<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="'.$lang["post.SaveEditBtn"].'"> <a class="buttonbig buttonNo" href="">'.$lang["post.DiscardEditBtn"].'</a></form></div></div>';
@@ -398,7 +386,7 @@ else
 			else
 			{
 
-                echo '</div><div class="threadcontent">';
+                echo '</div></div><div class="threadcontent">';
                 if (isset($row["deletedby"]))
 			    {
                     echo '<div class="infobar hiddenBar">';
