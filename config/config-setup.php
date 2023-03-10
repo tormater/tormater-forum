@@ -38,7 +38,8 @@ $config = array(
     'forumDescription' => 'Tormater Forum is a lightweight, easy-to-use forum software created with PHP and MySQL.',
     'draftsPerMinute' => 5, // Number of draft posts a user can make per minute.
     'forumColor' => null, // Forum color
-    'registration' => 'open' // Registration options. 'open' for unrestricted signups, 'closed' for no signups, 'approval' for signups requiring manual approval by mods and admins.
+    'registration' => 'open', // Registration options. 'open' for unrestricted signups, 'closed' for no signups, 'approval' for signups requiring manual approval by mods and admins.
+    'onlinePeriod' => '600', // The amount of time a user is shown as "online".
 );
 
 ?>
