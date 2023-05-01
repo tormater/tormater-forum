@@ -14,7 +14,7 @@ if (isset($_GET["search"])) {
 
 if(!$search || strlen($search) < 1)
 {
-	echo $lang["search.EmptySearch"];
+	message($lang["search.EmptySearch"]);
 }
 
 else
