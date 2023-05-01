@@ -133,7 +133,7 @@ $lang = array(
     "thread.ThreadUnstickError" => "Sorry, thread couldn't be unstickied.",
     "thread.SuspendCantPost" => "Unfortunately, you're suspended. Suspended users cannot post.",
     "thread.ThreadLocked" => "Sorry, this thread is locked. Only moderators and administrators can post in it.",
-    "thread.LoginToPost" => "You must be signed in to post.",
+    "thread.LoginToReply" => "You must <a href='%s'>sign in</a> or <a href='%s'>register</a> to reply to threads.",
     "thread.DraftError" => "Sorry, you've made too many draft posts recently. Please wait a minute or two and try again.",
     
     // New Thread
@@ -143,7 +143,7 @@ $lang = array(
     "newthread.Content" => "Content:",
     "newthread.CreateBtn" => "Create thread",
     // Error
-    "newthread.LoginToCreate" => "Sorry, you have to be <a href='%s'>logged in</a> to create a thread.",
+    "newthread.LoginToCreate" => "You must <a href='%s'>sign in</a> to create a thread.",
     "newthread.SuspendCantCreate" => "Your account has been suspended. You can no longer start threads.",
     "newthread.TitleEmpty" => "Your title cannot be blank.",
     "newthread.TitleBig1" => "Your title must be shorter than %s characters long.",
