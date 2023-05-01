@@ -407,16 +407,15 @@ textarea:focus {
 
 .message {
     margin: 14px 0;
-    padding: 8px 12px;
-    background: linear-gradient(#4a5269, #656c81);
-    box-shadow: 0px 1px inset #727b97;
-    text-shadow: 0 1px #3a3f4e;
-    border: 1px solid #3a4050;
-    color: #fff;
+    padding: 14px 12px;
+    background: linear-gradient(#fffd9b, #e7e684);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border: 1px solid #9e6536;
+    color: #4b2c12;
 }
 
 .message a {
-    color: #7cb7fc;
+    //color: #7cb7fc;
     text-decoration: none;
 }
 
@@ -1093,7 +1092,7 @@ input[type=file]::file-selector-button:hover {
     border-left-color: rgb(150, 150, 150);
 }
 .bbold, .bitalic, .bunderline, .bstrike, .bheader {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: serif;
     font-size: 120%;
     padding-top: 2px;
 }
