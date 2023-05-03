@@ -240,6 +240,20 @@ $lang = array(
     "panel.Readme" => "Info",
     "panel.EnableSuccess" => "Successfully enabled extension.",
     "panel.DisableSuccess" => "Successfully disabled extension.",
+
+    // Admin panel / Audit Log
+    "panel.AuditLog" => "Audit Log",
+    "panel.NoLogsFound" => "There are no logs saved on this forum.",
+    "panel.UnknownError" => "An error occurred whilst trying to perform that action.<br>Please try again later.",
+    "panel.LogEdit" => "%s edited post with ID '%s'",
+    "panel.BeforeEdit" => "Before edit",
+    "panel.AfterEdit" => "After edit",
+    "panel.Restored" => "restored",
+    "panel.Hid" => "hid",
+    "panel.LogHide" => "%s %s post with ID '%s'<br>",
+    "panel.LogDelete" => "%s deleted %s's post",
+    "panel.PostContent" => "Post content",
+    "panel.LogDeleteThread" => "%s deleted %s's thread titled '%s'<br>",
     
     // User register
     "register.Header" => "Sign up",
