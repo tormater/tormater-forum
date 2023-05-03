@@ -18,6 +18,7 @@ $useravatartime = $db->query("SHOW COLUMNS FROM `users` WHERE field LIKE 'avatar
 $logins = $db->query("SHOW TABLES LIKE 'logins'");
 $drafts = $db->query("SHOW TABLES LIKE 'drafts'");
 $draft = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'draft'");
+$auditlog = $db->query("SHOW TABLES LIKE 'auditlog'");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -80,6 +81,21 @@ if ($drafts->num_rows < 1)
 if ($draft->num_rows < 1)
 {
     $db->query("ALTER TABLE `threads` ADD `draft` tinyint(1) NOT NULL DEFAULT '0'");
+    $upgraded = true;
+}
+if ($auditlog->num_rows < 1)
+{
+    $db->query("CREATE TABLE `auditlog` (
+            `time` int unsigned DEFAULT NULL,
+            `actionid` int unsigned NOT NULL AUTO_INCREMENT,
+            `action` enum('edit_post','delete_post','hide_post','rename_thread','delete_thread','move_thread','edit_labels','delete_avatar','edit_role','delete_user','change_forum_setting') DEFAULT NULL,
+	        `userid` int unsigned NOT NULL,
+            `victimid` int unsigned NOT NULL,
+	        `before` text DEFAULT NULL,
+            `after` text DEFAULT NULL,
+            `context` text DEFAULT NULL,
+            PRIMARY KEY (`actionid`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
     $upgraded = true;
 }
 
