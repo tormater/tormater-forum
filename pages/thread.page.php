@@ -621,6 +621,18 @@ function deletePost() {
 	$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
 	while ($p = $permission->fetch_assoc()) {
         if (($_SESSION["userid"] == $p["user"]) or ($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+
+            $post = $db->query("SELECT * FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
+
+            while ($p = $post->fetch_assoc())
+	        {
+                $content = $p["content"];
+                $user = $p["user"];
+            }
+
+            $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`) 
+            VALUES ('" . time() . "', 'delete_post', '" . $_SESSION["userid"] . "', '" . $user . "', '" . $db->real_escape_string($content) . "')");
+
 			$result = $db->query("DELETE FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
 			
             $postCheck = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
@@ -686,6 +698,11 @@ function hidePost() {
 	$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
 	while ($p = $permission->fetch_assoc()) {
         if (($_SESSION["userid"] == $p["user"]) or ($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+
+            $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
+            VALUES ('" . time() . "', 'hide_post', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($_POST["hide"]) . "',
+            'restored', 'hidden')");
+
 			$result = $db->query("UPDATE posts SET deletedby='" . $_SESSION["userid"] . "' WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
 			
 			if (!$result)
@@ -708,6 +725,10 @@ function restorePost() {
 	$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
 	while ($p = $permission->fetch_assoc()) {
         if (($_SESSION["userid"] == $p["user"]) or ($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+            $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
+            VALUES ('" . time() . "', 'hide_post', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($_POST["restore"]) . "',
+            'hidden', 'restored')");
+
 			$result = $db->query("UPDATE posts SET deletedby=NULL WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
 			
 			if (!$result)
@@ -737,6 +758,17 @@ function saveEdit() {
 				
 		else
 		{
+            $post = $db->query("SELECT content FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
+
+            while ($p = $post->fetch_assoc())
+	        {
+                $content = $p["content"];
+            }
+
+            $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
+            VALUES ('" . time() . "', 'edit_post', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($_POST["saveeditpostid"]) . "',
+            '" . $db->real_escape_string($content)  . "', '" . $db->real_escape_string($_POST["saveedit"]) . "')");
+
 			$result = $db->query("UPDATE posts SET content='" . $db->real_escape_string($_POST["saveedit"]) . "' WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
 			
 			if (!$result)
@@ -746,7 +778,7 @@ function saveEdit() {
 			
 			else
 			{
-				refresh(0);
+				//refresh(0);
 			}
 		}
 	}
@@ -755,6 +787,19 @@ function saveEdit() {
 // Delete a thread.
 function deleteThread() {
     global $db, $lang, $q2, $category;
+
+    $post = $db->query("SELECT * FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
+
+    while ($p = $post->fetch_assoc())
+	{
+        $user = $p["startuser"];
+        $title = $p["title"];
+    }
+
+    $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`) 
+    VALUES ('" . time() . "', 'delete_thread', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($user) . "',
+    '" . $db->real_escape_string($title)  . "')");
+
     $result = $db->query("DELETE FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
 			
 	if (!$result)
@@ -764,6 +809,7 @@ function deleteThread() {
 			
 	else
 	{
+
 		$result = $db->query("DELETE FROM posts WHERE thread='" . $db->real_escape_string($q2) . "'");
 				
 		if (!$result)
