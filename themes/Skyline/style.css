@@ -1173,6 +1173,14 @@ input[type=file]::file-selector-button:hover {
     margin-right: 8px;
 }
 
+.auditlog-row {
+    margin: 14px 0;
+    padding: 8px 12px;
+    background: linear-gradient(#ffffff, #b9c7d3 80px);
+    border: 1px solid #394157;
+    color: #4b2c12;
+}
+
 /* Post colors. */
 
 [postcolor="1"] {
