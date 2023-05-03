@@ -122,6 +122,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             `content` text NOT NULL
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
+    $db->query("CREATE TABLE `auditlog` (
+            `time` int unsigned DEFAULT NULL,
+            `actionid` int unsigned NOT NULL AUTO_INCREMENT,
+            `action` enum('edit_post','delete_post','hide_post','rename_thread','delete_thread','move_thread','edit_labels','delete_avatar','edit_role','delete_user','change_forum_setting') DEFAULT NULL,
+	        `userid` int unsigned NOT NULL,
+            `victimid` int unsigned NOT NULL,
+	        `before` text DEFAULT NULL,
+            `after` text DEFAULT NULL,
+            `context` text DEFAULT NULL,
+            PRIMARY KEY (`actionid`)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+
         // Create the admin's account, first generating the salt, password hash, and IP address hash.
         $adminSalt = random_str(64);
         $adminHash = hashstring($adminSalt . $_POST["adminPassword"]);
