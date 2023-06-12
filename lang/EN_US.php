@@ -188,6 +188,8 @@ $lang = array(
     "panel.open" => "Open",
     "panel.closed" => "Closed",
     "panel.approval" => "Approval",
+    "panel.CategoryUpBtn" => "Move up",
+    "panel.CategoryDownBtn" => "Move down",
 
     // Admin panel / Users
     "panel.Users" => "Users",
@@ -442,4 +444,3 @@ $lang = array(
 );
 
 ?>
-

@@ -9,7 +9,7 @@ include 'header.php';
 
 echo '<h2>' . $lang["homepage.Title"] . '</h2>';
 
-$result = $db->query("SELECT * FROM categories");
+$result = $db->query("SELECT * FROM `categories` ORDER BY `order` ASC");
 
 if ($_SESSION["signed_in"] != true) {
     $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");

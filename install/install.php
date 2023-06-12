@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	        `categoryid` int unsigned NOT NULL AUTO_INCREMENT,
 	        `categoryname` varchar(255) NOT NULL,
 	        `categorydescription` varchar(255) NOT NULL,
+            `order` int unsigned NOT NULL DEFAULT '0',
 	        PRIMARY KEY (`categoryid`),
 	        UNIQUE KEY `category_name` (`categoryname`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");

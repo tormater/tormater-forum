@@ -20,6 +20,7 @@ $drafts = $db->query("SHOW TABLES LIKE 'drafts'");
 $draft = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'draft'");
 $auditlog = $db->query("SHOW TABLES LIKE 'auditlog'");
 $pinned = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'pinned'");
+$order = $db->query("SHOW COLUMNS FROM `categories` WHERE field LIKE 'order'");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -102,6 +103,11 @@ if ($auditlog->num_rows < 1)
 if ($pinned->num_rows < 1)
 {
     $db->query("ALTER TABLE `threads` ADD `pinned` tinyint(1) NOT NULL DEFAULT '0'");
+    $upgraded = true;
+}
+if ($order->num_rows < 1)
+{
+    $db->query("ALTER TABLE `categories` ADD `order` int unsigned NOT NULL DEFAULT '0'");
     $upgraded = true;
 }
 

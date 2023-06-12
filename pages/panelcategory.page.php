@@ -15,6 +15,86 @@ if (($catcheck->num_rows) >= $config["maxCats"]) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
+    // Move a category up in order.
+    if ($_POST["moveup"]) {
+        // Only proceed if the requested category id is valid.
+        if (is_numeric($_POST["moveup"])) {
+            // Get the category.
+            $category = $db->query("SELECT * FROM `categories` WHERE `categoryid`='" . $db->real_escape_string($_POST["moveup"]) . "'");
+
+            // Only proceed if the category exists.
+            if ($category && $category->num_rows > 0) {
+                // Get any category information we need.
+                while ($row = $category->fetch_assoc()) {
+                    $id = $row["categoryid"];
+                    $order = $row["order"];
+                }
+
+                // Only proceed if the category isn't the top one already.
+                if ($order > 1) {
+                    // Get the id of the category ordered above this one.
+                    $above = $db->query("SELECT * FROM `categories` WHERE `order`='" . $db->real_escape_string(($order - 1)) . "'");
+
+                    if ($above && $above->num_rows > 0) {
+
+                        while ($row = $above->fetch_assoc()) {
+                            $aboveid = $row["categoryid"];
+                            $aboveorder = $row["order"];
+                        }
+
+                        // Change the order of this category.
+                        $db->query("UPDATE `categories` SET `order`='" . $db->real_escape_string($aboveorder) . "' WHERE `categoryid`='" . $db->real_escape_string($id) . "'");
+
+                        // Now change the order of the category formerly above this one.
+                        $db->query("UPDATE `categories` SET `order`='" . $db->real_escape_string($order) . "' WHERE `categoryid`='" . $db->real_escape_string($aboveid) . "'");
+                    }
+                }
+            }
+        }
+    }
+    // Move a category down in order.
+    if ($_POST["movedown"]) {
+        // Only proceed if the requested category id is valid.
+        if (is_numeric($_POST["movedown"])) {
+            // Get the category.
+            $category = $db->query("SELECT * FROM `categories` WHERE `categoryid`='" . $db->real_escape_string($_POST["movedown"]) . "'");
+
+            // Only proceed if the category exists.
+            if ($category && $category->num_rows > 0) {
+                // Get any category information we need.
+                while ($row = $category->fetch_assoc()) {
+                    $id = $row["categoryid"];
+                    $order = $row["order"];
+                }
+
+                $getLargest = $db->query("SELECT MAX(`order`) AS 'order' FROM `categories`");
+
+                while ($l = $getLargest->fetch_assoc()) {
+                    $largest = $l["order"];
+                }
+
+                // Only proceed if the category isn't on the bottom.
+                if ($order < $largest) {
+                    // Get the id of the category ordered below this one.
+                    $below = $db->query("SELECT * FROM `categories` WHERE `order`='" . $db->real_escape_string(($order + 1)) . "'");
+
+                    if ($below && $below->num_rows > 0) {
+
+                        while ($row = $below->fetch_assoc()) {
+                            $belowid = $row["categoryid"];
+                            $beloworder = $row["order"];
+                        }
+
+                        // Change the order of this category.
+                        $db->query("UPDATE `categories` SET `order`='" . $db->real_escape_string($beloworder) . "' WHERE `categoryid`='" . $db->real_escape_string($id) . "'");
+
+                        // Now change the order of the category formerly above this one.
+                        $db->query("UPDATE `categories` SET `order`='" . $db->real_escape_string($order) . "' WHERE `categoryid`='" . $db->real_escape_string($belowid) . "'");
+                    }
+                }
+            }
+        }
+    }
 	if ($_POST["edit"] or $_POST["edit_edit_cat_name"] or $_POST["edit_cat_description"])
 	{
 		$id = $_POST["edit"];
@@ -155,7 +235,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 		
 		else {
-		$result = $db->query("INSERT INTO categories (categoryname, categorydescription) VALUES ('" . $db->real_escape_string($_POST['cat_name']) . "', '" . $db->real_escape_string($_POST['cat_description']) . "')");
+            // Check if there are any categories at all.
+            $categoryCheck = $db->query("SELECT 1 FROM `categories`");
+
+            // If there aren't, set the order index to 1.
+            if ($categoryCheck->num_rows < 1) {
+                $largestOrder = 1;
+            }
+            // If there are, get the highest order index, and add 1 to it.
+            else {
+                $getLargestOrder = $db->query("SELECT MAX(`order`) AS 'order' FROM `categories`");
+
+                while ($r = $getLargestOrder->fetch_assoc()) {
+                    $largestOrder = $r["order"];
+                }
+
+                $largestOrder++;
+            }
+
+            $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . $db->real_escape_string($_POST['cat_name']) . "', '" . $db->real_escape_string($_POST['cat_description']) . "', '" . $db->real_escape_string($largestOrder) . "')");
 		
 			if(!$result)
 			{
@@ -170,8 +268,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 }
 
-	$result = $db->query("SELECT * FROM categories");
+	$result = $db->query("SELECT * FROM categories ORDER BY `order` ASC");
+    $getLargest = $db->query("SELECT MAX(`order`) AS 'order' FROM `categories`");
+
+    while ($l = $getLargest->fetch_assoc()) {
+        $largest = $l["order"];
+    }
+
 	echo '<h2>'.$lang["panel.Categories"].'</h2>';
+
     while($row = $result->fetch_assoc()) {
     	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
     	$number = $numthreads->num_rows;
@@ -180,6 +285,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     		echo '<h3><span>' . htmlspecialchars($row["categoryname"]) . ' (#' . $row["categoryid"] . ')</span></h3>';
 			echo '<div>' . formatPost($row["categorydescription"]) . '</div>';
     		echo '<div><div style="float:right">';
+
+            // Only show the move up button if this isn't the top category already.
+            if ($row["order"] > 1) {
+                echo '<form style="display:inline-block;" method="post" action=""><button name="moveup" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryUpBtn"].'</button></form> ';
+            }
+            // Only show the move down button if this isn't the bottom category already.
+            if ($row["order"] < $largest) {
+			    echo '<form style="display:inline-block;" method="post" action=""><button name="movedown" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryDownBtn"].'</button></form> ';
+            }
+
 			echo '<form style="display:inline-block;" method="post" action=""><button name="edit" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryEditBtn"].'</button></form> 
 				<form style="display:inline-block;" method="post" action=""><button name="delete" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryDeleteBtn"].'</button></form>';
 			echo '</div>';
