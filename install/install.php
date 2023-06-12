@@ -77,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `title` varchar(255) NOT NULL,
   	        `sticky` tinyint(1) NOT NULL DEFAULT '0',
   	        `locked` tinyint(1) NOT NULL DEFAULT '0',
+            `pinned` tinyint(1) NOT NULL DEFAULT '0',
   	        `posts` int unsigned NOT NULL,
   	        `startuser` int unsigned NOT NULL,
   	        `starttime` int unsigned NOT NULL,

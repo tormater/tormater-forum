@@ -699,7 +699,7 @@ td {
     margin: -8px;
     margin-bottom: 8px;
 }
-.sticky, .locked, .draft {
+.sticky, .locked, .draft, .pinned {
     display: inline-block;
     margin-right: 6px;
     padding: 2px 6px;
@@ -726,7 +726,14 @@ td {
     text-shadow: 0 1px rgb(176, 181, 186);
 }
 
-font.sticky, font.locked, font.draft {
+.pinned {
+    background:linear-gradient(rgb(241, 68, 68),rgb(183, 27, 27));
+    border: 1px solid rgb(139, 10, 10);
+    text-shadow: 0 1px rgb(119, 10, 10);
+    color: #ffffff;
+}
+
+font.sticky, font.locked, font.draft, font.pinned {
     margin-left: 8px;
     margin-right: 0;
     font-size: 90%;

@@ -51,6 +51,11 @@ while($row = $threads->fetch_assoc())
         echo '<span class="draft">' . $lang["label.Draft"] . '</span>';
     }
 
+    if ($row["pinned"] == 1)
+    {
+        echo '<span class="pinned">' . $lang["label.Pinned"] . '</span>';
+    }
+
     echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
 					
 	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");

@@ -56,13 +56,13 @@ else
         echo '<span class="categorydesc">' . formatPost($categoryDescription) .'</span>';
 
         if ($_SESSION["signed_in"] != true) {
-            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
         }
         elseif (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
-            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' UNION SELECT * FROM threads WHERE pinned='1' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
         }
         else {
-            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+            $result = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
         }
 		
 		if(!$result)
@@ -102,6 +102,11 @@ else
                     if ($row["draft"] == 1)
                     {
                         echo '<span class="draft">' . $lang["label.Draft"] . '</span>';
+                    }
+
+                    if ($row["pinned"] == 1)
+                    {
+                        echo '<span class="pinned">' . $lang["label.Pinned"] . '</span>';
                     }
 
                     			echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	

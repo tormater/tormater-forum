@@ -92,6 +92,8 @@ $lang = array(
     "thread.UnstickyThreadBtn" => "Unsticky",
     "thread.StickyThreadBtn" => "Sticky",
     "thread.MoveThreadBtn" => "Move",
+    "thread.PinThreadBtn" => "Pin",
+    "thread.UnpinThreadBtn" => "Unpin",
     "thread.PostInTitle" => "Posts in",
     "thread.ContentTitle" => "Content:",
     "thread.HiddenBy" => "(hidden by <a href='%s' id='%s'>%s</a>)",
@@ -105,6 +107,7 @@ $lang = array(
     "label.Locked" => "Locked",
     "label.Sticky" => "Sticky",
     "label.Draft" => "Draft",
+    "label.Pinned" => "Pinned",
     "post.RestoreHiddenBtn" => "Restore",
     "post.EditBtn" => "Edit",
     "post.HideBtn" => "Hide",
@@ -131,6 +134,8 @@ $lang = array(
     "thread.ThreadStickError" => "Sorry, thread couldn't be stickied.",
     "thread.ThreadUnlockError" => "Sorry, thread couldn't be unlocked.",
     "thread.ThreadUnstickError" => "Sorry, thread couldn't be unstickied.",
+    "thread.ThreadPinError" => "Sorry, thread couldn't be pinned.",
+    "thread.ThreadUnpinError" => "Sorry, thread couldn't be unpinned",
     "thread.SuspendCantPost" => "Unfortunately, you're suspended. Suspended users cannot post.",
     "thread.ThreadLocked" => "Sorry, this thread is locked. Only moderators and administrators can post in it.",
     "thread.LoginToReply" => "You must <a href='%s'>sign in</a> or <a href='%s'>register</a> to reply to threads.",
@@ -437,3 +442,4 @@ $lang = array(
 );
 
 ?>
+

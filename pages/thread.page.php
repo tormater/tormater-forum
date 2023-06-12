@@ -34,6 +34,7 @@ while($row = $thread->fetch_assoc()) {
 	$stickied = $row['sticky'];
     $draft = $row['draft'];
     $startuser = $row['startuser'];
+    $pinned = $row['pinned'];
 	
 	// Important details for sorting the thread into pages.
 	$numPosts = $row['posts'];
@@ -144,6 +145,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
             stickyThread();
 		}
+
+        // If the user is requesting to pin the thread...
+		elseif (($_POST["pinthread"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] == "Administrator"))
+		{
+            pinThread();
+		}
 		
 		// If the user is requesting to unlock the thread...
 		elseif (($_POST["unlockthread"]) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
@@ -156,6 +163,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
             unstickyThread();
 		}
+
+		// If the user is requesting to unpin the thread...
+		elseif (($_POST["unpinthread"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] == "Administrator"))
+		{
+            unpinThread();
+		}
+
 		// If the user is requesting to edit the thread title...
 		elseif (($_POST["editthread"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 		{
@@ -196,6 +210,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
             stickyThread();
 		}
+
+        // If the user is requesting to pin the thread...
+		elseif (($_POST["pinthread"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] == "Administrator"))
+		{
+            pinThread();
+		}
 		
 		// If the user is requesting to unlock the thread...
 		elseif (($_POST["unlockthread"]) && ($_SESSION['signed_in'] == true) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))
@@ -208,6 +228,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		{
             unstickyThread();
 		}
+
+		// If the user is requesting to unpin the thread...
+		elseif (($_POST["unpinthread"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] == "Administrator"))
+		{
+            unpinThread();
+		}
+
 		// If the user is requesting to edit the thread title...
 		elseif (($_POST["editthread"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
 		{
@@ -318,9 +345,19 @@ else
 		{
 			echo '<form action="" method="post"><button name="stickythread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.StickyThreadBtn"].'</button></form>';
 		}
+        if ($_SESSION["role"] == "Administrator") {
+            if ($pinned == 1)
+            {
+                echo '<form action="" method="post"><button name="unpinthread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.UnpinThreadBtn"].'</button></form>';
+            }
+		    else
+		    {
+			    echo '<form action="" method="post"><button name="pinthread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.PinThreadBtn"].'</button></form>';
+		    }
+        }
 		echo '</div>';
 	}
-	if ($locked == 1 or $stickied == 1 or $draft == 1)
+	if ($locked == 1 or $stickied == 1 or $draft == 1 or $pinned == 1)
 	{
 		echo '<div>'.$lang["thread.Labels"];
 
@@ -339,8 +376,13 @@ else
                 echo '<font class="draft">'.$lang["label.Draft"].'</font>';
             }
 
+            if ($pinned == 1)
+            {
+                echo '<font class="pinned">'.$lang["label.Pinned"].'</font>';
+            }
+
 	    	echo '</div>';
-    	}
+    }
 
     // Draw page bar
 	pagination("thread");
@@ -898,6 +940,38 @@ function unlockThread() {
 	if (!$result)
 	{
 		message($lang["thread.ThreadUnlockError"]);
+	}
+			
+	else
+	{
+		refresh(0);
+	}
+}
+
+// Pin a thread.
+function pinThread() {
+    global $db, $lang, $q2;
+    $result = $db->query("UPDATE threads SET pinned='1' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+			
+	if (!$result)
+	{
+		message($lang["thread.ThreadPinError"]);
+	}
+			
+	else
+	{
+		refresh(0);
+	}
+}
+
+// Unpin a thread.
+function unpinThread() {
+    global $db, $lang, $q2;
+    $result = $db->query("UPDATE threads SET pinned='0' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+			
+	if (!$result)
+	{
+		message($lang["thread.ThreadUnpinError"]);
 	}
 			
 	else

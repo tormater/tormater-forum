@@ -19,6 +19,7 @@ $logins = $db->query("SHOW TABLES LIKE 'logins'");
 $drafts = $db->query("SHOW TABLES LIKE 'drafts'");
 $draft = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'draft'");
 $auditlog = $db->query("SHOW TABLES LIKE 'auditlog'");
+$pinned = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'pinned'");
 
 if ($deleteduser->num_rows < 1)
 {
@@ -96,6 +97,11 @@ if ($auditlog->num_rows < 1)
             `context` text DEFAULT NULL,
             PRIMARY KEY (`actionid`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+    $upgraded = true;
+}
+if ($pinned->num_rows < 1)
+{
+    $db->query("ALTER TABLE `threads` ADD `pinned` tinyint(1) NOT NULL DEFAULT '0'");
     $upgraded = true;
 }
 
