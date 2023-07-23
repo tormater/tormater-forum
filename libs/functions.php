@@ -387,17 +387,32 @@ function generateCaptcha($numChars)
     imagefill($new_image, 0, 0, $bg_color);
 
     // Add some noise to the background.
-    for ($i = 0; $i < $numChars; $i++) {
-        imagefilledrectangle($new_image, $width/$numChars*$i+rand(-10, 10), 1, $width*0.8-rand(1, 2), $height*1.4-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
-    }
 
-    // Add some noise to the background.
     for ($i = 0; $i < $numChars*6; $i++) {
-        imagefilledellipse($new_image, $width/$numChars*$i/6+rand(-10, 10), $height/2+rand(-10, 10), $width*0.3-rand(1, 3), $height*0.7-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+        $rchoice = rand(0,3);
+
+        if ($rchoice == 0) {
+            imageline($new_image, rand(0,$width), rand(0,$height), rand(0,$width), rand(0,$height), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+        }
+        else if ($rchoice == 1) {
+            imagefilledellipse($new_image, $width/$numChars*$i/6+rand(-10, 10), $height/2+rand(-10, 10), $width*0.3-rand(1, 3), $height*0.7-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+        }
+        else if ($rchoice == 2) {
+            imagefilledrectangle($new_image, $width/$numChars*$i+rand(-10, 10), 1, $width*0.8-rand(1, 2), $height*1.4-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+        }
+        else if ($rchoice == 3) {
+            imagepolygon($new_image, array(
+                rand(0,$width), rand(0,$height),
+                rand(0,$width), rand(0,$height),
+                rand(0,$width), rand(0,$height)
+            ),
+            3,
+            imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+        }
     }
 
     // Add the text to the image.
-    for ($i = 0; $i < $numChars; $i++) {
+    for ($i = 0; $i < $numChars*2; $i++) {
         $text = imagecolorallocate($new_image, rand(10, 110), rand(10, 110), rand(10, 110));
         imagestring($new_image, rand(3,5), $width/$numChars+$i*rand(9, 10), 7,  substr($chars, $i, 1), $text);
     }
