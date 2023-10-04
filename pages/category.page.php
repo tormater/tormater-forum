@@ -36,7 +36,7 @@ $pages = ceil($numThreads / $config["threadsPerPage"]);
 // Calculate the offset for the threads query.
 $offset = (($currentPage * $config["threadsPerPage"]) - $config["threadsPerPage"]);
 
-$posts = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY timestamp LIMIT " . $config["postsPerPage"] . " OFFSET " . $offset . "");
+$posts = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' ORDER BY lastposttime LIMIT " . $config["postsPerPage"] . " OFFSET " . $offset . "");
 
 if(!$category)
 {
