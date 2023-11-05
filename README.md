@@ -12,6 +12,6 @@ The following instructions will install Tormater forum on most Linux distributio
 4. Then, type in the username, email, and password for your Administrator account.
 5. Enjoy! It should be smooth sailing from here.
 
-Need help with something in the software? Check out the Tormater Forum <a href="https://github.com/tormater/tormater-forum/wiki">wiki</a> or our <a href="http://torum.rf.gd">support forum</a>.
+Need help with something in the software? Check out the Tormater Forum <a href="https://github.com/tormater/tormater-forum/wiki">wiki</a> or our <a href="http://forum.tormater.com">support forum</a>.
 
 ![image](https://user-images.githubusercontent.com/115832947/213847693-ecd7c1e7-eb62-46ac-a0f9-038e8cfbf595.png)
