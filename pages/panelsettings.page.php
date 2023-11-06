@@ -90,6 +90,14 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     }
     echo '> <label for="userlistMember">' . $lang["panel.EnabledBtn"] . '</label></div>';
 
+    echo '<div class="forminput"><label>' . $lang["panel.showDeletedInUserlist"] . '</label>
+    <input type="checkbox" name="showDeletedInUserlist" id="userlistDeleted" value="'. $config["showDeletedInUserlist"] .'" ';
+    if ($config["showDeletedInUserlist"] == 1)
+    {
+        echo 'checked';
+    }
+    echo '> <label for="userlistDeleted">' . $lang["panel.EnabledBtn"] . '</label></div>';
+
     $options = array("open", "closed", "approval");
     echo "<label>" . $lang["panel.Registration"] . "</label><select name='registration'>";
     foreach ($options as $option) {
@@ -133,6 +141,14 @@ else
         {
             $newuserlistMembersOnly = 0;
         }
+        if(isset($_POST["showDeletedInUserlist"]))
+        {
+            $showDeletedInUserlist = 1;
+        }
+        else
+        {
+            $showDeletedInUserlist = 0;
+        }
 		$newforumname = $_POST["newforumname"];
         $newthreadsPerPage = $_POST["newthreadsPerPage"];
         $newpostsPerPage = $_POST["newpostsPerPage"];
@@ -150,6 +166,7 @@ else
         $config["forumTheme"] = $newtheme;
         $config["forumLang"] = $newlang;
         $config["registration"] = $_POST["registration"];
+        $config["showDeletedInUserlist"] = $showDeletedInUserlist;
 
         if ($color == "new")
         {
