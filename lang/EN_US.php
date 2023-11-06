@@ -179,6 +179,7 @@ $lang = array(
     "panel.PostPerPage" => "Post per page:",
     "panel.Userlist" => "Enable userlist",
     "panel.UserlistMemberOnly" => "Let only members view userlist",
+    "panel.showDeletedInUserlist" => "Show deleted users in the userlist",
     "panel.EnabledBtn" => "Enabled",
     "panel.ChangeFooter" => "Change footer",
     "panel.ChangeSettingsBtn" => "Change settings",
