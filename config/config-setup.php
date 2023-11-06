@@ -40,6 +40,7 @@ $config = array(
     'forumColor' => null, // Forum color
     'registration' => 'open', // Registration options. 'open' for unrestricted signups, 'closed' for no signups, 'approval' for signups requiring manual approval by mods and admins.
     'onlinePeriod' => '600', // The amount of time a user is shown as "online".
+    'showDeletedInUserlist' => 0, // If deleted users should be shown in the userlist.
 );
 
 ?>
