@@ -51,6 +51,10 @@ else
 		
 		while($row = $result->fetch_assoc())
 		{
+            if ($row["deleted"] == "1" && $config["showDeletedInUserlist"] != 1)
+            {
+                continue;
+            }
 			if ($row["role"] == "Administrator")
 			{
 				$role = $lang["role.Admin"];
