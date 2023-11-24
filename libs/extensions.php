@@ -10,7 +10,7 @@ $allExtensions = scandir("extensions");
 foreach ($allExtensions as $e) {
     if ((file_exists("extensions/" . $e . "/manifest.json" )) && (file_exists("extensions/" . $e . "/extension.php" )))
     {
-        if ($extensions[$e] == true || $extensions[$e] != false)
+        if (isset($extensions[$e]) && ($extensions[$e] == true || $extensions[$e] != false))
         {
             require_once("extensions/" . $e . "/extension.php");
         }
