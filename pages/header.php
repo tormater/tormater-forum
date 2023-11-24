@@ -43,7 +43,7 @@ elseif ($q1 == "user")
 }
 else
 { 
-    if (!$lang["page." . $q1])
+    if (empty($lang["page." . $q1]))
     {
         $htmltitle = $config["forumName"];
     }
@@ -193,6 +193,9 @@ echo "</div>";
 if (isset($_GET["search"])) {
     $search = $_GET["search"];
     $search = urldecode($search);
+}
+else {
+    $search = "";
 }
 
 
