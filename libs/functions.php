@@ -419,13 +419,13 @@ function generateCaptcha($numChars)
     ob_start();
 
     // Save the image as png
-    imagepng($new_image, NULL, 9);
+    imagewebp($new_image, NULL, 50);
 
     $rawImageBytes = ob_get_clean();
 
     listener("beforeDrawCaptcha");
 
-    echo "<img src='data:image/jpeg;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
+    echo "<img src='data:image/webp;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
 
     // Free the memory
     imagedestroy($new_image);
