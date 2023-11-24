@@ -78,7 +78,7 @@ if (!session_id()) {
 }
 
 // Check the user's role, verification status, and deletion status. Then ensure their session reflects it accordingly.
-if ($_SESSION["signed_in"] == true) {
+if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
 	$rolecheck = $db->query("SELECT role, verified, deleted, ip FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 	while ($r = $rolecheck->fetch_assoc())
 	{
@@ -96,11 +96,12 @@ if ($_SESSION["signed_in"] == true) {
 			$_SESSION["deleted"] = $r["deleted"];
 		}
 	}
-}
-
-// Log out any suspended, unverified, or deleted users.
-if (($_SESSION["role"] == "Suspended") or ($_SESSION["verified"] == "0") or ($_SESSION["deleted"] == "1")) {
-    logout();
+	// Log out any suspended, unverified, or deleted users.
+	if (($_SESSION["role"] == "Suspended")
+	or (isset($_SESSION["verified"]) && $_SESSION["verified"] == "0")
+	or (isset($_SESSION["deleted"]) && $_SESSION["deleted"] == "1")) {
+	    logout();
+	}
 }
 
 // Process the URL and set a couple of variables for easy use.
