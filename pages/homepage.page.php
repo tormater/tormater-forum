@@ -11,14 +11,16 @@ echo '<h2>' . $lang["homepage.Title"] . '</h2>';
 
 $result = $db->query("SELECT * FROM `categories` ORDER BY `order` ASC");
 
-if ($_SESSION["signed_in"] != true) {
-    $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");
-}
-elseif (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
-    $threads = $db->query("SELECT * FROM threads ORDER BY lastposttime DESC LIMIT 5");
+if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] != true) {
+    if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
+        $threads = $db->query("SELECT * FROM threads ORDER BY lastposttime DESC LIMIT 5");
+    }
+    else {
+        $threads = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY lastposttime DESC LIMIT 5");
+    }
 }
 else {
-    $threads = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY lastposttime DESC LIMIT 5");
+    $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");
 }
 
 echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center>' . $lang["homepage.CatThreads"] . '</center></th></tr>';
