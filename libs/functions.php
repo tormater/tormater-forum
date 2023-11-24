@@ -395,7 +395,7 @@ function generateCaptcha($numChars)
             imageline($new_image, rand(0,$width), rand(0,$height), rand(0,$width), rand(0,$height), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
         }
         else if ($rchoice == 1) {
-            imagefilledellipse($new_image, $width/$numChars*$i/6+rand(-10, 10), $height/2+rand(-10, 10), $width*0.3-rand(1, 3), $height*0.7-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+            imagefilledellipse($new_image, intval($width/$numChars*$i/6+rand(-10, 10)), intval($height/2+rand(-10, 10)), intval($width*0.3-rand(1, 3)), intval($height*0.7-rand(1, 3)), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
         }
         else if ($rchoice == 2) {
             imagefilledrectangle($new_image, $width/$numChars*$i+rand(-10, 10), 1, $width*0.8-rand(1, 2), $height*1.4-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
@@ -406,7 +406,6 @@ function generateCaptcha($numChars)
                 rand(0,$width), rand(0,$height),
                 rand(0,$width), rand(0,$height)
             ),
-            3,
             imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
         }
     }
