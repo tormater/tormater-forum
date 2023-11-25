@@ -111,6 +111,7 @@ if (isset($url[1])) $q2 = $url[1];
 if (isset($url[2])) $q3 = $url[2];
 if (isset($url[3])) $q4 = $url[3];
 
+require "libs/templates.php";
 require "libs/extensions.php";
 
 // Based on the URL, serve the user with a corresponding page.
