@@ -1,4 +1,4 @@
-### Tormater Forum - <a href="http://forum.tormater.com">[Demo + Support forum]</a><br>
+## Tormater Forum - <a href="http://forum.tormater.com">[Demo + Support forum]</a><br>
 Tormater Forum is a lightweight, easy-to-use forum software created with PHP and MySQL. <br>
 
 ![](https://img.shields.io/badge/PHP-7.4%2F8.0%2B-8892be) ![](https://img.shields.io/github/license/tormater/tormater-forum) ![](https://img.shields.io/github/v/release/tormater/tormater-forum) ![](https://img.shields.io/github/languages/code-size/tormater/tormater-forum) ![](https://img.shields.io/github/issues/tormater/tormater-forum) ![](https://img.shields.io/badge/tormater-yes-yellowgreen)
