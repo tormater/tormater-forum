@@ -25,7 +25,7 @@ $data = array(
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
 	    "favicon_png" => genURL('themes/' . $config["forumTheme"] . '/icon.png'),
 	    "pages" => "",
-	    "welcome" => '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>',
+	    "welcome" => '<a href="' . genURL("login" . "?next=" . ltrim($_SERVER['REQUEST_URI'], '/')) . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>',
 	    "homeURL" => genURL(""),
 	    "searchText" => "",
 	    "searchPlaceholder" => $lang["search.Placeholder"],
