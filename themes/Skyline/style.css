@@ -618,6 +618,7 @@ td {
 #editthread {
     margin-top: 10px;
     margin-bottom: 5px;
+    padding-left: 0px;
     word-wrap: break-word;
     color: #000;
     font-weight: normal;
@@ -628,10 +629,12 @@ td {
     background: unset;
     border: unset;
     outline: unset;
+    text-decoration: underline dotted;
 }
 
 #editthread:focus {
     outline: #9c9cff 1px solid;
+    text-decoration: none;
 }
 .thread,
 .usertop {
