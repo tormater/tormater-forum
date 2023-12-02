@@ -33,6 +33,12 @@ $data = array(
 	    "meta" => "",
 	    "keywords" => strtolower($config["forumName"]),
 );
+
+ob_start();
+listener("meta");
+$data["meta"] = ob_get_contents();
+ob_end_clean();
+
 if (isset($_GET["search"]) && !empty($_GET["search"])) {
     $data["searchText"] = urldecode($_GET["search"]);
 }
