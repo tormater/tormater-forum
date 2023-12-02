@@ -5,30 +5,18 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+$data = array(
+    "copyright" => "© 2022-" . date("Y") . " <a href='https://github.com/tormater/tormater-forum'>Tormater Forum</a>",
+    "footer" => formatFooter($config["footer"]),
+);
 
-
-echo '</div>';
-listener("afterPageContent");
-echo '<div id="footer">';
-
+ob_start();
 listener("beforeFooter");
-echo formatFooter($config["footer"]);
+$data["footer"] = $data["footer"] . ob_get_contents();
+ob_end_clean();
+ob_start();
 listener("afterFooter"); 
+$data["footer"] .= ob_get_contents();
+ob_end_clean();
 
-echo '</div>';
-echo '<div id="copyright">';
-if(isset($config["forumTheme"]) and file_exists(dirname(__DIR__,1) . "/themes/" . $config["forumTheme"] . "/icon.svg"))
-{
-    echo '<img width="22" src="' . genURL('themes/' . $config["forumTheme"] . '/icon.svg') . '">';
-}
-echo '© 2022-2023 <a href="https://github.com/tormater/tormater-forum">Tormater Forum</a>';
-echo '</div>';
-listener("afterCopyright");
-
-echo '</div>';
-echo '</div>';
-
-listener("pageEnd");
-
-echo '</body>';
-echo '</html>';
+echo $template->render("templates/footer.html", $data);
