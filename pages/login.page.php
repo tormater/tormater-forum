@@ -9,6 +9,12 @@ include 'header.php';
 
 echo '<h2>' . $lang["login.Header"] . '</h2>';
 
+$next = "";
+if (isset($_GET["next"])) {
+    $next = $_GET["next"];
+    $next = urldecode($next);
+}
+
 if($_SESSION['signed_in'] == true)
 {
 	message(sprintf($lang["error.AlreadyLoggedIn"], genURL("logout")));
@@ -126,8 +132,8 @@ else
 					    // Write the IP to the database.
 					    $db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
 					
-					    message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL("")));
-					    header("Refresh:1; url=" . genURL(""));
+					    message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL($next)));
+					    header("Refresh:1; url=" . genURL($next));
                     }
 				}
 			}
