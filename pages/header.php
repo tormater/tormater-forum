@@ -8,7 +8,7 @@ if (!defined("INDEXED")) exit;
 $m_pages = array(
 	"home" => array($lang["header.Home"], genURL(""), 0),
 	"userlist" => array($lang["header.Userlist"], genURL("userlist"), 0),
-	"userpanel" => array($lang["page.userpanel"], genURL("userpanel"), 1),
+	"userpanel" => array($lang["header.UserPanel"], genURL("userpanel"), 1),
 	"newthread" => array($lang["header.NewThread"], genURL("newthread"), 1),
 	"panel" => array($lang["header.Panel"], genURL("panel"), 4),
 	"logout" => array($lang["header.Logout"], genURL("logout"), 1),
