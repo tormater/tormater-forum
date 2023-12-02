@@ -11,7 +11,6 @@ hook("meta","symbolismAddCSS");
 
 $lang["header.Home"] = "<fa class='fa-home'></fa> " . $lang["header.Home"];
 $lang["header.Userlist"] = "<fa class='fa-users'></fa> " . $lang["header.Userlist"];
-$lang["header.Settings"] = "<fa class='fa-gear'></fa> " . $lang["header.Settings"];
 $lang["header.UserPanel"] = "<fa class='fa-gear'></fa> " . $lang["header.UserPanel"];
 $lang["header.NewThread"] = "<fa class='fa-plus'></fa> " . $lang["header.NewThread"];
 $lang["header.Panel"] = "<fa class='fa-gears'></fa> " . $lang["header.Panel"];
@@ -29,5 +28,6 @@ $lang["thread.UnstickyThreadBtn"] = "<fa class='fa-times'></fa> " . $lang["threa
 $lang["post.DeleteBtn"] = "<fa class='fa-trash-o'></fa> " . $lang["post.DeleteBtn"];
 $lang["post.EditBtn"] = "<fa class='fa-pencil'></fa> " . $lang["post.EditBtn"];
 $lang["post.HideBtn"] = "<fa class='fa-eye-slash'></fa> " . $lang["post.HideBtn"];
+$lang["search.Button"] = "<fa class='fa-search'></fa> ". $lang["search.Button"];
 
 ?>
