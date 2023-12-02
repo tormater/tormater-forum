@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="[[ locale ]]">
 <head>
-    <script type='text/javascript' src='[[ search ]]'></script>
     <title>[[ title ]]</title>
+    <meta name="description" content="[[ $forumDescription ]]">
+    <meta name="keywords" content="[[ keywords ]], tormater-forum, forum">
+    <meta property="og:image" content="[[ favicon_png ]]"/>
+    
     <link rel="stylesheet" href="[[ stylesheet ]]" type="text/css">
     <link rel="shortcut icon" sizes="16x16" type="image/x-icon" href="[[ favicon ]]">
-    </head>
+    <link rel="icon" type="image/png" sizes="256x256" href="[[ favicon_png ]]">
+    <link rel="icon" type="image/svg+xml" href="[[ favicon_svg ]]">
+    
+    <script type='text/javascript' src='[[ search ]]'></script>
+    <script type='text/javascript'>
+       var baseURL = "[[ $baseURL ]]"; 
+    </script>
+    
+    [[ meta ]]
+</head>
 <body>
   <div class="tormater-forum">
     <div id="forumheader">
-      <a class="forumtitle" href="[[ homeURL ]]">[[ title ]]</a>
+      <a class="forumtitle" href="[[ homeURL ]]">[[ $forumName ]]</a>
       <div id="userbar">[[ welcome ]]</div>
     </div>
     <div id="menu">[[ pages ]]</div>
-    
-    <div class="pagination left">
+    <div id="pageBar">
+        <div class="pagination left">
+        </div>
+        <div class="searcharea">
+            <input type="text" id="searchbox" autocomplete="off" placeholder="[[ searchPlaceholder ]]" value="[[ searchText ]]"><span class="searchbutton" onclick="search()">[[ searchButton ]]</span>
+        </div>
     </div>
     
     <div id="content">
