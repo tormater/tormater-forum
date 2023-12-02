@@ -89,10 +89,10 @@ if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
 		if ($r["role"] != $_SESSION["role"]) {
 			$_SESSION["role"] = $r["role"];
 		}
-		if ($r["verified"] != $_SESSION["verified"]) {
+		if (isset($_SESSION["verified"]) && ($r["verified"] != $_SESSION["verified"])) {
 			$_SESSION["verified"] = $r["verified"];
 		}
-		if ($r["deleted"] != $_SESSION["deleted"]) {
+		if (isset($_SESSION["verified"]) && ($r["deleted"] != $_SESSION["deleted"])) {
 			$_SESSION["deleted"] = $r["deleted"];
 		}
 	}
