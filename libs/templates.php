@@ -10,7 +10,7 @@ class Template
     function render($path, $strings)
     {
         global $config;
-        $page = file_get_contents($path);
+        $page = trim(file_get_contents($path));
         
         // Global loading of other templates. 
         // There's no protection against recursion so good luck!
@@ -34,6 +34,7 @@ class Template
         if (!$strings) return $page;
 
         foreach ($strings as $k => $v) {
+            if (!$v) $v = "";
             $page = str_replace("[[ " . $k . " ]]", $v, $page);
         }
         return $page;
