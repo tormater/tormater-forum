@@ -76,13 +76,13 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 }
 
 echo "<div class='formcontainer'><form method='post' action=''>
-<div class='forminput'><label>" . $lang["register.Username"] . "</label><input type='text' name='user_name' autocomplete='username' value='" . $_POST["user_name"] . "' /></div>
+<div class='forminput'><label>" . $lang["register.Username"] . "</label><input type='text' name='user_name' autocomplete='username' value='" . @$_POST["user_name"] . "' /></div>
 <div class='forminput'><small class='fieldhint'>" . $lang["register.UsernameDesc"] . "</small></div>
-<div class='forminput'><label>" . $lang["register.Email"] . "</label><input type='email' name='user_email' value='" . $_POST["user_email"] . "'></div>
+<div class='forminput'><label>" . $lang["register.Email"] . "</label><input type='email' name='user_email' value='" . @$_POST["user_email"] . "'></div>
 <div class='forminput'><small class='fieldhint'>" . $lang["register.EmailDesc"] . "</small></div>
-<div class='forminput'><label>" . $lang["register.Password"] . "</label><input type='password' name='user_pass' value='" . $_POST["user_pass"] . "'></div>
+<div class='forminput'><label>" . $lang["register.Password"] . "</label><input type='password' name='user_pass' value='" . @$_POST["user_pass"] . "'></div>
 <div class='forminput'><small class='fieldhint'>" . sprintf($lang["register.PasswordDesc"], "6") . "</small></div>
-<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . $_POST["user_pass_check"] . "'></div>";
+<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . @$_POST["user_pass_check"] . "'></div>";
 if ($config["captchaEnabled"] == true) {
     echo "<br/><div class='forminput'><label>" . $lang["register.Captcha"] . "</label><input type='text' name='captcha'></div>";
     echo "<small class='captchalabel'>" . $lang["register.CaptchaHint"] . "</small>";
