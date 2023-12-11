@@ -22,7 +22,6 @@ else
 	
 	else
 	{
-		echo '<h2>'.$lang["panel.Users"].'</h2>';
         echo "<div class='userlist-grid'>";
         
 		
