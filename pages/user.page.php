@@ -65,21 +65,22 @@ else
         }
 
         include "header.php";
-
-        // Get the profile's status
-
-		if ($verified == "1") $verified = $lang["user.VerifiedYes"];
-		else $verified = $lang["user.VerifiedNo"];
 		
-		if ($deleted == "1") 
+        // Get the profile's status
+	if ($verified == "1") $verified = $lang["user.VerifiedYes"];
+	else $verified = $lang["user.VerifiedNo"];
+
+	$delClass = "";
+		
+	if ($deleted == "1") 
         {
             $deleted = $lang["user.DeletedYes"];
             $delClass = " deleteduser";
         }
 
-		else $deleted = $lang["user.DeletedNo"];
+	else $deleted = $lang["user.DeletedNo"];
 		
-		if ($avatar == "none") $uAvatar = "";
+	if ($avatar == "none") $uAvatar = "";
         else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
 			
         echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
@@ -133,6 +134,8 @@ echo '<span class="userpostsh">' . $lang["user.RecentPosts"] . '</span>';
 // Get the user's last 5 recent posts, excluding any draft posts.
 $postspre = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL");
 
+$exclude = "";
+
 while ($p = $postspre->fetch_assoc()) {
     $threads = $db->query("SELECT threadid FROM threads WHERE threadid='" . $db->real_escape_string($p["thread"]) . "' AND draft='1' AND startuser='" . $db->real_escape_string($q2) . "'");
 
@@ -165,7 +168,7 @@ echo "</div></div>";
 }
 
 // If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
+if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
 {
 	$action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $userid) . '/">' . htmlspecialchars($username) . $lang["action.UserProfile"] . '</a>';
 	update_last_action($action);
