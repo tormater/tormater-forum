@@ -101,7 +101,7 @@ echo "</table>";
 include 'footer.php';
 
 // If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
+if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
 {
 	update_last_action("action.Homepage");
 }
