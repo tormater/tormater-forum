@@ -616,6 +616,76 @@ function deleteUser($mode, $userid) {
     }
 }
 
+function drawNavigation() {
+    global $lang, $config, $template, $db;
+    global $q1, $q2, $q3;
+    
+    $nav = $template->render("templates/header/nav_button.html", array("label" => $config["forumName"], "url" => genURL("")));
+    $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
+    
+    if (!$q1)
+    {
+        $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page.homepage"]));
+        return $nav;
+    }
+    if ($q1 == "thread")
+    {
+        if (($GLOBALS["threadExists"] == true) and (($GLOBALS["draft"] == 0) or ($_SESSION["userid"] == $GLOBALS["startuser"]) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))) {
+        // Get the category information.
+            $categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($GLOBALS["category"]) . "'");
+
+
+            while ($row = $categoryDB->fetch_assoc()) {
+	        $categoryName = $row['categoryname'];
+	        $categoryDescription = $row['categorydescription'];
+            }
+            $nav .= $template->render("templates/header/nav_button.html", 
+                    array("label" => htmlspecialchars($categoryName), "url" => genURL('category/' . $GLOBALS["category"]))
+                    );
+                    
+            $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
+            
+            $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($GLOBALS["title"])));
+        }
+        else {
+            $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page.homepage"]));
+            return $nav;
+        }
+    }
+    else if ($q1 == "category" && isset($GLOBALS["categoryName"]))
+    {
+        $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($GLOBALS["categoryName"])));
+    }
+    else if ($q1 == "user")
+    {
+        $nav .= $template->render("templates/header/nav_button.html", array("label" => $lang["page.userlist"], "url" => genURL("userlist")));
+        $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
+        $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($GLOBALS["username"])));
+    }
+    else
+    {
+        if ($lang["page." . $q1])
+        {
+            if ($lang["page." . $q1 . "." . $q2]) {
+                $nav .= $template->render("templates/header/nav_button.html", array("label" => $lang["page." . $q1], "url" => genURL($q1)));
+                $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
+                $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page." . $q1 . "." . $q2]));
+            }
+            else {
+                $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page." . $q1]));
+            }
+        }
+        else
+        {
+            $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page.homepage"]));
+        }
+        
+        return $nav;
+    }
+    
+    return $nav;
+}
+
 function drawUserProfile($userid, $type) {
 
     global $db, $lang, $config;
