@@ -15,7 +15,7 @@ if (isset($_GET["next"])) {
     $next = urldecode($next);
 }
 
-if($_SESSION['signed_in'] == true)
+if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
 {
 	message(sprintf($lang["error.AlreadyLoggedIn"], genURL("logout")));
 }
