@@ -29,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 }
 
-	echo '<h2>'.$lang["panel.Extensions"].'</h2>';
     foreach ($allExtensions as $e) {
         if ((file_exists("extensions/" . htmlspecialchars($e) . "/manifest.json" )) && (file_exists("extensions/" . $e . "/extension.php" )))
         {
