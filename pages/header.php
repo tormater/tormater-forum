@@ -61,7 +61,7 @@ else if ($q1 == "user")
 
 
 foreach ($m_pages as $v) {
-    if (getNumForRole($_SESSION["role"]) >= $v[2]) {
+    if (getNumForRole(@$_SESSION["role"]) >= $v[2]) {
         $p_data = array(
             "label" => $v[0],
             "url" => $v[1]
