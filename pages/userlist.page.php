@@ -86,6 +86,8 @@ else
                 $username = $row["username"];
             }
 
+	    $verify = "";
+
             if (($row["verified"] == "0") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
                 $verify = "<form method='post' action='' class='postc'><button name='approve' value='" . $row["userid"] . "'>" . $lang["userlist.Approve"] . "</button></form>";
             }
@@ -100,7 +102,7 @@ echo "</div>";
 include "footer.php";
 
 // If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
+if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
 {
 	update_last_action($lang["action.Userlist"]);
 }
