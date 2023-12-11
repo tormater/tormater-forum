@@ -107,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$id = $row['categoryid'];
 		}
 
-		echo '<h2>'.$lang["panel.Categories"].'</h2>';
 		echo '<h3>'.$lang["panel.EditCategory"].'</h3>';
 
 		if ($_POST["edit_edit_cat_name"] or $_POST["edit_cat_description"])
@@ -162,8 +161,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$name = $row['categoryname'];
 			$id = $row['categoryid'];
 		}
-
-		echo '<h2>'.$lang["panel.Categories"].'</h2>';
 		
 		if ($_POST["deleteit"])
 		{
@@ -274,8 +271,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     while ($l = $getLargest->fetch_assoc()) {
         $largest = $l["order"];
     }
-
-	echo '<h2>'.$lang["panel.Categories"].'</h2>';
 
     while($row = $result->fetch_assoc()) {
     	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
