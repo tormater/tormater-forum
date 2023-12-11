@@ -32,6 +32,7 @@ $data = array(
 	    "searchButton" => $lang["search.Button"],
 	    "meta" => "",
 	    "keywords" => strtolower($config["forumName"]),
+	    "navigation" => drawNavigation(),
 );
 
 ob_start();
@@ -54,7 +55,7 @@ if (($q1 == "thread") and ($threadExists == true))
         $data["title"] = htmlspecialchars($title) . ' • ' . $config["forumName"];
     }
 }
-else if ($q1 == "category")
+else if ($q1 == "category" && isset($categoryName))
     $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
 else if ($q1 == "user")
     $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
