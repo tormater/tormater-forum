@@ -16,12 +16,12 @@ if ((isset($_POST["approve"])) and (is_numeric($_POST["approve"])) and (($_SESSI
     }
 }
 
-if (($q1 == "userlist") && ($config["userlistEnabled"] == false)) {
+if ($config["userlistEnabled"] == false) {
     message($lang["error.UserlistDisabled"]);
     require "pages/footer.php";
     exit;
 }
-if (($q1 == "userlist") && ($config["userlistEnabled"] == true) && (($config["userlistMembersOnly"] == true) && ($_SESSION["signed_in"] == false))) {
+if (!(get_role_permissions() & PERM_VIEW_USERLIST)) {
     message(sprintf($lang["error.UserlistMembersOnly"], genURL("signup"), genURL("login")));
     require "pages/footer.php";
     exit;
