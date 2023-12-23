@@ -48,6 +48,7 @@ if ($config["installed"] == "yes") {
 
 // Load up the formatter.
 require "libs/formatter.php";
+require "libs/permission.php";
 
 // Extensions config
 if (file_exists("config/extensions.php")) {
