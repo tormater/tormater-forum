@@ -867,14 +867,22 @@ font.sticky, font.locked, font.draft, font.pinned {
     display: inline-block;
     margin: 3px 0px;
     padding: 5px 10px;
-    background: linear-gradient(#fff, #d3d3d3);
+    background: linear-gradient(#fff 0px, #d3d3d3 25px);
     border: 1px solid #808080;
     border-radius: 3px;
 }
 
 .postspoiler[open] {
-    background: #f0f0f0;
     display: inline-block;
+}
+
+.postspoiler[open] summary {
+    padding-bottom: 15px;
+}
+
+.postspoiler summary {
+    transition: padding 100ms ease-out;
+    cursor: pointer;
 }
 
 .postcode {
