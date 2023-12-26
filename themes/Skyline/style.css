@@ -351,18 +351,19 @@ select:hover {
 
 .threadbutton {
     padding: 3px 6px;
-    background: linear-gradient( var(--c-gradient-top) 0%, var(--c-gradient-bottom) 40%, var(--c-gradient-bottom-darker));
+    background: linear-gradient(var(--c-gradient-top), var(--c-gradient-bottom));
     box-shadow: 0px 1px inset var(--c-highlight);
     border: 1px solid var(--c-border);
-    border-radius: 4px;
+    border-radius: 3px;
     color: #fff;
     font-size: 95%;
     text-decoration: none;
     text-shadow: 0px 1px var(--c-border);
+    font-weight: bold;
 }
 
 .threadbutton:hover {
-    filter: brightness(120%);
+    filter: brightness(110%);
     text-decoration: none;
     cursor: pointer;
 }
@@ -382,7 +383,10 @@ select:hover {
 }
 
 .modtools form .threadbutton {
-    margin-right: 4px;
+    margin-right: 1px;
+}
+.modtools form select {
+    padding: 3px 6px;
 }
 
 textarea {
@@ -1268,6 +1272,13 @@ input[type=file]::file-selector-button:hover {
 
 /* RWD */
 
+@media (max-width: 640px) {
+    .modtools {
+        display: block;
+        float: unset;
+        text-align: unset;
+    }
+}
 @media (max-width: 800px) {
 
     .tormater-forum {
