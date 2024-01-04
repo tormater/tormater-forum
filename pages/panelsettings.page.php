@@ -181,7 +181,7 @@ else
         saveConfig("./config/config.php", $config);
         message($lang["panel.ChangesSaved"]);
         include "footer.php";
-        refresh(1, "panel");
+        refresh(3, "panel");
     }
 }
 ?>
