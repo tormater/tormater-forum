@@ -30,7 +30,7 @@ $lang = array(
     "error.MySQLNoResult" => "An error occurred whilst attempting to connect to the database, please try again later.",
     "error.NeedsApproval" => "Your account must be approved by a mod or an admin before you can log in.",
     
-    "nav.AdminsOnly" => "Sorry, this page is unavailable to non-admins.",
+    "nav.AdminsOnly" => "You do not have permission to view this page.",
     "nav.LoginRequired" => "Hey, you must be <a href='%s'>logged in</a> to see this page!",
     "nav.FirstPage" => "<<",
     "nav.PrevPage" => "<",
