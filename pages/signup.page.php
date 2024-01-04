@@ -196,11 +196,13 @@ function registerUser() {
 	{
 		printf($lang["register.Success"], genURL("login"));
 		include "footer.php";
+		exit;
 	}
     elseif ($config["registration"] == "approval")
     {
         printf($lang["register.Approval"], genURL("login"));
         include "footer.php";
+        exit;
     }
 }
 
