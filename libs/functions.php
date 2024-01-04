@@ -146,7 +146,7 @@ function update_last_action($action) {
 // Parse the user's last action as a language string if it is one.
 // (you have to specify the array as an argument otherwise it doesn't work)
 function parseAction($action, $array) {
-    if (stripos($action, "action.") !== false )
+    if (!is_null($action) && stripos($action, "action.") !== false )
     {
         $returned = $array[$action];
     }
@@ -174,10 +174,12 @@ function genURL($page) {
 }
 
 // Display a nice message.
-function message($content) {
-	$message = "<div class='message'>" . $content . "</div>";
+function message($content, $return=false) {
+    global $template;
+    $message = $template->render("templates/message.html", ["content" => $content]);
     listener("beforeReturnMessage");
-    echo $message;
+    if ($return) return $message;
+    else echo $message;
 }
 
 // Outputs the data of an array into a file, like the config.
