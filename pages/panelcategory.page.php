@@ -5,14 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-// Check how many categories there are. If the limit has been reached show a message.
-$catcheck = $db->query("SELECT 1 FROM categories");
-if (($catcheck->num_rows) >= $config["maxCats"]) {
-	message($lang["panel.NoNewCategoriesCreate"]);
-	include "footer.php";
-	exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     // Move a category up in order.
@@ -231,7 +223,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			message($lang["panel.CategoryDescBlank"]);
 		}
 		
+		else if (strlen($_POST["cat_description"]) > 255) {
+                    message($lang["panel.CategoryDescTooLong"]);
+		}
+		else if (strlen($_POST["cat_name"]) > 255) {
+                    message($lang["panel.CategoryNameTooLong"]);
+		}
 		else {
+            
             // Check if there are any categories at all.
             $categoryCheck = $db->query("SELECT 1 FROM `categories`");
 
