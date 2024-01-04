@@ -90,6 +90,7 @@ body {
     margin-left: -20px;
     max-height: 72px;
     margin-bottom: -28px;
+    max-width: 100%;
 }
 .forumtitle {
     color: #fff;
