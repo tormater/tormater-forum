@@ -15,6 +15,11 @@ if ($config["registration"] == "closed") {
     include "footer.php";
     exit;
 }
+if ($_SESSION["signed_in"] == true) {
+    message($lang["nav.AdminsOnly"]);
+    include "footer.php";
+    exit;
+}
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -191,13 +196,11 @@ function registerUser() {
 	{
 		printf($lang["register.Success"], genURL("login"));
 		include "footer.php";
-		exit;
 	}
     elseif ($config["registration"] == "approval")
     {
         printf($lang["register.Approval"], genURL("login"));
         include "footer.php";
-        exit;
     }
 }
 
