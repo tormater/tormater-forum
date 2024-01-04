@@ -31,9 +31,38 @@ $data = array(
 	    "searchPlaceholder" => $lang["search.Placeholder"],
 	    "searchButton" => $lang["search.Button"],
 	    "meta" => "",
+	    "color" => "",
 	    "keywords" => strtolower($config["forumName"]),
 	    "navigation" => drawNavigation(),
+	    "header" => $template->render("templates/header/title.html", null),
 );
+
+if ($config["forumColor"] != null)
+{
+    $grTop = hexAdjustLight($config["forumColor"], 0.5);
+    $grBottom = hexAdjustLight($config["forumColor"], -0.2);
+    $grBottomDarker = hexAdjustLight($config["forumColor"], -0.4);
+    $grHighlight = hexAdjustLight($config["forumColor"], 0.2);
+    $grBorder = hexAdjustLight($config["forumColor"], -0.8);
+    $data["color"] = "<style>
+    :root {
+    --c-gradient-top: " . $grTop .";
+    --c-gradient-bottom: " . $grBottom .";
+    --c-gradient-bottom-darker: " . $grBottomDarker .";
+    --c-highlight: " . $grHighlight .";
+    --c-border: " . $grBorder .";
+    }
+    </style>";
+}
+
+$files = scandir("assets/");
+$matches = preg_grep("/forumLogo\.(png|jpg|svg|gif)/i", $files);
+sort($matches);
+
+if (isset($matches[0]))
+{
+    $data["header"] = $template->render("templates/header/title_img.html", array("url" => genURL("assets/" . $matches[0])));
+}
 
 ob_start();
 listener("meta");
