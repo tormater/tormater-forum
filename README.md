@@ -17,3 +17,4 @@
 - <a href="https://github.com/tormater/tormater-forum/wiki">Wiki</a>
 
 ![image](https://github.com/tormater/tormater-forum/assets/115832947/c3ca46e4-4c15-4e4d-921c-dd00f4061f1a)
+<a href="https://github.com/tormater/tormater-forum/wiki/Screenshots">More screenshots...</a>
