@@ -35,12 +35,12 @@ else
 	{
 		$errors = array();
 		
-		if(!isset($_POST['user_name']))
+		if(!isset($_POST['user_name']) || strlen($_POST['user_name']) == 0)
 		{
 			$errors[] = $lang["error.UsernameNull"];
 		}
 		
-		if(!isset($_POST['user_pass']))
+		if(!isset($_POST['user_pass']) || strlen($_POST['user_pass']) == 0)
 		{
 			$errors[] = $lang["error.PasswordNull"];
 		}
