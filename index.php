@@ -61,6 +61,9 @@ else {
     saveExtensionConfig("config/extensions.php", $extensions);
 }
 
+// Check for malformed baseURLs.
+$config["baseURL"] = rtrim($config["baseURL"], '/');
+
 // Get our language file
 if(!isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
 {
