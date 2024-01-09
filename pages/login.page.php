@@ -109,33 +109,32 @@ else
 			
 			else
 			{
-                while($row = $result->fetch_assoc())
-                {
-				    if (!$result->num_rows)
-				    {
-					    $errors[] = $lang["error.PasswordWrong"];
-				    }
-
-                    elseif ($row["verified"] == "0")
-                    {
-                        $errors[] = $lang["error.NeedsApproval"];
-                    }
+			    if (!$result->num_rows)
+			    {
+				$errors[] = $lang["error.PasswordWrong"];
+			    }
+                            while($row = $result->fetch_assoc())
+                            {
+                                if ($row["verified"] == "0")
+                                {
+                                    $errors[] = $lang["error.NeedsApproval"];
+                                }
 				
-				    else
-				    {
-					    $_SESSION['signed_in'] = true;
+				else
+				{
+				    $_SESSION['signed_in'] = true;
 					
-					    $_SESSION['userid'] = $row['userid'];
-					    $_SESSION['username'] = $row['username'];
-					    $_SESSION['role'] = $row['role'];
+				    $_SESSION['userid'] = $row['userid'];
+				    $_SESSION['username'] = $row['username'];
+				    $_SESSION['role'] = $row['role'];
 					
 					    // Write the IP to the database.
-					    $db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+				    $db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
 					
-					    message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL($next)));
-					    header("Refresh:1; url=" . genURL($next));
-                    }
-				}
+				    message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL($next)));
+				    header("Refresh:1; url=" . genURL($next));
+                                }
+			    }
 			}
 
 			if(!empty($errors))
@@ -149,7 +148,7 @@ else
 				{
 					echo '<li>' . $value . '</li>';
 				}
-				echo '</ul>';
+				echo '</ul><br>';
 				echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
 			}
 		}
