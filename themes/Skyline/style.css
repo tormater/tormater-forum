@@ -1,6 +1,7 @@
 /* Base Styles. */
 :root {
   --c-gradient-top: #5dbcff;
+  --c-gradient-medium: #5dbcff;
   --c-gradient-bottom: #0292fc;
   --c-gradient-bottom-darker: #006dbb;
   --c-highlight: #8adef9;
@@ -465,7 +466,7 @@ textarea:focus {
 }
 .pageButtonDisabled {
     color:rgb(40, 40, 40);
-    box-shadow: 0 2px var(--c-gradient-top);
+    box-shadow: 0 2px var(--c-gradient-medium);
 }
 .paginationdots {
     background:linear-gradient(rgb(128, 128, 128),rgb(96, 96, 96));
@@ -536,7 +537,7 @@ td {
     width: 60px;
 }
 .tddate, .postdate, .hiddenText {
-    font-size: 85%;
+    font-size: 82.5%;
     color: rgba(0, 0, 0, .6);
 }
 .hiddenText {
