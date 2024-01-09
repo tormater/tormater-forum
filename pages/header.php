@@ -39,14 +39,16 @@ $data = array(
 
 if ($config["forumColor"] != null)
 {
-    $grTop = hexAdjustLight($config["forumColor"], 0.5);
-    $grBottom = hexAdjustLight($config["forumColor"], -0.2);
-    $grBottomDarker = hexAdjustLight($config["forumColor"], -0.4);
-    $grHighlight = hexAdjustLight($config["forumColor"], 0.2);
+    $grTop = hexAdjustLight($config["forumColor"], 0.9);
+    $grMedium = hexAdjustLight($config["forumColor"], 1);
+    $grBottom = hexAdjustLight($config["forumColor"], -0.4);
+    $grBottomDarker = hexAdjustLight($config["forumColor"], -0.6);
+    $grHighlight = hexAdjustLight($config["forumColor"], 0.4);
     $grBorder = hexAdjustLight($config["forumColor"], -0.8);
     $data["color"] = "<style>
     :root {
     --c-gradient-top: " . $grTop .";
+    --c-gradient-medium: " . $grMedium .";
     --c-gradient-bottom: " . $grBottom .";
     --c-gradient-bottom-darker: " . $grBottomDarker .";
     --c-highlight: " . $grHighlight .";
