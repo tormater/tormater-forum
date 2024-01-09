@@ -511,7 +511,7 @@ table a:hover {
 
 th {
     padding: 4px 10px;
-    background: linear-gradient(var(--c-gradient-top), var(--c-gradient-bottom), var(--c-gradient-bottom-darker));
+    background: linear-gradient(var(--c-gradient-top), var(--c-gradient-bottom));
     box-shadow: 0px 1px inset var(--c-highlight);
     border-bottom: 1px solid var(--c-border);
     color: #fff;
