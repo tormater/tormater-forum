@@ -25,7 +25,7 @@ $data = array(
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
 	    "favicon_png" => genURL('themes/' . $config["forumTheme"] . '/icon.png'),
 	    "pages" => "",
-	    "welcome" => '<a href="' . genURL("login" . "?next=" . ltrim($_GET['url'], '/')) . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>',
+	    "welcome" => '<a href="' . genURL("login" . "?next=" . (isset($_GET['url'])) ?: ltrim($_GET['url'], '/')) . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>',
 	    "homeURL" => genURL(""),
 	    "searchText" => "",
 	    "searchPlaceholder" => $lang["search.Placeholder"],
@@ -36,6 +36,10 @@ $data = array(
 	    "navigation" => drawNavigation(),
 	    "header" => $template->render("templates/header/title.html", null),
 );
+
+if ($config["modRewriteDisabled"] == 1) {
+    $data["welcome"] = '<a href="' . genURL("login") . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>';
+}
 
 if ($config["forumColor"] != null)
 {
