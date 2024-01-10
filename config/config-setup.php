@@ -40,6 +40,7 @@ $config = array(
     'registration' => 'open', // Registration options. 'open' for unrestricted signups, 'closed' for no signups, 'approval' for signups requiring manual approval by mods and admins.
     'onlinePeriod' => '600', // The amount of time a user is shown as "online".
     'showDeletedInUserlist' => 0, // If deleted users should be shown in the userlist.
+    'modRewriteDisabled' => 0, // If mod_rewrite is disabled, use query parameters [127.0.0.1/thread/10] vs [127.0.0.1/index.php?url=thread/10]
 );
 
 ?>
