@@ -161,13 +161,21 @@ function parseAction($action, $array) {
 // Generates a URL for a page based on the site's baseURL
 function genURL($page) {
     global $config;
+    $query = "";
+    if ($config["modRewriteDisabled"] == 1 && empty(pathinfo($page, PATHINFO_EXTENSION))) {
+        $query = "index.php";
+        if (strlen($page) > 0) {
+            $query .= "?url=";
+            $page = strtr($page, "?", "&");
+        }
+    }
     if (!$config["baseURL"] || $config["baseURL"] == "http://example.com")
     {
-        $generated = "/" . $page;
+        $generated = "/" . $query . $page;
     }
     else
     {
-        $generated = $config["baseURL"] . "/" . $page;
+        $generated = $config["baseURL"] . "/" . $query . $page;
     }
     listener("beforeReturnGeneratedURL");
     return $generated;
