@@ -109,7 +109,7 @@ if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
 }
 
 // Process the URL and set a couple of variables for easy use.
-$url = explode('/', $_GET['url']);
+if (isset($_GET['url'])) $url = explode('/', $_GET['url']);
 if (isset($url[0])) $q1 = $url[0];
 if (isset($url[1])) $q2 = $url[1];
 if (isset($url[2])) $q3 = $url[2];
