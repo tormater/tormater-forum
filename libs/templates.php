@@ -10,6 +10,9 @@ class Template
     function render($path, $strings)
     {
         global $config;
+        if (file_exists("themes/" . $config["forumTheme"] . "/" . $path)) {
+            $path = "themes/" . $config["forumTheme"] . "/" . $path;
+        }
         $page = trim(file_get_contents($path));
         
         // Global loading of other templates. 
