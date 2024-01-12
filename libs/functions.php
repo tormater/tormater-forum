@@ -97,8 +97,13 @@ function redirect($text) {
     }
     else
     {
-        header("Location: " . $config["baseURL"] . "/" . $text);
-	    flush();
+        if ($config["modRewriteDisabled"] == 1) {
+            header("Location: " . $config["baseURL"] . "/index.php?page=" . strtr($text, "?", "&"));
+        }
+        else {
+            header("Location: " . $config["baseURL"] . "/" . $text);
+        }
+	flush();
     }
 
 	exit();
