@@ -28,7 +28,7 @@ else
 
 while($row = $thread->fetch_assoc()) {
 	// Thread information.
-	$category = $row['category'];
+	$categoryID = $row['category'];
 	$title = $row['title'];
 	$locked = $row['locked'];
 	$stickied = $row['sticky'];
@@ -321,7 +321,7 @@ else
             		while($row = $categories->fetch_assoc())
 			{
 				echo '<option ';
-                    		if ($category == $row["categoryid"]) echo "selected ";
+                    		if ($categoryID == $row["categoryid"]) echo "selected ";
 				echo 'value="' . $row['categoryid'] . '">' . htmlspecialchars($row['categoryname']) . '</option>';
 			}
 			echo '</select> <button name="movethread" class="threadbutton" value="' . $q2 . '">'.$lang["thread.MoveThreadBtn"].'</button></form> ';	
@@ -658,7 +658,7 @@ function saveDraft() {
 
 // Delete a post.
 function deletePost() {
-    global $db, $lang, $q2, $category;
+    global $db, $lang, $q2, $categoryID;
     // First make sure the user has permission to delete the specified post.
 	$permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
 	while ($p = $permission->fetch_assoc()) {
@@ -705,7 +705,7 @@ function deletePost() {
 				
 					else
 					{
-						redirect("category/" . $category . "/");
+						redirect("category/" . $categoryID . "/");
 					}
                 }
             }
@@ -828,7 +828,7 @@ function saveEdit() {
 
 // Delete a thread.
 function deleteThread() {
-    global $db, $lang, $q2, $category;
+    global $db, $lang, $q2, $categoryID;
 
     $post = $db->query("SELECT * FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
 
@@ -861,21 +861,21 @@ function deleteThread() {
 				
 		else
 		{
-			redirect("category/" . $category . "/");
+			redirect("category/" . $categoryID . "/");
 		}
 	}
 }
 
 // Move a thread.
-function moveThread($category, $thread) {
+function moveThread($categoryID, $thread) {
     global $db, $q2;
     // Only proceed if the values the user entered are valid.
-    if (is_numeric($category) and is_numeric($thread)) {
+    if (is_numeric($categoryID) and is_numeric($thread)) {
         // Make sure the category is valid.
         $categoryCheck = $db->query("SELECT * FROM categories");
         
         while($row = $categoryCheck->fetch_assoc()) {
-            if ($row["categoryid"] == $category) {
+            if ($row["categoryid"] == $categoryID) {
                 $db->query("UPDATE threads set category='" . $row["categoryid"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
                          
                 refresh(0);
