@@ -14,7 +14,7 @@ $m_pages = array(
 	"logout" => array($lang["header.Logout"], genURL("logout"), 1),
 );
 
-if (isset($categoryID)) $pages["newthread"][1] = genURL('newthread/' . $categoryID);
+if (isset($categoryID)) $m_pages["newthread"][1] = genURL('newthread/' . $categoryID);
 if (isset($_GET['url']) && strlen($_GET['url']) > 0) {
     $login_redirect = "?next=" . ltrim($_GET['url'], '/');
 }
