@@ -23,13 +23,35 @@ else {
     $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");
 }
 
-echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center>' . $lang["homepage.CatThreads"] . '</center></th></tr>';
+echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center>' . $lang["homepage.CatThreads"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
 while($row = $result->fetch_assoc()) {
 	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
 	$number = $numthreads->num_rows;
-	echo '<tr><td><h3><a href="' . genURL("category/" . $row["categoryid"]) . '">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
+	$trow = $numthreads->fetch_assoc();
+	$title = htmlspecialchars($trow['title']);
+	if ($trow["posts"] > 1) {
+	    $title = sprintf($lang["category.ReplyTo"], $title);
+        }
+	
+	echo '<tr><td class="leftpart"><h3><a href="' . genURL("category/" . $row["categoryid"]) . '">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
 	echo '<div>' . formatPost($row["categorydescription"]) . '</div></td>';
-	echo '<td class="tdthreads"><div><center>' . $number . '</center></div></td></tr>';
+	echo '<td class="tdthreads"><div><center>' . $number . '</center></div></td>';
+	echo '<td class="tdlastpost"><a href="' . genURL('thread/' . $trow['threadid']) . '">' . $title . "</a>";
+	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
+					
+	while ($u = $uinfo->fetch_assoc())
+	{
+		if ($u["deleted"] == 1) {
+        	$username = $lang["user.Deleted"] . $u["userid"];
+        }
+		else {
+            $username = $u["username"];
+        }
+        echo "<div class='tdinfo'>";
+		printf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($trow["lastpostuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $trow['lastposttime']), relativeTime($trow["lastposttime"]));
+        echo "</div>";
+	}
+	echo "</td></tr>";
 }
 echo '</table>';
 echo '<table><tr><th>' . $lang["homepage.Threads"] . '</th><th><center>' . $lang["category.Posts"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
@@ -75,7 +97,7 @@ while($row = $threads->fetch_assoc())
         echo "</div>";
 	}
 
-	echo '</td><td class="tdposts"><center>' . $row['posts'] . '</center></td><td>';
+	echo '</td><td class="tdposts"><center>' . $row['posts'] . '</center></td><td class="tdlastpost">';
     				
 	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_string($row["lastpostuser"]) . "'");
 					
