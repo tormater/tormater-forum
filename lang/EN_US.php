@@ -82,6 +82,7 @@ $lang = array(
     "category.Posts" => "Posts",
     "category.CreatedBy" => "Created by",
     "category.LastPost" => "Last post",
+    "category.ReplyTo" => "Re: %s",
 
     // Threads & Posts
     "thread.Info" => "by <a id='%s' href='%s'>%s</a>, <span title='%s'>%s</span>",
