@@ -655,7 +655,7 @@ function drawNavigation() {
 	        $categoryDescription = $row['categorydescription'];
             }
             $nav .= $template->render("templates/header/nav_button.html", 
-                    array("label" => htmlspecialchars($categoryName), "url" => genURL('category/' . $GLOBALS["category"]))
+                    array("label" => htmlspecialchars($categoryName), "url" => genURL('category/' . $GLOBALS["categoryID"]))
                     );
                     
             $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
