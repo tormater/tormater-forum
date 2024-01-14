@@ -25,7 +25,7 @@ else {
 
 echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center>' . $lang["homepage.CatThreads"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
 while($row = $result->fetch_assoc()) {
-	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
+	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "' ORDER BY lastposttime DESC");
 	$number = $numthreads->num_rows;
 	$trow = $numthreads->fetch_assoc();
 	$title = htmlspecialchars($trow['title']);
