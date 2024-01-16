@@ -7,125 +7,84 @@ if (!defined("INDEXED")) exit;
 
 include 'header.php';
 
-echo '<h2>' . $lang["homepage.Title"] . '</h2>';
+$data = array(
+    "title" => $lang["homepage.Title"],
+    "th_category" => $lang["homepage.Cats"],
+    "th_threads" => $lang["homepage.CatThreads"],
+    "th_lastpost" => $lang["category.LastPost"],
+    "categories" => "",
+    "th_recentthreads" => $lang["homepage.Threads"],
+    "th_posts" => $lang["category.Posts"],
+    "threads" => "",
+);
 
-$result = $db->query("SELECT * FROM `categories` ORDER BY `order` ASC");
+$categories = $db->query("SELECT * FROM `categories` ORDER BY `order` ASC");
+$threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");
 
-if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] != true) {
-    if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
-        $threads = $db->query("SELECT * FROM threads ORDER BY lastposttime DESC LIMIT 5");
-    }
-    else {
-        $threads = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY lastposttime DESC LIMIT 5");
-    }
-}
-else {
-    $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastposttime DESC LIMIT 5");
-}
+while($row = $categories->fetch_assoc()) 
+{
+    $numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "' ORDER BY lastposttime DESC");
+    $trow = $numthreads->fetch_assoc();
+    $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
+    $title = htmlspecialchars($trow['title']);
+    $u = $uinfo->fetch_assoc();
+    if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
+    else $username = $u["username"];
+    if ($trow["posts"] > 1) $title = sprintf($lang["category.ReplyTo"], $title);
 
-echo '<table><tr><th>' . $lang["homepage.Cats"] . '</th><th><center>' . $lang["homepage.CatThreads"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
-while($row = $result->fetch_assoc()) {
-	$numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "' ORDER BY lastposttime DESC");
-	$number = $numthreads->num_rows;
-	$trow = $numthreads->fetch_assoc();
-	$title = htmlspecialchars($trow['title']);
-	if ($trow["posts"] > 1) {
-	    $title = sprintf($lang["category.ReplyTo"], $title);
-        }
+    $category_data = array
+    (
+        "url" => genURL("category/" . $row["categoryid"]),
+	"title" => htmlspecialchars($row["categoryname"]),
+	"desc" => formatPost($row["categorydescription"]),
+	"threads" => $numthreads->num_rows,
+	"lastpost" => $title,
+	"lastposturl" => genURL('thread/' . $trow['threadid']),
+	"user" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($trow["lastpostuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $trow['lastposttime']), relativeTime($trow["lastposttime"]))
+    );
 	
-	echo '<tr><td class="leftpart"><h3><a href="' . genURL("category/" . $row["categoryid"]) . '">' . htmlspecialchars($row["categoryname"]) . '</a></h3>';
-	echo '<div>' . formatPost($row["categorydescription"]) . '</div></td>';
-	echo '<td class="tdthreads"><div><center>' . $number . '</center></div></td>';
-	echo '<td class="tdlastpost"><a href="' . genURL('thread/' . $trow['threadid']) . '">' . $title . "</a>";
-	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
-					
-	while ($u = $uinfo->fetch_assoc())
-	{
-		if ($u["deleted"] == 1) {
-        	$username = $lang["user.Deleted"] . $u["userid"];
-        }
-		else {
-            $username = $u["username"];
-        }
-        echo "<div class='tdinfo'>";
-		printf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($trow["lastpostuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $trow['lastposttime']), relativeTime($trow["lastposttime"]));
-        echo "</div>";
-	}
-	echo "</td></tr>";
+    $data["categories"] .= $template->render("templates/category/category_display.html", $category_data);
 }
-echo '</table>';
-echo '<table><tr><th>' . $lang["homepage.Threads"] . '</th><th><center>' . $lang["category.Posts"] . '</center></th><th>' . $lang["category.LastPost"] . '</th></tr>';
-					
+
 while($row = $threads->fetch_assoc())
-{				
-	echo '<tr><td class="leftpart">';
-
-	if ($row["locked"] == 1)
-	{
-		echo '<span class="locked">' . $lang["label.Locked"] . '</span>';
-	}
-	
-	if ($row["sticky"] == 1)
-	{
-		echo '<span class="sticky">' . $lang["label.Sticky"] . '</span>';
-	}
-
-    if ($row["draft"] == 1)
-    {
-        echo '<span class="draft">' . $lang["label.Draft"] . '</span>';
-    }
-
-    if ($row["pinned"] == 1)
-    {
-        echo '<span class="pinned">' . $lang["label.Pinned"] . '</span>';
-    }
-
-    echo '<b><a href="' . genURL('thread/' . $row['threadid']) . '">' . htmlspecialchars($row['title']) . "</a></b>";	
-					
-	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");
-					
-	while ($u = $uinfo->fetch_assoc())
-	{
-		if ($u["deleted"] == 1) {
-        	$username = $lang["user.Deleted"] . $u["userid"];
-        }
-		else {
-            $username = $u["username"];
-        }
-        echo "<div class='tdinfo'>";
-		printf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"]));
-        echo "</div>";
-	}
-
-	echo '</td><td class="tdposts"><center>' . $row['posts'] . '</center></td><td class="tdlastpost">';
-    				
-	$uinfo = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_string($row["lastpostuser"]) . "'");
-					
-	while ($u = $uinfo->fetch_assoc())
-	{
-		if ($u["deleted"] == 1) {
-            		$username = $lang["user.Deleted"] . $u["userid"];
-        	}
-        	else {
-            		$username = $u["username"];
-        	}
-		echo '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>';
-	}
-					
-	echo '<div class="tddate" title="' . date('m-d-Y h:i:s A', $row['lastposttime']) . '">' . relativeTime($row["lastposttime"]) . '</div></td></tr>';
+{		
+    $suinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");	
+    $su = $suinfo->fetch_assoc();
+    if ($su["deleted"] == 1) $susername = $lang["user.Deleted"] . $su["userid"];
+    else $susername = $su["username"];
+    
+    $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["lastpostuser"] . "'");	
+    $u = $uinfo->fetch_assoc();
+    if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
+    else $username = $u["username"];
+    
+    $thread_data = array
+    (
+        "labels" => "",
+        "url" => genURL('thread/' . $row['threadid']),
+        "title" => htmlspecialchars($row['title']),
+        "startuser" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $su["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($susername), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"])),
+        "posts" => $row['posts'],
+        "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
+        "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
+        "reldate" => relativeTime($row["lastposttime"]),
+    );
+    if ($row["locked"]) 
+        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"locked","text"=>$lang["label.Locked"]]); 
+    if ($row["sticky"]) 
+        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"sticky","text"=>$lang["label.Sticky"]]);
+    if ($row["draft"]) 
+        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"draft","text"=>$lang["label.Draft"]]);  
+    if ($row["pinned"]) 
+        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"pinned","text"=>$lang["label.Pinned"]]);
+        
+    $data["threads"] .= $template->render("templates/thread/thread_display.html", $thread_data);
 }
 
-echo "</table>";
-
-
-// Include "latest threads"
+echo $template->render("templates/homepage/homepage.html", $data);
 
 include 'footer.php';
 
-// If the viewing user is logged in, update their last action.
-if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
-{
-	update_last_action("action.Homepage");
-}
+update_last_action("action.Homepage");
 
 ?>
