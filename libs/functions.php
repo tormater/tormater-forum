@@ -143,9 +143,12 @@ return $returned;
 
 // Update the user's last action and set their last active time to now.
 function update_last_action($action) {
+    if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
+    {
 	global $db;
 	$result = $db->query("UPDATE users SET lastactive='" . time() . "', lastaction='" . $db->real_escape_string($action) . "' WHERE userid='" . $_SESSION["userid"] . "'");
     listener("afterUpdateAction");
+    }
 }
 
 // Parse the user's last action as a language string if it is one.
