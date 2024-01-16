@@ -230,6 +230,7 @@ $lang = array(
     "panel.CatThreads" => "Threads: ",
 
     // Admin panel / User Admin
+    "panel.DangerZone" => "Danger Zone!",
     "panel.DeleteUserMessage" => "Attention, these options can permanently delete and remove any content created by a user. Use with caution.",
     "panel.DeleteKeepPosts" => "Delete user and keep posts",
     "panel.DeleteHidePosts" => "Delete user and hide posts",
