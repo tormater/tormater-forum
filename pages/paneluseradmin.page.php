@@ -60,7 +60,7 @@ echo "</div>";
 }
 
 echo '<br/>';
-echo '<h2>'."Danger Zone".'</h2>';
+echo '<h2>'. $lang["panel.DangerZone"] .'</h2>';
 if (($config["mainAdmin"] != $row["userid"]) and ($deleted != "1")) {
 echo($lang["panel.DeleteUserMessage"] . "</br></br><form action='' method='POST'><button class='buttonbig' name='deleteKeepPosts'>" . $lang["panel.DeleteKeepPosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteHidePosts'>" . $lang["panel.DeleteHidePosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteRemovePosts'>" . $lang["panel.DeleteRemovePosts"] . "</button></form>");
 }
