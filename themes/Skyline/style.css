@@ -67,8 +67,7 @@ body {
     border: 1px solid rgb(202, 202, 202);
     padding: 20px;
     max-width: 1140px;
-    margin: auto;
-    margin-top: 10px;
+    margin: 10px auto;
 }
 
 #wrapper {
@@ -106,7 +105,6 @@ body {
 }
 
 #content {
-    float: left;
     padding: 20px 30px;
     width: 100%;
     box-sizing: border-box;
@@ -117,7 +115,6 @@ body {
 }
 
 #pageBar {
-    float: left;
     padding: 12px 0px;
     width: 100%;
     box-sizing: border-box;
@@ -126,8 +123,6 @@ body {
 
 
 #menu {
-    float: left;
-    clear: both;
     width: 100%;
     padding: 7px 12px;
     box-sizing: border-box;
@@ -156,15 +151,22 @@ body {
 }
 
 #footer {
-    clear: both;
     padding: 14px;
     font-size: 95%;
+    text-align: left;
+    padding-bottom: 0px;
+}
+.footer_split {
+    display: inline-block;
+    width: 100%;
 }
 #copyright {
-    padding: 14px;
+    padding-top: 14px;
     font-size: 95%;
-    display: inline-block;
-    margin: auto;
+    min-width: 50%;
+    max-width: 50%;
+    float: left;
+    vertical-align: middle;
 }
 #copyright a {
     color: #333333;
@@ -172,6 +174,13 @@ body {
 #copyright img {
     vertical-align: middle;
     margin-right: 10px;
+}
+#language {
+    padding-top: 14px;
+    min-width: 50%;
+    max-width: 50%;
+    float: right;
+    text-align: right;
 }
 /* Navigation */
 
@@ -1179,6 +1188,9 @@ input[type=file]::file-selector-button:hover {
     float: right;
     margin: 10px 0;
     margin-top: 4px;
+    width: 50%;
+    box-sizing: border-box;
+    text-align: right;
 }
 
 .forumColor {
@@ -1286,7 +1298,7 @@ input[type=file]::file-selector-button:hover {
     .tormater-forum {
         padding: 1px;
         padding-bottom: 20px;
-        margin-top: 10px;
+        margin: 0px auto;
     }
     /* Menu */
     #menu {
@@ -1374,7 +1386,7 @@ input[type=file]::file-selector-button:hover {
     }
 
     .searcharea {
-        float: left;
+        float: unset;
         display: block;
         width: 100%;
         position: relative;
