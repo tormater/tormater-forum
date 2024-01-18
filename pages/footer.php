@@ -9,6 +9,7 @@ global $template;
 $data = array(
     "copyright" => "© 2022-" . date("Y") . " <a href='https://github.com/tormater/tormater-forum'>Tormater Forum</a>",
     "footer" => formatFooter($config["footer"]),
+    "language" => $languageSelector,
 );
 
 ob_start();
