@@ -65,7 +65,7 @@ else {
 $config["baseURL"] = rtrim($config["baseURL"], '/');
 
 // Get our language file
-if(!isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
+if(is_null($config["forumLang"]) or !isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
 {
 	require 'lang/EN_US.php';
 }
@@ -73,7 +73,6 @@ else
 {
 	require 'lang/' . $config["forumLang"] . '.php';
 }
-
 
 // If a session doesn't exist, set one.
 if (!session_id()) {
@@ -107,6 +106,8 @@ if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
 	    logout();
 	}
 }
+
+require "libs/language.php";
 
 // Process the URL and set a couple of variables for easy use.
 if (isset($_GET['url'])) $url = explode('/', $_GET['url']);
