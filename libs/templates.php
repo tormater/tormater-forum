@@ -37,7 +37,7 @@ class Template
         if (!$strings) return $page;
 
         foreach ($strings as $k => $v) {
-            if (!$v) $v = "";
+            if (is_null($v)) $v = "";
             $page = str_replace("[[ " . $k . " ]]", $v, $page);
         }
         return $page;
