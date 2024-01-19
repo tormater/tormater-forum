@@ -25,12 +25,17 @@ while($row = $categories->fetch_assoc())
 {
     $numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "' ORDER BY lastposttime DESC");
     $trow = $numthreads->fetch_assoc();
-    $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
-    $title = htmlspecialchars($trow['title']);
-    $u = $uinfo->fetch_assoc();
-    if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
-    else $username = $u["username"];
-    if ($trow["posts"] > 1) $title = sprintf($lang["category.ReplyTo"], $title);
+    $title = "";
+    $user = "";
+    if ($numthreads->num_rows > 0) {
+        $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
+        $title = htmlspecialchars($trow['title']);
+        $u = $uinfo->fetch_assoc();
+        if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
+        else $username = $u["username"];
+        if ($trow["posts"] > 1) $title = sprintf($lang["category.ReplyTo"], $title);
+        $user = sprintf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($trow["lastpostuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $trow['lastposttime']), relativeTime($trow["lastposttime"]));
+    }
 
     $category_data = array
     (
@@ -40,7 +45,7 @@ while($row = $categories->fetch_assoc())
 	"threads" => $numthreads->num_rows,
 	"lastpost" => $title,
 	"lastposturl" => genURL('thread/' . $trow['threadid']),
-	"user" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $u["role"], genURL("user/" . htmlspecialchars($trow["lastpostuser"])), htmlspecialchars($username), date('m-d-Y h:i:s A', $trow['lastposttime']), relativeTime($trow["lastposttime"]))
+	"user" => $user,
     );
 	
     $data["categories"] .= $template->render("templates/category/category_display.html", $category_data);
