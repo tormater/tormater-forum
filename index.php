@@ -129,4 +129,6 @@ else {
 	require $fallbackPage;
 }
 
+listener("afterPageLoad");
+
 ?>
