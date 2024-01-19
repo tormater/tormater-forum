@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             `order` int unsigned NOT NULL DEFAULT '0',
 	        PRIMARY KEY (`categoryid`),
 	        UNIQUE KEY `category_name` (`categoryname`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
         $db->query("CREATE TABLE `posts` (
 	        `postid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `deletedby` int unsigned DEFAULT NULL,
   	        `content` text NOT NULL,
   	        PRIMARY KEY (`postid`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
         $db->query("CREATE TABLE `threads` (
 	        `threadid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -87,7 +87,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        `category` int unsigned NOT NULL,
 		`draft` tinyint(1) NOT NULL DEFAULT '0',
   	        PRIMARY KEY (`threadid`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
         $db->query("CREATE TABLE `users` (
 	        `userid` int unsigned NOT NULL AUTO_INCREMENT,
@@ -110,19 +110,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   	        PRIMARY KEY (`userid`),
   	        UNIQUE KEY `user_name` (`username`),
   	        UNIQUE KEY `user_email` (`email`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 	    
 	$db->query("CREATE TABLE `logins` (
             `ip` varchar(128) NOT NULL,
             `time` int unsigned NOT NULL
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 	    
 	$db->query("CREATE TABLE `drafts` (
             `user` int unsigned NOT NULL,
             `thread` int unsigned NOT NULL,
             `timestamp` int unsigned NOT NULL,
             `content` text NOT NULL
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
     $db->query("CREATE TABLE `auditlog` (
             `time` int unsigned DEFAULT NULL,
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             `after` text DEFAULT NULL,
             `context` text DEFAULT NULL,
             PRIMARY KEY (`actionid`)
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
         // Create the admin's account, first generating the salt, password hash, and IP address hash.
         $adminSalt = random_str(64);
