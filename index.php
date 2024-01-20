@@ -29,6 +29,8 @@ $fallbackPage = "pages/homepage.page.php";
 // Require all the necessary files for the forum to function.
 require "libs/functions.php";
 
+listener("pageLoadStart");
+
 // Config handling, stop your config from being overwritten on upgrade
 if (file_exists("config/config-setup.php")) {
     require "config/config-setup.php";
