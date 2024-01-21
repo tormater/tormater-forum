@@ -68,7 +68,7 @@ function hashstring($text) {
         $hashedstring = md5($text);
     }
 
-    listener("beforeReturnHash");
+    listener("beforeReturnHash", $hashedstring, $text);
 
     return $hashedstring;
 }
@@ -82,7 +82,7 @@ function random_str($length = 10) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
 
-    listener("beforeReturnRandomString");
+    listener("beforeReturnRandomString", $randomString, $length);
 
     return $randomString;
 }
@@ -137,7 +137,7 @@ if (!preg_match("#^[a-zA-Z0-9\s_-]+$#", $username)) {
 else {
    $returned = true;
 }
-listener("beforeReturnUsernameCheck");
+listener("beforeReturnUsernameCheck", $returned, $username);
 return $returned;
 }
 
@@ -147,7 +147,7 @@ function update_last_action($action) {
     {
 	global $db;
 	$result = $db->query("UPDATE users SET lastactive='" . time() . "', lastaction='" . $db->real_escape_string($action) . "' WHERE userid='" . $_SESSION["userid"] . "'");
-    listener("afterUpdateAction");
+    listener("afterUpdateAction", $action);
     }
 }
 
@@ -162,7 +162,7 @@ function parseAction($action, $array) {
     {
         $returned = $action;
     }
-    listener("beforeReturnAction");
+    listener("beforeReturnAction", $returned, $action);
     return $returned;
 }
 
@@ -185,7 +185,7 @@ function genURL($page) {
     {
         $generated = $config["baseURL"] . "/" . $query . $page;
     }
-    listener("beforeReturnGeneratedURL");
+    listener("beforeReturnGeneratedURL", $generated, $page);
     return $generated;
 }
 
@@ -193,7 +193,7 @@ function genURL($page) {
 function message($content, $return=false) {
     global $template;
     $message = $template->render("templates/message.html", ["content" => $content]);
-    listener("beforeReturnMessage");
+    listener("beforeReturnMessage", $message, $content);
     if ($return) return $message;
     else echo $message;
 }
@@ -201,14 +201,14 @@ function message($content, $return=false) {
 // Outputs the data of an array into a file, like the config.
 function saveConfig($file, $array) {
     $getArray = var_export($array, true);
-    listener("beforeSaveConfig");
+    listener("beforeSaveConfig", $getArray, $array, $file);
     file_put_contents($file, '<?php '.PHP_EOL. '$config = '. $getArray .';' .PHP_EOL. '?>');
     listener("afterSaveConfig");
 }
 
 function saveExtensionConfig($file, $array) {
     $getArray = var_export($array, true);
-    listener("beforeSaveExtensionConfig");
+    listener("beforeSaveExtensionConfig", $getArray, $array, $file);
     file_put_contents($file, '<?php '.PHP_EOL. '$extensions = '. $getArray .';' .PHP_EOL. '?>');
     listener("afterSaveExtensionConfig");
 }
@@ -362,12 +362,12 @@ function pagination($pageName) {
 
 $hooks = array();
 
-function listener($hook)
+function listener($hook, &...$args)
 {
     global $hooks;
 	if (isset($hooks[$hook])) {		
 		foreach ($hooks[$hook] as $function) {
-			call_user_func($function);
+			call_user_func_array($function, array(&$args));
 		}
 	}
 }
@@ -392,7 +392,7 @@ function randomCaptcha($length = 5) {
     for ($i = 0; $i < $length; $i++) {
         $randomString .= $characters[rand(0, $charactersLength - 1)];
     }
-    listener("beforeReturnCaptchaString");
+    listener("beforeReturnCaptchaString", $randomString, $length);
     return $randomString;
 }
 
@@ -447,7 +447,7 @@ function generateCaptcha($numChars)
 
     $rawImageBytes = ob_get_clean();
 
-    listener("beforeDrawCaptcha");
+    listener("beforeDrawCaptcha", $rawImageBytes, $numChars);
 
     echo "<img src='data:image/webp;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
 
@@ -478,8 +478,9 @@ function removeAvatar($userid)
 }
 
 // Brighten or darken a color hex value
-function hexAdjustLight($hex, $percent) {
+function hexAdjustLight($originalHex, $percent) {
 
+    $hex = $originalHex;
     if (stristr($hex, '#')) {
         $hex = str_replace('#', '', $hex);
     }
@@ -516,6 +517,7 @@ function hexAdjustLight($hex, $percent) {
         $hex .= $hexDigit;
     }
 
+    listener("beforeReturnHexAdjustLight", $originalHex, $hex, $percent);
     return '#' . $hex;
 
 }
