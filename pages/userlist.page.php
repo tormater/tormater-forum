@@ -92,7 +92,7 @@ else
                 $verify = "<form method='post' action='' class='postc'><button name='approve' value='" . $row["userid"] . "'>" . $lang["userlist.Approve"] . "</button></form>";
             }
 
-			echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; ' . $verify . '<small></div><div class="userlist-bottom">' . parseAction($row["lastaction"], $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $row["lastactive"]) . '">' . relativeTime($row["lastactive"]) . '</a>)</small></div></div>';
+			displayUser($deletedClass, $row["color"], $row["userid"], $row["role"], $row["username"], $verify, $row["lastaction"], $row["lastactive"]);
 		}
 	}
 }
