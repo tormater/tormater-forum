@@ -13,6 +13,7 @@ class Template
         if (file_exists("themes/" . $config["forumTheme"] . "/" . $path)) {
             $path = "themes/" . $config["forumTheme"] . "/" . $path;
         }
+        listener("beforeTemplateRender", $path, $strings);
         $page = trim(file_get_contents($path));
         
         // Global loading of other templates. 
@@ -40,6 +41,7 @@ class Template
             if (is_null($v)) $v = "";
             $page = str_replace("[[ " . $k . " ]]", $v, $page);
         }
+        listener("beforeTemplateReturn", $page, $path, $strings);
         return $page;
     }
     function error($type)
