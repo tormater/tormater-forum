@@ -804,4 +804,12 @@ function drawUserProfile($userid, $type) {
 			echo '<div class="userrole">' . $lang["role." . $role];
 		}
 }
+
+// Display a user's information, used by userlists.
+function displayUser($deletedClass = "", $color, $userid, $role, $username, $verify = "", $lastaction, $lastactive) {
+  global $lang;
+
+  echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $color . '"><b><a href="' . genURL('user/' . $userid) . '/" id="' . $role . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; ' . $verify . '<small></div><div class="userlist-bottom">' . parseAction($lastaction, $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a>)</small></div></div>';
+}
+
 ?>
