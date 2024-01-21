@@ -1182,7 +1182,7 @@ input[type=file]::file-selector-button:hover {
 #searchbox {
     padding: 5px 10px;
     border-radius: 0px;
-    border-right: 1px solid #1f4f83;
+    border-right: 1px solid var(--c-border);;
 }
 .searcharea {
     float: right;
