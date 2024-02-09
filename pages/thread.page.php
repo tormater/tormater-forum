@@ -540,7 +540,7 @@ else
 	
 	elseif ($_SESSION["signed_in"] == false)
 	{
-        printf($lang["thread.LoginToReply"], genURL('login/'), genURL('signup/'));
+        message(sprintf($lang["thread.LoginToReply"], genURL('login/'), genURL('signup/')));
 	}
 }
 
