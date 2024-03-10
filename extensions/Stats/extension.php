@@ -25,18 +25,13 @@ function Stats_displayPageLoadTime() {
     global $start_time, $db;
 
     // Get counts of threads, users, and posts
-    $threads = $db->query("show table status like 'threads'");
-    while($row = $threads->fetch_assoc()) {
-        $threadcount = $row["Rows"];
-    }
-    $users = $db->query("show table status like 'users'");
-    while($row = $users->fetch_assoc()) {
-        $usercount = $row["Rows"];
-    }
-    $posts = $db->query("show table status like 'posts'");
-    while($row = $posts->fetch_assoc()) {
-        $postcount = $row["Rows"];
-    }
+    $threads = $db->query("SELECT * FROM threads");
+    $threadcount = $threads->num_rows;
+    $users = $db->query("SELECT * FROM users");
+    $usercount = $users->num_rows;
+    $posts = $db->query("SELECT * FROM posts");
+    $postcount = $posts->num_rows;
+    
     // Display all the information
     print '<br/>';
     print '<div class="statsLeft">This page was generated in ' . number_format(microtime(true) - $start_time, 4) . ' microseconds.</div>';
