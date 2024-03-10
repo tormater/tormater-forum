@@ -297,8 +297,8 @@ function pagination($pageName) {
 		echo '<span class="pageButtonDisabled">'.$lang["nav.PrevPage"].'</span>';
 	}
 	if ($currentPage > 1) {
-        echo '<a class="pageButton" href="' . genURL($pageName.'/'.$q2.'/'. "1") .'/">'.$lang["nav.FirstPage"].'</a>';
-		echo '<a class="pageButton" href="' . genURL($pageName.'/'.$q2.'/'.($currentPage - 1)) .'/">'.$lang["nav.PrevPage"].'</a>';
+        echo '<a class="pageButton" href="' . genURL($pageName.'/'.$q2.'/'. "1" . '/') .'">'.$lang["nav.FirstPage"].'</a>';
+		echo '<a class="pageButton" href="' . genURL($pageName.'/'.$q2.'/'.($currentPage - 1) . '/') .'">'.$lang["nav.PrevPage"].'</a>';
 	}
     echo '</div>';
     echo '<div class="paginationinside">';
@@ -307,7 +307,7 @@ function pagination($pageName) {
 			if ($x == $currentPage) {
 				echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 			} else {
-				echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/">'.$x) .'</a>';
+				echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/') . '">' . $x . '</a>';
 			}
 		}
 	} elseif ($pages > 10) {
@@ -316,31 +316,31 @@ function pagination($pageName) {
 				if ($x == $currentPage) {
 					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 				} else {
-					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/">'.$x) .'</a>';
+					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/') . '">' . $x . '</a>';
 				}
 			}
 			echo '<span class="paginationdots">…</span>';
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/">'.$pages) .'</a>';
+			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/') . '">' . $pages . '</a>';
 		} elseif ($currentPage > 4 && $currentPage < $pages - 4) {
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2) .'/1/">1</a>';
+			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/1/') . '">1</a>';
 			echo '<span class="paginationdots">…</span>';
 			for ($x = $currentPage - $adjacents; $x <= $currentPage + $adjacents; $x++) {
 				if ($x == $currentPage) {
 					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 				} else {
-					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'">'.$x) .'</a>';
+					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/') . '">'.$x .'</a>';
 				}
 			}
 			echo '<span class="paginationdots">…</span>';
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/">'.$pages) .'</a>';
+			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/') . '">' . $pages . '</a>';
 		} else {
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2).'/1/">1</a>';
+			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/1/') . '">1</a>';
 			echo '<span class="paginationdots">…</span>';
 			for ($x = $pages - 6; $x <= $pages; $x++) {
 				if ($x == $currentPage) {
 					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
 				} else {
-					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/">'.$x).'</a>';
+					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/').'">'.$x.'</a>';
 				}
 			}
 		}
