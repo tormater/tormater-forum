@@ -5,8 +5,7 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-$validLanguages = scandir("lang/");
-$validLanguages = array_diff($validLanguages, array('.', '..'));
+$validLanguages = glob("lang/*.php");
 
 foreach ($validLanguages as &$v) {
     $v = pathinfo($v, PATHINFO_FILENAME);
@@ -42,7 +41,15 @@ $languageSelector = '<form method="post"><select name="lang" id="lang" onchange=
 foreach ($validLanguages as $l) {
     if (isset($currentLang) && $l == $currentLang) $selected = "selected=''";
     else $selected = "";
-    $languageSelector .= '<option ' . $selected . 'value="' . $l . '">' . $l . '</option>';
+    
+    $l_display = $l;
+    
+    if (file_exists("lang/" . $l . ".json")) {
+        $manifest = json_decode(file_get_contents("lang/" . $l . ".json"), true);
+        if (isset($manifest["region_abbr"])) $l_display = $manifest["name"] . " (" . $manifest["region_abbr"] . ")";
+        else $l_display = $manifest["name"];
+    }
+    $languageSelector .= '<option ' . $selected . 'value="' . $l . '">' . $l_display . '</option>';
 }
 
 $languageSelector .= '</select></form>';
