@@ -81,7 +81,7 @@ if (!session_id()) {
 }
 
 // Check the user's role, verification status, and deletion status. Then ensure their session reflects it accordingly.
-if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
+if ($config['installed'] != "no" && isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
 	$rolecheck = $db->query("SELECT role, verified, deleted, ip FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 	while ($r = $rolecheck->fetch_assoc())
 	{
