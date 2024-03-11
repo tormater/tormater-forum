@@ -2,42 +2,50 @@
     font-family: Arial, sans-serif;
 }
 body {
-    background: rgb(214, 214, 214);
+    background: #e6e6e6;
     font-size: 75%;
     margin: 0;
     color: #333333;
+    max-width: 600px;
+    margin: 10px auto;
 }
 
+img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
 #titlebar {
-    padding: 10px 30px;
+    padding: 15px 30px;
     width: 100%;
     box-sizing: border-box;
-    background: linear-gradient(rgb(68, 68, 68), #000);
-    border-top: #000 1px solid;
+    background-color: #000;
+    background-image: linear-gradient(#ffffffad 0%, #ffffff20 50%, #0001 50%, #fff3 100%);
+    border: #000 1px solid;
+    text-shadow: #000 0px 1px;
     color: #fff;
-    font-size: 200%;
+    font-size: 175%;
 }
 #content {
-    padding: 20px 30px;
+    padding: 15px 25px;
+    width: 100%;
     box-sizing: border-box;
     background: #fff;
-    border: 1px solid #a0a0a0;
+    border: 1px solid #ccc;
+    border-radius: 10px;
     text-align: left;
-    min-height: calc(100vh - 49px);
+    box-shadow: 0px 1px 2px #0000001c;
 }
 
 
-.formcontainer {
-    display: inline-block;
-    box-sizing: border-box;
-    min-width: calc(50% - 4px);
-    margin: 2px;
+.field {
+    display: grid;
+    grid-template-columns: auto 40%;
 }
 
 label {
-    display: inline-block;
-    width: 30%;
     color: #000;
+    display:inline-block;
 }
 
 input {
@@ -47,7 +55,7 @@ input {
     border: 1px solid #808080;
     border-radius: 3px;
     font-size: 100%;
-    margin: 4px 0px;
+    margin: 2px 0px;
 }
 
 input:hover {
@@ -56,13 +64,17 @@ input:hover {
 
 input:focus {
     background: #fff;
-    border: #0000ff 1px solid;
-    outline: #9c9cff 1px solid;
+    border: #0292fc 1px solid;
+    box-shadow: 0px 0px 3px #5dbcff;
+    outline: none;
 }
 
 h3 {
     color: #000;
     display:inline-block;
+}
+h1 {
+    color: #000;
 }
 
 .buttonbig {
@@ -94,7 +106,6 @@ h3 {
 
 hr {
     margin: 16px 0px;
-    margin-top: 32px;
     height: 1px;
     border-width: 0;
     background-color: rgb(199, 199, 199);
