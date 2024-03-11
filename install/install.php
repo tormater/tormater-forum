@@ -8,6 +8,16 @@ if (!defined("INDEXED")) exit;
 // If the forum is already installed, exit.
 if ($config["installed"] == "yes") exit;
 
+echo "<!DOCTYPE html><html><head>";
+echo "<title>Tormater Forum Installer</title>";
+echo "<link rel='stylesheet' href='install/install.css'>";
+echo "<link rel='icon' type='image/svg+xml' href='install/install.svg'>";
+echo '<link rel="icon" type="image/x-icon" href="install/install.ico">';
+echo "</head>";
+echo "<body>";
+echo "<center><img src='install/logo.svg'></center>";
+echo "<div id='content'>";
+
 // Handle post requests.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Make sure the MySQL details have been inputted.
@@ -158,41 +168,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+echo("<h1>Welcome</h1>
+Welcome to the Tormater Forum Installer. In order to proceed, you must fill out your database settings, and your forum administrator account credentials below.
+<br>If you need assistance with Tormater Forum, feel free to make an <a href='https://github.com/tormater/tormater-forum/issues'>issue</a> on our GitHub, or a <a href='http://forum.tormater.com/'>thread</a> on our forum.");
 
-echo "<head>";
-echo "<title>Tormater Forum Installer</title>";
-echo "<link rel='stylesheet' href='install/install.css'>";
-echo '<link rel="icon" type="image/x-icon" href="install/install.ico">';
-echo "</head>";
-echo "<body>";
-echo "<div id='titlebar'>Tormater Forum Installer</div>";
-echo "<div id='content'>";
 echo("
-<form method='post' autocomplete='on'>
-<div class='formcontainer'>
-<h3>MySQL Details</h3><br/>
-<label>MySQL Server:</label>
-<input type='text' id='MySQLServer' name='MySQLServer' value='" . $_POST["MySQLServer"] . "'><br/>
-<label>MySQL Database:</label>
-<input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . $_POST["MySQLDatabase"] . "'><br/>
-<label>MySQL User:</label>
-<input type='text' id='MySQLUser' name='MySQLUser' value='" . $_POST["MySQLUser"] . "'><br/>
-<label>MySQL Password:</label>
-<input type='text' id='MySQLPassword' name='MySQLPassword' value='" . $_POST["MySQLPassword"] . "'><br/>
-</div><div class='formcontainer'>
-<h3>Administrator Account</h3><br/>
-<label>Username:</label>
-<input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . $_POST["adminUsername"] . "'><br/>
-<label>Email:</label>
-<input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . $_POST["adminEmail"] . "'><br/>
-<label>Password:</label>
-<input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . $_POST["adminPassword"] . "'><br/>
-<label>Confirm Password:</label>
-<input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . $_POST["adminConfirm"] . "'><br/>
-</div>
 <hr>
-<input class='buttonbig' type='submit' value='Submit'>
+<form method='post' autocomplete='on'>
+<h3>MySQL Details</h3><br/>
+<div class='field'><label>MySQL Server:</label>
+<input type='text' id='MySQLServer' name='MySQLServer' value='" . ($_POST["MySQLServer"] ?? "") . "'></div>
+<div class='field'><label>MySQL Database:</label>
+<input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . ($_POST["MySQLDatabase"] ?? "") . "'></div>
+<div class='field'><label>MySQL User:</label>
+<input type='text' id='MySQLUser' name='MySQLUser' value='" . ($_POST["MySQLUser"] ?? "") . "'></div>
+<div class='field'><label>MySQL Password:</label>
+<input type='text' id='MySQLPassword' name='MySQLPassword' value='" . ($_POST["MySQLPassword"] ?? "") . "'></div>
+<h3>Administrator Account</h3><br/>
+<div class='field'><label>Username:</label>
+<input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . ($_POST["adminUsername"] ?? "") . "'></div>
+<div class='field'><label>Email:</label>
+<input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . ($_POST["adminEmail"] ?? "") . "'></div>
+<div class='field'><label>Password:</label>
+<input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . ($_POST["adminPassword"] ?? "") . "'></div>
+<div class='field'><label>Confirm Password:</label>
+<input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . ($_POST["adminConfirm"] ?? "") . "'></div>
+<br>
+<input class='buttonbig' type='submit' value='Install Tormater Forum'>
 </form>");
 
-echo "</div></body>"
+echo "</div></body></html>"
 ?>
