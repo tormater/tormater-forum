@@ -15,21 +15,10 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 
     // Display the change language form.
 	echo '<div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
-    echo '<select name="newlang">';
-    $files = scandir(dirname(__DIR__,1) . '/lang');
-    foreach($files as $file) {
-        if($file == '.' || $file == '..') continue;
-        if(substr($file, 0, -4) == $config["forumLang"]) 
-        {
-            $selected = "selected ";
-        }
-        else
-        {
-            $selected = "";
-        }
-        echo '<option ' . $selected . 'value="' . substr($file, 0, -4) . '">' . substr($file, 0, -4) . '</option>';
-    }
-    echo '</select></div>';
+    $adminLanguageSelector = str_replace('<form method="post"><select name="lang" id="lang" onchange="this.form.submit()">', "<select name='newlang'>", $languageSelector);
+    $adminLanguageSelector = str_replace('</form>', "", $adminLanguageSelector);
+    echo $adminLanguageSelector;
+    echo '</div>';
 
     // Display the change theme form.
 	echo '<div class="forminput"><label>' . $lang["panel.NewTheme"]  . '</label>';
