@@ -16,5 +16,5 @@
 - <a href="http://forum.tormater.com">Support forum</a>
 - <a href="https://github.com/tormater/tormater-forum/wiki">Wiki</a>
 
-![image](https://github.com/tormater/tormater-forum/assets/115832947/c3ca46e4-4c15-4e4d-921c-dd00f4061f1a)
+![image](https://github.com/tormater/tormater-forum/assets/115832947/f5a107dd-2aae-4a9e-9111-280f5c198277)
 <a href="https://github.com/tormater/tormater-forum/wiki/Screenshots">More screenshots...</a>
