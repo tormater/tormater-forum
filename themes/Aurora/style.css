@@ -1446,6 +1446,9 @@ input[type=file]::file-selector-button:hover {
     #content table td:nth-child(n+3) {
         display: none;
     }
+    #content table th:nth-child(n+2) {
+        border-top-right-radius: 5px;
+    }
 
     .leftpart {
         width: 80%;
