@@ -12,22 +12,36 @@ if (isset($_GET["search"])) {
     $search = urldecode($search);
 }
 
-if(!$search || strlen($search) < 1)
+if (!$search || strlen($search) < 1)
 {
 	message($lang["search.EmptySearch"]);
+}
+if (strlen($search) > 255)
+{
+	message($lang["search.TooLong"]);
 }
 
 else
 {
         printf('<h2>' . $lang["search.Header"] . '</h2>', htmlspecialchars($search));
+        
+        $keywords = explode(" ",$db->real_escape_string($search));
+        
+        $search_query = "'%" . $db->real_escape_string($search) . "%'";
+        foreach($keywords as $key) {
+            if (strlen($key) > 2) {
+                $search_query .= " OR `title` LIKE '%" . $key . "%'";
+            }
+        }        
+        
         if ($_SESSION["signed_in"] != true) {
-            $result = $db->query("SELECT * FROM threads WHERE draft='0' AND (`title` LIKE '%" . $db->real_escape_string($search) . "%') ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
+            $result = $db->query("SELECT * FROM threads WHERE draft='0' AND (`title` LIKE " . $search_query . ") ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
         }
         elseif (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
-            $result = $db->query("SELECT * FROM threads WHERE (`title` LIKE '%" . $db->real_escape_string($search) . "%') ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
+            $result = $db->query("SELECT * FROM threads WHERE (`title` LIKE " . $search_query . ") ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
         }
         else {
-            $result = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') AND (`title` LIKE '%" . $db->real_escape_string($search) . "%') ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
+            $result = $db->query("SELECT * FROM threads WHERE draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') AND (`title` LIKE " . $search_query . ") ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"]);
         }
 
 		if(!$result)
