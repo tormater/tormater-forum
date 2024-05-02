@@ -99,8 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			$id = $row['categoryid'];
 		}
 
-		echo '<h3>'.$lang["panel.EditCategory"].'</h3>';
-
 		if ($_POST["edit_edit_cat_name"] or $_POST["edit_cat_description"])
 		{
 			$id = $_POST["cat_num"];
@@ -126,7 +124,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				else
 				{
 					message($lang["panel.SuccessUpdateCategory"]);
-					refresh(1);
+					include "footer.php";
+					echo("<meta http-equiv='refresh' content='1'>");
+					exit;
 				}
 			}
 		}
@@ -190,7 +190,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 						else
 						{
 							message($lang["panel.SuccessDeleteCategory"]);
-							refresh(1);
+							include "footer.php";
+							echo("<meta http-equiv='refresh' content='1'>");
+							exit;
 						}
 					}
 				}
