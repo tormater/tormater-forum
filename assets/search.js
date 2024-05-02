@@ -5,3 +5,9 @@ function search() {
         window.location.href = searchPath + "?search=" + encodeURIComponent(searchBox);
     }
 }
+
+document.querySelector('#searchbox').addEventListener('keydown', function (event) {
+    if (event.keyCode == 13) {
+        search();
+    }
+})
