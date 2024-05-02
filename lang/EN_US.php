@@ -47,6 +47,7 @@ $lang = array(
     "search.Header" => "Search results for '%s'",
     "search.NoResults" => "No thread matches that search.",
     "search.EmptySearch" => "Your search query must contain at least one character.",
+    "search.TooLong" => "Your search was too long.",
     
     // Viewing:
     "action.Generic" => "Viewing: ",
