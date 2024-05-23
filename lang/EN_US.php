@@ -19,6 +19,7 @@ $lang = array(
     "error.CategoryNotFound" => "This category does not exist.",
     "error.CategoryThreadMisc" => "The threads in this category could not be displayed.",
     "error.CategoryEmpty" => "There are no threads in this category yet.",
+    "error.ForumEmpty" => "There are no threads in this forum yet.",
     "error.AlreadyLoggedIn" => "You are already logged in, you can <a href='%s'>log out</a> if you want.",
     "error.UserlistMembersOnly" => "Only registered users can view the userlist. If you want to see it, <a href='%s'>signup</a> or <a href='%s'>login</a>.",
     "error.UserlistDisabled" => "Sorry, the forum administrators have decided to disable the userlist. Maybe if you ask them nicely, they'll re-enable it.",
