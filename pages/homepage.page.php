@@ -85,7 +85,7 @@ while($row = $threads->fetch_assoc())
         
     $data["threads"] .= $template->render("templates/thread/thread_display.html", $thread_data);
 }
-if ($therads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["error.ForumEmpty"]));
+if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["error.ForumEmpty"]));
 
 echo $template->render("templates/homepage/homepage.html", $data);
 
