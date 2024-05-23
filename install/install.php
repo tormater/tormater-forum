@@ -150,7 +150,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $adminSalt = random_str(64);
         $adminHash = hashstring($adminSalt . $_POST["adminPassword"]);
         $adminIP = hashstring($_SERVER["REMOTE_ADDR"]);
+        $adminEmail = $_POST["adminEmail"];
         $db->query("INSERT INTO `users` (username, email, password, role, jointime, color, ip, salt, verified) VALUES ('" . $db->real_escape_string($_POST["adminUsername"]) . "', '" . $db->real_escape_string($adminEmail) . "', '" . $db->real_escape_string($adminHash) . "', 'Administrator', '" . time() . "', '1', '" . $db->real_escape_string($adminIP) . "', '" . $db->real_escape_string($adminSalt) . "' ,'1')");
+        // Create the default category.
+        $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . "General" . "', '" . "Tormater Forum's default category." . "', '" . 0 . "')");
 
         // Now write our MySQL details to the config as well as whether the forum has been installed or not.
         $config["installed"] = "yes";
@@ -161,9 +164,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $config["baseURL"] = rtrim((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", "/");
         saveConfig("./config/config.php", $config);
 
-        require "pages/header.php";
         message("Database and config successfully written. You can now view your forum.");
-        require "pages/footer.php";
+        echo "</div></body></html>";
         exit;
     }
 }
