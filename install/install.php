@@ -153,7 +153,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $adminEmail = $_POST["adminEmail"];
         $db->query("INSERT INTO `users` (username, email, password, role, jointime, color, ip, salt, verified) VALUES ('" . $db->real_escape_string($_POST["adminUsername"]) . "', '" . $db->real_escape_string($adminEmail) . "', '" . $db->real_escape_string($adminHash) . "', 'Administrator', '" . time() . "', '1', '" . $db->real_escape_string($adminIP) . "', '" . $db->real_escape_string($adminSalt) . "' ,'1')");
         // Create the default category.
-        $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . "General" . "', '" . "Tormater Forum's default category." . "', '" . 0 . "')");
+        $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . "General" . "', '" . "Tormater Forum\'s default category." . "', '" . 0 . "')");
 
         // Now write our MySQL details to the config as well as whether the forum has been installed or not.
         $config["installed"] = "yes";
