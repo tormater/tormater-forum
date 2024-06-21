@@ -166,36 +166,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			{
 				$threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($id) . "'");
 				while($row = $threads->fetch_assoc()) {
-					// thread information.
-					$threadid = $row['threadid'];
+					$result = $db->query("DELETE FROM posts WHERE thread='" . $row['threadid'] . "'");
+					$result = $db->query("DELETE FROM threads WHERE threadid='" . $row['threadid'] . "'");
 				}
-				if (!$threads)
-				{
-					message($lang["CantDeleteCategory"]);
-				}
-				else
-				{
-					$result = $db->query("DELETE FROM posts WHERE thread='" . $threadid . "'");
-					if (!$result)
-					{
-						message($lang["CantDeleteCategory"]);
-					}
-					else
-					{
-						$result = $db->query("DELETE FROM threads WHERE threadid='" . $threadid . "'");
-						if (!$result)
-						{
-							message($lang["CantDeleteCategory"]);
-						}
-						else
-						{
-							message($lang["panel.SuccessDeleteCategory"]);
-							include "footer.php";
-							echo("<meta http-equiv='refresh' content='1'>");
-							exit;
-						}
-					}
-				}
+				message($lang["panel.SuccessDeleteCategory"]);
+				include "footer.php";
+				echo("<meta http-equiv='refresh' content='1'>");
+				exit;
 			}
 		}
 
