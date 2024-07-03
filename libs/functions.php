@@ -359,6 +359,13 @@ function pagination($pageName) {
 	}
 	echo '</div></div>';
 }
+function pagination_return($pageName) {
+    ob_start();
+    pagination($pageName);
+    $return = ob_get_contents();
+    ob_end_clean();
+    return $return;
+}
 
 $hooks = array();
 
