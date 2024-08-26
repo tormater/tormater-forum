@@ -34,7 +34,7 @@ function Stats_displayPageLoadTime() {
     
     // Display all the information
     print '<br/>';
-    print '<div class="statsLeft">This page was generated in ' . number_format(microtime(true) - $start_time, 4) . ' microseconds.</div>';
+    print '<div class="statsLeft">This page was generated in ' . number_format((microtime(true) - $start_time)*1000, 3) . ' ms.</div>';
     print '<div class="statsRight">' . number_format($threadcount) .  customLang("stats.Threads")  . number_format($postcount) . customLang("stats.Posts") . number_format($usercount) . customLang("stats.Users") . '</div>';
 }
 
