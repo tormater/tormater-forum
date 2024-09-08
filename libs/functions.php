@@ -530,7 +530,7 @@ function hexAdjustLight($originalHex, $percent) {
 }
 
 // Delete a user given their userid and a mode of deletion.
-function deleteUser($mode, $userid) {
+function deleteUser($mode, $userid, $sendstatus=true) {
     
     global $db, $lang;
 
@@ -551,7 +551,7 @@ function deleteUser($mode, $userid) {
                     // Remove the user's avatar as well.
                     removeAvatar($userid);
 
-                    echo("</br>" . $lang["panel.DeleteUserSuccess"]);
+                    if ($sendstatus) echo("</br>" . $lang["panel.DeleteUserSuccess"]);
                 }
             }
 	    break;    
@@ -572,7 +572,7 @@ function deleteUser($mode, $userid) {
                     // Remove the user's avatar as well.
                     removeAvatar($userid);
 
-                    echo("</br>" . $lang["panel.DeleteUserSuccessHide"]);
+                    if ($sendstatus) echo("</br>" . $lang["panel.DeleteUserSuccessHide"]);
                 }
             }
 	    break;
@@ -636,7 +636,7 @@ function deleteUser($mode, $userid) {
                     // Remove the user's avatar as well.
                     removeAvatar($userid);
 
-                    echo("</br>" . $lang["panel.DeleteUserSuccess"]);
+                    if ($sendstatus) echo("</br>" . $lang["panel.DeleteUserSuccess"]);
                 }
             }
 	    break;
