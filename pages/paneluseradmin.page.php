@@ -6,15 +6,32 @@
 if (!defined("INDEXED")) exit;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-	if (isset($_POST["deleteKeepPosts"])) {
-		deleteUser("deleteKeepPosts", $q3);
-	}
-	elseif (isset($_POST["deleteHidePosts"])) {
-		deleteUser("deleteHidePosts", $q3);
-	}
-	elseif (isset($_POST["deleteRemovePosts"])) {
-		deleteUser("deleteRemovePosts", $q3);
-	}
+    if (isset($_POST["deleteKeepPosts"])) {
+        deleteUser("deleteKeepPosts", $q3);
+    }
+    else if (isset($_POST["deleteHidePosts"])) {
+        deleteUser("deleteHidePosts", $q3);
+    }
+    else if (isset($_POST["deleteRemovePosts"])) {
+        deleteUser("deleteRemovePosts", $q3);
+    }
+    else if (isset($_POST["deleteAllIP"])) {
+        $ip = $db->query("SELECT ip FROM users WHERE userid='" . $db->real_escape_string($q3) . "'");
+        $r = $ip->fetch_assoc();
+        $result = $db->query("SELECT userid FROM users WHERE ip='" . $r["ip"] . "' AND NOT userid='" . $db->real_escape_string($q3) . "'");
+        if ($result->num_rows == 0)
+        {
+            message($lang["panel.noSameIP"]);
+        }
+        else 
+        {
+            $result = $db->query("SELECT userid FROM users WHERE ip='" . $r["ip"] . "'");
+            while($row = $result->fetch_assoc()) {
+                deleteUser("deleteRemovePosts", $row["userid"], false);
+            }
+            message($lang["panel.DeleteAllIPSuccess"]);
+        }
+    }
 }
 
 else {
@@ -62,7 +79,7 @@ echo "</div>";
 echo '<br/>';
 echo '<h2>'. $lang["panel.DangerZone"] .'</h2>';
 if (($config["mainAdmin"] != $row["userid"]) and ($deleted != "1")) {
-echo($lang["panel.DeleteUserMessage"] . "</br></br><form action='' method='POST'><button class='buttonbig' name='deleteKeepPosts'>" . $lang["panel.DeleteKeepPosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteHidePosts'>" . $lang["panel.DeleteHidePosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteRemovePosts'>" . $lang["panel.DeleteRemovePosts"] . "</button></form>");
+    echo($lang["panel.DeleteUserMessage"] . "</br></br><form action='' method='POST'><button class='buttonbig' name='deleteKeepPosts'>" . $lang["panel.DeleteKeepPosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteHidePosts'>" . $lang["panel.DeleteHidePosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteRemovePosts'>" . $lang["panel.DeleteRemovePosts"] . "</button></form>" . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteAllIP'>" . $lang["panel.DeleteAllUsersOnIP"] . "</button></form>");
 }
 elseif ($deleted == "1") {
     echo '<a class="buttonbig" href="' . genURL("panel/restoreuser/" . htmlspecialchars($q3)) . '">' . $lang["panel.RestoreUser"] . '</a>&nbsp; ';
@@ -71,4 +88,3 @@ elseif ($deleted == "1") {
 }
 
 ?>
-
