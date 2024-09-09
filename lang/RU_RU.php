@@ -253,7 +253,7 @@ $lang = array(
     "panel.Readme" => "Информация",
     "panel.EnableSuccess" => "Расширение успешно включено.",
     "panel.DisableSuccess" => "Расширение успешно отключено.",
-    "panel.settings" => "Настройки",
+    "panel.Settings" => "Настройки",
 
     // Admin panel / Audit Log
     "panel.AuditLog" => "Журнал событий",
