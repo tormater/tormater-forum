@@ -237,8 +237,6 @@ $lang = array(
     "panel.DeleteKeepPosts" => "Delete user and keep posts",
     "panel.DeleteHidePosts" => "Delete user and hide posts",
     "panel.DeleteRemovePosts" => "Delete user and remove posts",
-    "panel.DeleteAllUsersOnIP" => "Delete all users that share this IP address",
-    "panel.DeleteAllIPSuccess" => "Successfully deleted all users on this IP address.",
     "panel.DeleteUserSuccess" => "Successfully deleted user.",
     "panel.UseridError" => "That user does not exist.",
     "panel.DeleteUserSuccessHide" => "Successfully deleted user and hid all of their posts.",
@@ -256,6 +254,7 @@ $lang = array(
     "panel.Readme" => "Info",
     "panel.EnableSuccess" => "Successfully enabled extension.",
     "panel.DisableSuccess" => "Successfully disabled extension.",
+    "panel.Settings" => "Settings",
 
     // Admin panel / Audit Log
     "panel.AuditLog" => "Audit Log",
@@ -401,7 +400,6 @@ $lang = array(
     "page.userlist" => "Users",
     "page.login" => "Login",
     "page.signup" => "Register",
-    "page.settings" => "Settings",
     "page.newthread" => "New Thread",
     "page.panel" => "Admin Panel",
     "page.panel.category" => "Categories",
