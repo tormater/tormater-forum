@@ -213,6 +213,31 @@ function saveExtensionConfig($file, $array) {
     listener("afterSaveExtensionConfig");
 }
 
+function saveExtensionSettingsConfig($file, &$array) {
+    global $allExtensions;
+    foreach ($allExtensions as $e) {
+        if (file_exists("extensions/" . $e . "/manifest.json"))
+        {
+            $manifest = json_decode(file_get_contents("extensions/" . $e . "/manifest.json"), true);
+            if (isset($manifest["settings"])) {
+                foreach($manifest["settings"] as $setting) {
+                    if (!isset($array[$setting["id"]])) {
+                        $array[$e][$setting["id"]] = $setting["default"];
+                    }
+                }
+            }
+        }
+    }
+    $getArray = var_export($array, true);
+    file_put_contents($file, '<?php '.PHP_EOL. '$extension_config = '. $getArray .';' .PHP_EOL. '?>');
+}
+
+// Get the name of an extension given it's file path
+function getExtensionName($path) {
+    $exploded = explode("/", $path);
+    return end($exploded);
+}
+
 // Convert a unix timestamp into a human readable time format.
 function relativeTime($timestamp) {
 	global $lang;
