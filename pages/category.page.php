@@ -18,6 +18,7 @@ else
 
 while ($row = $category->fetch_assoc()) 
 {
+    $categoryName = $row["categoryname"];
     $category_data = array(
         "title" => htmlspecialchars($row["categoryname"]),
         "desc" => formatPost($row["categorydescription"]),
