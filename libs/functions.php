@@ -530,7 +530,7 @@ function hexAdjustLight($originalHex, $percent) {
 }
 
 // Delete a user given their userid and a mode of deletion.
-function deleteUser($mode, $userid, $sendstatus=true) {
+function deleteUser($mode, $userid) {
     
     global $db, $lang;
 
@@ -551,7 +551,7 @@ function deleteUser($mode, $userid, $sendstatus=true) {
                     // Remove the user's avatar as well.
                     removeAvatar($userid);
 
-                    if ($sendstatus) echo("</br>" . $lang["panel.DeleteUserSuccess"]);
+                    echo("</br>" . $lang["panel.DeleteUserSuccess"]);
                 }
             }
 	    break;    
@@ -572,7 +572,7 @@ function deleteUser($mode, $userid, $sendstatus=true) {
                     // Remove the user's avatar as well.
                     removeAvatar($userid);
 
-                    if ($sendstatus) echo("</br>" . $lang["panel.DeleteUserSuccessHide"]);
+                    echo("</br>" . $lang["panel.DeleteUserSuccessHide"]);
                 }
             }
 	    break;
@@ -636,7 +636,7 @@ function deleteUser($mode, $userid, $sendstatus=true) {
                     // Remove the user's avatar as well.
                     removeAvatar($userid);
 
-                    if ($sendstatus) echo("</br>" . $lang["panel.DeleteUserSuccess"]);
+                    echo("</br>" . $lang["panel.DeleteUserSuccess"]);
                 }
             }
 	    break;
@@ -647,7 +647,13 @@ function drawNavigation() {
     global $lang, $config, $template, $db;
     global $q1, $q2, $q3;
     
-    $nav = $template->render("templates/header/nav_button.html", array("label" => $config["forumName"], "url" => genURL("")));
+    $nav = "";
+    if (isset($config["parentSite"]) && isset($config["parentSiteName"]) && $config["parentSite"] !== '' && $config["parentSiteName"] !== '') {
+        $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["parentSiteName"], "url" => $config["parentSite"]));
+        $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
+    } 
+    
+    $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["forumName"], "url" => genURL("")));
     $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
     
     if (!$q1)
