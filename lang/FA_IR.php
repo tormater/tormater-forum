@@ -238,6 +238,8 @@ $lang = array(
     "panel.DeleteKeepPosts" => "حذف کاربر و حفظ نوشته‌ها",
     "panel.DeleteHidePosts" => "حذف کاربر و پنهان‌کردن نوشته‌ها",
     "panel.DeleteRemovePosts" => "حذف کاربر و حذف نوشته‌ها",
+    "panel.DeleteAllUsersOnIP" => "حذف تمام کاربرانی که این آدرس آی پی را به اشتراک دارند",
+    "panel.DeleteAllIPSuccess" => "با موفقیت تمام کاربرانی که با این آدرس آی پی حذف شدند.",
     "panel.DeleteUserSuccess" => "کاربر با موفقیت حذف شد.",
     "panel.UseridError" => "این کاربر وجود ندارد.",
     "panel.DeleteUserSuccessHide" => "کاربر با موفقیت حذف شد و همه نوشته‌های آن پنهان شد.",
@@ -255,7 +257,6 @@ $lang = array(
     "panel.Readme" => "اطلاعات",
     "panel.EnableSuccess" => "افزونه با موفقیت فعال شد.",
     "panel.DisableSuccess" => "افزونه با موفقیت غیرفعال شد.",
-    "panel.Settings" => "تنظیمات",
 
     // Admin panel / Audit Log
     "panel.AuditLog" => "دفترچه گزارشات",
@@ -401,6 +402,7 @@ $lang = array(
     "page.userlist" => "کاربران",
     "page.login" => "ورود",
     "page.signup" => "عضویت",
+    "page.settings" => "تنظیمات",
     "page.newthread" => "موضوع جدید",
     "page.panel" => "پنل مدیریت",
     "page.panel.category" => "دسته‌بندی‌ها",
