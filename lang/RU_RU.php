@@ -19,6 +19,7 @@ $lang = array(
     "error.CategoryNotFound" => "Этой категории не существует.",
     "error.CategoryThreadMisc" => "Не удалось отобразить темы в этой категории.",
     "error.CategoryEmpty" => "В этой категории пока нет ни одной темы.",
+    "error.ForumEmpty" => "На этом форуме еще нет тем.",
     "error.AlreadyLoggedIn" => "Вы уже вошли в систему, вы можете <a href='%s'>выйти</a>, если хотите.",
     "error.UserlistMembersOnly" => "Только зарегистрированные пользователи могут просматривать список пользователей. Если вы хотите увидеть его, <a href='%s'>зарегистрируйтесь</a> или <a href='%s'>войдите на сайт</a>.",
     "error.UserlistDisabled" => "Извините, администраторы форума решили отключить список пользователей. Возможно, если вы вежливо попросите их, они снова включат его.",
@@ -236,6 +237,8 @@ $lang = array(
     "panel.DeleteKeepPosts" => "Удалить пользователя и сохранить сообщения",
     "panel.DeleteHidePosts" => "Удалить пользователя и скрыть сообщения",
     "panel.DeleteRemovePosts" => "Удалить пользователя и удалить сообщения",
+    "panel.DeleteAllUsersOnIP" => "Удалить всех пользователей, использующих этот IP-адрес",
+    "panel.DeleteAllIPSuccess" => "Все пользователи с этим IP-адресом успешно удалены.",
     "panel.DeleteUserSuccess" => "Пользователь успешно удален.",
     "panel.UseridError" => "Такого пользователя не существует.",
     "panel.DeleteUserSuccessHide" => "Пользователь успешно удален, и ",
@@ -253,7 +256,6 @@ $lang = array(
     "panel.Readme" => "Информация",
     "panel.EnableSuccess" => "Расширение успешно включено.",
     "panel.DisableSuccess" => "Расширение успешно отключено.",
-    "panel.Settings" => "Настройки",
 
     // Admin panel / Audit Log
     "panel.AuditLog" => "Журнал событий",
@@ -399,6 +401,7 @@ $lang = array(
     "page.userlist" => "Пользователи",
     "page.login" => "Вход",
     "page.signup" => "Регистрация",
+    "page.settings" => "Настройки",
     "page.newthread" => "Новый тред",
     "page.Panel" => "Панель администратора",
     "page.PanelCats" => "Категории",
