@@ -221,7 +221,7 @@ function saveExtensionSettingsConfig($file, &$array) {
             $manifest = json_decode(file_get_contents("extensions/" . $e . "/manifest.json"), true);
             if (isset($manifest["settings"])) {
                 foreach($manifest["settings"] as $setting) {
-                    if (!isset($array[$setting["id"]])) {
+                    if (!isset($array[$e][$setting["id"]])) {
                         $array[$e][$setting["id"]] = $setting["default"];
                     }
                 }
