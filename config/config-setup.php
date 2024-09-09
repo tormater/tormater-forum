@@ -41,6 +41,8 @@ $config = array(
     'onlinePeriod' => '600', // The amount of time a user is shown as "online".
     'showDeletedInUserlist' => 0, // If deleted users should be shown in the userlist.
     'modRewriteDisabled' => 0, // If mod_rewrite is disabled, use query parameters [127.0.0.1/thread/10] vs [127.0.0.1/index.php?url=thread/10]
+    'parentSite' => '', // The URL of the parent website (for example, if the forum is at 127.0.0.1/forum, the parent site would be 127.0.0.1)
+    'parentSiteName' => '', // The name of the parent website (see above)
 );
 
 ?>
