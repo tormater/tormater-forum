@@ -59,7 +59,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 
     // Make sure this user hasn't already created the maximum number of accounts.
     $altCheck = $db->query("SELECT ip FROM users WHERE ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "'");
-    $altCheck->store_result();
+    
     if ($altCheck->num_rows >= $config["maxAccountsPerIP"]) {
         $errors[] = $lang["register.TooManyAccounts"];
     }
