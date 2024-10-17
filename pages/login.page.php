@@ -5,10 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include 'header.php';
-
-echo '<h2>' . $lang["login.Header"] . '</h2>';
-
 $next = "";
 if (isset($_GET["next"])) {
     $next = $_GET["next"];
@@ -17,18 +13,29 @@ if (isset($_GET["next"])) {
 
 if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
 {
-	message(sprintf($lang["error.AlreadyLoggedIn"], genURL("logout")));
+    include 'header.php';
+			           
+    $data = array(
+	"title" => $lang["login.Header"],
+	"message" => message(sprintf($lang["error.AlreadyLoggedIn"], genURL("logout")), true)
+    );
+    echo $template->render("templates/generic/page_message.html", $data);
+    
 }
 
 else
 {
 	if($_SERVER['REQUEST_METHOD'] != 'POST')
 	{
-		echo '<form method="post" action=""><div class="formcontainer">
-			<div class="forminput"><label>' . $lang["login.Username"] . '</label><input type="text" name="user_name" /></div>
-			<div class="forminput"><label>' . $lang["login.Password"] . '</label><input type="password" name="user_pass"></div>
-			<div class="forminput"><label></label><input type="submit" class="buttonbig" value="' . $lang["login.Submit"] . '" /></div>
-		 </div></form>';
+	    include 'header.php';
+	    
+            $data = array(
+                "title" => $lang["login.Header"],
+                "username" => $lang["login.Username"],
+                "password" => $lang["login.Password"],
+                "submit" => $lang["login.Submit"]
+            );
+            echo $template->render("templates/login/login_form.html", $data);
 	}
 	
 	else
@@ -57,100 +64,115 @@ else
 		
 		if(!empty($errors))
 		{
-			echo $lang["error.BadFields"];
-			echo '<ul>';
+		        include 'header.php';
+		        $data = array(
+                	    "title" => $lang["login.Header"],
+                	    "badfields" => $lang["error.BadFields"],
+                	    "errors" => "",
+                	    "go_back" => $lang["error.GoBack"]
+            		);
+            		
 			foreach($errors as $key => $value)
 			{
-				echo '<li>' . $value . '</li>';
+				$data["errors"] .= $template->render("templates/login/login_error.html", array("error" => $value));
 			}
-			echo '</ul>';
-			echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
+			echo $template->render("templates/login/login_errors.html", $data);
 		}
 		else
 		{	
 			$username = $db->real_escape_string($_POST['user_name']);
             
-            $resemail = $db->query("SELECT username FROM users WHERE email = '" . $username . "'");
+            		$resemail = $db->query("SELECT username FROM users WHERE email = '" . $username . "'");
 
-            if(strpos($username, '@') !== "0")
-            {
-                while($rowe = $resemail->fetch_assoc()) {
+            		if(strpos($username, '@') !== "0")
+            		{
+           			while($rowe = $resemail->fetch_assoc()) {
 				$username = $rowe["username"];
-			    }
-            }
+			}
+            	}
 
-            $res = $db->query("SELECT salt FROM users WHERE username = '" . $username . "'");
+            	$res = $db->query("SELECT salt FROM users WHERE username = '" . $username . "'");
 
-			if(!$res)
-			{
-				$errors[] = $lang["error.Database"];
-			}
+		if(!$res)
+		{
+			$errors[] = $lang["error.Database"];
+		}
 			
-			if (!$res->num_rows)
-			{
-				$errors[] = $lang["error.UsernameWrong"];
-			}
+		if (!$res->num_rows)
+		{
+			$errors[] = $lang["error.UsernameWrong"];
+		}
 			
-			while($row = $res->fetch_assoc()) {
-				$salt = $row["salt"];
-			}
+		while($row = $res->fetch_assoc()) {
+			$salt = $row["salt"];
+		}
 				
 			// Now check if the password is correct.
-			$hash = $db->real_escape_string(hashstring($salt . $_POST["user_pass"]));
+		$hash = $db->real_escape_string(hashstring($salt . $_POST["user_pass"]));
 			
 
-			$result = $db->query("SELECT userid, username, role, verified FROM users WHERE username = '" . $username . "' AND password = '" . $hash . "'");
+		$result = $db->query("SELECT userid, username, role, verified FROM users WHERE username = '" . $username . "' AND password = '" . $hash . "'");
 			
 			
-			if(!$result)
-			{
-				$errors[] = $lang["error.Database"];
-			}
+		if(!$result)
+		{
+			$errors[] = $lang["error.Database"];
+		}
 			
+		else
+		{
+		    if (!$result->num_rows)
+		    {
+			$errors[] = $lang["error.PasswordWrong"];
+		    }
+                    while($row = $result->fetch_assoc())
+                    {
+                    	if ($row["verified"] == "0")
+                        {
+                            $errors[] = $lang["error.NeedsApproval"];
+                        }
+				
 			else
 			{
-			    if (!$result->num_rows)
-			    {
-				$errors[] = $lang["error.PasswordWrong"];
-			    }
-                            while($row = $result->fetch_assoc())
-                            {
-                                if ($row["verified"] == "0")
-                                {
-                                    $errors[] = $lang["error.NeedsApproval"];
-                                }
+			    $_SESSION['signed_in'] = true;
 				
-				else
-				{
-				    $_SESSION['signed_in'] = true;
-					
-				    $_SESSION['userid'] = $row['userid'];
-				    $_SESSION['username'] = $row['username'];
-				    $_SESSION['role'] = $row['role'];
+			    $_SESSION['userid'] = $row['userid'];
+			    $_SESSION['username'] = $row['username'];
+			    $_SESSION['role'] = $row['role'];
 					
 					    // Write the IP to the database.
-				    $db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
-					
-				    message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL($next)));
-				    header("Refresh:1; url=" . genURL($next));
-                                }
-			    }
+			    $db->query("UPDATE users SET ip='" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+			    header("Refresh:1; url=" . genURL($next));
+			    include 'header.php';
+			           
+			    $data = array(
+				"title" => $lang["login.Header"],
+				"message" => message(sprintf($lang["login.Welcome"], htmlspecialchars($_SESSION['username']), genURL($next)),true)
+			    );
+			    echo $template->render("templates/generic/page_message.html", $data);
+                            }
 			}
+		    }
 
-			if(!empty($errors))
-			{
-				// Log the failed login attempt.
-                		$db->query("INSERT INTO logins (ip, time) VALUES ('" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "', '" . time() . "')");
+	            if(!empty($errors))
+	            {
+			// Log the failed login attempt.
+                	$db->query("INSERT INTO logins (ip, time) VALUES ('" . $db->real_escape_string(hashstring($_SERVER["REMOTE_ADDR"])) . "', '" . time() . "')");
 				
-				echo $lang["error.BadFields"];
-				echo '<ul>';
-				foreach($errors as $key => $value)
-				{
-					echo '<li>' . $value . '</li>';
-				}
-				echo '</ul><br>';
-				echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
+			include 'header.php';
+		        $data = array(
+                	    "title" => $lang["login.Header"],
+                	    "badfields" => $lang["error.BadFields"],
+                	    "errors" => "",
+                	    "go_back" => $lang["error.GoBack"]
+            		);
+            		
+			foreach($errors as $key => $value)
+			{
+				$data["errors"] .= $template->render("templates/login/login_error.html", array("error" => $value));
 			}
+			echo $template->render("templates/login/login_errors.html", $data);
+	             }
 		}
 	}
 }
