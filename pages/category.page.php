@@ -19,6 +19,7 @@ else
 while ($row = $category->fetch_assoc()) 
 {
     $categoryName = $row["categoryname"];
+    $categoryID = $db->real_escape_string($q2);
     $category_data = array(
         "title" => htmlspecialchars($row["categoryname"]),
         "desc" => formatPost($row["categorydescription"]),
