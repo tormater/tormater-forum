@@ -26,19 +26,19 @@ else
 	{
 		$cat = $db->query("SELECT 1 FROM categories WHERE categoryid='" . $db->real_escape_string($_POST["category"]) . "'");
 		
-		if (mb_strlen($_POST["title"]) < 1)
+		if (mb_strlen(trim($_POST["title"])) < 1)
 		{
 			message($lang["newthread.TitleEmpty"]);
 			$catSave = $_POST["category"];
-			$titleSave = $_POST["title"];
+			$titleSave = trim($_POST["title"]);
 			$contentSave = $_POST["content"];
 		}
 		
-		elseif (mb_strlen($_POST["title"]) > $config["maxCharsPerTitle"])
+		elseif (mb_strlen(trim($_POST["title"])) > $config["maxCharsPerTitle"])
 		{
             message(sprintf($lang["newthread.TitleBig1"], $config["maxCharsPerTitle"]));
 			$catSave = $_POST["category"];
-			$titleSave = $_POST["title"];
+			$titleSave = trim($_POST["title"]);
 			$contentSave = $_POST["content"];
 		}
 		
@@ -46,7 +46,7 @@ else
 		{
 			message($lang["newthread.PostEmpty"]);
 			$catSave = $_POST["category"];
-			$titleSave = $_POST["title"];
+			$titleSave = trim($_POST["title"]);
 			$contentSave = $_POST["content"];
 		}
 			
@@ -62,7 +62,7 @@ else
 		{
 			message($lang["newthread.InvalidCategory"]);
 			$catSave = $_POST["category"];
-			$titleSave = $_POST["title"];
+			$titleSave = trim($_POST["title"]);
 			$contentSave = $_POST["content"];
 		}
 		
@@ -75,7 +75,7 @@ else
 			{
                 message(sprintf($lang["newthread.PostSoon1"], $config["postDelay"]));
 				$catSave = $_POST["category"];
-				$titleSave = $_POST["title"];
+				$titleSave = trim($_POST["title"]);
 				$contentSave = $_POST["content"];
 			}
 			
@@ -101,7 +101,7 @@ else
                         $draft = "0";
                     }
 		
-					$threadresult = $db->query("INSERT INTO threads (title, sticky, locked, posts, startuser, starttime, lastpostuser, lastposttime, category, draft) VALUES ('" . $db->real_escape_string($_POST["title"]) . "', '0', '0', '1', '$userid', '$justnow', '$userid', '$justnow', '" . $db->real_escape_string($_POST["category"]) . "', '" . $db->real_escape_string($draft) . "')");
+					$threadresult = $db->query("INSERT INTO threads (title, sticky, locked, posts, startuser, starttime, lastpostuser, lastposttime, category, draft) VALUES ('" . $db->real_escape_string(trim($_POST["title"])) . "', '0', '0', '1', '$userid', '$justnow', '$userid', '$justnow', '" . $db->real_escape_string($_POST["category"]) . "', '" . $db->real_escape_string($draft) . "')");
 			
 					if (!$threadresult)
 					{
