@@ -75,7 +75,7 @@ $data["meta"] = ob_get_contents();
 ob_end_clean();
 
 if (isset($_GET["search"]) && !empty($_GET["search"])) {
-    $data["searchText"] = urldecode($_GET["search"]);
+    $data["searchText"] = htmlspecialchars(urldecode($_GET["search"]));
 }
 
 if (isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
