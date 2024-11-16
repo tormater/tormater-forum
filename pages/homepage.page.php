@@ -23,7 +23,7 @@ $threads = $db->query("SELECT * FROM threads WHERE draft='0' ORDER BY lastpostti
 
 while($row = $categories->fetch_assoc()) 
 {
-    $numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "' ORDER BY lastposttime DESC");
+    $numthreads = $db->query("SELECT * FROM threads WHERE draft='0' AND category='" . $row["categoryid"] . "' ORDER BY lastposttime DESC");
     $trow = $numthreads->fetch_assoc();
     $title = "";
     $user = "";
