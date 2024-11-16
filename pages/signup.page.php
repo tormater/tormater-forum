@@ -11,14 +11,14 @@ echo '<h2>' . $lang["register.Header"] . '</h2>';
 
 // If registration is closed, disallow signups.
 if ($config["registration"] == "closed") {
-    message($lang["register.Closed"]);
-    include "footer.php";
-    exit;
+  message($lang["register.Closed"]);
+  include "footer.php";
+  exit;
 }
 if ($_SESSION["signed_in"] == true) {
-    message($lang["nav.AdminsOnly"]);
-    include "footer.php";
-    exit;
+  message($lang["nav.AdminsOnly"]);
+  include "footer.php";
+  exit;
 }
 
 if($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -165,10 +165,10 @@ function registerUser() {
     global $db, $lang, $config;
     // Construct the query.
 	// First we need to generate our salt in order to salt the password.
-	$salt = random_str(64);
+	$salt = "";
 	$username = $_POST['user_name'];
 	$email = $_POST['user_email'];
-	$password = hashstring($salt . $_POST['user_pass']);
+	$password = password_hash($_POST['user_pass'], PASSWORD_DEFAULT);
 	$role = "Member";
 	$jointime = time();
     $lastactive = time();
