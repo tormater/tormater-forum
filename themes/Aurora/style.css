@@ -1019,7 +1019,14 @@ font.sticky, font.locked, font.draft, font.pinned {
     border-left: 5px solid var(--c-gradient-top); 
     background-color: rgba(0,0,0,.05);
     padding: 8px 15px;
-    margin: 0px;
+    display: inline-block;
+    margin: 1em 0px;
+}
+.postquote:nth-child(2) { /* :( */
+    margin-top: 0px;
+}
+.postquote:last-child {
+    margin-bottom: 0px;
 }
 /* Settings/Admin panel */
 
