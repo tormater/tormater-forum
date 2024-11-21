@@ -389,8 +389,16 @@ else
 
 	while($row = $posts->fetch_assoc())
 	{
+		$isHidden = isset($row["deletedby"]);
+		listener("beforeRenderPost", $row, $isHidden);
+		
 		$userinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["user"] . "'");
-			
+		
+		$hiddenClass = "";
+		if ($isHidden)
+		{
+		    $hiddenClass = " hidden";
+		}
 		while($u = $userinfo->fetch_assoc())
 		{			
 
@@ -402,11 +410,11 @@ else
             	$deletedClass = "";
             }
             
-			echo '<div class="post' . $deletedClass . '"><div postcolor="' . $u["color"] . '" class="thread">';
+			echo '<div class="post' . $deletedClass . $hiddenClass . '"><div postcolor="' . $u["color"] . '" class="thread' . $hiddenClass . '">';
             
-			drawUserProfile($u["userid"], 0);
+			drawUserProfile($u["userid"], 0, $isHidden);
 
-			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true)) && (!isset($row["deletedby"])))
+			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true)) && !$isHidden)
 			{
                 echo '<div>';
 				echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
@@ -417,7 +425,7 @@ else
 
 			listener("afterPostInfo");
 
-			if ((isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))) && (!isset($row["deletedby"])))
+			if ((isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))) && !$isHidden)
 			{
 				echo '</div></div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
 				BBCodeButtons(2);
@@ -428,9 +436,10 @@ else
 			else
 			{
 
-                echo '</div></div><div class="threadcontent">';
-                if (isset($row["deletedby"]))
-			    {
+		if (!$isHidden) echo '</div>';
+                echo '</div><div class="threadcontent">';
+                if ($isHidden)
+		{
                     echo '<div class="infobar hiddenBar">';
                 }
                 else 
@@ -440,7 +449,7 @@ else
                 
                 echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span>";
 
-                if (isset($row["deletedby"]))
+                if ($isHidden)
 			    {
                     $hider = $db->query("SELECT * FROM users WHERE userid='" . $row["deletedby"] . "'");
     
@@ -463,7 +472,7 @@ else
                     {
 						echo '<form class="rpostc" method="post"><button name="restore" class="buttoninput buttonquote restoreButton" value="' . $row["postid"] . '">'.$lang["post.RestoreHiddenBtn"].'</button></form>';
                     }
-                    else
+                    else if (!$isHidden)
                     {
                         echo "<button class='buttoninput buttonquote' onclick='quotePost(" . $row["postid"] . ")'>" . $lang["thread.QuotePost"] . "</button>";
                     }
