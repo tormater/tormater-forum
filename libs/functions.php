@@ -744,7 +744,7 @@ function drawNavigation() {
     return $nav;
 }
 
-function drawUserProfile($userid, $type) {
+function drawUserProfile($userid, $type, $isHidden=false) {
 
     global $db, $lang, $config;
 
@@ -762,7 +762,7 @@ function drawUserProfile($userid, $type) {
 		$avatar = $row["avatar"];
 		$avatarTime = $row["avataruploadtime"];
     }
-        if ((time() - $lastactive) <= $config["onlinePeriod"])
+        if ((time() - $lastactive) <= $config["onlinePeriod"] && !$isHidden)
 	    {
 	    	echo '<span class="online">' . $lang["nav.Online"] . '</span>';
 	    }
@@ -773,7 +773,7 @@ function drawUserProfile($userid, $type) {
         echo '</b>';
 
         // Draw the role box
-
+	if (!$isHidden) {
 		if ($type == 1 and ($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
@@ -841,6 +841,7 @@ function drawUserProfile($userid, $type) {
 		{				
 			echo '<div class="userrole">' . $lang["role." . $role];
 		}
+	}
 }
 
 // Display a user's information, used by userlists.
