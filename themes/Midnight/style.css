@@ -109,6 +109,14 @@ input:focus {
     color: #fff;
 }
 
+.postcode {
+    background: #222;
+    box-shadow: 0px 1px inset #2b2b2b;
+    border: 1px solid rgb(26, 26, 26);
+    border-bottom-width: 2px;
+    color: #4d8fc1;
+}
+
 .message a {
     color: #7cf0fc;
     text-decoration: none;
