@@ -127,9 +127,10 @@ elseif (isset($pages[$q1])) require $pages[$q1];
 elseif (isset($functionPages[$q1])) call_user_func($functionPages[$q1]);
 elseif (!$q1) require $fallbackPage;
 else {
+	http_response_code(404);
 	include "pages/header.php";
-	$data = array("title" => $lang["error.SomethingWentWrong"], "message" => message($lang["error.PageNotFound"],true));
-	echo $template->render("templates/generic/page_message.html", $data);
+	$data = array("title" => $lang["error.SomethingWentWrong"], "message" => message($lang["error.PageNotFound"],true), "back" => $lang["error.GoBack"]);
+	echo $template->render("templates/fatal.html", $data);
 	include "pages/footer.php";
 }
 
