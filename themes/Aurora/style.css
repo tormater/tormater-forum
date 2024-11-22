@@ -953,15 +953,14 @@ font.sticky, font.locked, font.draft, font.pinned {
 .previewbox {
     display: block;
     padding: 8px;
-    background: #F6F6F6;
+    background: var(--bg-secondary);
     box-sizing: border-box;
-    box-shadow: 0px 1px inset #fff;
-    border: 1px solid var(--input-border);
+    border: 1px solid var(--border-secondary);
     border-radius: 0 0 8px 8px;
     margin-bottom: 8px;
     margin-top: -12px;
     border-top-width: 4px;
-    color: #000000;
+    color: var(--text-heavy);
 }
 
 .postimg {
