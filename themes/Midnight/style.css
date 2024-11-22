@@ -1,0 +1,224 @@
+@import url("../Aurora/style.css");
+
+/* Base Styles. */
+:root {
+  --c-gradient-top: #7e79c4;
+  --c-gradient-medium: #585b91;
+  --c-gradient-bottom: #464a82;
+  --c-gradient-bottom-darker: #3b3d62;
+  --c-highlight: #8588ae;
+  --c-border: #464a82;
+  
+  --slate: #2b3235;
+  
+  --input: #fff;
+  --input-text: #000;
+  
+  --bg-primary: #131313;
+  --bg-secondary: #1e1e1e;
+  --bg-tertiary: #151515;
+  
+  --border-primary: #333;
+  --border-secondary: #333;
+  
+  --text-light: #aaa;
+  --text-medium: #ddd;
+  --text-heavy: #fff;
+  
+  --button-g-top: #7b7b7b;
+  --button-g-bottom: #000;
+  
+  --input-border: #444;
+  --input-border-bold: #444;
+  
+  --button-text: #fff;
+  --button-text-disabled: #ccc;
+  
+  --widget-g-top: #4b4b4b;
+  --widget-g-bottom: #000;
+  --widget-border: #555;
+  --widget-highlight: #000;
+  
+  accent-color: var(--c-gradient-bottom);
+}
+
+body {
+  background: linear-gradient(var(--c-gradient-bottom-darker), var(--bg-tertiary) 80px);
+  background-repeat: no-repeat;
+  background-color: var(--bg-tertiary);
+}
+a {
+  color: #64ccff;
+}
+
+#Member {
+    color: #fff;
+}
+
+#Administrator {
+    color: #5fc;
+}
+
+#Moderator {
+    color: #3bf;
+}
+
+#Suspended {
+    color: #ddd;
+}
+
+#userbar #Administrator {
+    color: #004f31;
+}
+#userbar #Moderator {
+    color: #003c7b;
+}
+#userbar #Member {
+    color: #000;
+}
+#userbar a {
+    color: #00529b;
+}
+
+
+#menu {
+    border: 1px solid #626b6f;
+}
+
+td {
+    border-bottom: 1px solid #ffffff26;
+    border-right: 1px solid #ffffff26;
+}
+tr:nth-child(2n) {
+  background: none;
+}
+
+.postc button {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+input:focus {
+    background: var(--button-g-bottom);
+}
+
+.message {
+    background: linear-gradient(#4a5269, #656c81);
+    box-shadow: 0px 1px inset #727b97;
+    text-shadow: 0 1px #3a3f4e;
+    border: 1px solid #3a4050;
+    color: #fff;
+}
+
+.message a {
+    color: #7cf0fc;
+    text-decoration: none;
+}
+
+.threadbutton {
+    background-image: linear-gradient(#9d9d9dad 0%, #84848421 50%, #0000005e 50%, #35353533 100%);
+    border: 1px solid var(--c-gradient-bottom);
+}
+.searchbutton {
+    background-image: linear-gradient(#9d9d9dad 0%, #84848421 50%, #0000005e 50%, #35353533 100%);
+}
+.paginationdots {
+    background: linear-gradient(#444,#111);
+    color: var(--text-medium);
+}
+#forumheader {
+    background-image: linear-gradient(#9d9d9dad 0%, #84848421 50%, #0000005e 50%, #35353533 100%);
+    box-shadow: none;
+}
+th {
+    background-image: linear-gradient(#9d9d9dad 0%, #84848421 50%, #0000005e 50%, #35353533 100%);
+}
+.thread, .usertop, .userlist-top {
+    background-image: linear-gradient(#ffffff17, #fff0);
+    border: none;
+    box-shadow: none;
+}
+.threadcontent, .userbottom {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    border-left:none;
+}
+#editthread {
+    text-decoration-color: var(--text-light);
+}
+.postquote {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+.userextra {
+    border: none;
+    box-shadow: none;
+}
+@media (max-width: 800px) {
+    .threadcontent,
+    .userbottom {
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+[postcolor="1"] {
+    background-color: #21434f;
+}
+
+[postcolor="2"] {
+    background-color: #104610;
+}
+
+[postcolor="3"] {
+    background-color: #866500;
+}
+
+[postcolor="4"] {
+    background-color: rgb(145, 0, 0);
+}
+
+[postcolor="5"] {
+    background-color: #75003a;
+}
+
+[postcolor="6"] {
+    background-color: rgb(48, 16, 111);
+}
+
+[postcolor="7"] {
+    background-color: rgb(138, 50, 19);
+}
+
+[postcolor="8"] {
+    background-color: rgb(45, 69, 115);
+}
+
+[postcolor="9"] {
+    background-color: #222239;
+}
+
+[postcolor="10"] {
+    background-color: rgb(49, 42, 38);
+}
+
+[postcolor="11"] {
+    background-color: #806533;
+}
+
+[postcolor="12"] {
+    background-color: rgb(87, 62, 40);
+}
+
+[postcolor="13"] {
+    background-color: rgb(26, 108, 63);
+}
+
+[postcolor="14"] {
+    background-color: rgb(145, 81, 0);
+}
+
+[postcolor="15"] {
+    background-color: #550f55;
+}
+
+[postcolor="16"] {
+    background-color: #222324;
+}
