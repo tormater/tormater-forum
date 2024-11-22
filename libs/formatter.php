@@ -8,6 +8,12 @@ if (!defined("INDEXED")) exit;
 function formatBBCode($post)
 {
     $returnPost = htmlspecialchars($post);
+    
+    $returnPost = preg_replace_callback("/\[code\](.+?)\[\/code\]/is", function($match) {
+        // We convert to html entities here so that the next RegEx function doesn't format inside the code block.
+        return '<code class="postcode">' . str_replace(array('[', ']'), array('&#91;', '&#93;'), $match[1]) . '</code>';
+    }, $returnPost);
+    
     $find = array(
         '/\[b\](.+?)\[\/b\]/is',
         '/\[i\](.+?)\[\/i\]/is',
@@ -22,7 +28,7 @@ function formatBBCode($post)
         '/\[color=(.+?)\](.+?)\[\/color\]/is',
         '/\[size=([0-3][0-9][0-9])\](.+?)\[\/size\]/is',
         '/\[size=([8-9][0-9])\](.+?)\[\/size\]/is',
-        '/\[code\](.+?)\[\/code\]/is',
+        //'/\[code\](.+?)\[\/code\]/is',
         '/\[pre\](.+?)\[\/pre\]/is',
         '/\[h\](.+?)\[\/h\]/is',
         '/\[h2\](.+?)\[\/h2\]/is',
@@ -50,7 +56,7 @@ function formatBBCode($post)
         '<font color="$1">$2</font>',
         '<font style="font-size: $1%;">$2</font>',
         '<font style="font-size: $1%;">$2</font>',
-        '<code class="postcode">$1</code>',
+        //'<code class="postcode">$1</code>',
         '<pre class="postpre">$1</pre>',
         '<span class="postheader">$1</span>',
         '<span class="postsubheader">$1</span>',
@@ -66,6 +72,7 @@ function formatBBCode($post)
 
     listener("beforeFormatBBCode");
     $returnPost = preg_replace($find, $replace, $returnPost);
+    $returnPost = str_replace(array('&#91;', '&#93;'), array('[', ']'), $returnPost);
     return $returnPost;
 }
 function formatPost($post)
