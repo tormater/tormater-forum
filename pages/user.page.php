@@ -108,8 +108,7 @@ else
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'</label>' . $uposts . '</span>
 			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label>' . $uthreads . '</span>
-			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>
-			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleDeleted"].'</label>' . $deleted . '</span>';
+			<span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>';
 	}
 
 echo '</div></div>';
