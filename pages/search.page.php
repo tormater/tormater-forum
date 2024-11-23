@@ -26,6 +26,12 @@ function buildSearchQuery($get) {
             $author = 1;
         }
     }
+    if ($get["category"] != null) {
+        $category = $db->query("SELECT 1 FROM categories WHERE categoryid='" . $db->real_escape_string(urldecode($get["category"])) . "'");
+        if ($category->num_rows) {
+            addToQuery("category='". $db->real_escape_string(urldecode($get["category"])) . "'", $query, $and);
+        }
+    }
     if ($get["user"] != null) {
         $user = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string(urldecode($get["user"])) . "'");
         if ($user->num_rows) {
