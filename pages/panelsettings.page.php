@@ -7,6 +7,7 @@ if (!defined("INDEXED")) exit;
 
 if($_SERVER['REQUEST_METHOD'] != 'POST')
 {
+    echo ("<script type='text/javascript' src='" . genURL("assets/panel.js") . "'></script>");
     echo '<br/>';
 	// Display the change forum name form.
 	echo '<h3>' . $lang["panel.BasicSettings"] . '</h3>
@@ -51,10 +52,10 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     }
     echo '</div><h3>' . $lang["panel.ForumColor"] . '</h3><div class="formcontainer">';
     echo '<div class="forminput"><label class="colorLabel">' . $lang["panel.NewColor"] . '</label>';
-    echo '<input type="radio" class="colorRadio" name="color" ' . $newchecked . ' value="new">';
-    echo "<input type='color' class='forumColor' name='newcolor' value='" . $presetColor . "';></div>";
+    echo '<input type="radio" class="colorRadio" id="newcolor" name="color" ' . $newchecked . ' value="new">';
+    echo "<input type='color' class='forumColor' onchange='checkColorRadio();' name='newcolor' value='" . $presetColor . "';></div>";
     echo '<div class="forminput"><label class="colorLabel">' . $lang["panel.Reset"] . '</label>';
-    echo '<input type="radio" class="colorRadio" name="color" ' . $defaultchecked . ' value="default">';
+    echo '<input type="radio" class="colorRadio" id="olcolor" name="color" ' . $defaultchecked . ' value="default">';
     echo '</div></div>';
 
     // Display the advanced settings.
@@ -70,14 +71,14 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     {
         echo 'checked';
     }
-    echo '> <label for="userlist">' . $lang["panel.EnabledBtn"] . '</label></div>
+    echo '></div>
     <div class="forminput"><label>' . $lang["panel.UserlistMemberOnly"] . '</label>
     <input type="checkbox" name="newuserlistMembersOnly" id="userlistMember" value="'. $config["userlistMembersOnly"] .'" ';
     if ($config["userlistMembersOnly"] == 1)
     {
         echo 'checked';
     }
-    echo '> <label for="userlistMember">' . $lang["panel.EnabledBtn"] . '</label></div>';
+    echo '></div>';
 
     echo '<div class="forminput"><label>' . $lang["panel.showDeletedInUserlist"] . '</label>
     <input type="checkbox" name="showDeletedInUserlist" id="userlistDeleted" value="'. $config["showDeletedInUserlist"] .'" ';
@@ -85,7 +86,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     {
         echo 'checked';
     }
-    echo '> <label for="userlistDeleted">' . $lang["panel.EnabledBtn"] . '</label></div>';
+    echo '></div>';
 
     $options = array("open", "closed", "approval");
     echo "<label>" . $lang["panel.Registration"] . "</label><select name='registration'>";
