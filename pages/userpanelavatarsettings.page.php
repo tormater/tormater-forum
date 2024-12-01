@@ -13,7 +13,7 @@ if ($config["avatarUploadsDisabled"] == true) {
 
 // Handle post requests.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_FILES["uploadedFile"])) {
+    if (isset($_FILES["uploadedFile"]) && $_FILES["uploadedFile"]["size"]) {
         $timeCheck = $db->query("SELECT avataruploadtime FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 
         while ($t = $timeCheck->fetch_assoc()) {
@@ -60,8 +60,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 }
 
                 $src = imagecreatefromjpeg($_FILES["uploadedFile"]["tmp_name"]);
-                $dst = imagecreatetruecolor($w, $h);
-                imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+                $dst = imagecreatetruecolor((int)$w, (int)$h);
+                imagecopyresampled($dst, $src, 0, 0, 0, 0, (int)$w, (int)$h, $width, $height);
                 removeAvatar($_SESSION["userid"]);
                 imagejpeg($dst, "avatars/" . $_SESSION["userid"] . $extension);
                 if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
