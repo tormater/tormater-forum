@@ -260,51 +260,51 @@ function relativeTime($timestamp) {
 		return $diff . ' ' . $lang["time.SecAgo"];
 	}
 	
-	elseif ($diff >= 60 && $diff <= 120) {
+	elseif ($diff >= 60 && $diff <= 60*2) {
 		return $lang["time.1MinAgo"];
 	}
 	
-	elseif ($diff > 120 && $diff < 3600) {
+	elseif ($diff > 60*2 && $diff < 60*60) {
 		return round($diff / 60) . ' ' . $lang["time.MinAgo"];
 	}
 	
-	elseif ($diff >= 3600 && $diff <= 7200) {
+	elseif ($diff >= 60*60 && $diff <= 60*60*2) {
 		return $lang["time.1HrAgo"];
 	}
 	
-	elseif ($diff > 7200 && $diff < 86400) {
+	elseif ($diff > 60*60*2 && $diff < 60*60*24) {
 		return round(($diff / 60) / 60) . ' ' . $lang["time.HrsAgo"];
 	}
 	
-	elseif ($diff >= 86400 && $diff <= 172800) {
+	elseif ($diff >= 60*60*24 && $diff <= 60*60*24*2) {
 		return $lang["time.1DayAgo"];
 	}
 	
-	elseif ($diff > 172800 && $diff < 604800) {
+	elseif ($diff > 60*60*24*2 && $diff < 60*60*24*7) {
 		return round((($diff / 60) / 60) / 24) . ' ' . $lang["time.DaysAgo"];
 	}
 	
-	elseif ($diff >= 604800 && $diff <= 1209600) {
+	elseif ($diff >= 60*60*24*7 && $diff <= 60*60*24*7*2) {
 		return $lang["time.1WeekAgo"];
 	}
 	
-	elseif ($diff > 1209600 && $diff < 2419200) {
+	elseif ($diff > 60*60*24*7*2 && $diff < 60*60*24*7*4) {
 		return round(((($diff / 60) / 60) / 24) / 7) . ' ' . $lang["time.WeeksAgo"];
 	}
 	
-	elseif ($diff >= 2419200 && $diff <= 4838400) {
+	elseif ($diff >= 60*60*24*7*4 && $diff <= 60*60*24*7*4*2) {
 		return $lang["time.1MonthAgo"];
 	}
 	
-	elseif ($diff > 4838400 && $diff < 29030400) {
+	elseif ($diff > 60*60*24*7*4*2 && $diff < 60*60*24*7*4*12) {
 		return round((((($diff / 60) / 60) / 24) / 7) / 4) . ' ' . $lang["time.MonthsAgo"];
 	}
 	
-	elseif ($diff >= 29030400 && $diff <= 58060800) {
+	elseif ($diff >= 60*60*24*7*4*12 && $diff <= 60*60*24*7*4*12*2) {
 		return $lang["time.1YearAgo"];
 	}
 	
-	elseif ($diff > 58060800) {
+	elseif ($diff > 60*60*24*7*4*12*2) {
 		return round(((((($diff / 60) / 60) / 24) / 7) / 4) / 12) . ' ' . $lang["time.YearsAgo"];
 	}
 }
