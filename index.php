@@ -65,6 +65,9 @@ else {
 $config["baseURL"] = rtrim($config["baseURL"], '/');
 
 // Get our language file
+require 'lang/EN_US.php';
+$lang_compat = $lang;
+unset($lang);
 if(is_null($config["forumLang"]) or !isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
 {
 	require 'lang/EN_US.php';
@@ -72,6 +75,12 @@ if(is_null($config["forumLang"]) or !isset($config["forumLang"]) or !file_exists
 else
 {
 	require 'lang/' . $config["forumLang"] . '.php';
+}
+
+foreach($lang_compat as $k => $v) {
+    if (!array_key_exists($k, $lang)) {
+        $lang[$k] = "Missing: &#39;" . $k . "&#39;";
+    }
 }
 
 // If a session doesn't exist, set one.
