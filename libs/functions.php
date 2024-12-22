@@ -200,20 +200,27 @@ function message($content, $return=false) {
 
 // Outputs the data of an array into a file, like the config.
 function saveConfig($file, $array) {
+    if (!is_writeable("config")) return false;
     $getArray = var_export($array, true);
     listener("beforeSaveConfig", $getArray, $array, $file);
-    file_put_contents($file, '<?php '.PHP_EOL. '$config = '. $getArray .';' .PHP_EOL. '?>');
+    $success = file_put_contents($file, '<?php '.PHP_EOL. '$config = '. $getArray .';' .PHP_EOL. '?>');
     listener("afterSaveConfig");
+    if (!$success) return false;
+    else return true;
 }
 
 function saveExtensionConfig($file, $array) {
+    if (!is_writeable("config")) return false;
     $getArray = var_export($array, true);
     listener("beforeSaveExtensionConfig", $getArray, $array, $file);
-    file_put_contents($file, '<?php '.PHP_EOL. '$extensions = '. $getArray .';' .PHP_EOL. '?>');
+    $success = file_put_contents($file, '<?php '.PHP_EOL. '$extensions = '. $getArray .';' .PHP_EOL. '?>');
     listener("afterSaveExtensionConfig");
+    if (!$success) return false;
+    else return true;
 }
 
 function saveExtensionSettingsConfig($file, &$array) {
+    if (!is_writeable("config")) return false;
     global $allExtensions;
     foreach ($allExtensions as $e) {
         if (file_exists("extensions/" . $e . "/manifest.json"))
@@ -229,7 +236,9 @@ function saveExtensionSettingsConfig($file, &$array) {
         }
     }
     $getArray = var_export($array, true);
-    file_put_contents($file, '<?php '.PHP_EOL. '$extension_config = '. $getArray .';' .PHP_EOL. '?>');
+    $success = file_put_contents($file, '<?php '.PHP_EOL. '$extension_config = '. $getArray .';' .PHP_EOL. '?>');
+    if (!$success) return false;
+    else return true;
 }
 
 // Get the name of an extension given it's file path
