@@ -18,6 +18,10 @@ echo "<body>";
 echo "<center><img src='install/logo.svg'></center>";
 echo "<div id='content'>";
 
+// Make sure directories that need to be written to are writeable.
+if (!is_writeable("config")) message("Warning: config directory isn't writeable. Make sure it exists and its permissions are set properly.");
+if (!is_writeable("avatars")) message("Warning: avatars directory isn't writeable. Make sure it exists and its permissions are set properly.");
+
 // Handle post requests.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Make sure the MySQL details have been inputted.
