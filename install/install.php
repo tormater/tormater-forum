@@ -173,11 +173,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $config["MySQLUser"] = $_POST["MySQLUser"];
         $config["MySQLPass"] = $_POST["MySQLPassword"];
         $config["baseURL"] = rtrim((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", "/");
-        saveConfig("./config/config.php", $config);
-
-        message("Database and config successfully written. You can now view your forum.");
-        echo "</div></body></html>";
-        exit;
+	    
+        if (saveConfig("./config/config.php", $config)) {
+            message("Database and config successfully written. You can now view your forum.");
+            echo "</div></body></html>";
+            exit;
+	}
+	else {
+	    message("Error: failed to write config file. Make sure the config directory exists and is writeable.");
+            echo "</div></body></html>";
+            exit;
+	}
     }
 }
 
