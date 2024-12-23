@@ -76,9 +76,9 @@ if (isset($errors) and !empty($errors)) {
 
 echo "<div class='formcontainer'><form method='post' action=''>
 <div class='forminput'><label><abbr title='" . $lang["register.UsernameDesc"] . "'>" . $lang["register.Username"] . "</abbr></label><input type='text' name='user_name' autocomplete='username' value='" . @htmlspecialchars(@$_POST["user_name"]) . "' /></div>
-<div class='forminput'><label><abbr title='" . $lang["register.EmailDesc"] . "'>" . $lang["register.Email"] . "</abbr></label><input type='email' name='user_email' value='" . @$_POST["user_email"] . "'></div>
-<div class='forminput'><label><abbr title='" . sprintf($lang["register.PasswordDesc"], "6") . "'>" . $lang["register.Password"] . "</abbr></label><input type='password' name='user_pass' value='" . @$_POST["user_pass"] . "'></div>
-<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . @$_POST["user_pass_check"] . "'></div>";
+<div class='forminput'><label><abbr title='" . $lang["register.EmailDesc"] . "'>" . $lang["register.Email"] . "</abbr></label><input type='email' name='user_email' value='" . @htmlspecialchars($_POST["user_email"]) . "'></div>
+<div class='forminput'><label><abbr title='" . sprintf($lang["register.PasswordDesc"], "6") . "'>" . $lang["register.Password"] . "</abbr></label><input type='password' name='user_pass' value='" . @htmlspecialchars($_POST["user_pass"]) . "'></div>
+<div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . @htmlspecialchars($_POST["user_pass_check"]) . "'></div>";
 if ($config["captchaEnabled"] == true) {
   echo "<br/><div class='forminput'><label>" . $lang["register.Captcha"] . "</label><input type='text' name='captcha'></div>";
   echo "<small class='captchalabel'>" . $lang["register.CaptchaHint"] . "</small>";
