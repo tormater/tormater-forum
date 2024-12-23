@@ -7,7 +7,7 @@ if (!defined("INDEXED")) exit;
 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
-  $res = $db->query("SELECT password FROM users WHERE username = '" . $_SESSION['username'] . "'");
+  $res = $db->query("SELECT password FROM users WHERE username = '" . $db->real_escape_string($_SESSION['username']) . "'");
   if(!$res) {
     $errors[] = $lang["error.Database"];
   }
