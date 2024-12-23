@@ -104,7 +104,7 @@ if ($config['installed'] != "no" && isset($_SESSION["signed_in"]) && $_SESSION["
 		if (isset($_SESSION["verified"]) && ($r["verified"] != $_SESSION["verified"])) {
 			$_SESSION["verified"] = $r["verified"];
 		}
-		if (isset($_SESSION["verified"]) && ($r["deleted"] != $_SESSION["deleted"])) {
+		if (isset($_SESSION["deleted"]) && ($r["deleted"] != $_SESSION["deleted"])) {
 			$_SESSION["deleted"] = $r["deleted"];
 		}
 	}
