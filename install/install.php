@@ -40,9 +40,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
+    // Check if this database is already populated with forum-related tables.
+    if ($db !== null) {
+        $dbName = $db->real_escape_string($_POST["MySQLDatabase"]);
+        $tablesExist = $db->query("SHOW TABLES FROM {$dbName} WHERE tables_in_{$dbName} like 'categories' OR
+	tables_in_{$dbName} like 'posts' OR
+        tables_in_{$dbName} like 'threads' OR
+	tables_in_{$dbName} like 'users' OR
+        tables_in_{$dbName} like 'logins' OR
+	tables_in_{$dbName} like 'drafts' OR
+        tables_in_{$dbName} like 'auditlog'");
+    }
+
     // This is here to inform the admin that the MySQL connection failed.
     if ($db === null) {
         message("Error: MySQL connection failed.");
+    }
+
+    // If any forum-related tables (or tables with the same names) exist, print an error.
+    elseif ($tablesExist->num_rows > 0) {
+        message("Error: SQL database has already been written. Create a new database or drop all forum-related tables from the existing one and try again.");
     }
 
     // Make sure the admin's username isn't too short or empty.
