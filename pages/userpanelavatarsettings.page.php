@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mime = image_type_to_mime_type($type);
 
         // First, make sure the mime type is what we want and various other checks to ensure the file is valid.
-        if ((($mime == "image/jpeg") or ($mime == "image/png") or ($mime == "image/gif")) and $width and $height and isset($width) and isset($height) and isset($_FILES["uploadedFile"]["error"]) and (!is_array($_FILES["uploadedFile"]["error"])) and ($_FILES["uploadedFile"]["error"] === 0) and ($_FILES["uploadedFile"]["size"] < 500000000)) {
+        if ((($mime == "image/jpeg") or ($mime == "image/png") or ($mime == "image/gif")) and $width and $height and isset($width) and isset($height) and isset($_FILES["uploadedFile"]["error"]) and (!is_array($_FILES["uploadedFile"]["error"])) and ($_FILES["uploadedFile"]["error"] === 0) and ($_FILES["uploadedFile"]["size"] < $config["maxAvatarSize"])) {
             // If everything looks good, get ready to upload the image and base its extension off the mime type.
             if ($mime == "image/jpeg") {
                 $extension = ".jpg";
