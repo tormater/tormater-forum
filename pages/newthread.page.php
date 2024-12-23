@@ -179,7 +179,7 @@ else
 					
 			BBCodeButtons(1);
 			echo '<div class="forminput"><textarea name="content" id="textbox1">';
-			if (isset($contentSave)) echo $contentSave;
+			if (isset($contentSave)) echo htmlspecialchars($contentSave);
 			echo '</textarea></div>';
             echo '<div id="previewbox1" class="previewbox" style="display:none"></div>';
 			echo '<div class="forminput"><div class="forminput left"><input type="submit" class="buttonbig" value="' . $lang["newthread.CreateBtn"] . '"> ';
