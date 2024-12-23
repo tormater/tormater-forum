@@ -217,22 +217,22 @@ echo("
 <form method='post' autocomplete='on'>
 <h3>MySQL Details</h3><br/>
 <div class='field'><label>MySQL Server:</label>
-<input type='text' id='MySQLServer' name='MySQLServer' value='" . ($_POST["MySQLServer"] ?? "") . "'></div>
+<input type='text' id='MySQLServer' name='MySQLServer' value='" . htmlspecialchars($_POST["MySQLServer"] ?? "") . "'></div>
 <div class='field'><label>MySQL Database:</label>
-<input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . ($_POST["MySQLDatabase"] ?? "") . "'></div>
+<input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . htmlspecialchars($_POST["MySQLDatabase"] ?? "") . "'></div>
 <div class='field'><label>MySQL User:</label>
-<input type='text' id='MySQLUser' name='MySQLUser' value='" . ($_POST["MySQLUser"] ?? "") . "'></div>
+<input type='text' id='MySQLUser' name='MySQLUser' value='" . htmlspecialchars($_POST["MySQLUser"] ?? "") . "'></div>
 <div class='field'><label>MySQL Password:</label>
-<input type='text' id='MySQLPassword' name='MySQLPassword' value='" . ($_POST["MySQLPassword"] ?? "") . "'></div>
+<input type='text' id='MySQLPassword' name='MySQLPassword' value='" . htmlspecialchars($_POST["MySQLPassword"] ?? "") . "'></div>
 <h3>Administrator Account</h3><br/>
 <div class='field'><label>Username:</label>
-<input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . ($_POST["adminUsername"] ?? "") . "'></div>
+<input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . htmlspecialchars($_POST["adminUsername"] ?? "") . "'></div>
 <div class='field'><label>Email:</label>
-<input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . ($_POST["adminEmail"] ?? "") . "'></div>
+<input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . htmlspecialchars($_POST["adminEmail"] ?? "") . "'></div>
 <div class='field'><label>Password:</label>
-<input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . ($_POST["adminPassword"] ?? "") . "'></div>
+<input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . htmlspecialchars($_POST["adminPassword"] ?? "") . "'></div>
 <div class='field'><label>Confirm Password:</label>
-<input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . ($_POST["adminConfirm"] ?? "") . "'></div>
+<input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . htmlspecialchars($_POST["adminConfirm"] ?? "") . "'></div>
 <br>
 <input class='buttonbig' type='submit' value='Install Tormater Forum'>
 </form>");
