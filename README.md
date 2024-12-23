@@ -9,8 +9,8 @@
 - `MySQL` or `MariaDB`
 ### Installation
 1. Install the requirements, and create a MySQL user.
-2. Create a database for the forum.
-3. Upload the forum software to your server.
+2. Create a database for the forum, grant your user privileges on it.
+3. Upload the forum software to your server (using git is recommended).
 4. Navigate to your forum and fill out the installer.
 ### Help & Support
 - <a href="http://forum.tormater.com">Support forum</a>
