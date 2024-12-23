@@ -523,8 +523,8 @@ else
 		echo '<div class="forminput">' . $lang["thread.ContentTitle"] . '</div>';
 		BBCodeButtons(1);
 		echo '<div class="forminput"><textarea name="content" id="textbox1">';
-		if (isset($contentSave)) echo $contentSave;
-        elseif (isset($draftPost)) echo $draftPost;
+		if (isset($contentSave)) echo htmlspecialchars($contentSave);
+        elseif (isset($draftPost)) echo htmlspecialchars($draftPost);
 		echo '</textarea></div>';
         echo '<div id="previewbox1" class="previewbox" style="display:none"></div>';
 		echo '<div class="forminput left"><input type="submit" class="buttonbig" name="postReply" value="' . $lang["thread.PostReplyBtn"] . '"> ';
