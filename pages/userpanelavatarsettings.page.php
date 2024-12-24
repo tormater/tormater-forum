@@ -28,8 +28,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         list($width,$height,$type,$attr) = getimagesize($_FILES["uploadedFile"]["tmp_name"]);
         $mime = image_type_to_mime_type($type);
 
-        // First, make sure the mime type is what we want and various other checks to ensure the file is valid.
-        if ((($mime == "image/jpeg") or ($mime == "image/png") or ($mime == "image/gif")) and $width and $height and isset($width) and isset($height) and isset($_FILES["uploadedFile"]["error"]) and (!is_array($_FILES["uploadedFile"]["error"])) and ($_FILES["uploadedFile"]["error"] === 0) and ($_FILES["uploadedFile"]["size"] < $config["maxAvatarSize"])) {
+        // Check if the image's MIME type is one of the supported formats.
+        if (($mime != "image/jpeg") and ($mime != "image/png") and ($mime != "image/gif") and ($mime != "image/webp")) {
+            message("Error: unsupported image type. Make sure your image is a png/gif/jpg/webp.");
+        }
+        // Make sure the width and height is valid.
+        elseif  (!isset($width) or !isset($height) or ($width < 1) or ($height < 1)) {
+            message("Error: invalid image width/height.");
+        }
+        // Check for uploading errors.
+        elseif (!isset($_FILES["uploadedFile"]["error"]) or (is_array($_FILES["uploadedFile"]["error"])) or ($_FILES["uploadedFile"]["error"] !== 0)) {
+            message("Error: file upload failed.");
+        }
+        // Make sure the avatar isn't too big.
+        elseif ($_FILES["uploadedFile"]["size"] > $config["maxAvatarSize"]) {
+            message("Error: avatar filesize too large.");
+        }
+        else {
             // If everything looks good, get ready to upload the image and base its extension off the mime type.
             if ($mime == "image/jpeg") {
                 $extension = ".jpg";
@@ -67,6 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
                     $db->query("UPDATE users SET avatar='jpg', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
                     message($lang["userpanel.AvatarUploadSuccess"]);
+                }
+                else {
+                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
                 }
             }
             elseif ($mime == "image/png") {
@@ -111,6 +129,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $db->query("UPDATE users SET avatar='png', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
                     message($lang["userpanel.AvatarUploadSuccess"]);
                 }
+                else {
+                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
+                }
             }
             elseif ($mime == "image/gif") {
                 $extension = ".gif";
@@ -153,6 +174,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
                     $db->query("UPDATE users SET avatar='gif', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
                     message($lang["userpanel.AvatarUploadSuccess"]);
+                }
+                else {
+                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
+                }
+            }
+            elseif ($mime == "image/webp") {
+                $extension = ".webp";
+
+                // Only set the width to the config's max width if it exceeds it.
+                if ($config["avatarWidth"] >= $width) {
+                    $w = $width;
+                }
+                else {
+                    $w = $config["avatarWidth"];
+                }
+
+                // Only set the height to the config's max height if it exceeds it.
+                if ($config["avatarHeight"] >= $height) {
+                    $h = $height;
+                }
+                else {
+                    $h = $config["avatarHeight"];
+                }
+
+                $originalRatio = $width/$height;
+
+                if ($w/$h > $originalRatio) {
+                    $w = $h*$originalRatio;
+                }
+                else {
+                    $h = $w/$originalRatio;
+                }
+
+                $src = imagecreatefromwebp($_FILES["uploadedFile"]["tmp_name"]);
+                $dst = imagecreatetruecolor($w, $h);
+                
+                imagesavealpha($dst, true);
+                $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+                imagefill($dst, 0, 0, $transparent);
+
+                imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
+                removeAvatar($_SESSION["userid"]);
+                imagewebp($dst, "avatars/" . $_SESSION["userid"] . $extension);
+                if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
+                    $db->query("UPDATE users SET avatar='webp', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
+                    message($lang["userpanel.AvatarUploadSuccess"]);
+                }
+                else {
+                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
                 }
             }
         }
