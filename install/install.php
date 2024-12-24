@@ -186,7 +186,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
         $adminEmail = $_POST["adminEmail"];
         $db->query("INSERT INTO `users` (username, email, password, role, jointime, color, ip, salt, verified) VALUES ('" . $db->real_escape_string($_POST["adminUsername"]) . "', '" . $db->real_escape_string($adminEmail) . "', '" . $db->real_escape_string($adminHash) . "', 'Administrator', '" . time() . "', '1', '" . $db->real_escape_string($adminIP) . "', '" . $db->real_escape_string($adminSalt) . "' ,'1')");
         // Create the default category.
-        $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . $db->real_escape_string($lang["installer.GeneralCategoryName"]) . "', '" . $db->real_escape_string($lang["installer.GeneralCategoryDescription"]) . "', '" . 0 . "')");
+        $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . $db->real_escape_string($lang["installer.GeneralCategoryName"]) . "', '" . $db->real_escape_string($lang["installer.GeneralCategoryDescription"]) . "', '" . 0 . "')");
 
         // Now write our MySQL details to the config as well as whether the forum has been installed or not.
         $config["installed"] = "yes";
@@ -198,6 +198,13 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
 
 	// If everything worked, display a message saying so.
         if (saveConfig("./config/config.php", $config)) {
+            // Log the administrator in.
+            $_SESSION["signed_in"] = "true";
+            $_SESSION["userid"] = "1";
+            $_SESSION["username"] = $_POST["adminUsername"];
+            $_SESSION["role"] = "Administrator";
+
+            refresh(2);
             message($lang["installer.InstallSuccess"]);
             echo "</div></body></html>";
             exit;
@@ -205,8 +212,6 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
 	// If the config file failed to write, display an error message.
 	else {
 	    message($lang["installer.ConfigWriteFail"]);
-            echo "</div></body></html>";
-            exit;
 	}
     }
 }
