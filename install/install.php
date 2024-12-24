@@ -147,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             `deleted` tinyint(1) NOT NULL DEFAULT '0',
             `signature` varchar(512) DEFAULT NULL,
             `bio` varchar(2048) DEFAULT NULL,
-            `avatar` enum('none', 'png', 'jpg', 'gif') NOT NULL DEFAULT 'none',
+            `avatar` enum('none', 'png', 'jpg', 'gif', 'webp') NOT NULL DEFAULT 'none',
             `avataruploadtime` int unsigned DEFAULT NULL,
             PRIMARY KEY (`userid`),
             UNIQUE KEY `user_name` (`username`),
