@@ -26,19 +26,22 @@ else
 	$currentPage = 1;
 }
 
+$postsPerPage = (is_numeric($config["postsPerPage"]) ? (int)$config["postsPerPage"] : 10);
+if ($postsPerPage < 1) $postsPerPage = 1;
+
 while($row = $thread->fetch_assoc()) {
 	// Thread information.
 	$categoryID = $row['category'];
 	$title = $row['title'];
 	$locked = $row['locked'];
 	$stickied = $row['sticky'];
-    $draft = $row['draft'];
-    $startuser = $row['startuser'];
-    $pinned = $row['pinned'];
+        $draft = $row['draft'];
+        $startuser = $row['startuser'];
+        $pinned = $row['pinned'];
 	
 	// Important details for sorting the thread into pages.
 	$numPosts = $row['posts'];
-	$pages = ceil($numPosts / $config["postsPerPage"]);
+	$pages = ceil($numPosts / $postsPerPage);
 }
 
 include 'header.php';
@@ -46,9 +49,9 @@ include 'header.php';
 echo ("<script type='text/javascript' src='" . genURL("assets/thread.js") . "'></script>");
 
 // Calculate the offset for the posts query.
-$offset = (($currentPage * $config["postsPerPage"]) - $config["postsPerPage"]);
+$offset = (($currentPage * $postsPerPage) - $postsPerPage);
 
-$posts = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp LIMIT " . $config["postsPerPage"] . " OFFSET " . $offset . "");
+$posts = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp LIMIT " . $postsPerPage . " OFFSET " . $offset . "");
 
 // If the thread is a draft user isn't permitted to view it, don't let them.
 if (($draft == 1) and (($_SESSION["signed_in"] != true) or (($_SESSION["userid"] != $startuser) and (($_SESSION["role"] != "Moderator") and ($_SESSION["role"] != "Administrator")))))
@@ -81,43 +84,43 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 	elseif ($draft == 0)
 	{
 		// If the user is posting...
-		if (($_POST["postReply"]) && ($_POST["content"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] != "Suspended") && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
+		if (($_POST["postReply"]) && ($_POST["content"]) && ($_SESSION['signed_in'] == true) && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
 		{
             $contentSave = postReply();
 		}
 
         // If the user is saving a draft...
-		elseif (($_POST["saveDraft"]) && ($_POST["content"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] != "Suspended") && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
+		elseif (($_POST["saveDraft"]) && ($_POST["content"]) && ($_SESSION['signed_in'] == true) && ($locked == 0 or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
         {
             saveDraft();
         }
 
         // If the user is discarding a draft...
-		elseif (($_POST["discardDraft"]) && ($_SESSION['signed_in'] == true) && ($_SESSION["role"] != "Suspended"))
+		elseif (($_POST["discardDraft"]) && ($_SESSION['signed_in'] == true))
         {
             $db->query("DELETE FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
         }
 		
 		// If the user is requesting to delete a post...
-		elseif (($_POST["delete"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["delete"]) && ($_SESSION['signed_in'] == true))
 		{
             deletePost();
 		}
 		
 		// If the user is requesting to hide a post...
-		elseif (($_POST["hide"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["hide"]) && ($_SESSION['signed_in'] == true))
 		{
             hidePost();
 		}
 		
 		// If the user is requesting to restore a post...
-		elseif (($_POST["restore"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["restore"]) && ($_SESSION['signed_in'] == true))
 		{
             restorePost();
 		}
 		
 		// If the user is requesting to save an edit...
-		elseif (($_POST["saveedit"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["saveedit"]) && ($_SESSION['signed_in'] == true))
 		{
 			saveEdit();
 		}
@@ -171,7 +174,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 
 		// If the user is requesting to edit the thread title...
-		elseif (($_POST["editthread"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["editthread"]) && ($_SESSION['signed_in'] == true))
 		{
             editTitle();
 		}
@@ -236,31 +239,31 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 		}
 
 		// If the user is requesting to edit the thread title...
-		elseif (($_POST["editthread"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["editthread"]) && ($_SESSION['signed_in'] == true))
 		{
             editTitle();
 		}
 
         // If the user is requesting to delete a post...
-		elseif (($_POST["delete"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["delete"]) && ($_SESSION['signed_in'] == true))
 		{
             deletePost();
 		}
 		
 		// If the user is requesting to hide a post...
-		elseif (($_POST["hide"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["hide"]) && ($_SESSION['signed_in'] == true))
 		{
             hidePost();
 		}
 		
 		// If the user is requesting to restore a post...
-		elseif (($_POST["restore"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["restore"]) && ($_SESSION['signed_in'] == true))
 		{
             restorePost();
 		}
 		
 		// If the user is requesting to save an edit...
-		elseif (($_POST["saveedit"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))
+		elseif (($_POST["saveedit"]) && ($_SESSION['signed_in'] == true))
 		{
 			saveEdit();
 		}
@@ -414,7 +417,7 @@ else
             
 			drawUserProfile($u["userid"], 0, $isHidden);
 
-			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && (!($_SESSION["role"] == "Suspended")) && ($_SESSION['signed_in'] == true)) && !$isHidden)
+			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION['signed_in'] == true)) && !$isHidden)
 			{
                 echo '<div>';
 				echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
@@ -425,7 +428,7 @@ else
 
 			listener("afterPostInfo");
 
-			if ((isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION["role"] != "Suspended") && ($_SESSION['signed_in'] == true))) && !$isHidden)
+			if ((isset($_POST["edit"]) && ($_POST["edit"] == $row["postid"]) && ($_SESSION['signed_in'] == true) && ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION['signed_in'] == true))) && !$isHidden)
 			{
 				echo '</div></div><div class="editbox" id="edit"><form method="post" action="" class="editbox">';
 				BBCodeButtons(2);
