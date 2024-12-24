@@ -436,6 +436,11 @@ $lang = array(
     "userpanel.AvatarUploadsDisabled" => "Извините, загрузка аватаров отключена.",
     "userpanel.NoAvatar" => "Отсутствует.",
     "userpanel.WaitToUpload" => "Вы только что загрузили аватар. Пожалуйста, подождите несколько минут и попробуйте снова.",
+    "userpanel.UnsupportedImageType" => "Error: unsupported image type. Make sure your image is a png/gif/jpg/webp.",
+    "userpanel.InvalidDimensions" => "Error: invalid image width/height.",
+    "userpanel.FileUploadFail" => "Error: file upload failed.",
+    "userpanel.FileTooBig" => "Error: avatar filesize too large.",
+    "userpanel.Fail" => "Error: failed to upload avatar. Make sure it's a valid image file.",
 
     // BBCode
     "BBCode.Bold" => "B",
