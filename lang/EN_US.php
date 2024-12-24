@@ -450,6 +450,34 @@ $lang = array(
     
     // Userlist
     "userlist.Approve" => "Approve",
+
+    // Installer
+    "installer.Title" => "Tormater Forum Installer",
+    "installer.ConfigWarning" => "Warning: config directory isn't writeable. Make sure it exists and its permissions are set properly.",
+    "installer.AvatarWarning" => "Warning: avatars directory isn't writeable. Make sure it exists and its permissions are set properly.",
+    "installer.SQLMissing" => "Error: Please input SQL details.",
+    "installer.SQLConnectFail" => "Error: SQL connection failed.",
+    "installer.DBAlreadyExists" => "Error: SQL database has already been written. Create a new database or drop all forum-related tables from the existing one and try again.",
+    "installer.UsernameTooShort" => "Error: Your username must be at least 1 character in length.",
+    "installer.UsernameTooLong" => "Error: Your username is too long.",
+    "installer.PasswordTooShort" => "Error: Your password must be at least 1 character in length.",
+    "installer.EmailTooShort" => "Error: Your email must be at least 1 character in length.",
+    "installer.EmailTooLong" => "Error: Your email is too long.",
+    "installer.PasswordsMismatch" => "Error: Your passwords don't match.",
+    "installer.GeneralCategoryName" => "General",
+    "installer.GeneralCategoryDescription" => "Tormater Forum's default category.",
+    "installer.InstallSuccess" => "Database and config successfully written. You can now view your forum.",
+    "installer.ConfigWriteFail" => "Error: failed to write config file. Make sure the config directory exists and is writeable.",
+    "installer.Welcome" => "<h1>Welcome</h1>
+Welcome to the Tormater Forum Installer. In order to proceed, you must fill out your database settings, and your forum administrator account credentials below.
+<br>If you need assistance with Tormater Forum, feel free to make an <a href='https://github.com/tormater/tormater-forum/issues'>issue</a> on our GitHub, or a <a href='http://forum.tormater.com/'>thread</a> on our forum.",
+    "installer.SQLDetails" => "MySQL Details",
+    "installer.SQLServer" => "MySQL Server",
+    "installer.SQLDatabase" => "MySQL Database",
+    "installer.SQLUser" => "MySQL User",
+    "installer.SQLPassword" => "MySQL Password",
+    "installer.AdministratorAccount" => "Administrator Account",
+    "installer.InstallButton" => "Install Tormater Forum",
 );
 
 ?>
