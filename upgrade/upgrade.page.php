@@ -110,6 +110,8 @@ if ($order->num_rows < 1)
     $db->query("ALTER TABLE `categories` ADD `order` int unsigned NOT NULL DEFAULT '0'");
     $upgraded = true;
 }
+// Always run this because checking for it is too hard.
+$db->query("ALTER TABLE `users` MODIFY `avatar` enum('none', 'png', 'jpg', 'gif', 'webp') NOT NULL DEFAULT 'none'");
 
 require "pages/header.php";
 
