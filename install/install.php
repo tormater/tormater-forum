@@ -23,7 +23,7 @@ if (!is_writeable("config")) message($lang["installer.ConfigWarning"]);
 if (!is_writeable("avatars")) message($lang["installer.AvatarWarning"]);
 
 // Handle post requests.
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
     // Make sure the MySQL details have been inputted.
     if (!$_POST["MySQLServer"] or !$_POST["MySQLUser"] or !$_POST["MySQLPassword"] or !$_POST["MySQLDatabase"] or ($_POST["MySQLServer"] == "") or ($_POST["MySQLUser"] == "") or ($_POST["MySQLPassword"] == "") or ($_POST["MySQLDatabase"] == "")) {
         message($lang["installer.SQLMissing"]);
@@ -213,8 +213,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 echo($lang["installer.Welcome"]);
 
-echo("
-<hr>
+echo("<hr>
 <form method='post' autocomplete='on'>
 <h3>" . $lang["installer.SQLDetails"] . "</h3><br/>
 <div class='field'><label>" . $lang["installer.SQLServer"] . "</label>
@@ -238,5 +237,7 @@ echo("
 <input class='buttonbig' type='submit' value='" . $lang["installer.InstallButton"] . "'>
 </form>");
 
-echo "</div></body></html>"
+echo "</div></p>";
+echo($languageSelector);
+echo "</body></html>";
 ?>
