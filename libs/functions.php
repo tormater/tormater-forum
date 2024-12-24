@@ -427,7 +427,7 @@ function hook($hook, $function)
 
 // Generates a random string for the captcha.
 function randomCaptcha($length = 5) {
-    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $characters = '123456789abcdefghijklmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
