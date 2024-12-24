@@ -206,7 +206,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
 
             message($lang["installer.InstallSuccess"]);
             echo "</div></body></html>";
-	    refresh(2);
+	    refresh(4);
             exit;
 	}
 	// If the config file failed to write, display an error message.
