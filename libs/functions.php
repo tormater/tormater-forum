@@ -79,7 +79,7 @@ function random_str($length = 10) {
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
     }
 
     listener("beforeReturnRandomString", $randomString, $length);
@@ -431,7 +431,7 @@ function randomCaptcha($length = 5) {
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
-        $randomString .= $characters[rand(0, $charactersLength - 1)];
+        $randomString .= $characters[random_int(0, $charactersLength - 1)];
     }
     listener("beforeReturnCaptchaString", $randomString, $length);
     return $randomString;
