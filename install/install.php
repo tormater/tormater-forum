@@ -9,7 +9,7 @@ if (!defined("INDEXED")) exit;
 if ($config["installed"] == "yes") exit;
 
 echo "<!DOCTYPE html><html><head>";
-echo "<title>Tormater Forum Installer</title>";
+echo "<title>" . $lang["installer.Title"] . "</title>";
 echo "<link rel='stylesheet' href='install/install.css'>";
 echo "<link rel='icon' type='image/svg+xml' href='install/install.svg'>";
 echo '<link rel="icon" type="image/x-icon" href="install/install.ico">';
@@ -19,14 +19,14 @@ echo "<center><img src='install/logo.svg'></center>";
 echo "<div id='content'>";
 
 // Make sure directories that need to be written to are writeable.
-if (!is_writeable("config")) message("Warning: config directory isn't writeable. Make sure it exists and its permissions are set properly.");
-if (!is_writeable("avatars")) message("Warning: avatars directory isn't writeable. Make sure it exists and its permissions are set properly.");
+if (!is_writeable("config")) message($lang["installer.ConfigWarning"]);
+if (!is_writeable("avatars")) message($lang["installer.AvatarWarning"]);
 
 // Handle post requests.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Make sure the MySQL details have been inputted.
     if (!$_POST["MySQLServer"] or !$_POST["MySQLUser"] or !$_POST["MySQLPassword"] or !$_POST["MySQLDatabase"] or ($_POST["MySQLServer"] == "") or ($_POST["MySQLUser"] == "") or ($_POST["MySQLPassword"] == "") or ($_POST["MySQLDatabase"] == "")) {
-        message("Error: Please input MySQL details.");
+        message($lang["installer.SQLMissing"]);
         $db = null;
     }
     else {
@@ -34,6 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         try {
             $db = mysqli_connect($_POST["MySQLServer"], $_POST["MySQLUser"],    $_POST["MySQLPassword"], $_POST["MySQLDatabase"]);
         }
+	// If the connection failed, print the SQL (or PHP) error.
         catch (Exception $e) {
             message($e);
             $db = null;
@@ -54,42 +55,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // This is here to inform the admin that the MySQL connection failed.
     if ($db === null) {
-        message("Error: MySQL connection failed.");
+        message($lang["installer.SQLConnectFail"]);
     }
 
     // If any forum-related tables (or tables with the same names) exist, print an error.
     elseif ($tablesExist->num_rows > 0) {
-        message("Error: SQL database has already been written. Create a new database or drop all forum-related tables from the existing one and try again.");
+        message($lang["installer.DBAlreadyExists"]);
     }
 
     // Make sure the admin's username isn't too short or empty.
     elseif ((strlen($_POST["adminUsername"]) < 1) or (!$_POST["adminUsername"]) or ($_POST["adminUsername"] == "")) {
-        message("Error: Your username must be at least 1 character in length.");
+        message($lang["installer.UsernameTooShort"]);
     }
 
     // Make sure the admin's username isn't too long.
     elseif (strlen($_POST["adminUsername"]) > 26) {
-        message("Error: Your username is too long.");
+        message($lang["installer.UsernameTooLong"]);
     }
 
     // Make sure the admin's password isn't too short or empty.
     elseif ((strlen($_POST["adminPassword"]) < 1) or (!$_POST["adminPassword"]) or ($_POST["adminPassword"] == "")) {
-        message("Error: Your password must be at least 1 character in length.");
+        message($lang["installer.PasswordTooShort"]);
     }
 
     // Make sure the admin's email isn't too short or empty.
     elseif ((strlen($_POST["adminEmail"]) < 1) or (!$_POST["adminEmail"]) or ($_POST["adminEmail"] == "")) {
-        message("Error: Your email must be at least 1 character in length.");
+        message($lang["installer.EmailTooShort"]);
     }
 
     // Make sure the admin's email isn't too long.
     elseif (strlen($_POST["adminEmail"]) > 255) {
-        message("Error: Your email is too long.");
+        message($lang["installer.EmailTooLong"]);
     }
 
     // Make sure the admin's password and confirm password entries match.
     elseif ($_POST["adminPassword"] != $_POST["adminConfirm"]) {
-        message("Error: Your passwords don't match.");
+        message($lang["installer.PasswordsMismatch"]);
     }
 
     // If everything checks out, write the database and create the admin's account.
@@ -185,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $adminEmail = $_POST["adminEmail"];
         $db->query("INSERT INTO `users` (username, email, password, role, jointime, color, ip, salt, verified) VALUES ('" . $db->real_escape_string($_POST["adminUsername"]) . "', '" . $db->real_escape_string($adminEmail) . "', '" . $db->real_escape_string($adminHash) . "', 'Administrator', '" . time() . "', '1', '" . $db->real_escape_string($adminIP) . "', '" . $db->real_escape_string($adminSalt) . "' ,'1')");
         // Create the default category.
-        $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . "General" . "', '" . "Tormater Forum\'s default category." . "', '" . 0 . "')");
+        $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . $db->real_escape_string($lang["installer.GeneralCategoryName"]) . "', '" . $db->real_escape_string($lang["installer.GeneralCategoryDescription"]) . "', '" . 0 . "')");
 
         // Now write our MySQL details to the config as well as whether the forum has been installed or not.
         $config["installed"] = "yes";
@@ -194,47 +195,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $config["MySQLUser"] = $_POST["MySQLUser"];
         $config["MySQLPass"] = $_POST["MySQLPassword"];
         $config["baseURL"] = rtrim((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", "/");
-	    
+
+	// If everything worked, display a message saying so.
         if (saveConfig("./config/config.php", $config)) {
-            message("Database and config successfully written. You can now view your forum.");
+            message($lang["installer.InstallSuccess"]);
             echo "</div></body></html>";
             exit;
 	}
+	// If the config file failed to write, display an error message.
 	else {
-	    message("Error: failed to write config file. Make sure the config directory exists and is writeable.");
+	    message($lang["installer.ConfigWriteFail"]);
             echo "</div></body></html>";
             exit;
 	}
     }
 }
 
-echo("<h1>Welcome</h1>
-Welcome to the Tormater Forum Installer. In order to proceed, you must fill out your database settings, and your forum administrator account credentials below.
-<br>If you need assistance with Tormater Forum, feel free to make an <a href='https://github.com/tormater/tormater-forum/issues'>issue</a> on our GitHub, or a <a href='http://forum.tormater.com/'>thread</a> on our forum.");
+echo($lang["installer.Welcome"]);
 
 echo("
 <hr>
 <form method='post' autocomplete='on'>
-<h3>MySQL Details</h3><br/>
-<div class='field'><label>MySQL Server:</label>
-<input type='text' id='MySQLServer' name='MySQLServer' value='" . htmlspecialchars($_POST["MySQLServer"] ?? "") . "'></div>
-<div class='field'><label>MySQL Database:</label>
+<h3>" . $lang["installer.SQLDetails"] . "</h3><br/>
+<div class='field'><label>" . $lang["installer.SQLServer"] . "</label>
+<input type='text' id='MySQLServer' name='MySQLServer' placeholder='localhost' value='" . htmlspecialchars($_POST["MySQLServer"] ?? "") . "'></div>
+<div class='field'><label>" . $lang["installer.SQLDatabase"] . "</label>
 <input type='text' id='MySQLDatabase' name='MySQLDatabase' value='" . htmlspecialchars($_POST["MySQLDatabase"] ?? "") . "'></div>
-<div class='field'><label>MySQL User:</label>
+<div class='field'><label>" . $lang["installer.SQLUser"] . "</label>
 <input type='text' id='MySQLUser' name='MySQLUser' value='" . htmlspecialchars($_POST["MySQLUser"] ?? "") . "'></div>
-<div class='field'><label>MySQL Password:</label>
+<div class='field'><label>" . $lang["installer.SQLPassword"] . "</label>
 <input type='text' id='MySQLPassword' name='MySQLPassword' value='" . htmlspecialchars($_POST["MySQLPassword"] ?? "") . "'></div>
-<h3>Administrator Account</h3><br/>
-<div class='field'><label>Username:</label>
+<h3>" . $lang["installer.AdministratorAccount"] . "</h3><br/>
+<div class='field'><label>" . $lang["register.Username"] . "</label>
 <input type='text' id='adminUsername' name='adminUsername' autocomplete='username' value='" . htmlspecialchars($_POST["adminUsername"] ?? "") . "'></div>
-<div class='field'><label>Email:</label>
+<div class='field'><label>" . $lang["register.Email"] . "</label>
 <input type='email' id='adminEmail' name='adminEmail' autocomplete='email' value='" . htmlspecialchars($_POST["adminEmail"] ?? "") . "'></div>
-<div class='field'><label>Password:</label>
+<div class='field'><label>" . $lang["register.Password"] . "</label>
 <input type='password' id='adminPassword' name='adminPassword' autocomplete='new-password' value='" . htmlspecialchars($_POST["adminPassword"] ?? "") . "'></div>
-<div class='field'><label>Confirm Password:</label>
+<div class='field'><label>" . $lang["register.PasswordConf"] . "</label>
 <input type='password' id='adminConfirm' name='adminConfirm' autocomplete='new-password' value='" . htmlspecialchars($_POST["adminConfirm"] ?? "") . "'></div>
 <br>
-<input class='buttonbig' type='submit' value='Install Tormater Forum'>
+<input class='buttonbig' type='submit' value='" . $lang["installer.InstallButton"] . "'>
 </form>");
 
 echo "</div></body></html>"
