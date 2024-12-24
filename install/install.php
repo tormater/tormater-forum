@@ -204,9 +204,9 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
             $_SESSION["username"] = $_POST["adminUsername"];
             $_SESSION["role"] = "Administrator";
 
-            refresh(2);
             message($lang["installer.InstallSuccess"]);
             echo "</div></body></html>";
+	    refresh(2);
             exit;
 	}
 	// If the config file failed to write, display an error message.
