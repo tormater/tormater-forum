@@ -437,6 +437,11 @@ $lang = array(
     "userpanel.AvatarUploadsDisabled" => "با عرض پوزش، آپلود آواتار غیرفعال شده است.",
     "userpanel.NoAvatar" => "بدون آواتار.",
     "userpanel.WaitToUpload" => "شما قبلاً یک آواتار را اخیراً بارگذاری کرده اید. لطفا چند دقیقه صبر کنید و دوباره امتحان کنید.",
+    "userpanel.UnsupportedImageType" => "Error: unsupported image type. Make sure your image is a png/gif/jpg/webp.",
+    "userpanel.InvalidDimensions" => "Error: invalid image width/height.",
+    "userpanel.FileUploadFail" => "Error: file upload failed.",
+    "userpanel.FileTooBig" => "Error: avatar filesize too large.",
+    "userpanel.Fail" => "Error: failed to upload avatar. Make sure it's a valid image file.",
 
     // BBCode
     "BBCode.Bold" => "B",
