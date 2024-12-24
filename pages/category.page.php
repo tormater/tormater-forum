@@ -36,7 +36,7 @@ include "header.php";
 $thread_count = $db->query("SELECT 1 FROM threads WHERE category='" . $db->real_escape_string($q2) . "'");
 
 // Important details for sorting the threads into pages.
-$threadsPerPage = (is_numeric($config["threadsPerPage"]) ?? 20);
+$threadsPerPage = (is_numeric($config["threadsPerPage"]) ? (int)$config["threadsPerPage"] : 20);
 if ($threadsPerPage < 1) $threadsPerPage = 1;
 $numThreads = $thread_count->num_rows;
 if ($numThreads < 1) $numThreads = 1;
