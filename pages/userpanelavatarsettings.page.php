@@ -30,19 +30,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Check if the image's MIME type is one of the supported formats.
         if (($mime != "image/jpeg") and ($mime != "image/png") and ($mime != "image/gif") and ($mime != "image/webp")) {
-            message("Error: unsupported image type. Make sure your image is a png/gif/jpg/webp.");
+            message($lang["userpanel.UnsupportedImageType"]);
         }
         // Make sure the width and height is valid.
         elseif  (!isset($width) or !isset($height) or ($width < 1) or ($height < 1)) {
-            message("Error: invalid image width/height.");
+            message($lang["userpanel.InvalidDimensions"]);
         }
         // Check for uploading errors.
         elseif (!isset($_FILES["uploadedFile"]["error"]) or (is_array($_FILES["uploadedFile"]["error"])) or ($_FILES["uploadedFile"]["error"] !== 0)) {
-            message("Error: file upload failed.");
+            message($lang["userpanel.FileUploadFail"]);
         }
         // Make sure the avatar isn't too big.
         elseif ($_FILES["uploadedFile"]["size"] > $config["maxAvatarSize"]) {
-            message("Error: avatar filesize too large.");
+            message($lang["userpanel.FileTooBig"]);
         }
         else {
             // If everything looks good, get ready to upload the image and base its extension off the mime type.
@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     message($lang["userpanel.AvatarUploadSuccess"]);
                 }
                 else {
-                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
+                    message($lang["userpanel.Fail"]);
                 }
             }
             elseif ($mime == "image/png") {
@@ -130,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     message($lang["userpanel.AvatarUploadSuccess"]);
                 }
                 else {
-                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
+                    message($lang["userpanel.Fail"]);
                 }
             }
             elseif ($mime == "image/gif") {
@@ -176,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     message($lang["userpanel.AvatarUploadSuccess"]);
                 }
                 else {
-                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
+                    message($lang["userpanel.Fail"]);
                 }
             }
             elseif ($mime == "image/webp") {
@@ -222,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     message($lang["userpanel.AvatarUploadSuccess"]);
                 }
                 else {
-                    message("Error: failed to upload avatar. Make sure it's a valid image file.");
+                    message($lang["userpanel.Fail"]);
                 }
             }
         }
