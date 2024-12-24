@@ -36,21 +36,23 @@ include "header.php";
 $thread_count = $db->query("SELECT 1 FROM threads WHERE category='" . $db->real_escape_string($q2) . "'");
 
 // Important details for sorting the threads into pages.
+$threadsPerPage = (is_numeric($config["threadsPerPage"]) ?? 20);
+if ($threadsPerPage < 1) $threadsPerPage = 1;
 $numThreads = $thread_count->num_rows;
 if ($numThreads < 1) $numThreads = 1;
-$pages = ceil($numThreads / $config["threadsPerPage"]);
+$pages = ceil($numThreads / $threadsPerPage);
 
 // Calculate the offset for the threads query.
-$offset = (($currentPage * $config["threadsPerPage"]) - $config["threadsPerPage"]);
+$offset = (($currentPage * $threadsPerPage) - $threadsPerPage);
 
 if ($_SESSION["signed_in"] != true) {
-    $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+    $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $threadsPerPage . " OFFSET " . $offset . "");
 }
 else if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
-    $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' UNION SELECT * FROM threads WHERE pinned='1' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+    $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' UNION SELECT * FROM threads WHERE pinned='1' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $threadsPerPage . " OFFSET " . $offset . "");
 }
 else {
-    $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+    $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $threadsPerPage . " OFFSET " . $offset . "");
 }
 
 if (!$category)
