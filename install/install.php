@@ -195,6 +195,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
         $config["MySQLUser"] = $_POST["MySQLUser"];
         $config["MySQLPass"] = $_POST["MySQLPassword"];
         $config["baseURL"] = rtrim((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", "/");
+        $config["modRewriteDisabled"] = 1;
+
+        // Only try to use the mod rewrite if we detect that it's enabled.
+        if (function_exists("apache_get_modules")) {
+            if (in_array("mod_rewrite", apache_get_modules())) {
+                $config["modRewriteDisabled"] = 0;
+            }
+        }
 
 	// If everything worked, display a message saying so.
         if (saveConfig("./config/config.php", $config)) {
