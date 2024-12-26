@@ -64,6 +64,24 @@ else
                 echo "<details><summary>" . $lang["panel.BeforeEdit"] . "</summary><div class='userpost'>" . formatPost($row["before"]) . "</div></details>";
                 echo "<details><summary>" . $lang["panel.AfterEdit"] . "</summary><div class='userpost'>" . formatPost($row["after"]) . "</div></details>";
             }
+            elseif ($row["action"] == "edit_role") {
+                $user = $db->query("SELECT * FROM users WHERE userid='" . $row["userid"] . "'");
+                while($urow = $user->fetch_assoc()) $name = $urow["username"];
+                $user2 = $db->query("SELECT * FROM users WHERE userid='" . $row["victimid"] . "'");
+                while($urow = $user2->fetch_assoc()) $vname = $urow["username"];
+                printf($lang["panel.LogEditRole"], 
+                "<a href='" . genURL("user/" . $row["userid"]) . "'>" . htmlspecialchars($name) . "</a>", 
+               "<a href='" . genURL("user/" . $row["victimid"]) . "'>" . htmlspecialchars($vname) . "</a>",$row["before"],$row["after"]);
+            }
+            elseif ($row["action"] == "delete_avatar") {
+                $user = $db->query("SELECT * FROM users WHERE userid='" . $row["userid"] . "'");
+                while($urow = $user->fetch_assoc()) $name = $urow["username"];
+                $user2 = $db->query("SELECT * FROM users WHERE userid='" . $row["victimid"] . "'");
+                while($urow = $user2->fetch_assoc()) $vname = $urow["username"];
+                printf($lang["panel.LogDeleteAvatar"], 
+                "<a href='" . genURL("user/" . $row["userid"]) . "'>" . htmlspecialchars($name) . "</a>", 
+               "<a href='" . genURL("user/" . $row["victimid"]) . "'>" . htmlspecialchars($vname) . "</a>");
+            }
             elseif ($row["action"] == "hide_post") {
                 $user = $db->query("SELECT * FROM users WHERE userid='" . $row["userid"] . "'");
                 while($urow = $user->fetch_assoc())
