@@ -10,20 +10,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	if (isset($_POST["changesettings"]))
 	{
 	    $e = htmlspecialchars_decode($_POST["changesettings"]);
-	    if (!isset($extension_config[$e])) $extension_config[$e] = array();
-	    if (file_exists("extensions/" . $e . "/manifest.json" ))
-            {
-                $manifest = json_decode(file_get_contents("extensions/" . $e . "/manifest.json"), true);
-                if ($manifest["settings"]) {
-                    foreach($manifest["settings"] as $setting) {
-                        if ($setting["type"] == "bool" || isset($_POST[$setting["id"]])) {
-                            $value = $_POST[$setting["id"]];
-                            if (!isset($_POST[$setting["id"]])) $value = "0";
-                            $extension_config[$e][$setting["id"]] = $value;
+	    if (in_array($e, $allExtensions)) {
+	        if (!isset($extension_config[$e])) $extension_config[$e] = array();
+	        if (file_exists("extensions/" . $e . "/manifest.json" )) {
+                    $manifest = json_decode(file_get_contents("extensions/" . $e . "/manifest.json"), true);
+                    if ($manifest["settings"]) {
+                        foreach($manifest["settings"] as $setting) {
+                            if ($setting["type"] == "bool" || isset($_POST[$setting["id"]])) {
+                                $value = $_POST[$setting["id"]];
+                                if (!isset($_POST[$setting["id"]])) $value = "0";
+                                $extension_config[$e][$setting["id"]] = $value;
+                            }
                         }
-                    }
+		    }
+		    saveExtensionSettingsConfig("config/extension_config.php", $extension_config);
                 }
-		saveExtensionSettingsConfig("config/extension_config.php", $extension_config);
 	    }
 	}
 	if ($_POST["enable"])
