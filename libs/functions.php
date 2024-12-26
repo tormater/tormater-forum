@@ -322,8 +322,11 @@ function genPaginationURL($page_index, $qN) {
         for ($i = 0; $i < $qN-1; $i++) { // Output all the URL's parameters before the page string.
             if (isset($url[$i])) $page_url .= $url[$i] . "/";
         }
-        if ($page_index > 1) return genURL($page_url . $page_index);
-        else return genURL($page_url);
+        
+        if (strpos($_SERVER["QUERY_STRING"], '&')) $query = "?" . substr($_SERVER["QUERY_STRING"], strpos($_SERVER["QUERY_STRING"], '&')+1, null);
+        else $query = "";
+        if ($page_index > 1) return genURL($page_url . $page_index . $query);
+        else return genURL($page_url . $query);
 }
     
 function renderPageButton($page_index, $qN, $label="") {
