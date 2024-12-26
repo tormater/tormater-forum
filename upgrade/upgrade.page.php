@@ -113,6 +113,16 @@ if ($order->num_rows < 1)
 // Always run this because checking for it is too hard.
 $db->query("ALTER TABLE `users` MODIFY `avatar` enum('none', 'png', 'jpg', 'gif', 'webp') NOT NULL DEFAULT 'none'");
 
+// Get the forum config and the setup config.
+if (file_exists("config/config-setup.php")) {
+    $current = $config;
+    require "config/config-setup.php";
+    $setup = $config;
+    // Merge them, the config overwriting the setup config.
+    $config = array_merge($setup, $current);
+    saveConfig("config/config.php", $config);
+}
+
 require "pages/header.php";
 
 if ($upgraded == true)
