@@ -319,86 +319,71 @@ function relativeTime($timestamp) {
 }
 
 // Display pagination.
+
+function genPaginationURL($page_index, $qN) {
+        global $url, $pages; 
+        $page_url = "";
+        for ($i = 0; $i < $qN-1; $i++) { // Output all the URL's parameters before the page string.
+            if (isset($url[$i])) $page_url .= $url[$i] . "/";
+        }
+        if ($page_index > 1) return genURL($page_url . $page_index);
+        else return genURL($page_url);
+}
+    
+function renderPageButton($page_index, $qN, $label="") {
+    global $template, $currentPage, $pages;
+    if ($page_index < 1) $page_index = 1;
+    if ($page_index > $pages) $page_index = $pages;
+    $data = array(
+      "label" => $label,
+      "url" => genPaginationURL($page_index, $qN)
+    );
+    if (empty($data["label"])) $data["label"] = $page_index;
+    if ($page_index == $currentPage) return $template->render("templates/pagination/page_button_disabled.html",$data);
+    return $template->render("templates/pagination/page_button.html",$data);
+}
+
+function renderPagination($qN = 3, $return = 0) {
+    global $template, $lang, $currentPage, $pages;
+    $data = array(
+      "first" => renderPageButton(1,$qN,$lang["nav.FirstPage"]),
+      "previous" => renderPageButton($currentPage-1,$qN,$lang["nav.PrevPage"]),
+      "page_buttons" => "",
+      "next" => renderPageButton($currentPage+1,$qN,$lang["nav.NextPage"]),
+      "last" => renderPageButton($pages,$qN,$lang["nav.LastPage"])
+    );
+    if ($pages <= 7) {
+        for ($i = 1; $i <= $pages; $i++) {
+            $data["page_buttons"] .= renderPageButton($i,$qN);
+        }
+    }
+    else {
+        if ($currentPage <= 4) {
+	    for ($i = 1; $i < 8; $i++) {
+                $data["page_buttons"] .= renderPageButton($i,$qN);
+            }
+        }
+        else if ($currentPage > 4 && $currentPage < $pages - 4) {
+            for ($i = $currentPage - 3; $i <= $currentPage + 3; $i++) {
+                $data["page_buttons"] .= renderPageButton($i,$qN);
+            }         
+        }
+        else {
+            for ($i = $pages - 6; $i <= $pages; $i++) {
+                $data["page_buttons"] .= renderPageButton($i,$qN);
+            }
+        }
+    }
+    $pagination = $template->render("templates/pagination/pagination.html",$data);
+    if ($return) return $pagination;
+    else echo $pagination;
+}
+
 function pagination($pageName) {
-	global $lang, $q2, $currentPage, $pages;
-	$adjacents = "2";
-	// if ($currentPage > 1) {
-	// 	echo '<a class="buttonbig" href="/'.$pageName.'/'.$q2.'/1/">'.$lang["nav.FirstPage"].'</a>';
-	// }
-    echo '<div class="pagination"><div class="paginationend">';
-	if ($currentPage <= 1) {
-        echo '<span class="pageButtonDisabled">'.$lang["nav.FirstPage"].'</span>';
-		echo '<span class="pageButtonDisabled">'.$lang["nav.PrevPage"].'</span>';
-	}
-	if ($currentPage > 1) {
-        echo '<a class="pageButton" href="' . genURL($pageName.'/'.$q2.'/'. "1" . '/') .'">'.$lang["nav.FirstPage"].'</a>';
-		echo '<a class="pageButton" href="' . genURL($pageName.'/'.$q2.'/'.($currentPage - 1) . '/') .'">'.$lang["nav.PrevPage"].'</a>';
-	}
-    echo '</div>';
-    echo '<div class="paginationinside">';
-	if ($pages <= 10) {
-		for ($x = 1; $x <= $pages; $x++){
-			if ($x == $currentPage) {
-				echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
-			} else {
-				echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/') . '">' . $x . '</a>';
-			}
-		}
-	} elseif ($pages > 10) {
-		if ($currentPage <= 4) {
-			for ($x = 1; $x < 8; $x++) {
-				if ($x == $currentPage) {
-					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
-				} else {
-					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/') . '">' . $x . '</a>';
-				}
-			}
-			echo '<span class="paginationdots">…</span>';
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/') . '">' . $pages . '</a>';
-		} elseif ($currentPage > 4 && $currentPage < $pages - 4) {
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/1/') . '">1</a>';
-			echo '<span class="paginationdots">…</span>';
-			for ($x = $currentPage - $adjacents; $x <= $currentPage + $adjacents; $x++) {
-				if ($x == $currentPage) {
-					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
-				} else {
-					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/') . '">'.$x .'</a>';
-				}
-			}
-			echo '<span class="paginationdots">…</span>';
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages.'/') . '">' . $pages . '</a>';
-		} else {
-			echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/1/') . '">1</a>';
-			echo '<span class="paginationdots">…</span>';
-			for ($x = $pages - 6; $x <= $pages; $x++) {
-				if ($x == $currentPage) {
-					echo '<span class="pageButtonDisabled pageNow">'.$x.'</span>';
-				} else {
-					echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$x.'/').'">'.$x.'</a>';
-				}
-			}
-		}
-	}
-    echo "</div>";
-    echo '<div class="paginationend pagendr">';
-	if ($currentPage >= $pages) {
-		echo '<span class="pageButtonDisabled">'.$lang["nav.NextPage"].'</span>';
-        echo '<span class="pageButtonDisabled">'.$lang["nav.LastPage"].'</span>';
-	}
-	if ($currentPage < $pages) {
-		echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.($currentPage + 1)).'/">'.$lang["nav.NextPage"].'</a>';
-	}
-	if ($currentPage < $pages) {
-		echo '<a class="pageButton" href="'. genURL($pageName.'/'.$q2.'/'.$pages).'/">'.$lang["nav.LastPage"].'</a>';
-	}
-	echo '</div></div>';
+    renderPagination(3,0);
 }
 function pagination_return($pageName) {
-    ob_start();
-    pagination($pageName);
-    $return = ob_get_contents();
-    ob_end_clean();
-    return $return;
+    return renderPagination(3,1);
 }
 
 $hooks = array();
