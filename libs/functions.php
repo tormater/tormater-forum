@@ -90,29 +90,25 @@ function random_str($length = 10) {
 // Redirects the user to the specified page. If blank it defaults to the homepage.
 function redirect($text) {
     global $config;
-    if (!$config["baseURL"] || $config["baseURL"] == "http://example.com")
-    {
-        header("Location: " . "/" . $text);
-	    flush();
+    if (!headers_sent()) {
+        header("Location: " . genURL($text));
+        flush();
     }
-    else
-    {
-        if ($config["modRewriteDisabled"] == 1) {
-            header("Location: " . $config["baseURL"] . "/index.php?page=" . strtr($text, "?", "&"));
-        }
-        else {
-            header("Location: " . $config["baseURL"] . "/" . $text);
-        }
-	flush();
+    else {
+        echo '<script type="text/javascript">window.location.replace('. genURL($text) .');</script>';
     }
-
-	exit();
+    exit();
 }
 
 // Refreshes the current page.
 function refresh($time) {
-	header("Refresh:" . $time . "");
-	flush();
+	if (!headers_sent()) {
+	    header("Refresh:" . $time . "");
+	    flush();
+	}
+	else {
+            echo '<script type="text/javascript">window.location.reload();</script>';
+        }
 	exit();
 }
 
