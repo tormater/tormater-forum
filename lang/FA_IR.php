@@ -271,6 +271,8 @@ $lang = array(
     "panel.LogDelete" => "%s نوشته %s را حذف کرد",
     "panel.PostContent" => "محتوای نوشته",
     "panel.LogDeleteThread" => "%s deleted %s's thread titled '%s'<br>",
+    "panel.LogEditRole" => "%s changed %s's role from %s to %s<br>",
+    "panel.LogDeleteAvatar" => "%s deleted %s's avatar<br>",
     
     // User register
     "register.Header" => "ثبت نام",
