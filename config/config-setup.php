@@ -17,6 +17,7 @@ $config = array(
     'footer' => '', // The text that appears on the footer. Supports BBCode.
     'postsPerPage' => 10, // Number of posts to display on a page in a thread.
     'threadsPerPage' => 20, // Number of threads to display on a page in a category.
+    'usersPerPage' => 30, // Number of users to display per page in the userlist.
     'maxCharsPerPost' => 50000, // Maximum number of characters allowable in a single post.
     'postDelay' => 5, // Number of seconds between posts during which a user can't make another post.
     'maxCharsPerTitle' => 35, // Maximum number of characters allowable in a title. Includes category names along with thread titles.
