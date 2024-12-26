@@ -458,6 +458,14 @@ $lang = array(
     
     // Userlist
     "userlist.Approve" => "تأیید",
+    "userlist.SortBy" => "Sort by",
+    "userlist.Submit" => "Submit",
+    "userlist.sort.alphabet" => "Alphabetical order",
+    "userlist.sort.time" => "Creation time",
+    "userlist.sort.activity" => "Last active",
+    "userlist.sort.role" => "Role",
+    "userlist.sort_order.asc" => "Ascending",
+    "userlist.sort_order.desc" => "Descending",
 
     // Installer
     "installer.Title" => "Tormater Forum Installer",
