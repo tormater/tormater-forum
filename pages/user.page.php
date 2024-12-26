@@ -49,6 +49,11 @@ else
                     {
                         echo $lang["user.FaildChangeRole"];
                     }
+                    else
+                    {
+                        $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
+            VALUES ('" . time() . "', 'edit_role', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "', '" . $role . "', '" . $db->real_escape_string($_POST["role"]) ."')");
+                    }
                                 
                     refresh(0);
                 }
@@ -57,7 +62,8 @@ else
         elseif ((isset($_POST["removeAvatar"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
         {
             removeAvatar($q2);
-
+            $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`) 
+            VALUES ('" . time() . "', 'delete_avatar', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "')");
             refresh(0);
         }
 
