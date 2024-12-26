@@ -126,7 +126,7 @@ else
 					
 							message($lang["newthread.SuccessCreate1"] . ' <a href="' . genURL('thread/' . $threadid) . '/">' . $lang["newthread.SuccessCreate2"] . '</a>');
 							include("footer.php");
-							header("Refresh:1; url=" . genURL("thread/" . $threadid));
+							redirect("thread/" . $threadid);
 							exit;
 						}
 					}
