@@ -231,3 +231,7 @@ th {
 [postcolor="16"] {
     background-color: #222324;
 }
+
+select {
+    background-color: #000000;
+}
