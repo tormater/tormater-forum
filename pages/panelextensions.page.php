@@ -28,23 +28,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 	if ($_POST["enable"])
 	{
-		$name = $_POST["enable"];
-        $extensions[htmlspecialchars_decode($name)] = true;
-        saveExtensionConfig("config/extensions.php", $extensions);
-        message($lang["panel.EnableSuccess"]);
-        include "footer.php";
-        header("Refresh:1; url=" . genURL("panel/extensions"));
-		exit;
+	    $name = $_POST["enable"];
+            $extensions[htmlspecialchars_decode($name)] = true;
+            saveExtensionConfig("config/extensions.php", $extensions);
+            message($lang["panel.EnableSuccess"]);
+            include "footer.php";
+            redirect("panel/extensions");
+	    exit;
 	}
 	if ($_POST["disable"])
 	{
-		$name = $_POST["disable"];
-        $extensions[htmlspecialchars_decode($name)] = false;
-        saveExtensionConfig("config/extensions.php", $extensions);
-        message($lang["panel.DisableSuccess"]);
-		include "footer.php";
-        header("Refresh:1; url=" . genURL("panel/extensions"));
-		exit;
+	    $name = $_POST["disable"];
+            $extensions[htmlspecialchars_decode($name)] = false;
+            saveExtensionConfig("config/extensions.php", $extensions);
+            message($lang["panel.DisableSuccess"]);
+	    include "footer.php";
+            redirect("panel/extensions");
+	    exit;
 	}
 }
 
