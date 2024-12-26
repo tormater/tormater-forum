@@ -262,7 +262,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 1 && $diff < 60) {
-		return $diff . ' ' . $lang["time.SecAgo"];
+		return sprintf($lang["time.SecAgo"],$diff);
 	}
 	
 	elseif ($diff >= 60 && $diff <= 60*2) {
@@ -270,7 +270,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 60*2 && $diff < 60*60) {
-		return round($diff / 60) . ' ' . $lang["time.MinAgo"];
+		return sprintf($lang["time.MinAgo"],round($diff / 60));
 	}
 	
 	elseif ($diff >= 60*60 && $diff <= 60*60*2) {
@@ -278,7 +278,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 60*60*2 && $diff < 60*60*24) {
-		return round(($diff / 60) / 60) . ' ' . $lang["time.HrsAgo"];
+		return sprintf($lang["time.HrsAgo"],round(($diff / 60) / 60));
 	}
 	
 	elseif ($diff >= 60*60*24 && $diff <= 60*60*24*2) {
@@ -286,7 +286,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 60*60*24*2 && $diff < 60*60*24*7) {
-		return round((($diff / 60) / 60) / 24) . ' ' . $lang["time.DaysAgo"];
+		return sprintf($lang["time.DaysAgo"],round((($diff / 60) / 60) / 24));
 	}
 	
 	elseif ($diff >= 60*60*24*7 && $diff <= 60*60*24*7*2) {
@@ -294,7 +294,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 60*60*24*7*2 && $diff < 60*60*24*7*4) {
-		return round(((($diff / 60) / 60) / 24) / 7) . ' ' . $lang["time.WeeksAgo"];
+		return sprintf($lang["time.WeeksAgo"],round(((($diff / 60) / 60) / 24) / 7));
 	}
 	
 	elseif ($diff >= 60*60*24*7*4 && $diff <= 60*60*24*7*4*2) {
@@ -302,7 +302,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 60*60*24*7*4*2 && $diff < 60*60*24*7*4*12) {
-		return round((((($diff / 60) / 60) / 24) / 7) / 4) . ' ' . $lang["time.MonthsAgo"];
+		return sprintf($lang["time.MonthsAgo"],round((((($diff / 60) / 60) / 24) / 7) / 4));
 	}
 	
 	elseif ($diff >= 60*60*24*7*4*12 && $diff <= 60*60*24*7*4*12*2) {
@@ -310,7 +310,7 @@ function relativeTime($timestamp) {
 	}
 	
 	elseif ($diff > 60*60*24*7*4*12*2) {
-		return round(((((($diff / 60) / 60) / 24) / 7) / 4) / 12) . ' ' . $lang["time.YearsAgo"];
+		return sprintf($lang["time.YearsAgo"],round(((((($diff / 60) / 60) / 24) / 7) / 4) / 12));
 	}
 }
 
