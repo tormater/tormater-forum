@@ -583,47 +583,36 @@ if ($_SESSION['signed_in'] == true)
 function postReply() {
     global $db, $config, $lang, $q2, $pages;
     // First check and see if the user has made a post too recently according to the post delay.
-	$delaycheck = $db->query("SELECT 1 FROM posts WHERE user='" . $_SESSION["userid"] . "' AND timestamp>'" . (time() - $config["postDelay"]) . "'");
+    $delaycheck = $db->query("SELECT 1 FROM posts WHERE user='" . $_SESSION["userid"] . "' AND timestamp>'" . (time() - $config["postDelay"]) . "'");
 			
-	if ($delaycheck->num_rows > 0)
-	{
-		message(sprintf($lang["thread.PostSoon"], $config["postDelay"]));
-		$contentSave = $_POST["content"];
-	}
-			
-	else
-	{
+    if ($delaycheck->num_rows > 0) {
+        message(sprintf($lang["thread.PostSoon"], $config["postDelay"]));
+	$contentSave = $_POST["content"];
+    }	
+    else {
         $contentSave = "";
 
-		if (mb_strlen($_POST["content"]) < 1)
-		{
-			message($lang["thread.PostEmpty"]);
-		}
-			
-		elseif (mb_strlen($_POST["content"]) > $config["maxCharsPerPost"])
-		{
+        if (mb_strlen($_POST["content"]) < 1) {
+	    message($lang["thread.PostEmpty"]);
+	}		
+	elseif (mb_strlen($_POST["content"]) > $config["maxCharsPerPost"]) {
             message(sprintf($lang["thread.PostBig"], $config["maxCharsPerPost"]));
-		}
-		
-		else
-		{
-			$result = $db->query("INSERT INTO posts (thread, user, timestamp, content) VALUES ('" . $db->real_escape_string($q2) . "', '" . $_SESSION["userid"] . "', '" . time() . "', '" . $db->real_escape_string($_POST["content"]) . "')");
-			$update = $db->query("UPDATE threads SET posts=posts+1, lastpostuser='" . $_SESSION["userid"] . "', lastposttime='" . time() . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
+	}	
+	else {
+	    $result = $db->query("INSERT INTO posts (thread, user, timestamp, content) VALUES ('" . $db->real_escape_string($q2) . "', '" . $_SESSION["userid"] . "', '" . time() . "', '" . $db->real_escape_string($_POST["content"]) . "')");
+	    $update = $db->query("UPDATE threads SET posts=posts+1, lastpostuser='" . $_SESSION["userid"] . "', lastposttime='" . time() . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
 						
-			if(!$result)
-			{
-				echo $lang["thread.PostError"];
-			}
-			else
-			{
+	    if(!$result) {
+	        echo $lang["thread.PostError"];
+	    }
+	    else {
                 // If the post was successful, remove any drafts the user might have.
                 $db->query("DELETE FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
 
-				header("Location: " . $config["baseURL"] . "/" . "thread/" . $q2 . "/" . $pages . "/#footer");
-			}
-		}
-	}
-
+		redirect("thread/" . $q2 . "/" . $pages . "/#footer");
+	    }
+        }
+    }
     return $contentSave;
 }
 
