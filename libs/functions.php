@@ -95,7 +95,7 @@ function redirect($text) {
         flush();
     }
     else {
-        echo '<script type="text/javascript">window.location.replace('. genURL($text) .');</script>';
+        echo '<script type="text/javascript">window.location.replace("'. genURL($text) .'");</script>';
     }
     exit();
 }
