@@ -23,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                         }
                     }
                 }
+		saveExtensionSettingsConfig("config/extension_config.php", $extension_config);
 	    }
-	    saveExtensionSettingsConfig("config/extension_config.php", $extension_config);
 	}
 	if ($_POST["enable"])
 	{
