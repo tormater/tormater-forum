@@ -8,7 +8,7 @@ if (!defined("INDEXED")) exit;
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     // Move a category up in order.
-    if ($_POST["moveup"]) {
+    if (isset($_POST["moveup"])) {
         // Only proceed if the requested category id is valid.
         if (is_numeric($_POST["moveup"])) {
             // Get the category.
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 }
 
                 // Only proceed if the category isn't the top one already.
-                if ($order > 1) {
+                if ($order > 0) {
                     // Get the id of the category ordered above this one.
                     $above = $db->query("SELECT * FROM `categories` WHERE `order`='" . $db->real_escape_string(($order - 1)) . "'");
 
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         }
     }
     // Move a category down in order.
-    if ($_POST["movedown"]) {
+    if (isset($_POST["movedown"])) {
         // Only proceed if the requested category id is valid.
         if (is_numeric($_POST["movedown"])) {
             // Get the category.
@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             }
         }
     }
-	if ($_POST["edit"] or $_POST["edit_edit_cat_name"] or $_POST["edit_cat_description"])
+	if (isset($_POST["edit"]) or isset($_POST["edit_edit_cat_name"]) or isset($_POST["edit_cat_description"]))
 	{
 		$id = $_POST["edit"];
 		$category = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($id) . "'");
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 			exit;
 	}
 
-	if ($_POST["delete"] or $_POST["deleteit"])
+	if (isset($_POST["delete"]) or isset($_POST["deleteit"]))
 	{
 		$id = $_POST["delete"];
 		$category = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($id) . "'");
@@ -189,23 +189,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		exit;
 	}
 	
-	if ($_POST["cat_name"])
+	if (isset($_POST["cat_name"]))
 	{
 		// Ensure the name and description aren't empty.
-		if (!$_POST["cat_name"])
+		if ($_POST["cat_name"] == "")
 		{
 			message($lang["panel.CategoryNameBlank"]);
 		}
 		
-		elseif (!$_POST["cat_description"])
+		elseif (!isset($_POST["cat_description"]) or $_POST["cat_description"] == "")
 		{
 			message($lang["panel.CategoryDescBlank"]);
 		}
 		
-		else if (strlen($_POST["cat_description"]) > 255) {
+		elseif (strlen($_POST["cat_description"]) > 255) {
                     message($lang["panel.CategoryDescTooLong"]);
 		}
-		else if (strlen($_POST["cat_name"]) > 255) {
+		elseif (strlen($_POST["cat_name"]) > 255) {
                     message($lang["panel.CategoryNameTooLong"]);
 		}
 		else {
@@ -213,9 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             // Check if there are any categories at all.
             $categoryCheck = $db->query("SELECT 1 FROM `categories`");
 
-            // If there aren't, set the order index to 1.
+            // If there aren't, set the order index to 0.
             if ($categoryCheck->num_rows < 1) {
-                $largestOrder = 1;
+                $largestOrder = 0;
             }
             // If there are, get the highest order index, and add 1 to it.
             else {
@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     		echo '<div><div style="float:right">';
 
             // Only show the move up button if this isn't the top category already.
-            if ($row["order"] > 1) {
+            if ($row["order"] > 0) {
                 echo '<form style="display:inline-block;" method="post" action=""><button name="moveup" value="' . $row["categoryid"] . '">'.$lang["panel.CategoryUpBtn"].'</button></form> ';
             }
             // Only show the move down button if this isn't the bottom category already.
