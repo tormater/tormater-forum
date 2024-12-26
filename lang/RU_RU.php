@@ -270,6 +270,8 @@ $lang = array(
     "panel.LogDelete" => "%s удалил сообщение пользователя %s",
     "panel.PostContent" => "Содержание сообщения",
     "panel.LogDeleteThread" => "%s удалил тред пользователя %s с наименованием '%s'<br>",
+    "panel.LogEditRole" => "%s changed %s's role from %s to %s<br>",
+    "panel.LogDeleteAvatar" => "%s deleted %s's avatar<br>",
     
     // User register
     "register.Header" => "Регистрация",
