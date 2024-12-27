@@ -39,7 +39,7 @@ else {
 $languageSelector = '<form method="post"><select name="lang" id="lang" onchange="this.form.submit()">';
 
 foreach ($validLanguages as $l) {
-    if (isset($currentLang) && $l == $currentLang) $selected = "selected=''";
+    if (isset($currentLang) && $l == $currentLang) $selected = "selected='' ";
     else $selected = "";
     
     $l_display = $l;
