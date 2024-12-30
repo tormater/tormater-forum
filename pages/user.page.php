@@ -109,8 +109,8 @@ else
                     <h3>' . $lang["user.UserInformation"] . '</h3>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></span>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></span>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'</label>' . $uposts . '</span>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label>' . $uthreads . '</span>
+            <span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'<a href="'.genURL("search?user=" . urlencode($username)).'"></label>' . $uposts . '</a></span>
+            <span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label><a href="'.genURL("search?author=" . urlencode($username)).'">' . $uthreads . '</a></span>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>';
     }
 
