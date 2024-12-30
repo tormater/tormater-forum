@@ -20,9 +20,10 @@ function buildSearchQuery($get) {
         addToQuery("(`title` LIKE '%" . $db->real_escape_string(urldecode($get["search"])) . "%')", $query, $and);
     }
     if ($get["author"] != null) {
-        $user = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string(urldecode($get["author"])) . "'");
+        $user = $db->query("SELECT * FROM users WHERE username='" . $db->real_escape_string(urldecode($get["author"])) . "'");
         if ($user->num_rows) {
-            addToQuery("startuser='". $db->real_escape_string(urldecode($get["author"])) . "'", $query, $and);
+            $user_row = $user->fetch_assoc();
+            addToQuery("startuser='". $user_row["userid"] . "'", $query, $and);
             $author = 1;
         }
     }
@@ -33,9 +34,10 @@ function buildSearchQuery($get) {
         }
     }
     if ($get["user"] != null) {
-        $user = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string(urldecode($get["user"])) . "'");
+        $user = $db->query("SELECT * FROM users WHERE username='" . $db->real_escape_string(urldecode($get["user"])) . "'");
         if ($user->num_rows) {
-            $posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string(urldecode($get["user"])) . "'");
+            $user_row = $user->fetch_assoc();
+            $posts = $db->query("SELECT * FROM posts WHERE user='" . $user_row["userid"] . "'");
             if ($posts->num_rows) {
                 $threads = array();
                 while($row = $posts->fetch_assoc())
@@ -95,8 +97,36 @@ include "header.php";
 $data = array
 (
     "title" => $lang["search.Button"],
+    "searchText" => "",
+    "authorText" => "",
+    "userText" => "",
+    "categoryOptions" => "<option value=''>" . $lang["search.CategoryPlaceholder"] . "</option>",
+    "user_placeholder" => $lang["search.UserPlaceholder"],
+    "title_label" => $lang["search.TitleLabel"],
+    "author_label" => $lang["search.AuthorLabel"],
+    "category_label" => $lang["search.CategoryLabel"],
+    "user_label" => $lang["search.UserLabel"],
+    "submit" => $lang["search.Submit"],
     "table" => ""
 );
+if (isset($_GET["search"])) {
+    $data["searchText"] = htmlspecialchars($_GET["search"]);
+}
+if (isset($_GET["author"])) {
+    $data["authorText"] = htmlspecialchars($_GET["author"]);
+}
+if (isset($_GET["user"])) {
+    $data["userText"] = htmlspecialchars($_GET["user"]);
+}
+
+$categories = $db->query("SELECT * FROM categories");
+
+while($row = $categories->fetch_assoc()) {
+    if (isset($_GET["category"]) && $_GET["category"] == $row["categoryid"]) $selected = "selected=''";
+    else $selected = "";
+        
+    $data["categoryOptions"] .= '<option ' . $selected . 'value="' . $row["categoryid"] . '">' . htmlspecialchars($row["categoryname"]) . '</option>';
+}
 
 if (isset($_GET["search"]) && strlen($_GET["search"]) > 64)
 {
@@ -182,7 +212,7 @@ while($row = $threads->fetch_assoc())
     $table_data["threads"] .= $template->render("templates/thread/thread_display.html", $thread_data);
 }
 
-//$table_data["pagination"] = pagination_return("search");
+$table_data["pagination"] = renderPagination(2,1);
 
 $data["table"] = $template->render("templates/search/search_table.html", $table_data);
 
