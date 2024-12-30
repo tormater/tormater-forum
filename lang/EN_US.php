@@ -47,8 +47,15 @@ $lang = array(
     "search.Button" => "Search",
     "search.Header" => "Search results for '%s'",
     "search.NoResults" => "No thread matches that search.",
-    "search.EmptySearch" => "Your search query must contain at least one character.",
+    "search.EmptySearch" => "Your search query is empty.",
     "search.TooLong" => "Your search was too long.",
+    "search.UserPlaceholder" => "Everyone",
+    "search.CategoryPlaceholder" => "All categories",
+    "search.TitleLabel" => "Search for",
+    "search.AuthorLabel" => "by",
+    "search.CategoryLabel" => "in",
+    "search.UserLabel" => "has replies from",
+    "search.Submit" => "Submit Search",
     
     // Viewing:
     "action.Generic" => "Viewing: ",
