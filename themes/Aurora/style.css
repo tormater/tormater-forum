@@ -365,6 +365,16 @@ label {
     color: var(--text-heavy);
 }
 
+.label, .label_multiline {
+    display: inline-block;
+    margin-right: 10px;
+    width: unset;
+    color: var(--text-medium);
+}
+.label_multiline {
+    margin-left: 10px;
+}
+
 .forminput {
     margin-bottom: 4px;
 }
