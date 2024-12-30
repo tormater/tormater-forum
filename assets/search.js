@@ -4,6 +4,7 @@ function search() {
     if (searchBox.length > 0) {
         window.location.href = searchPath + "?search=" + encodeURIComponent(searchBox);
     }
+    else window.location.href = searchPath;
 }
 
 document.querySelector('#searchbox').addEventListener('keydown', function (event) {
