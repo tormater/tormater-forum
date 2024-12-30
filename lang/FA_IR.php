@@ -49,7 +49,14 @@ $lang = array(
     "search.Header" => "نتایج جستجوی '%s'",
     "search.NoResults" => "هیچ موضوعی با جستجوی شما مطابقت ندارد.",
     "search.EmptySearch" => "جستجوی شما بایستی حداقل شامل یک کاراکتر باشد.",
-    "search.TooLong" => "عبارت جستجوی شما خیلی طولانی است.",
+    "search.TooLong" => "Your search was too long.",
+    "search.UserPlaceholder" => "Everyone",
+    "search.CategoryPlaceholder" => "All categories",
+    "search.TitleLabel" => "Search for",
+    "search.AuthorLabel" => "by",
+    "search.CategoryLabel" => "in",
+    "search.UserLabel" => "has replies from",
+    "search.Submit" => "Submit Search",
     
     // Viewing:
     "action.Generic" => "در حال مشاهده: ",
