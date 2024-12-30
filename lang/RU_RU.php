@@ -48,7 +48,14 @@ $lang = array(
     "search.Header" => "Результаты поиска для '%s'",
     "search.NoResults" => "Ни один тред не соответствует этому запросу.",
     "search.EmptySearch" => "Ваш поисковый запрос должен содержать хотя бы один символ.",
-    "search.TooLong" => "Ваше поиски было слишком длинным.",
+    "search.TooLong" => "Your search was too long.",
+    "search.UserPlaceholder" => "Everyone",
+    "search.CategoryPlaceholder" => "All categories",
+    "search.TitleLabel" => "Search for",
+    "search.AuthorLabel" => "by",
+    "search.CategoryLabel" => "in",
+    "search.UserLabel" => "has replies from",
+    "search.Submit" => "Submit Search",
     
     // Viewing:
     "action.Generic" => "Просмотр: ",
