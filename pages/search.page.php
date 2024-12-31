@@ -166,7 +166,7 @@ if ($currentPage < 1) $currentPage = 1;
 // Calculate the offset for the threads query.
 $offset = (($currentPage * $config["threadsPerPage"]) - $config["threadsPerPage"]);
 
-$threads = $db->query("SELECT * FROM threads " . $search . " ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+$threads = $db->query("SELECT * FROM threads " . $search . " ORDER BY lastposttime DESC LIMIT " . $db->real_escape_string($config["threadsPerPage"]) . " OFFSET " . $offset . "");
 
 $table_data = array(
     "title" => $lang["search.Header"],
