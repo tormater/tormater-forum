@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     $presetColor = "#000000";
     if ($config["forumColor"] != null)
     {
-        $presetColor = $config["forumColor"];
+        $presetColor = htmlspecialchars($config["forumColor"]);
         $newchecked = 'checked=""';
     }
     else
