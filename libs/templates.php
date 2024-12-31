@@ -21,7 +21,7 @@ class Template
         $template_global_tags = array("header", "footer");
         $template_var_tags = array(
             "forumTheme" => $config["forumTheme"], 
-            "forumName" => $config["forumName"],
+            "forumName" => htmlspecialchars($config["forumName"]),
             "forumDescription" => $config["forumDescription"],
             "forumFooter" => $config["footer"],
             "baseURL" => $config["baseURL"],
