@@ -86,7 +86,7 @@ if (isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 if (($q1 == "thread") and ($threadExists == true))
 {
     if (($draft == 0) or ($_SESSION["userid"] == $startuser) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
-        $data["title"] = htmlspecialchars($title) . ' • ' . $config["forumName"];
+        $data["title"] = htmlspecialchars($title) . ' • ' . htmlspecialchars($config["forumName"]);
     }
 }
 else if ($q1 == "category" && isset($categoryName))
