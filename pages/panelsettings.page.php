@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 	// Display the change forum name form.
 	echo '<h3>' . $lang["panel.BasicSettings"] . '</h3>
    <form method="post" action=""><div class="formcontainer">
-    <div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . htmlsecialchars($config["forumName"]) . '"></div>';
+    <div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . htmlspecialchars($config["forumName"]) . '"></div>';
 
     // Display the change language form.
 	echo '<div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
