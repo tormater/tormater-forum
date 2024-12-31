@@ -22,7 +22,7 @@ if (isset($_GET['url']) && strlen($_GET['url']) > 0) {
 $data = array(
 	    "locale" => str_replace("_", "-", $lang["locale"]),
 	    "search" => genURL("assets/search.js"),
-	    "title" => (empty($lang["page." . $q1])) ? $config["forumName"] : $lang["page." . $q1] . ' • ' . $config["forumName"],
+	    "title" => (empty($lang["page." . $q1])) ? htmlspecialchars($config["forumName"]) : $lang["page." . $q1] . ' • ' . htmlspecialchars($config["forumName"]),
 	    "stylesheet" => genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1'),
 	    "favicon" => genURL('themes/' . $config["forumTheme"] . '/icon.ico'),
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
@@ -35,7 +35,7 @@ $data = array(
 	    "searchButton" => $lang["search.Button"],
 	    "meta" => "",
 	    "color" => "",
-	    "keywords" => strtolower($config["forumName"]),
+	    "keywords" => htmlspecialchars(strtolower($config["forumName"])),
 	    "navigation" => drawNavigation(),
 	    "header" => $template->render("templates/header/title.html", null),
 );
@@ -90,9 +90,9 @@ if (($q1 == "thread") and ($threadExists == true))
     }
 }
 else if ($q1 == "category" && isset($categoryName))
-    $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
+    $data["title"] = htmlspecialchars($categoryName) . ' • ' . htmlspecialchars($config["forumName"]);
 else if ($q1 == "user")
-    $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
+    $data["title"] = htmlspecialchars($username) . ' • ' . htmlspecialchars($config["forumName"]);
 
 
 foreach ($m_pages as $v) {
