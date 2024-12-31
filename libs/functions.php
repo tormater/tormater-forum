@@ -667,11 +667,11 @@ function drawNavigation() {
     
     $nav = "";
     if (isset($config["parentSite"]) && isset($config["parentSiteName"]) && $config["parentSite"] !== '' && $config["parentSiteName"] !== '') {
-        $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["parentSiteName"], "url" => $config["parentSite"]));
+        $nav .= $template->render("templates/header/nav_button.html", array("label" => htmlspecialchars($config["parentSiteName"]), "url" => $config["parentSite"]));
         $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
     } 
     
-    $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["forumName"], "url" => genURL("")));
+    $nav .= $template->render("templates/header/nav_button.html", array("label" => htmlspecialchars($config["forumName"]), "url" => genURL("")));
     $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
     
     if (!$q1)
