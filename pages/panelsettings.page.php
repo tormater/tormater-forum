@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 	// Display the change forum name form.
 	echo '<h3>' . $lang["panel.BasicSettings"] . '</h3>
    <form method="post" action=""><div class="formcontainer">
-    <div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . $config["forumName"] . '"></div>';
+    <div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label><input type="text" name="newforumname" value="' . htmlsecialchars($config["forumName"]) . '"></div>';
 
     // Display the change language form.
 	echo '<div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
@@ -62,18 +62,18 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 	echo '<h3>' . $lang["panel.AdvancedSettings"] . '</h3>';
     echo '<div class="formcontainer">
     <div class="forminput"><label>' . $lang["panel.ThreadsPerPage"] . '</label>
-    <input type="text" name="newthreadsPerPage" value="' . $config["threadsPerPage"] . '"></div>
+    <input type="text" name="newthreadsPerPage" value="' . htmlspecialchars($config["threadsPerPage"]) . '"></div>
     <div class="forminput"><label>' . $lang["panel.PostPerPage"] . '</label>
-    <input type="text" name="newpostsPerPage" value="' . $config["postsPerPage"] . '"></div>
+    <input type="text" name="newpostsPerPage" value="' . htmlspecialchars($config["postsPerPage"]) . '"></div>
     <div class="forminput"><label>' . $lang["panel.Userlist"] . '</label>
-    <input type="checkbox" name="newuserlistEnabled" id="userlist" value="'. $config["userlistEnabled"] .'" ';
+    <input type="checkbox" name="newuserlistEnabled" id="userlist" value="'. htmlspecialchars($config["userlistEnabled"]) .'" ';
     if ($config["userlistEnabled"] == 1)
     {
         echo 'checked';
     }
     echo '></div>
     <div class="forminput"><label>' . $lang["panel.UserlistMemberOnly"] . '</label>
-    <input type="checkbox" name="newuserlistMembersOnly" id="userlistMember" value="'. $config["userlistMembersOnly"] .'" ';
+    <input type="checkbox" name="newuserlistMembersOnly" id="userlistMember" value="'. htmlspecialchars($config["userlistMembersOnly"]) .'" ';
     if ($config["userlistMembersOnly"] == 1)
     {
         echo 'checked';
@@ -81,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     echo '></div>';
 
     echo '<div class="forminput"><label>' . $lang["panel.showDeletedInUserlist"] . '</label>
-    <input type="checkbox" name="showDeletedInUserlist" id="userlistDeleted" value="'. $config["showDeletedInUserlist"] .'" ';
+    <input type="checkbox" name="showDeletedInUserlist" id="userlistDeleted" value="'. htmlspecialchars($config["showDeletedInUserlist"]) .'" ';
     if ($config["showDeletedInUserlist"] == 1)
     {
         echo 'checked';
@@ -109,14 +109,11 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 
 else
 {
-	if (!isset($_POST))
-	{
+    if (!isset($_POST)) {
         message($lang["panel.ChangeError"]);
-	}
-    else
-    {
-        if(isset($_POST["newuserlistEnabled"]))
-        {
+    }
+    else {
+        if(isset($_POST["newuserlistEnabled"])) {
             $newuserlistEnabled = 1;
         }
         else
@@ -139,16 +136,16 @@ else
         {
             $showDeletedInUserlist = 0;
         }
-		$newforumname = $_POST["newforumname"];
+        $newforumname = $_POST["newforumname"];
         $newthreadsPerPage = $_POST["newthreadsPerPage"];
         $newpostsPerPage = $_POST["newpostsPerPage"];
-		$newtheme = $_POST["newtheme"];
-		$newlang = $_POST["newlang"];
+        $newtheme = $_POST["newtheme"];
+        $newlang = $_POST["newlang"];
         $newcolor = $_POST["newcolor"];
         $color = $_POST["color"];
-		$newfooter = $_POST["newfooter"];
+        $newfooter = $_POST["newfooter"];
         
-        $config["forumName"] = htmlspecialchars($newforumname);
+        $config["forumName"] = $newforumname;
         $config["threadsPerPage"] = $newthreadsPerPage;
         $config["postsPerPage"] = $newpostsPerPage;
         $config['userlistEnabled'] = $newuserlistEnabled;
