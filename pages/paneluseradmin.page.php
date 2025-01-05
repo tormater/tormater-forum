@@ -36,6 +36,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 else {
 
+if ($q2 == "restoreuser") {
+    $db->query("UPDATE users SET deleted=0 WHERE userid='" . $db->real_escape_string($q3) . "'");
+}
+
 // Start off by making a query for our list.
 $ip = $db->query("SELECT ip, username, deleted FROM users WHERE userid='" . $db->real_escape_string($q3) . "'");
 while ($r = $ip->fetch_assoc()) {
