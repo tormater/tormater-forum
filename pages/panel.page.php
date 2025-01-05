@@ -14,39 +14,35 @@ if ($_SESSION["role"] != "Administrator")
 	exit;
 }
 
-echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("panel") . '">'.$lang["panel.ForumSettings"].'</a> <a class="buttonbig" href="' . genURL("panel/category") . '">'.$lang["panel.Categories"].'</a> <a class="buttonbig" href="' . genURL("panel/extensions") . '">'.$lang["panel.Extensions"].'</a> <a class="buttonbig" href="' . genURL("panel/auditlog") . '">'.$lang["panel.AuditLog"].'</a></div>';
+$panel_pages = array(
+    "settings" => array("panelsettings.page.php", $lang["panel.ForumSettings"]),
+    "category" => array("panelcategory.page.php", $lang["panel.Categories"]),
+    "extensions" => array("panelextensions.page.php", $lang["panel.Extensions"]),
+    "auditlog" => array("panelauditlog.page.php", $lang["panel.AuditLog"]),
+    "useradmin" => array("paneluseradmin.page.php",""),
+    "restoreuser" => array("paneluseradmin.page.php","")
+);
 
-// Find out which page we're loading
+listener("panelBeforeRender");
 
-if ($q2 == "category")
-{
-	include "panelcategory.page.php";
+$data = array(
+  "buttons" => ""
+);
+
+foreach($panel_pages as $k => $v) {
+    if (!strlen($v[1])) continue;
+    $b_data = array("url" => genURL("panel/" . $k), "title" => $v[1]);
+    $data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
 }
-elseif ($q2 == "extensions")
-{
-	include "panelextensions.page.php";
+
+
+echo $template->render("templates/panel/panel_navigation.html",$data);
+
+if (array_key_exists($q2,$panel_pages)) {
+    include $panel_pages[$q2][0];
 }
-elseif ($q2 == "deleteuser")
-{
-	include "paneluseradmin.page.php";
-}
-elseif ($q2 == "useradmin")
-{
-	include "paneluseradmin.page.php";
-}
-elseif ($q2 == "restoreuser")
-{
-    $db->query("UPDATE users SET deleted=0 WHERE userid='" . $db->real_escape_string($q3) . "'");
-    include "paneluser.page.php";
-}
-elseif ($q2 == "auditlog")
-{
-	include "panelauditlog.page.php";
-}
-else
-{
-	include "panelsettings.page.php";
-}
+else include $panel_pages["settings"][0];
+
 
 include "footer.php";
 
