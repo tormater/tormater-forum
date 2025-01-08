@@ -10,42 +10,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	if (isset($_POST["changesettings"]))
 	{
 	    $e = htmlspecialchars_decode($_POST["changesettings"]);
-	    if (in_array($e, $allExtensions)) {
-	        if (!isset($extension_config[$e])) $extension_config[$e] = array();
-	        if (file_exists("extensions/" . $e . "/manifest.json" )) {
-                    $manifest = json_decode(file_get_contents("extensions/" . $e . "/manifest.json"), true);
-                    if ($manifest["settings"]) {
-                        foreach($manifest["settings"] as $setting) {
-                            if ($setting["type"] == "bool" || isset($_POST[$setting["id"]])) {
-                                $value = $_POST[$setting["id"]];
-                                if (!isset($_POST[$setting["id"]])) $value = "0";
-                                $extension_config[$e][$setting["id"]] = $value;
-                            }
+	    if (!isset($extension_config[$e])) $extension_config[$e] = array();
+	    if (file_exists("extensions/" . $e . "/manifest.json" ))
+            {
+                $manifest = json_decode(file_get_contents("extensions/" . $e . "/manifest.json"), true);
+                if ($manifest["settings"]) {
+                    foreach($manifest["settings"] as $setting) {
+                        if ($setting["type"] == "bool" || isset($_POST[$setting["id"]])) {
+                            $value = $_POST[$setting["id"]];
+                            if (!isset($_POST[$setting["id"]])) $value = "0";
+                            $extension_config[$e][$setting["id"]] = $value;
                         }
-		    }
-		    saveExtensionSettingsConfig("config/extension_config.php", $extension_config);
+                    }
                 }
 	    }
+	    saveExtensionSettingsConfig("config/extension_config.php", $extension_config);
 	}
 	if ($_POST["enable"])
 	{
-	    $name = $_POST["enable"];
-            $extensions[htmlspecialchars_decode($name)] = true;
-            saveExtensionConfig("config/extensions.php", $extensions);
-            message($lang["panel.EnableSuccess"]);
-            include "footer.php";
-            redirect("panel/extensions");
-	    exit;
+		$name = $_POST["enable"];
+        $extensions[htmlspecialchars_decode($name)] = true;
+        saveExtensionConfig("config/extensions.php", $extensions);
+        message($lang["panel.EnableSuccess"]);
+        include "footer.php";
+        header("Refresh:1; url=" . genURL("panel/extensions"));
+		exit;
 	}
 	if ($_POST["disable"])
 	{
-	    $name = $_POST["disable"];
-            $extensions[htmlspecialchars_decode($name)] = false;
-            saveExtensionConfig("config/extensions.php", $extensions);
-            message($lang["panel.DisableSuccess"]);
-	    include "footer.php";
-            redirect("panel/extensions");
-	    exit;
+		$name = $_POST["disable"];
+        $extensions[htmlspecialchars_decode($name)] = false;
+        saveExtensionConfig("config/extensions.php", $extensions);
+        message($lang["panel.DisableSuccess"]);
+		include "footer.php";
+        header("Refresh:1; url=" . genURL("panel/extensions"));
+		exit;
 	}
 }
 
@@ -96,6 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                               break;
                             case "string":
                               echo '<input type="text"  name="' . htmlspecialchars($setting["id"]) . '" value="' . $value . '">';
+                              break;
+                            case "text":
+                              echo '<textarea name="' . htmlspecialchars($setting["id"]) . '">' . $value . '</textarea>';
                               break;
                             default:
                               echo "???";
