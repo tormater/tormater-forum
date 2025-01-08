@@ -622,6 +622,14 @@ tr:nth-child(even) {
     background: var(--bg-secondary);
 }
 
+.tdctitle {
+    font-size: 115%;
+    font-weight: bold;
+}
+.tdttitle {
+    font-weight: bold;
+}
+
 td {
     padding: 8px 10px;
     vertical-align: middle;
