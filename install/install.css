@@ -118,6 +118,7 @@ hr {
     text-shadow: 0 1px #3a3f4e;
     border: 1px solid #3a4050;
     color: #fff;
+    margin-bottom: 2px;
 }
 
 .message a {
