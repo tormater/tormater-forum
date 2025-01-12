@@ -820,24 +820,29 @@ font.sticky, font.locked, font.draft, font.pinned {
 
 /* Role Colors */
 
-#Administrator {
+.Administrator {
     color: #6d0000;
     text-decoration: none;
 }
 
-#Moderator {
+.Moderator {
     color: #07006d;
     text-decoration: none;
 }
 
-#Member {
+.Member {
     color: #000;
     text-decoration: none;
 }
 
-#Suspended {
+.Suspended {
     color: rgb(91, 74, 102);
     text-decoration: none
+}
+
+#Suspended, #Member, #Moderator, #Administrator {
+    background-color: #f00;
+    color: #fff;
 }
 
 /* Posts */
