@@ -94,7 +94,7 @@ $lang = array(
     "category.ReplyTo" => "Ответ для: %s",
 
     // Threads & Posts
-    "thread.Info" => "создан <a id='%s' href='%s'>%s</a>, <span title='%s'>%s</span>",
+    "thread.Info" => "создан <a class='%s' href='%s'>%s</a>, <span title='%s'>%s</span>",
     "thread.BackToCategory" => "Назад к категории",
     "thread.DeleteThreadBtn" => "Удалить",
     "thread.UnlockThreadBtn" => "Разблокировать",
@@ -106,7 +106,7 @@ $lang = array(
     "thread.UnpinThreadBtn" => "Открепить",
     "thread.PostInTitle" => "Сообщений в",
     "thread.ContentTitle" => "Содержание:",
-    "thread.HiddenBy" => "(скрыл <a href='%s' id='%s'>%s</a>)",
+    "thread.HiddenBy" => "(скрыл <a href='%s' class='%s'>%s</a>)",
     "thread.QuotePost" => "Цитата",
     // Labels & Buttons
     "thread.PostReplyBtn" => "Отправить ответ",
