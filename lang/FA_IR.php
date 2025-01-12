@@ -95,7 +95,7 @@ $lang = array(
     "category.ReplyTo" => "پاسخ: %s",
 
     // Threads & Posts
-    "thread.Info" => "نوشته <a id='%s' href='%s'>%s</a> در <span title='%s'>%s</span>",
+    "thread.Info" => "نوشته <a class='%s' href='%s'>%s</a> در <span title='%s'>%s</span>",
     "thread.BackToCategory" => "بازگشت",
     "thread.DeleteThreadBtn" => "حذف",
     "thread.UnlockThreadBtn" => "حذف قفل",
@@ -107,7 +107,7 @@ $lang = array(
     "thread.UnpinThreadBtn" => "حذف سنجاق",
     "thread.PostInTitle" => "نوشته‌های در",
     "thread.ContentTitle" => "متن پیام:",
-    "thread.HiddenBy" => "(پنهان شده توسط <a href='%s' id='%s'>%s</a>)",
+    "thread.HiddenBy" => "(پنهان شده توسط <a href='%s' class='%s'>%s</a>)",
     "thread.QuotePost" => "نقل قول",
     // Labels & Buttons
     "thread.PostReplyBtn" => "ارسال پاسخ",
