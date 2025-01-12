@@ -94,7 +94,7 @@ $lang = array(
     "category.ReplyTo" => "Re: %s",
 
     // Threads & Posts
-    "thread.Info" => "by <a id='%s' href='%s'>%s</a>, <span title='%s'>%s</span>",
+    "thread.Info" => "by <a class='%s' href='%s'>%s</a>, <span title='%s'>%s</span>",
     "thread.BackToCategory" => "Back to category",
     "thread.DeleteThreadBtn" => "Delete",
     "thread.UnlockThreadBtn" => "Unlock",
@@ -106,7 +106,7 @@ $lang = array(
     "thread.UnpinThreadBtn" => "Unpin",
     "thread.PostInTitle" => "Posts in",
     "thread.ContentTitle" => "Content:",
-    "thread.HiddenBy" => "(hidden by <a href='%s' id='%s'>%s</a>)",
+    "thread.HiddenBy" => "(hidden by <a href='%s' class='%s'>%s</a>)",
     "thread.QuotePost" => "Quote",
     // Labels & Buttons
     "thread.PostReplyBtn" => "Post reply",
