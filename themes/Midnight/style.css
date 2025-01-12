@@ -51,29 +51,29 @@ a {
   color: #64ccff;
 }
 
-#Member {
+.Member {
     color: #fff;
 }
 
-#Administrator {
+.Administrator {
     color: #5fc;
 }
 
-#Moderator {
+.Moderator {
     color: #3bf;
 }
 
-#Suspended {
+.Suspended {
     color: #ddd;
 }
 
-#userbar #Administrator {
+#userbar .Administrator {
     color: #004f31;
 }
-#userbar #Moderator {
+#userbar .Moderator {
     color: #003c7b;
 }
-#userbar #Member {
+#userbar .Member {
     color: #000;
 }
 #userbar a {
@@ -230,8 +230,4 @@ th {
 
 [postcolor="16"] {
     background-color: #222324;
-}
-
-select {
-    background-color: #000000;
 }
