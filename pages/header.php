@@ -22,7 +22,7 @@ if (isset($_GET['url']) && strlen($_GET['url']) > 0) {
 $data = array(
 	    "locale" => str_replace("_", "-", $lang["locale"]),
 	    "search" => genURL("assets/search.js"),
-	    "title" => (empty($lang["page." . $q1])) ? htmlspecialchars($config["forumName"]) : $lang["page." . $q1] . ' • ' . htmlspecialchars($config["forumName"]),
+	    "title" => (empty($lang["page." . $q1])) ? $config["forumName"] : $lang["page." . $q1] . ' • ' . $config["forumName"],
 	    "stylesheet" => genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1'),
 	    "favicon" => genURL('themes/' . $config["forumTheme"] . '/icon.ico'),
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
@@ -35,7 +35,7 @@ $data = array(
 	    "searchButton" => $lang["search.Button"],
 	    "meta" => "",
 	    "color" => "",
-	    "keywords" => htmlspecialchars(strtolower($config["forumName"])),
+	    "keywords" => strtolower($config["forumName"]),
 	    "navigation" => drawNavigation(),
 	    "header" => $template->render("templates/header/title.html", null),
 );
@@ -80,19 +80,19 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
 
 if (isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 {
-	$data["welcome"] = $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" id="' . $_SESSION["role"] . '">' . htmlspecialchars($_SESSION["username"]) . '</a></b>';
+	$data["welcome"] = $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" class="' . $_SESSION["role"] . '">' . htmlspecialchars($_SESSION["username"]) . '</a></b>';
 }
 
 if (($q1 == "thread") and ($threadExists == true))
 {
     if (($draft == 0) or ($_SESSION["userid"] == $startuser) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
-        $data["title"] = htmlspecialchars($title) . ' • ' . htmlspecialchars($config["forumName"]);
+        $data["title"] = htmlspecialchars($title) . ' • ' . $config["forumName"];
     }
 }
 else if ($q1 == "category" && isset($categoryName))
-    $data["title"] = htmlspecialchars($categoryName) . ' • ' . htmlspecialchars($config["forumName"]);
+    $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
 else if ($q1 == "user")
-    $data["title"] = htmlspecialchars($username) . ' • ' . htmlspecialchars($config["forumName"]);
+    $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
 
 
 foreach ($m_pages as $v) {
