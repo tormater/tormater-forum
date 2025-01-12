@@ -70,7 +70,7 @@ while($row = $result->fetch_assoc())
         $username = $row["username"];
     }
 
-	echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" id="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; <small>';
+	echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $row["color"] . '"><b><a href="' . genURL('user/' . $row["userid"]) . '/" class="' . $row["role"] . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $role . '&nbsp; <small>';
     if (($config["mainAdmin"] != $row["userid"])) {
         echo '<a href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a>&nbsp; ';
     }
