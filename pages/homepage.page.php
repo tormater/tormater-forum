@@ -70,7 +70,7 @@ while($row = $threads->fetch_assoc())
         "title" => htmlspecialchars($row['title']),
         "startuser" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $su["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($susername), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"])),
         "posts" => $row['posts'],
-        "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
+        "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" class="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
         "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
         "reldate" => relativeTime($row["lastposttime"]),
     );
