@@ -166,7 +166,7 @@ if ($currentPage < 1) $currentPage = 1;
 // Calculate the offset for the threads query.
 $offset = (($currentPage * $config["threadsPerPage"]) - $config["threadsPerPage"]);
 
-$threads = $db->query("SELECT * FROM threads " . $search . " ORDER BY lastposttime DESC LIMIT " . $db->real_escape_string($config["threadsPerPage"]) . " OFFSET " . $offset . "");
+$threads = $db->query("SELECT * FROM threads " . $search . " ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
 
 $table_data = array(
     "title" => $lang["search.Header"],
@@ -196,7 +196,7 @@ while($row = $threads->fetch_assoc())
         "title" => htmlspecialchars($row['title']),
         "startuser" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $su["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($susername), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"])),
         "posts" => $row['posts'],
-        "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" id="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
+        "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" class="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
         "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
         "reldate" => relativeTime($row["lastposttime"]),
     );
