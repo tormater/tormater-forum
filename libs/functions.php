@@ -667,11 +667,11 @@ function drawNavigation() {
     
     $nav = "";
     if (isset($config["parentSite"]) && isset($config["parentSiteName"]) && $config["parentSite"] !== '' && $config["parentSiteName"] !== '') {
-        $nav .= $template->render("templates/header/nav_button.html", array("label" => htmlspecialchars($config["parentSiteName"]), "url" => $config["parentSite"]));
+        $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["parentSiteName"], "url" => $config["parentSite"]));
         $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
     } 
     
-    $nav .= $template->render("templates/header/nav_button.html", array("label" => htmlspecialchars($config["forumName"]), "url" => genURL("")));
+    $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["forumName"], "url" => genURL("")));
     $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
     
     if (!$q1)
@@ -762,7 +762,7 @@ function drawUserProfile($userid, $type, $isHidden=false) {
 		if ($avatar == "none") $uAvatar = "";
         else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
 
-        echo $uAvatar . '<b><a id="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a>';
+        echo $uAvatar . '<b><a class="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a>';
         echo '</b>';
 
         // Draw the role box
@@ -841,7 +841,7 @@ function drawUserProfile($userid, $type, $isHidden=false) {
 function displayUser($deletedClass = "", $color, $userid, $role, $username, $verify = "", $lastaction, $lastactive) {
   global $lang;
 
-  echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $color . '"><b><a href="' . genURL('user/' . $userid) . '/" id="' . $role . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $lang["role." . $role] . '&nbsp; ' . $verify . '<small></div><div class="userlist-bottom">' . parseAction($lastaction, $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a>)</small></div></div>';
+  echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $color . '"><b><a href="' . genURL('user/' . $userid) . '/" class="' . $role . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $lang["role." . $role] . '&nbsp; ' . $verify . '<small></div><div class="userlist-bottom">' . parseAction($lastaction, $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a>)</small></div></div>';
 }
 
 if (!function_exists('str_contains')) {
