@@ -10,7 +10,10 @@ $result = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_str
 
 if (!$result)
 {
+    include "header.php";
     message($lang["user.FaildFindUser"]);
+    include "footer.php";
+    exit;
 }
 
 else
@@ -18,7 +21,10 @@ else
     
     if ($result->num_rows == 0)
     {
+        include "header.php";
         message($lang["user.NoSuchUser"]);
+        include "footer.php";
+        exit;
     }
     
     else
