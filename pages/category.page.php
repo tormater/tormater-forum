@@ -57,13 +57,13 @@ else {
 
 if (!$category)
 {
-    echo $lang["error.CategoryMisc"];
+    message($lang["error.CategoryMisc"]);
     include 'footer.php';
     exit;
 }
 else if ($category->num_rows == 0)
 {
-    echo $lang["error.CategoryNotFound"];
+    message($lang["error.CategoryNotFound"]);
     include 'footer.php';
     exit;
 }
