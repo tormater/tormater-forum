@@ -90,9 +90,9 @@ if (($q1 == "thread") and ($threadExists == true))
     }
 }
 else if ($q1 == "category" && isset($categoryName))
-    $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
+    if (isset($categoryName)) $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
 else if ($q1 == "user")
-    $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
+    if (isset($username)) $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
 
 
 foreach ($m_pages as $v) {
