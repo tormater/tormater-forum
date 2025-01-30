@@ -707,7 +707,7 @@ function drawNavigation() {
     {
         $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($GLOBALS["categoryName"])));
     }
-    else if ($q1 == "user")
+    else if ($q1 == "user" && isset($GLOBALS["username"]))
     {
         $nav .= $template->render("templates/header/nav_button.html", array("label" => $lang["page.userlist"], "url" => genURL("userlist")));
         $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
