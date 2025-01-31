@@ -12,6 +12,8 @@
 2. Create a database for the forum, grant your user privileges on it.
 3. Upload the forum software to your server (using git is recommended).
 4. Navigate to your forum and fill out the installer.
+
+For more info on installing your forum, please view the [Installing your forum](https://github.com/tormater/tormater-forum/wiki/Installing-your-forum) wiki page.
 ### Help & Support
 - <a href="http://forum.tormater.com">Support forum</a>
 - <a href="https://github.com/tormater/tormater-forum/wiki">Wiki</a>
