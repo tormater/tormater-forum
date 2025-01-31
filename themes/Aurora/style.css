@@ -750,7 +750,7 @@ tr:last-child td {
 }
 
 #editthread:focus {
-    outline: #9c9cff 1px solid;
+    border: var(--c-gradient-bottom) 1px solid;
     text-decoration: none;
 }
 .thread,
