@@ -1185,11 +1185,11 @@ input[type=file]::file-selector-button:hover {
     width: 100%
 }
 .userposts {
-    width: calc(100% - 175px);
+    width: calc(100% - 250px);
     float: right;
 }
 .userbioside {
-    width: 175px;
+    width: 250px;
     float: left;
 }
 .userbio {
