@@ -622,6 +622,13 @@ tr:nth-child(even) {
     background: var(--bg-secondary);
 }
 
+tr:last-child td:first-child {
+    border-bottom-left-radius: 6px;
+}
+tr:last-child td:last-child {
+    border-bottom-right-radius: 6px;
+}
+
 .tdctitle {
     font-size: 115%;
     font-weight: bold;
