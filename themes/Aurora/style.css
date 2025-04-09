@@ -1020,6 +1020,7 @@ font.sticky, font.locked, font.draft, font.pinned {
 .postspoiler summary {
     transition: padding 100ms ease-out;
     cursor: pointer;
+    user-select: none;
 }
 
 .postcode {
@@ -1069,6 +1070,15 @@ font.sticky, font.locked, font.draft, font.pinned {
 .postquote:last-child {
     margin-bottom: 0px;
 }
+
+.postlist {
+    margin: 0px;
+}
+
+.postlist br {
+    display: none;
+}
+
 /* Settings/Admin panel */
 
 .formcontainer {
