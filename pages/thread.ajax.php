@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 	if ($_POST["postRaw"] && strlen($_POST["postRaw"]) <= $config['maxCharsPerPost'])
 	{
-        echo formatPost($_POST["postRaw"]);
+        echo formatPost(htmlspecialchars_decode($_POST["postRaw"]));
     }
 }
 ?>
