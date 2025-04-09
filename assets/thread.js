@@ -43,7 +43,10 @@ function previewPost(num, type) {
     
         xhttp.open('POST', ajaxPath, true);
         xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-        xhttp.send('postRaw=' + Field.value); 
+        const postParams = new URLSearchParams();
+        postParams.set('postRaw', Field.value);
+
+        xhttp.send(postParams.toString()); 
     }
     else {
         PreviewButton.style = "";
