@@ -19,6 +19,8 @@ if (isset($_GET['url']) && strlen($_GET['url']) > 0) {
     $login_redirect = "?next=" . ltrim($_GET['url'], '/');
 }
 
+if (!isset($login_redirect)) $login_redirect = "";
+
 $data = array(
 	    "locale" => str_replace("_", "-", $lang["locale"]),
 	    "search" => genURL("assets/search.js"),
