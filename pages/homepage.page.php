@@ -44,7 +44,7 @@ while($row = $categories->fetch_assoc())
 	"desc" => formatPost($row["categorydescription"]),
 	"threads" => $numthreads->num_rows,
 	"lastpost" => $title,
-	"lastposturl" => genURL('thread/' . $trow['threadid']),
+	"lastposturl" => !isset($trow['threadid']) ?: genURL('thread/' . $trow['threadid']),
 	"user" => $user,
     );
 	
