@@ -234,6 +234,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $avatarCheck = $db->query("SELECT avatar, avataruploadtime FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 
+$avatarURL = "";
+
 while ($a = $avatarCheck->fetch_assoc()) {
     if ($a["avatar"] != "none") {
         $avatarURL = "</br><img class='avatarPanel' src='" . genURL("avatars/" . $_SESSION["userid"] . "." . $a["avatar"] . "?t=" . $a["avataruploadtime"]) . "'>";
