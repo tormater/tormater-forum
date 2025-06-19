@@ -767,7 +767,7 @@ function drawUserProfile($userid, $type, $isHidden=false) {
 
         // Draw the role box
 	if (!$isHidden) {
-		if ($type == 1 and ($_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
+		if ($type == 1 and (isset($_SESSION['role']) && $_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
 				
@@ -808,7 +808,7 @@ function drawUserProfile($userid, $type, $isHidden=false) {
 				
 		}
 
-        elseif ($type == 1 and ($_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
+        elseif ($type == 1 and (isset($_SESSION['role']) && $_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
 		{
 			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
 
@@ -838,7 +838,7 @@ function drawUserProfile($userid, $type, $isHidden=false) {
 }
 
 // Display a user's information, used by userlists.
-function displayUser($deletedClass = "", $color, $userid, $role, $username, $verify = "", $lastaction, $lastactive) {
+function displayUser($deletedClass, $color, $userid, $role, $username, $verify, $lastaction, $lastactive) {
   global $lang;
 
   echo '<div class="userlist' . $deletedClass . '"><div class="userlist-top" postcolor="' . $color . '"><b><a href="' . genURL('user/' . $userid) . '/" class="' . $role . '">' . htmlspecialchars($username) . '</a></b>&nbsp; ' . $lang["role." . $role] . '&nbsp; ' . $verify . '<small></div><div class="userlist-bottom">' . parseAction($lastaction, $lang) . ' (<a class="date" title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a>)</small></div></div>';
