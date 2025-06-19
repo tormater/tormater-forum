@@ -62,11 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     		echo '<h3><span>' . htmlspecialchars($manifest["title"]) . '</span></h3>';
 			echo '<label>' . $lang["panel.Readme"] . '</label>' . '<span>' . formatPost($manifest["readme"]) . '</span>';
     		echo '<div><div style="float:right">';
-            if ($extensions[$e] != true || $extensions[$e] == false)
+            if (!isset($extensions[$e]) || $extensions[$e] != true || $extensions[$e] == false)
             {
                 echo '<form style="display:inline-block;" method="post" action=""><button name="enable" value="' . htmlspecialchars($e) . '">'.$lang["panel.Enable"].'</button></form>';
             }
-            if ($extensions[$e] == true || $extensions[$e] != false)
+            else if ($extensions[$e] == true || $extensions[$e] != false)
             {
                 echo '<form style="display:inline-block;" method="post" action=""><button name="disable" value="' . htmlspecialchars($e) . '">'.$lang["panel.Disable"].'</button></form>';
             }
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 		echo '<label>' . $lang["panel.Author"] . '</label>' . '<span>' . formatPost($manifest["author"]) . '</span>';
 		echo "</div>";
 		// Output the extension settings
-		if ($manifest["settings"]) {
+		if (isset($manifest["settings"])) {
 		    echo "<br><fieldset><legend>" . $lang["page.settings"] . "</legend>";
 		    echo '<form method="post" action="">';
 		    
