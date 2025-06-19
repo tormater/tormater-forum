@@ -13,7 +13,7 @@ if ($config["registration"] == "closed") {
   include "footer.php";
   exit;
 }
-if ($_SESSION["signed_in"] == true) {
+if (isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
   include 'header.php';
   echo '<h2>' . $lang["register.Header"] . '</h2>';
   message($lang["nav.AdminsOnly"]);
