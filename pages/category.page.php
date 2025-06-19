@@ -45,7 +45,7 @@ $pages = ceil($numThreads / $threadsPerPage);
 // Calculate the offset for the threads query.
 $offset = (($currentPage * $threadsPerPage) - $threadsPerPage);
 
-if ($_SESSION["signed_in"] != true) {
+if (!isset($_SESSION["signed_in"]) || $_SESSION["signed_in"] != true) {
     $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $threadsPerPage . " OFFSET " . $offset . "");
 }
 else if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) {
