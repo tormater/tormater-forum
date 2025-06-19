@@ -715,9 +715,9 @@ function drawNavigation() {
     }
     else
     {
-        if ($lang["page." . $q1])
+        if (isset($lang["page." . $q1]) && $lang["page." . $q1])
         {
-            if ($lang["page." . $q1 . "." . $q2]) {
+            if (isset($lang["page." . $q1 . "." . $q2]) && $lang["page." . $q1 . "." . $q2]) {
                 $nav .= $template->render("templates/header/nav_button.html", array("label" => $lang["page." . $q1], "url" => genURL($q1)));
                 $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
                 $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page." . $q1 . "." . $q2]));
