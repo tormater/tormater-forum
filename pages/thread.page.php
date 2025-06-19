@@ -292,7 +292,7 @@ else
     $titleEdit = $db->query("SELECT startuser, starttime FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
 	while ($row = $titleEdit->fetch_assoc())
 	{
-		if ($row["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator")
+		if ((isset($_SESSION["userid"]) && isset($_SESSION["role"])) && ($row["startuser"] == $_SESSION["userid"] or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator"))
 		{
 			echo '<form action="" method="post"><input type="text" id="editthread" name="editthread" autocomplete="off" onchange="form.submit();" value="' . htmlspecialchars($title) . '"></form>';
         }
@@ -313,7 +313,7 @@ else
         
     }
 
-	if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))
+	if ((isset($_SESSION["role"]) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
 	{
 		echo '<div class="modtools">';
 
@@ -417,7 +417,7 @@ else
             
 			drawUserProfile($u["userid"], 0, $isHidden);
 
-			if ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION['signed_in'] == true)) && !$isHidden)
+			if ((isset($_SESSION["role"]) && isset($_SESSION["userid"])) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator") or ($u["userid"] == $_SESSION["userid"]) && ($_SESSION['signed_in'] == true)) && !$isHidden)
 			{
                 echo '<div>';
 				echo '<form class="postc" action="" method="post"><button name="edit" value="' . $row["postid"] . '">'.$lang["post.EditBtn"].'</button></form>';
@@ -470,7 +470,7 @@ else
                     echo '<span class="hiddenText">' . sprintf($lang["thread.HiddenBy"], (genURL('user/' . $row["deletedby"] . '/')), $role, htmlspecialchars($hideusername)) . '</span>';
                 }
                 
-                if (($_SESSION['signed_in'] == true) and (($locked == 0) or (($locked == 1) and (($_SESSION["role"] == "Moderator") or $_SESSION["role"] == "Administrator"))) and ($draft == 0))
+                if ((isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true) and (($locked == 0) or (($locked == 1) and (($_SESSION["role"] == "Moderator") or $_SESSION["role"] == "Administrator"))) and ($draft == 0))
                 {
                     if ((isset($row["deletedby"]) && (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))))
                     {
@@ -507,12 +507,12 @@ else
     // Draw page bar
 	pagination("thread");
 	
-	if ($_SESSION["role"] == "Suspended")
+	if (isset($_SESSION["role"]) && $_SESSION["role"] == "Suspended")
 	{
 		message($lang["thread.SuspendCantPost"]);
 	}
 		
-	elseif (($_SESSION['signed_in'] == true) and ($draft == 0) and ($locked == 0) or ((($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")) and ($locked == 1) and ($draft == 0)))
+	elseif ((isset($_SESSION["signed_in"]) && $_SESSION['signed_in'] == true) and ($draft == 0) and ($locked == 0) or ((isset($_SESSION["role"]) && ($_SESSION["role"] == "Moderator") or (isset($_SESSION["role"]) && $_SESSION["role"] == "Administrator")) and ($locked == 1) and ($draft == 0)))
 	{
         // Check if the user has a draft post in this thread.
         $draftp = $db->query("SELECT content FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
@@ -541,17 +541,17 @@ else
 		echo '</div></form>';
 	}
 	
-	elseif (($_SESSION['signed_in'] == true) and ($locked == 1) and (($_SESSION["role"] != "Moderator") and ($_SESSION["role"] != "Administrator")))
+	elseif ((isset($_SESSION["signed_in"]) && $_SESSION['signed_in'] == true) and ($locked == 1) and (($_SESSION["role"] != "Moderator") and ($_SESSION["role"] != "Administrator")))
 	{
 		message($lang["thread.ThreadLocked"]);
 	}
 
-    elseif (($_SESSION["signed_in"] == true) and ($draft == 1) and ($_SESSION["userid"] == $startuser))
+    elseif ((isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) and ($draft == 1) and ($_SESSION["userid"] == $startuser))
     {
         echo "<form method='post' action =''><input type='submit' class='buttonbig' name='publishDraft' value='" . $lang["thread.PublishDraftBtn"] . "'></form>";
     }
 	
-	elseif ($_SESSION["signed_in"] == false)
+	elseif (!isset($_SESSION["signed_in"]) || $_SESSION["signed_in"] == false)
 	{
         message(sprintf($lang["thread.LoginToReply"], genURL('login/'), genURL('signup/')));
 	}
@@ -568,7 +568,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 include 'footer.php';
 
 // If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
+if (isset($_SESSION["signed_in"]) && $_SESSION['signed_in'] == true)
 {
 	while($row = $thread->fetch_assoc())
 	{
