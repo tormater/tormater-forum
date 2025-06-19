@@ -36,7 +36,7 @@ else {
    $currentLang = $config["forumLang"];
 }
 
-$languageSelector = '<form method="post"><select name="lang" id="lang" onchange="this.form.submit()">';
+$languageSelector = '<form method="post"><select name="lang" id="lang" aria-label="Language" onchange="this.form.submit()">';
 
 foreach ($validLanguages as $l) {
     if (isset($currentLang) && $l == $currentLang) $selected = "selected='' ";
