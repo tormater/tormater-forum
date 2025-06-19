@@ -65,8 +65,8 @@ include "header.php";
 
 $sort = $sortoptions["time"];
 $order = $sortorderoptions["asc"];
-if (array_key_exists($_GET["sort_by"],$sortoptions)) $sort = $sortoptions[$_GET["sort_by"]];
-if (array_key_exists($_GET["sort_order"],$sortorderoptions)) $order = $sortorderoptions[$_GET["sort_order"]];
+if (array_key_exists("sort_by",$_GET) && array_key_exists($_GET["sort_by"],$sortoptions)) $sort = $sortoptions[$_GET["sort_by"]];
+if (array_key_exists("sort_order",$_GET) && array_key_exists($_GET["sort_order"],$sortorderoptions)) $order = $sortorderoptions[$_GET["sort_order"]];
 if ($order == $sortorderoptions["asc"] && $sort == $sortoptions["activity"]) $order = $sortorderoptions["desc"];
 else if ($order == $sortorderoptions["desc"] && $sort == $sortoptions["activity"]) $order = $sortorderoptions["asc"];
 $result = $db->query("SELECT * FROM users ORDER BY ".$sort." ".$order." LIMIT " . $config["usersPerPage"] . " OFFSET " . $offset . "");
