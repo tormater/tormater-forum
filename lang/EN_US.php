@@ -75,10 +75,8 @@ $lang = array(
     "header.NewThread" => "New thread",
     "header.Panel" => "Admin Panel",
     "header.Logout" => "Logout",
-    "header.Login" => "Login",
-    "header.Signup" => "Sign up",
-    "header.or" => " or ",
-    "header.Hello" => "Hello, ",
+    "header.Welcome" => "<a href='%s'>Login</a> or <a href='%s'>Sign up</a>",
+    "header.Hello" => "Hello, %s",
     "header.UserPanel" => "User Panel",
     
     "homepage.CatThreads" => "Threads",
