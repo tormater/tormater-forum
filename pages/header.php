@@ -30,7 +30,7 @@ $data = array(
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
 	    "favicon_png" => genURL('themes/' . $config["forumTheme"] . '/icon.png'),
 	    "pages" => "",
-	    "welcome" => '<a href="' . genURL("login" . $login_redirect ) . '">' . $lang["header.Login"] . '</a>'.$lang["header.or"].'<a href="' . genURL("signup") . '">' . $lang["header.Signup"] . '</a>',
+	    "welcome" => sprintf($lang["header.Welcome"],genURL("login" . $login_redirect),genURL("signup")),
 	    "homeURL" => genURL(""),
 	    "searchText" => "",
 	    "searchPlaceholder" => $lang["search.Placeholder"],
@@ -82,7 +82,7 @@ if (isset($_GET["search"]) && !empty($_GET["search"])) {
 
 if (isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 {
-	$data["welcome"] = $lang["header.Hello"] . '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" class="' . $_SESSION["role"] . '">' . htmlspecialchars($_SESSION["username"]) . '</a></b>';
+	$data["welcome"] = sprintf($lang["header.Hello"], '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" class="' . $_SESSION["role"] . '">' . htmlspecialchars($_SESSION["username"]) . '</a></b>');
 }
 
 if (($q1 == "thread") and ($threadExists == true))
