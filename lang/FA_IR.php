@@ -76,10 +76,8 @@ $lang = array(
     "header.NewThread" => "موضوع جدید",
     "header.Panel" => "پنل مدیریت",
     "header.Logout" => "خروج",
-    "header.Login" => "ورود",
-    "header.Signup" => "عضویت",
-    "header.or" => " یا ",
-    "header.Hello" => "خوش اومدی ",
+    "header.Welcome" => "<a href='%s'>ورود</a> یا <a href='%s'>عضویت</a>",
+    "header.Hello" => "خوش اومدی %s",
     "header.UserPanel" => "پنل کاربر",
     
     "homepage.CatThreads" => "موضوعات",
