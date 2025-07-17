@@ -11,6 +11,18 @@ if ($config["avatarUploadsDisabled"] == true) {
     exit;
 }
 
+define("MIME_EXTENSION",0);
+define("MIME_IMPORTFUNC",1);
+define("MIME_EXPORTFUNC",2);
+define("MIME_ALPHA",3);
+
+$mimes = array(
+    "image/png"  => array("png","imagecreatefrompng","imagepng",true),
+    "image/gif"  => array("gif","imagecreatefromgif","imagegif",true),
+    "image/jpeg" => array("jpg","imagecreatefromjpeg","imagejpeg",false),
+    "image/webp" => array("webp","imagecreatefromwebp","imagewebp",true),
+);
+
 // Handle post requests.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES["uploadedFile"]) && $_FILES["uploadedFile"]["size"]) {
@@ -28,12 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         list($width,$height,$type,$attr) = getimagesize($_FILES["uploadedFile"]["tmp_name"]);
         $mime = image_type_to_mime_type($type);
 
-        // Check if the image's MIME type is one of the supported formats.
-        if (($mime != "image/jpeg") and ($mime != "image/png") and ($mime != "image/gif") and ($mime != "image/webp")) {
-            message($lang["userpanel.UnsupportedImageType"]);
-        }
         // Make sure the width and height is valid.
-        elseif  (!isset($width) or !isset($height) or ($width < 1) or ($height < 1)) {
+        if (!isset($width) or !isset($height) or ($width < 1) or ($height < 1)) {
             message($lang["userpanel.InvalidDimensions"]);
         }
         // Check for uploading errors.
@@ -45,26 +53,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             message($lang["userpanel.FileTooBig"]);
         }
         else {
-            // If everything looks good, get ready to upload the image and base its extension off the mime type.
-            if ($mime == "image/jpeg") {
-                $extension = ".jpg";
-
-                // Only set the width to the config's max width if it exceeds it.
+            if (array_key_exists($mime,$mimes)) {
+                $w = $config["avatarWidth"];
                 if ($config["avatarWidth"] >= $width) {
                     $w = $width;
                 }
-                else {
-                    $w = $config["avatarWidth"];
-                }
-
-                // Only set the height to the config's max height if it exceeds it.
+                $h = $config["avatarHeight"];
                 if ($config["avatarHeight"] >= $height) {
                     $h = $height;
                 }
-                else {
-                    $h = $config["avatarHeight"];
-                }
-
+                
                 $originalRatio = $width/$height;
 
                 if ($w/$h > $originalRatio) {
@@ -74,156 +72,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $h = $w/$originalRatio;
                 }
 
-                $src = imagecreatefromjpeg($_FILES["uploadedFile"]["tmp_name"]);
-                $dst = imagecreatetruecolor((int)$w, (int)$h);
-                imagecopyresampled($dst, $src, 0, 0, 0, 0, (int)$w, (int)$h, $width, $height);
-                removeAvatar($_SESSION["userid"]);
-                imagejpeg($dst, "avatars/" . $_SESSION["userid"] . $extension);
-                if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
-                    $db->query("UPDATE users SET avatar='jpg', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
-                    message($lang["userpanel.AvatarUploadSuccess"]);
-                }
-                else {
-                    message($lang["userpanel.Fail"]);
-                }
-            }
-            elseif ($mime == "image/png") {
-                $extension = ".png";
-
-                // Only set the width to the config's max width if it exceeds it.
-                if ($config["avatarWidth"] >= $width) {
-                    $w = $width;
-                }
-                else {
-                    $w = $config["avatarWidth"];
-                }
-
-                // Only set the height to the config's max height if it exceeds it.
-                if ($config["avatarHeight"] >= $height) {
-                    $h = $height;
-                }
-                else {
-                    $h = $config["avatarHeight"];
-                }
-
-                $originalRatio = $width/$height;
-
-                if ($w/$h > $originalRatio) {
-                    $w = $h*$originalRatio;
-                }
-                else {
-                    $h = $w/$originalRatio;
-                }
-
-                $src = imagecreatefrompng($_FILES["uploadedFile"]["tmp_name"]);
-                $dst = imagecreatetruecolor($w, $h);
-
-                imagesavealpha($dst, true);
-                $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-                imagefill($dst, 0, 0, $transparent);
-
-                imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
-                removeAvatar($_SESSION["userid"]);
-                imagepng($dst, "avatars/" . $_SESSION["userid"] . $extension);
-                if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
-                    $db->query("UPDATE users SET avatar='png', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
-                    message($lang["userpanel.AvatarUploadSuccess"]);
-                }
-                else {
-                    message($lang["userpanel.Fail"]);
-                }
-            }
-            elseif ($mime == "image/gif") {
-                $extension = ".gif";
-
-                // Only set the width to the config's max width if it exceeds it.
-                if ($config["avatarWidth"] >= $width) {
-                    $w = $width;
-                }
-                else {
-                    $w = $config["avatarWidth"];
-                }
-
-                // Only set the height to the config's max height if it exceeds it.
-                if ($config["avatarHeight"] >= $height) {
-                    $h = $height;
-                }
-                else {
-                    $h = $config["avatarHeight"];
-                }
-
-                $originalRatio = $width/$height;
-
-                if ($w/$h > $originalRatio) {
-                    $w = $h*$originalRatio;
-                }
-                else {
-                    $h = $w/$originalRatio;
-                }
-
-                $src = imagecreatefromgif($_FILES["uploadedFile"]["tmp_name"]);
+                $src = call_user_func($mimes[$mime][MIME_IMPORTFUNC],$_FILES["uploadedFile"]["tmp_name"]);
                 $dst = imagecreatetruecolor($w, $h);
                 
-                imagesavealpha($dst, true);
-                $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-                imagefill($dst, 0, 0, $transparent);
+                if ($mimes[$mime][MIME_ALPHA]) {
+                    imagesavealpha($dst, true);
+                    $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+                    imagefill($dst, 0, 0, $transparent);
+                }
 
                 imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
                 removeAvatar($_SESSION["userid"]);
-                imagegif($dst, "avatars/" . $_SESSION["userid"] . $extension);
-                if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
-                    $db->query("UPDATE users SET avatar='gif', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
+                call_user_func($mimes[$mime][MIME_EXPORTFUNC],$dst, "avatars/" . $_SESSION["userid"] . "." . $mimes[$mime][MIME_EXTENSION]);
+                
+                if (file_exists("avatars/" . $_SESSION["userid"] . "." . $mimes[$mime][MIME_EXTENSION])) {
+                    $db->query("UPDATE users SET avatar='".$mimes[$mime][MIME_EXTENSION]."', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
                     message($lang["userpanel.AvatarUploadSuccess"]);
                 }
                 else {
                     message($lang["userpanel.Fail"]);
                 }
             }
-            elseif ($mime == "image/webp") {
-                $extension = ".webp";
-
-                // Only set the width to the config's max width if it exceeds it.
-                if ($config["avatarWidth"] >= $width) {
-                    $w = $width;
-                }
-                else {
-                    $w = $config["avatarWidth"];
-                }
-
-                // Only set the height to the config's max height if it exceeds it.
-                if ($config["avatarHeight"] >= $height) {
-                    $h = $height;
-                }
-                else {
-                    $h = $config["avatarHeight"];
-                }
-
-                $originalRatio = $width/$height;
-
-                if ($w/$h > $originalRatio) {
-                    $w = $h*$originalRatio;
-                }
-                else {
-                    $h = $w/$originalRatio;
-                }
-
-                $src = imagecreatefromwebp($_FILES["uploadedFile"]["tmp_name"]);
-                $dst = imagecreatetruecolor($w, $h);
-                
-                imagesavealpha($dst, true);
-                $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-                imagefill($dst, 0, 0, $transparent);
-
-                imagecopyresampled($dst, $src, 0, 0, 0, 0, $w, $h, $width, $height);
-                removeAvatar($_SESSION["userid"]);
-                imagewebp($dst, "avatars/" . $_SESSION["userid"] . $extension);
-                if (file_exists("avatars/" . $_SESSION["userid"] . $extension)) {
-                    $db->query("UPDATE users SET avatar='webp', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
-                    message($lang["userpanel.AvatarUploadSuccess"]);
-                }
-                else {
-                    message($lang["userpanel.Fail"]);
-                }
+            else {
+                message($lang["userpanel.UnsupportedImageType"]);
             }
         }
     }
