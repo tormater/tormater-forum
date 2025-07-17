@@ -316,26 +316,19 @@ function relativeTime($timestamp) {
 
 // Display pagination.
 
-function genPaginationURL($page_index, $qN) {
-        global $url, $pages; 
-        $page_url = "";
-        for ($i = 0; $i < $qN-1; $i++) { // Output all the URL's parameters before the page string.
-            if (isset($url[$i])) $page_url .= $url[$i] . "/";
-        }
-        
-        if (strpos($_SERVER["QUERY_STRING"], '&')) $query = "?" . substr($_SERVER["QUERY_STRING"], strpos($_SERVER["QUERY_STRING"], '&')+1, null);
-        else $query = "";
-        if ($page_index > 1) return genURL($page_url . $page_index . $query);
-        else return genURL($page_url . $query);
+function genPaginationURL($page_url, $page_index, $query) {
+    if ($page_index > 1) return genURL($page_url . $page_index . $query);
+    return genURL($page_url . $query);
 }
     
-function renderPageButton($page_index, $qN, $label="") {
+function renderPageButton($page_url, $page_index, $query, $label="") {
     global $template, $currentPage, $pages;
+    
     if ($page_index < 1) $page_index = 1;
     if ($page_index > $pages) $page_index = $pages;
     $data = array(
       "label" => $label,
-      "url" => genPaginationURL($page_index, $qN)
+      "url" => genPaginationURL($page_url, $page_index, $query)
     );
     if (empty($data["label"])) $data["label"] = $page_index;
     if ($page_index == $currentPage) return $template->render("templates/pagination/page_button_disabled.html",$data);
@@ -343,39 +336,48 @@ function renderPageButton($page_index, $qN, $label="") {
 }
 
 function renderPagination($qN = 3, $return = 0) {
-    global $template, $lang, $currentPage, $pages;
+    global $url, $template, $lang, $currentPage, $pages;
+    
+    $page_url = "";
+    for ($i = 0; $i < $qN-1; $i++) { // Output all the URL's parameters before the page string.
+        if (isset($url[$i])) $page_url .= $url[$i] . "/";
+    }
+    
+    if (strpos($_SERVER["QUERY_STRING"], '&')) $query = "?" . substr($_SERVER["QUERY_STRING"], strpos($_SERVER["QUERY_STRING"], '&')+1, null);
+    else $query = "";
+    
     $data = array(
-      "first" => renderPageButton(1,$qN,$lang["nav.FirstPage"]),
-      "previous" => renderPageButton($currentPage-1,$qN,$lang["nav.PrevPage"]),
+      "first" => renderPageButton($page_url,1,$query,$lang["nav.FirstPage"]),
+      "previous" => renderPageButton($page_url,$currentPage-1,$query,$lang["nav.PrevPage"]),
       "page_buttons" => "",
-      "next" => renderPageButton($currentPage+1,$qN,$lang["nav.NextPage"]),
-      "last" => renderPageButton($pages,$qN,$lang["nav.LastPage"])
+      "next" => renderPageButton($page_url,$currentPage+1,$query,$lang["nav.NextPage"]),
+      "last" => renderPageButton($page_url,$pages,$query,$lang["nav.LastPage"])
     );
     if ($pages <= 7) {
         for ($i = 1; $i <= $pages; $i++) {
-            $data["page_buttons"] .= renderPageButton($i,$qN);
+            $data["page_buttons"] .= renderPageButton($page_url,$i,$query);
         }
     }
     else {
         if ($currentPage <= 4) {
 	    for ($i = 1; $i < 8; $i++) {
-                $data["page_buttons"] .= renderPageButton($i,$qN);
+                $data["page_buttons"] .= renderPageButton($page_url,$i,$query);
             }
         }
         else if ($currentPage > 4 && $currentPage < $pages - 4) {
             for ($i = $currentPage - 3; $i <= $currentPage + 3; $i++) {
-                $data["page_buttons"] .= renderPageButton($i,$qN);
+                $data["page_buttons"] .= renderPageButton($page_url,$i,$query);
             }         
         }
         else {
             for ($i = $pages - 6; $i <= $pages; $i++) {
-                $data["page_buttons"] .= renderPageButton($i,$qN);
+                $data["page_buttons"] .= renderPageButton($page_url,$i,$query);
             }
         }
     }
     $pagination = $template->render("templates/pagination/pagination.html",$data);
     if ($return) return $pagination;
-    else echo $pagination;
+    echo $pagination;
 }
 
 function pagination($pageName) {
