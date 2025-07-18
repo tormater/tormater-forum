@@ -126,7 +126,7 @@ else {
         if (($row["verified"] == "0") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
             $user_data["buttons"] = $template->render("templates/userlist/user_button.html",array("userid" => $row["userid"], "label" => $lang["userlist.Approve"]));
         }
-        else if ($config["mainAdmin"] != $row["userid"] and ($_SESSION["role"] == "Administrator")) {
+        else if ($config["mainAdmin"] != $row["userid"] and (isset($_SESSION["role"]) && $_SESSION["role"] == "Administrator")) {
             $user_data["buttons"] = '<small><a href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a></small>';
         }
 
