@@ -114,15 +114,14 @@ function refresh($time) {
 
 // Logs the user out.
 function logout() {
-
-    listener("beforeLogout");
-	// Log out so long as the user isn't requesting an image.
-	if ($_SERVER["HTTP_ACCEPT"] != "image/avif,image/webp,*/*") {
+// Log out so long as the user isn't requesting an image.
+	if (!str_contains($_SERVER["HTTP_ACCEPT"],"image")) {
+	    listener("beforeLogout");
 		session_unset();
 		session_destroy();
+		listener("afterLogout");
 		redirect("");
 	}
-    listener("afterLogout");
 }
 
 // Makes sure there aren't any bad characters in usernames
