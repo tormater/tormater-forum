@@ -16,10 +16,10 @@ function buildSearchQuery($get) {
     $and = 0;
     $author = 0;
     
-    if ($get["search"] != null) {
+    if (isset($get["search"]) && $get["search"] != null) {
         addToQuery("(`title` LIKE '%" . $db->real_escape_string(urldecode($get["search"])) . "%')", $query, $and);
     }
-    if ($get["author"] != null) {
+    if (isset($get["author"]) && $get["author"] != null) {
         $user = $db->query("SELECT * FROM users WHERE username='" . $db->real_escape_string(urldecode($get["author"])) . "'");
         if ($user->num_rows) {
             $user_row = $user->fetch_assoc();
@@ -27,13 +27,13 @@ function buildSearchQuery($get) {
             $author = 1;
         }
     }
-    if ($get["category"] != null) {
+    if (isset($get["category"]) && $get["category"] != null) {
         $category = $db->query("SELECT 1 FROM categories WHERE categoryid='" . $db->real_escape_string(urldecode($get["category"])) . "'");
         if ($category->num_rows) {
             addToQuery("category='". $db->real_escape_string(urldecode($get["category"])) . "'", $query, $and);
         }
     }
-    if ($get["user"] != null) {
+    if (isset($get["user"]) && $get["user"] != null) {
         $user = $db->query("SELECT * FROM users WHERE username='" . $db->real_escape_string(urldecode($get["user"])) . "'");
         if ($user->num_rows) {
             $user_row = $user->fetch_assoc();
@@ -58,7 +58,7 @@ function buildSearchQuery($get) {
 	    }
         }
     }
-    if ($get["label"] != null) {
+    if (isset($get["label"]) && $get["label"] != null) {
         $labels = explode(",", $get["label"]);
         if (in_array("locked",$labels)) addToQuery("locked='1'", $query, $and);
         else if (in_array("!locked",$labels)) addToQuery("locked='0'", $query, $and);
@@ -67,7 +67,7 @@ function buildSearchQuery($get) {
         if (in_array("pinned",$labels)) addToQuery("pinned='1'", $query, $and);
         else if (in_array("!pinned",$labels)) addToQuery("pinned='0'", $query, $and);
     }
-    if ($get["label"] != null && in_array("draft", $labels)) {
+    if (isset($get["label"]) && $get["label"] != null && in_array("draft", $labels)) {
         if (($_SESSION["signed_in"] && !$author)) {
             addToQuery("draft='1'",  $query, $and);
             addToQuery("startuser='". $_SESSION["userid"] . "'", $query, $and);
