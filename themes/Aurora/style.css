@@ -320,6 +320,35 @@ body {
     border: 1px solid var(--input-border);
 }
 
+.buttonsmall {
+    background: linear-gradient(var(--button-g-top), var(--button-g-bottom));
+    color: var(--button-text);
+    border: 1px solid var(--input-border);
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 2px 4px;
+    cursor: pointer;
+    transition: filter 0.25s;
+    display: inline-block;
+}
+
+.buttonsmall:hover {
+    filter: brightness(110%);
+    text-decoration: none;
+}
+
+.buttonsmall:active {
+    filter: brightness(80%);
+    outline: none;
+    border: 1px solid var(--input-border);
+}
+
+.buttonsmall:focus {
+    filter: brightness(80%);
+    box-shadow: none;
+    border: 1px solid var(--input-border);
+}
+
 .buttondisabled {
     padding: 5px 10px;
     background: linear-gradient(var(--button-g-top), var(--button-g-bottom));
