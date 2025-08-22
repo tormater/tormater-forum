@@ -330,6 +330,7 @@ body {
     cursor: pointer;
     transition: filter 0.25s;
     display: inline-block;
+    margin-top: 1px;
 }
 
 .buttonsmall:hover {
