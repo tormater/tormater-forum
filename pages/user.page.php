@@ -133,7 +133,7 @@ echo "<div class=userbioside>";
 $bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
         
 while ($b = $bioCheck->fetch_assoc()) {
-    if ((!!$b["bio"]) or (isset($b["bio"])) or ($b["bio"] != "")) 
+    if (($deleted == "1") and ((!!$b["bio"]) or (isset($b["bio"])) or ($b["bio"] != ""))) 
     {
         echo '<span class="userpostsh">' . $lang["userpanel.Bio"] . '</span>';
         echo("<span class='userbio'>" . formatPost($b["bio"]) . "</span>");
