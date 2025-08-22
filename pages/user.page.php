@@ -100,6 +100,10 @@ else
         if (($avatar != "none") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
             echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
         }
+        
+        if ($config["mainAdmin"] != $userid and (isset($_SESSION["role"]) && $_SESSION["role"] == "Administrator")) {
+            echo '<a class="buttonsmall" href="' . genURL("panel/useradmin/" . $userid) . '">' . $lang["panel.Administrate"] . '</a>';
+        }
 
         echo "</div></div>";
         
