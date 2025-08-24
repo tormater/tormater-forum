@@ -31,7 +31,8 @@ if ((isset($_POST["approve"])) and (is_numeric($_POST["approve"])) and (($_SESSI
 $currentPage = 1;
 if (isset($q2) && is_numeric($q2)) $currentPage = $q2;
 
-$user_count = $db->query("SELECT 1 FROM users");
+if ($config["showDeletedInUserlist"] != 1) $user_count = $db->query("SELECT 1 FROM users WHERE deleted='0'");
+else $user_count = $db->query("SELECT 1 FROM users");
 $numUsers = $user_count->num_rows;
 
 if (!$numUsers) {
@@ -69,7 +70,9 @@ if (array_key_exists("sort_by",$_GET) && array_key_exists($_GET["sort_by"],$sort
 if (array_key_exists("sort_order",$_GET) && array_key_exists($_GET["sort_order"],$sortorderoptions)) $order = $sortorderoptions[$_GET["sort_order"]];
 if ($order == $sortorderoptions["asc"] && $sort == $sortoptions["activity"]) $order = $sortorderoptions["desc"];
 else if ($order == $sortorderoptions["desc"] && $sort == $sortoptions["activity"]) $order = $sortorderoptions["asc"];
-$result = $db->query("SELECT * FROM users ORDER BY ".$sort." ".$order." LIMIT " . $config["usersPerPage"] . " OFFSET " . $offset . "");
+$hidedeleted = "";
+if ($config["showDeletedInUserlist"] != 1) $hidedeleted = " WHERE deleted='0'";
+$result = $db->query("SELECT * FROM users"  . $hidedeleted . " ORDER BY ".$sort." ".$order." LIMIT " . $config["usersPerPage"] . " OFFSET " . $offset . "");
 
 if (!$result) {
     echo $lang["error.FailedFetchUsers"];
@@ -104,7 +107,7 @@ else {
         
     while($row = $result->fetch_assoc())
     {
-        if ($row["deleted"] == "1" && $config["showDeletedInUserlist"] != 1) continue;
+        //if ($row["deleted"] == "1" && $config["showDeletedInUserlist"] != 1) continue;
         $user_data = array(
           "deleted_class" => "",
           "color" => $row["color"],
