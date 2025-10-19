@@ -129,6 +129,18 @@ else
                 "<a href='" . genURL("user/" . $row["victimid"]) . "'>" . htmlspecialchars($name2) . "</a>",
                 htmlspecialchars($row["before"]) );
             }
+            else if ($row["action"] == "move_thread") {
+                $user = $db->query("SELECT * FROM users WHERE userid='" . $row["userid"] . "'");
+                while($urow = $user->fetch_assoc())
+		        {
+                    $name = $urow["username"];
+                }
+                printf($lang["panel.LogMoveThread"], 
+                "<a href='" . genURL("user/" . $row["userid"]) . "'>" . htmlspecialchars($name) . "</a>", 
+                htmlspecialchars($row["victimid"]),
+                htmlspecialchars($row["before"]),
+                htmlspecialchars($row["after"]));
+            }
             echo relativeTime($row["time"]);
             echo "</div>";
 		}
