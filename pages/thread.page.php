@@ -887,6 +887,17 @@ function moveThread($categoryID, $thread) {
         // Make sure the category is valid.
         $categoryCheck = $db->query("SELECT * FROM categories");
         
+        $oldCategoryCheck = $db->query("SELECT category FROM threads where threadid='" . $db->real_escape_string($q2) . "'");
+        $categoryOld = -1;
+        
+        while($row = $oldCategoryCheck->fetch_assoc()) {
+            $categoryOld = $row["category"];
+        }
+        
+        $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
+    VALUES ('" . time() . "', 'move_thread', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($thread) . "',
+    '" . $db->real_escape_string($categoryOld)  . "','" . $db->real_escape_string($categoryID) . "')");
+        
         while($row = $categoryCheck->fetch_assoc()) {
             if ($row["categoryid"] == $categoryID) {
                 $db->query("UPDATE threads set category='" . $row["categoryid"] . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
