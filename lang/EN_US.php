@@ -277,6 +277,7 @@ $lang = array(
     "panel.LogDeleteThread" => "%s deleted %s's thread titled '%s'<br>",
     "panel.LogEditRole" => "%s changed %s's role from %s to %s<br>",
     "panel.LogDeleteAvatar" => "%s deleted %s's avatar<br>",
+    "panel.LogMoveThread" => "%s moved thread with ID '%s' from category %s to category %s<br>",
     
     // User register
     "register.Header" => "Sign up",
