@@ -29,11 +29,20 @@ if (session_id() && isset($_SESSION["language"])) {
     }
 }
 
+include "lang/EN_US.php";
+$lang_en_us = $lang;
+
 if (isset($currentLang)) {
    include "lang/" . $currentLang . ".php";
 }
 else {
    $currentLang = $config["forumLang"];
+}
+
+foreach ($lang_en_us as $k => $val) { // note: do not use $v for this because of the &$v above. Unless you want "Install Tormater Forum" to be a language.
+    if (!array_key_exists($k,$lang)) {
+        $lang[$k] = $k;
+    }
 }
 
 $languageSelector = '<form method="post"><select name="lang" id="lang" aria-label="Language" onchange="this.form.submit()">';
