@@ -278,6 +278,7 @@ $lang = array(
     "panel.LogDeleteThread" => "%s موضوع %s با عنوان '%s' را حذف کرد<br>",
     "panel.LogEditRole" => "%s نقش %s را از %s به %s تغییر داد<br>",
     "panel.LogDeleteAvatar" => "%s آواتار %s را حذف کرد<br>",
+    "panel.LogMoveThread" => "کاربر %s موضوع با شناسه: %s را از دستهٔ %s به دستهٔ %s انتقال داد<br>",
     
     // User register
     "register.Header" => "ثبت نام",
