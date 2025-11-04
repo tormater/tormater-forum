@@ -16,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
 
     // Display the change language form.
 	echo '<div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
-    $adminLanguageSelector = str_replace('<form method="post"><select name="lang" id="lang" onchange="this.form.submit()">', "<select name='newlang'>", $languageSelector);
+    $adminLanguageSelector = str_replace('<select name="lang" id="lang" aria-label="Language" onchange="this.form.submit()">', "<select name='newlang'>", $languageSelector);
     $adminLanguageSelector = str_replace('</form>', "", $adminLanguageSelector);
     echo $adminLanguageSelector;
     echo '</div>';
