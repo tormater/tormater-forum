@@ -42,6 +42,7 @@ if($_SERVER['REQUEST_METHOD'] != 'POST')
     // Display the change forum color form.
     $presetColor = "#000000";
     $defaultchecked = "";
+    $newchecked = "";
     if ($config["forumColor"] != null)
     {
         $presetColor = $config["forumColor"];
