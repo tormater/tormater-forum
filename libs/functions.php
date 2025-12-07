@@ -412,7 +412,7 @@ function hook($hook, $function)
 
 // Generates a random string for the captcha.
 function randomCaptcha($length = 5) {
-    $characters = '123456789abcdefghijklmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ';
+    $characters = '23456789abdefghijknpqrtuvyzABDEFGHIJKLMNPQRTUVWYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
     for ($i = 0; $i < $length; $i++) {
@@ -442,13 +442,13 @@ function generateCaptcha($numChars)
         $rchoice = rand(0,3);
 
         if ($rchoice == 0) {
-            imageline($new_image, rand(0,$width), rand(0,$height), rand(0,$width), rand(0,$height), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+            imageline($new_image, rand(0,$width), rand(0,$height), rand(0,$width), rand(0,$height), imagecolorallocate($new_image, rand(150, 250), rand(135, 250), rand(145,250)));
         }
         else if ($rchoice == 1) {
-            imagefilledellipse($new_image, intval($width/$numChars*$i/6+rand(-10, 10)), intval($height/2+rand(-10, 10)), intval($width*0.3-rand(1, 3)), intval($height*0.7-rand(1, 3)), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+            imagefilledellipse($new_image, intval($width/$numChars*$i/6+rand(-10, 10)), intval($height/2+rand(-10, 10)), intval($width*0.3-rand(1, 3)), intval($height*0.7-rand(1, 3)), imagecolorallocate($new_image, rand(150, 250), rand(135, 250), rand(145,250)));
         }
         else if ($rchoice == 2) {
-            imagefilledrectangle($new_image, $width/$numChars*$i+rand(-10, 10), 1, $width*0.8-rand(1, 2), $height*1.4-rand(1, 3), imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+            imagefilledrectangle($new_image, $width/$numChars*$i+rand(-10, 10), 1, $width*0.8-rand(1, 2), $height*1.4-rand(1, 3), imagecolorallocate($new_image, rand(150, 250), rand(135, 250), rand(145,250)));
         }
         else if ($rchoice == 3) {
             imagepolygon($new_image, array(
@@ -456,20 +456,58 @@ function generateCaptcha($numChars)
                 rand(0,$width), rand(0,$height),
                 rand(0,$width), rand(0,$height)
             ),
-            imagecolorallocate($new_image, rand(125, 250), rand(125, 250), rand(125,250)));
+            imagecolorallocate($new_image, rand(150, 250), rand(135, 250), rand(145,250)));
         }
     }
 
     // Add the text to the image.
-    for ($i = 0; $i < $numChars*2; $i++) {
-        $text = imagecolorallocate($new_image, rand(10, 110), rand(10, 110), rand(10, 110));
-        imagestring($new_image, rand(3,5), $width/$numChars+$i*rand(9, 10), 7,  substr($chars, $i, 1), $text);
+    for ($i = 0; $i < $numChars; $i++) {
+        $text = imagecolorallocate($new_image, rand(10, 130), rand(10, 70), rand(10, 60));
+        $x = rand(($width/$numChars)*($i+0.25),($width/$numChars)*($i+0.5));
+        imagestring($new_image, rand(4,5), $x, rand(5,$height-20),  substr($chars, $i, 1), $text);
     }
+    
+    $width *= 2;
+    $height *= 2;
+    
+    $new_image = imagescale($new_image,$width);
+    
+    // Warp the pixels of the captcha.
+    
+    $wave_length = 4 + (mt_rand() / (mt_getrandmax()/4));
+    $wave_size = 2 + mt_rand() / (mt_getrandmax()/2);
+    $wave_offset = rand(-$height,$height);
+    for ($i = 0; $i < $height; $i++) {
+        $offset = sin(($i+$wave_offset)/$wave_length)*$wave_size;
+        for($j = 0; $j < $width; $j++) {
+            $x = $j + $offset;
+            if ($x > $width-1) $x = $x-($width);
+            if ($x < 0) $x = $x + ($width);
+            if ($offset < 0) {
+                $j = $width-1-$j;
+                $x = $width-1-$x;
+            }
+            imagesetpixel($new_image,$j,$i,imagecolorat($new_image,$x,$i));
+        }
+    }
+
+    for ($i = 0; $i < 6; $i++) {
+        $y = rand(0,$height);
+        $c = imagecolorallocatealpha($new_image, rand(0,255), rand(0,255), rand(0,255),rand(100,127));
+        $t = imagecolorallocatealpha($new_image, 0,0,0,127);
+        imagesetstyle($new_image, array($t,$c,$t,$c,$c,$c,$c,$t,$c,$c));
+        imagesetthickness($new_image,rand(0,32));
+        imageline($new_image, 0, $y, $width, $height-$y, IMG_COLOR_STYLED);
+    }
+    
+    $new_image = imagescale($new_image,$width*2);
+    imagefilter($new_image,IMG_FILTER_SCATTER,-1,1);
+    $new_image = imagescale($new_image,$width);
 
     ob_start();
 
-    // Save the image as png
-    imagewebp($new_image, NULL, 50);
+    // Save the image as webp :)
+    imagewebp($new_image, NULL, 25);
 
     $rawImageBytes = ob_get_clean();
 
