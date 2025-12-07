@@ -1211,7 +1211,7 @@ input[type=file]::file-selector-button:hover {
 /* Captcha */
 
 .captcha {
-    width: 160px;
+    height: 60px;
     image-rendering: crisp-edges;
 }
 .captchalabel {
