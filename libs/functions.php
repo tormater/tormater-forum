@@ -511,7 +511,7 @@ function generateCaptcha($numChars)
 
     $rawImageBytes = ob_get_clean();
 
-    listener("beforeDrawCaptcha", $rawImageBytes, $numChars);
+    listener("beforeDrawCaptcha", $rawImageBytes, $numChars, $chars);
 
     echo "<img src='data:image/webp;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
 
