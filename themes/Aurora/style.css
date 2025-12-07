@@ -1213,6 +1213,9 @@ input[type=file]::file-selector-button:hover {
 .captcha {
     height: 60px;
     image-rendering: crisp-edges;
+    border: 1px solid var(--input-border);
+    border-radius: 3px;
+    filter: contrast(150%);
 }
 .captchalabel {
     float: left;
