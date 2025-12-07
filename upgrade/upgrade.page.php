@@ -21,7 +21,14 @@ $draft = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'draft'");
 $auditlog = $db->query("SHOW TABLES LIKE 'auditlog'");
 $pinned = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'pinned'");
 $order = $db->query("SHOW COLUMNS FROM `categories` WHERE field LIKE 'order'");
+$category_perms = $db->query("SHOW COLUMNS FROM `categories` WHERE field LIKE 'permissions'");
 
+
+if ($category_perms->num_rows < 1)
+{
+    $db->query("ALTER TABLE `categories` ADD `permissions` text DEFAULT NULL");
+    $upgraded = true;
+}
 if ($deleteduser->num_rows < 1)
 {
     $db->query("ALTER TABLE `users` ADD `deleted` tinyint(1) NOT NULL DEFAULT '0'");
@@ -112,6 +119,7 @@ if ($order->num_rows < 1)
 }
 // Always run this because checking for it is too hard.
 $db->query("ALTER TABLE `users` MODIFY `avatar` enum('none', 'png', 'jpg', 'gif', 'webp') NOT NULL DEFAULT 'none'");
+$db->query("ALTER TABLE `users` MODIFY `role` varchar(255) NOT NULL DEFAULT 'Member'");
 
 // Get the forum config and the setup config.
 if (file_exists("config/config-setup.php")) {
