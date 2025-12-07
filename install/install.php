@@ -100,6 +100,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
             `categoryname` varchar(255) NOT NULL,
             `categorydescription` varchar(255) NOT NULL,
             `order` int unsigned NOT NULL DEFAULT '0',
+            `permissions` text DEFAULT NULL,
             PRIMARY KEY (`categoryid`),
             UNIQUE KEY `category_name` (`categoryname`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
@@ -137,7 +138,7 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
             `username` varchar(26) NOT NULL,
             `email` varchar(255) NOT NULL,
             `password` varchar(128) NOT NULL,
-            `role` enum('Administrator','Moderator','Member','Suspended') NOT NULL DEFAULT 'Member',
+            `role` varchar(255) NOT NULL DEFAULT 'Member',
             `jointime` int unsigned NOT NULL,
             `lastactive` int unsigned DEFAULT NULL,
             `lastaction` varchar(255) DEFAULT NULL,
