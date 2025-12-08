@@ -776,7 +776,7 @@ function drawNavigation() {
     return $nav;
 }
 
-function drawUserProfile($userid, $type, $isHidden=false) {
+function drawUserProfile($userid, $has_role_selector, $isHidden=false) {
 
     global $db, $lang, $config;
 
@@ -794,86 +794,42 @@ function drawUserProfile($userid, $type, $isHidden=false) {
 		$avatar = $row["avatar"];
 		$avatarTime = $row["avataruploadtime"];
     }
-        if ((time() - $lastactive) <= $config["onlinePeriod"] && !$isHidden)
-	    {
-	    	echo '<span class="online">' . $lang["nav.Online"] . '</span>';
-	    }
-		if ($avatar == "none") $uAvatar = "";
-        else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
-
-        echo $uAvatar . '<b><a class="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a>';
-        echo '</b>';
-
-        // Draw the role box
-	if (!$isHidden) {
-		if ($type == 1 and (isset($_SESSION['role']) && $_SESSION['role'] == "Administrator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
-		{
-			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
-				
-			if ($role == "Administrator")
-			{
-				echo '<option value="Administrator" selected>'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Moderator")
-			{
-				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator" selected>'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Member")
-			{
-				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member" selected>'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Suspended")
-			{
-				echo '<option value="Administrator">'.$lang["user.OptionAdmin"].'</option>';
-				echo '<option value="Moderator">'.$lang["user.OptionMod"].'</option>';
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form>';
-			
-				
-		}
-
-        elseif ($type == 1 and (isset($_SESSION['role']) && $_SESSION['role'] == "Moderator") and ($role != "Administrator") and ($role != "Moderator") and ($_SESSION["userid"] != $userid) and ($config["mainAdmin"] != $userid))
-		{
-			echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
-
-				
-			if ($role == "Member")
-			{
-				echo '<option value="Member" selected>'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended">'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			elseif ($role == "Suspended")
-			{
-				echo '<option value="Member">'.$lang["user.OptionMember"].'</option>';
-				echo '<option value="Suspended" selected>'.$lang["user.OptionSuspended"].'</option>';
-			}
-				
-			echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form>';
-			
-				
-		}
-			
-		else
-		{				
-			echo '<div class="userrole">' . $lang["role." . $role];
-		}
+    
+    if ((time() - $lastactive) <= $config["onlinePeriod"] && !$isHidden)
+	{
+        echo '<span class="online">' . $lang["nav.Online"] . '</span>';
 	}
+    if ($avatar == "none") $uAvatar = "";
+    else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
+
+    echo $uAvatar . '<b><a class="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a>';
+    echo '</b>';
+
+	if ($isHidden) {
+	    return;
+    }
+    $roles = get_changeable_roles();
+    if ($roles == NULL || !$has_role_selector || !in_array($role,$roles)) {
+        $l = $role;
+        if (array_key_exists("role." . $role,$lang)) $l =  $lang["role." . $role];
+        echo '<div class="userrole">' . $l;
+        return;
+    }
+    
+    echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
+    
+    foreach ($roles as $r) {
+        $l = "user.Option" . $r;
+        if ($r == "Moderator") $l = "user.OptionMod";
+        if ($r == "Administrator") $l = "user.OptionAdmin";
+        if (array_key_exists($l,$lang)) $l = $lang[$l];
+        else $l = $r;
+        $s = "";
+        if ($role == $r) $s = " selected";
+        echo '<option value="' . $r . '"' . $s . '>'.$l.'</option>';
+    }
+    
+    echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form>';
 }
 
 // Display a user's information, used by userlists.
