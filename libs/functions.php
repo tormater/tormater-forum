@@ -799,13 +799,12 @@ function drawUserProfile($userid, $has_role_selector, $isHidden=false) {
 	{
         echo '<span class="online">' . $lang["nav.Online"] . '</span>';
 	}
-    if ($avatar == "none") $uAvatar = "";
-    else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
+	
+    $uAvatar = "";
+    if ($avatar != "none" && !$isHidden) $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
+    echo $uAvatar . '<b><a class="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a></b>';
 
-    echo $uAvatar . '<b><a class="' . $role . '" href="' . genURL("user/" . $userid) . '">' . htmlspecialchars($username) . '</a>';
-    echo '</b>';
-
-	if ($isHidden) {
+    if ($isHidden) {
 	    return;
     }
     $roles = get_changeable_roles();
