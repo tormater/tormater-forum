@@ -45,12 +45,11 @@ else
             $avatarTime = $row["avataruploadtime"];
         }
         
-        if ((isset($_POST["role"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
+        if ((isset($_POST["role"])) and get_role_permissions() & PERM_EDIT_USER)
         {
             if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
-                if ($_SESSION["role"] == "Administrator" || ($_SESSION["role"] == "Moderator" and ($_POST["role"] == "Member" or $_POST["role"] == "Suspended") and ($role == "Member" or $role == "Suspended"))) {
+                if (in_array($_POST["role"],get_changeable_roles(get_role_from_session()))) {
                     $setrole = $db->query("UPDATE users SET role='" . $db->real_escape_string($_POST["role"]) . "' WHERE userid='" . $db->real_escape_string($q2) . "'");
-            
                     if (!$setrole)
                     {
                         echo $lang["user.FaildChangeRole"];
@@ -65,7 +64,7 @@ else
                 }
             }
         }
-        elseif ((isset($_POST["removeAvatar"])) and (($_SESSION["role"] == "Administrator") or ($_SESSION["role"] == "Moderator")))
+        elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and get_role_permissions() & PERM_EDIT_USER and in_array($_POST["role"],get_changeable_roles()))
         {
             removeAvatar($q2);
             $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`) 
@@ -95,7 +94,7 @@ else
         echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
         echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">';    
 
-        drawUserProfile($userid, 1);
+        drawUserProfile($userid, true);
 
         if (($avatar != "none") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
             echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
