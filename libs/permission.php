@@ -55,7 +55,8 @@ function get_roles() {
     return array_diff(array_keys($permissions),array("Guest"));
 }
 
-function get_changeable_roles($r) {
+function get_changeable_roles($r = "") {
+    if ($r == "") $role = get_role_from_session();
     if ($r == "Guest") return NULL;
     if (!(get_role_permissions($r) & PERM_EDIT_USER)) return NULL;
     if (get_role_permissions($r) & PERM_EDIT_FORUM) return get_roles();
