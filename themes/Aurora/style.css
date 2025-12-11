@@ -705,14 +705,6 @@ tr:last-child td {
     color: var(--text-light);
 }
 
-.tdtruncate {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-}
-
 /* Menu styles. */
 
 .category {
