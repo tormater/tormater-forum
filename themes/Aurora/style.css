@@ -619,6 +619,7 @@ table {
     border: 1px solid var(--c-gradient-bottom-darker);
     margin-bottom: 10px;
     border-radius: 6px;
+    word-break: break-word;
 }
 
 table a {
@@ -702,6 +703,14 @@ tr:last-child td {
     padding-top: 2px;
     font-size: 85%;
     color: var(--text-light);
+}
+
+.tdtruncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 
 /* Menu styles. */
