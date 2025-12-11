@@ -15,55 +15,58 @@ if (isset($_POST["newcolor"]) and is_numeric($_POST["newcolor"]) and ($_POST["ne
 		header("Cache-Control:private");
 	}
 }
-elseif (isset($_POST["signature"]) and (strlen($_POST["signature"]) <= 512)) {
-    $db->query("UPDATE users SET signature='" . $db->real_escape_string($_POST["signature"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
-}
-elseif (isset($_POST["bio"]) and (strlen($_POST["bio"]) <= 2048)) {
-    $db->query("UPDATE users SET bio='" . $db->real_escape_string($_POST["bio"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+else if (get_role_permissions() & PERM_EDIT_PROFILE) {
+    if (isset($_POST["signature"]) and (strlen($_POST["signature"]) <= 512)) {
+        $db->query("UPDATE users SET signature='" . $db->real_escape_string($_POST["signature"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+    }
+    elseif (isset($_POST["bio"]) and (strlen($_POST["bio"]) <= 2048)) {
+        $db->query("UPDATE users SET bio='" . $db->real_escape_string($_POST["bio"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+    }
 }
 
-// Load users color.
+$data = array(
+    "header" => $lang["settings.PostColor"],
+    "colors" => "",
+    "bio_form" => "",
+);
+
 $result = $db->query("SELECT color FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 $user = $result->fetch_assoc();
 
-// Display the post color setting.
-echo '</br><h3>'.$lang["settings.PostColor"].'</h3><div class="formcontainer">
-<form method="post" action="">';
-
-for ($i =1; $i <= 16; $i++) {
-echo '<button class="settingscolor ';
-// Display users color.
-	if($user['color'] == $i) {
-		echo ' userscolor';
-	}
-echo '" postcolor="' . $i . '" value="' . $i . '" name="newcolor"></button>';
+for ($i = 1; $i <= 16; $i++) {
+	if ($user['color'] == $i) $usercolor = " userscolor";
+	else $usercolor = "";
+    $data["colors"] .= '<button class="settingscolor' . $usercolor . '" postcolor="' . $i . '" value="' . $i . '" name="newcolor"></button>';
 }
-
-echo '</form></div>';
 
 $userCheck = $db->query("SELECT signature, bio FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 
 while ($row = $userCheck->fetch_assoc()) {
-    if ((!$row["signature"]) or (!isset($row["signature"])) or ($row["signature"] == "")) {
+    if (array_key_exists("signature",$_POST) and strlen($_POST["signature"])) {
         $signature = $_POST["signature"];
     }
-    else {
+    else if (array_key_exists("signature",$row) and strlen($row["signature"])) {
         $signature = $row["signature"];
     }
-
-    if ((!$row["bio"]) or (!isset($row["bio"])) or ($row["bio"] == "")) {
+    else $signature = "";
+    
+    if (array_key_exists("bio",$_POST) and strlen($_POST["bio"])) {
         $bio = $_POST["bio"];
     }
-    else {
+    else if (array_key_exists("bio",$row) and strlen($row["bio"])) {
         $bio = $row["bio"];
     }
+    else $bio = "";
 }
 
-// Show the signature and bio inputs.
-echo "<h3>" . $lang["userpanel.Signature"] . "</h3>";
-echo BBCodeButtons(1) . "<form method='post' action=''><textarea maxlength='512' name='signature' id='textbox1'>" . htmlspecialchars($signature) . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateSignature"] . "'></form>";
-echo "</br><h3>" . $lang["userpanel.Bio"] . "</h3>";
-echo BBCodeButtons(2) . "<form method='post' action=''><textarea maxlength='2048' name='bio' id='textbox2'>" . htmlspecialchars($bio) . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form>";
+if (get_role_permissions() & PERM_EDIT_PROFILE) {
+    $data["bio_form"] .= "<h3>" . $lang["userpanel.Signature"] . "</h3>";
+    $data["bio_form"] .=  BBCodeButtons(1,false) . "<form method='post' action=''><textarea maxlength='512' name='signature' id='textbox1'>" . htmlspecialchars($signature) . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateSignature"] . "'></form>";
+    $data["bio_form"] .=  "</br><h3>" . $lang["userpanel.Bio"] . "</h3>";
+    $data["bio_form"] .=  BBCodeButtons(2,false) . "<form method='post' action=''><textarea maxlength='2048' name='bio' id='textbox2'>" . htmlspecialchars($bio) . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form>";
+}
+
+echo $template->render("templates/userpanel/profilesettings.html", $data);
 
 // If the viewing user is logged in, update their last action.
 if ($_SESSION['signed_in'] == true)
