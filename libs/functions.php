@@ -6,7 +6,7 @@
 if (!defined("INDEXED")) exit;
 
 // Display buttons for adding BBCode to textareas.
-function BBCodeButtons($num = "") {
+function BBCodeButtons($num = "", $echo = true) {
     global $lang;
     // Serve the JavaScript.
     echo("<script type='text/javascript' src='" . genURL("assets/bbcode.js") . "'></script>");
@@ -14,37 +14,37 @@ function BBCodeButtons($num = "") {
     listener("beforeRenderBBCodeTray");
 
     // Serve the BBCode buttons.
-    echo "<div class='bbcodetraycontainer'>";
+    $buttons = "<div class='bbcodetraycontainer'>";
 
-    listener("beforeRenderBBCodeButtons");
+    $buttons .= "<div class='bbcodetray'>";
+    $buttons .= "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText('b'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText('i'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText('u'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bstrike' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText('s'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bheader' value='" . $lang["BBCode.Header"] . "' onclick=formatText('h'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText('code'," . $num . ");>";
 
-    echo "<div class='bbcodetray'>";
-    echo "<input type='button' class='bbcode bbold' value='" . $lang["BBCode.Bold"] . "' onclick=formatText('b'," . $num . ");>";
-    echo "<input type='button' class='bbcode bitalic' value='" . $lang["BBCode.Italic"] . "' onclick=formatText('i'," . $num . ");>";
-    echo "<input type='button' class='bbcode bunderline' value='" . $lang["BBCode.Underline"] . "' onclick=formatText('u'," . $num . ");>";
-    echo "<input type='button' class='bbcode bstrike' value='" . $lang["BBCode.Strikethrough"] . "' onclick=formatText('s'," . $num . ");>";
-    echo "<input type='button' class='bbcode bheader' value='" . $lang["BBCode.Header"] . "' onclick=formatText('h'," . $num . ");>";
-    echo "<input type='button' class='bbcode bcode' value='" . $lang["BBCode.Code"] . "' onclick=formatText('code'," . $num . ");>";
+    $buttons .= "</div><div class='bbcodetray'>";
+    $buttons .= "<input type='button' class='bbcode blink' value='" . $lang["BBCode.Link"] . "' onclick=formatText('url'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText('img'," . $num . ");>";
+    $buttons .= "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText('spoiler'," . $num . ");>";
 
-    echo "</div><div class='bbcodetray'>";
-    echo "<input type='button' class='bbcode blink' value='" . $lang["BBCode.Link"] . "' onclick=formatText('url'," . $num . ");>";
-    echo "<input type='button' class='bbcode bimage' value='" . $lang["BBCode.Image"] . "' onclick=formatText('img'," . $num . ");>";
-    echo "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText('spoiler'," . $num . ");>";
+    $buttons .= "</div><div class='bbcodetray'>";
+    $buttons .= "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails('color','colorbox'," . $num . ");>";
+    $buttons .= "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails('size','sizebox'," . $num . ");>";
+    $buttons .= "<option value='80'>80%</option>";
+    $buttons .= "<option value='100'>100%</option>";
+    $buttons .= "<option value='150'>150%</option>";
+    $buttons .= "<option value='200'>200%</option>";
+    $buttons .= "<option value='300'>300%</option>";
+    $buttons .= "</select>";
+    $buttons .= "</div>";
+    $buttons .= "</div>";
+    
+    listener("beforeRenderBBCodeButtons",$buttons);
 
-    echo "</div><div class='bbcodetray'>";
-    echo "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails('color','colorbox'," . $num . ");>";
-    echo "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails('size','sizebox'," . $num . ");>";
-    echo "<option value='80'>80%</option>";
-    echo "<option value='100'>100%</option>";
-    echo "<option value='150'>150%</option>";
-    echo "<option value='200'>200%</option>";
-    echo "<option value='300'>300%</option>";
-    echo "</select>";
-    echo "</div>";
-
-    listener("afterRenderBBCodeButtons");
-
-    echo "</div>";
+    if ($echo) echo $buttons;
+    else return $buttons;
 }
 
 function getNumForRole($role) {
