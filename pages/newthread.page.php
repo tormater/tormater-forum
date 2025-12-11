@@ -14,7 +14,7 @@ if($_SESSION['signed_in'] == false)
 	exit;
 }
 
-if ($_SESSION["role"] == "Suspended")
+if (!(get_role_permissions() & PERM_CREATE_THREAD))
 {
 	message($lang["newthread.SuspendCantCreate"]);
 }
