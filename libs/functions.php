@@ -503,6 +503,10 @@ function generateCaptcha($numChars)
     $new_image = imagescale($new_image,$width*2);
     imagefilter($new_image,IMG_FILTER_SCATTER,-1,1);
     $new_image = imagescale($new_image,$width);
+    
+    if (rand(0,1)) {
+        imagefilter($new_image,IMG_FILTER_NEGATE);
+    }
 
     ob_start();
 
