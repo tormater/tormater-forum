@@ -171,7 +171,7 @@ else
         while($u = $userinfo->fetch_assoc())
         {
             echo '<div class="userpost">' . formatPost($row["content"]) . '</div>';
-            echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span> - <a class='userpostlink' href='" . genURL("thread/" . $row["thread"]) . "'>" . $lang["user.ViewThread"] . "</a>";
+            echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span> - <a class='userpostlink' href='" . genURL("post/" . $row["postid"]) . "'>" . $lang["user.ViewThread"] . "</a>";
         }
     }
 }
