@@ -413,7 +413,7 @@ else
             	$deletedClass = "";
             }
             
-			echo '<div class="post' . $deletedClass . $hiddenClass . '"><div postcolor="' . $u["color"] . '" class="thread' . $hiddenClass . '">';
+			echo '<div id="post_' . $row["postid"] . '" class="post' . $deletedClass . $hiddenClass . '"><div postcolor="' . $u["color"] . '" class="thread' . $hiddenClass . '">';
             
 			drawUserProfile($u["userid"], 0, $isHidden);
 
