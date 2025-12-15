@@ -19,7 +19,8 @@ $pages = array(
     "user" => "pages/user.page.php",
     "userpanel" => "pages/userpanel.page.php",
     "panel" => "pages/panel.page.php",
-    "search" => "pages/search.page.php"
+    "search" => "pages/search.page.php",
+    "post" => "pages/post.page.php"
 );
 $functionPages = array(
     "logout" => "logout",
