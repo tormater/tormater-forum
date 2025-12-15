@@ -57,7 +57,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     $errors[] = $lang["register.TooManyAccounts"];
   }
 
-  if(empty($errors)) {
+  if(count($errors) <= 0) {
     registerUser();
   }
 }
@@ -65,7 +65,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 include 'header.php';
 echo '<h2>' . $lang["register.Header"] . '</h2>';
 
-if (isset($errors) and !empty($errors)) {
+if (isset($errors) and count($errors)) {
   echo $lang["error.BadFields"];
   echo '<ul>';
   foreach($errors as $key => $value) {
@@ -75,8 +75,8 @@ if (isset($errors) and !empty($errors)) {
 }
 
 echo "<div class='formcontainer'><form method='post' action=''>
-<div class='forminput'><label><abbr title='" . $lang["register.UsernameDesc"] . "'>" . $lang["register.Username"] . "</abbr></label><input type='text' name='user_name' autocomplete='username' value='" . @htmlspecialchars(@$_POST["user_name"]) . "' /></div>
-<div class='forminput'><label><abbr title='" . $lang["register.EmailDesc"] . "'>" . $lang["register.Email"] . "</abbr></label><input type='email' name='user_email' value='" . @htmlspecialchars($_POST["user_email"]) . "'></div>
+<div class='forminput'><label><abbr title='" . $lang["register.UsernameDesc"] . "'>" . $lang["register.Username"] . "</abbr></label><input type='text' name='user_name' autocomplete='username' maxlength='". $config['maxUsernameLength'] . "' value='" . @htmlspecialchars(@$_POST["user_name"]) . "' /></div>
+<div class='forminput'><label><abbr title='" . $lang["register.EmailDesc"] . "'>" . $lang["register.Email"] . "</abbr></label><input type='email' name='user_email' maxlength='254' value='" . @htmlspecialchars($_POST["user_email"]) . "'></div>
 <div class='forminput'><label><abbr title='" . sprintf($lang["register.PasswordDesc"], "6") . "'>" . $lang["register.Password"] . "</abbr></label><input type='password' name='user_pass' value='" . @htmlspecialchars($_POST["user_pass"]) . "'></div>
 <div class='forminput'><label>" . $lang["register.PasswordConf"] . "</label><input type='password' name='user_pass_check' value='" . @htmlspecialchars($_POST["user_pass_check"]) . "'></div>";
 if ($config["captchaEnabled"] == true) {
@@ -91,7 +91,7 @@ include 'footer.php';
 
 // Validate usernames.
 function validateUsername($username) {
-  global $db, $lang, $errors;
+  global $db, $lang, $errors, $config;
 
   $res = $db->query("SELECT salt FROM users WHERE username = '" . $db->real_escape_string($username) . "'");
 
@@ -104,7 +104,7 @@ function validateUsername($username) {
   if(strlen($username) < 3) {
     $errors[] = $lang["error.UsernameSmall"];
   }
-  if(strlen($username) > 24) {
+  if(strlen($username) > $config['maxUsernameLength']) {
     $errors[] = $lang["error.UsernameBig"];
   }
 }
