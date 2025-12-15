@@ -19,6 +19,7 @@ $config = array(
     'threadsPerPage' => 20, // Number of threads to display on a page in a category.
     'usersPerPage' => 30, // Number of users to display per page in the userlist.
     'maxCharsPerPost' => 50000, // Maximum number of characters allowable in a single post.
+    'maxUsernameLength' => 24, // Maximum username length.
     'postDelay' => 5, // Number of seconds between posts during which a user can't make another post.
     'maxCharsPerTitle' => 35, // Maximum number of characters allowable in a title. Includes category names along with thread titles.
     'forumTheme' => 'Aurora', // The directory that the forum should look in for skin files
@@ -44,7 +45,7 @@ $config = array(
     'modRewriteDisabled' => 0, // If mod_rewrite is disabled, use query parameters [127.0.0.1/thread/10] vs [127.0.0.1/index.php?url=thread/10]
     'parentSite' => '', // The URL of the parent website (for example, if the forum is at 127.0.0.1/forum, the parent site would be 127.0.0.1)
     'parentSiteName' => '', // The name of the parent website (see above)
-    'maxAvatarSize' => 5000000 // The maximum acceptable filesize (in bytes) for an avatar upload
+    'maxAvatarSize' => 5000000, // The maximum acceptable filesize (in bytes) for an avatar upload
 );
 
 ?>
