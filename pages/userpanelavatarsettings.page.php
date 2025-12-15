@@ -115,7 +115,7 @@ while ($a = $avatarCheck->fetch_assoc()) {
 
 echo("<div class='avatarForm'><h3>" . $lang["userpanel.ChangeAvatar"] . "</h3>" . $avatarURL . "</br>
     <form action='' method='post' enctype='multipart/form-data' class='inline-block'>
-    <input type='file' name='uploadedFile' class='upload'>
+    <input type='file' name='uploadedFile' class='upload' accept='image/*'>
     <input type='submit' value='" . $lang["userpanel.UploadAvatar"] . "' name='submit'></form> <form action='' method='post' class='inline-block'><input type='submit' value='" . $lang["userpanel.RemoveAvatar"] . "' name='removeAvatar'></form>
     </div>");
 
