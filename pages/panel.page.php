@@ -7,11 +7,11 @@ if (!defined("INDEXED")) exit;
 
 include "header.php";
 
-if ($_SESSION["role"] != "Administrator")
+if (!(get_role_permissions() & PERM_EDIT_FORUM))
 {
-	message($lang["nav.AdminsOnly"]);
-	include "footer.php";
-	exit;
+    message($lang["nav.AdminsOnly"]);
+    include "footer.php";
+    exit;
 }
 
 $panel_pages = array(
@@ -46,10 +46,6 @@ else include $panel_pages["settings"][0];
 
 include "footer.php";
 
-// If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
-{
-	update_last_action("action.Panel");
-}
+update_last_action("action.Panel");
 
 ?>
