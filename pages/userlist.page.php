@@ -20,11 +20,13 @@ $sortorderoptions = array(
 listener("beforeUserlistLoad");
 
 // Handle requests to approve accounts.
-if ((isset($_POST["approve"])) and (is_numeric($_POST["approve"])) and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
+if (isset($_POST["approve"]) and is_numeric($_POST["approve"])) {
     $check = $db->query("SELECT 1 FROM users WHERE userid='" . $db->real_escape_string($_POST["approve"]) . "'");
     
     if ($check->num_rows > 0) {
-        $db->query("UPDATE users SET verified='1' WHERE userid='" . $db->real_escape_string($_POST["approve"]) . "'");
+        if (allowed_to_edit_user($check["role"])) {
+            $db->query("UPDATE users SET verified='1' WHERE userid='" . $db->real_escape_string($_POST["approve"]) . "'");
+        }
     }
 }
 
@@ -76,75 +78,74 @@ $result = $db->query("SELECT * FROM users"  . $hidedeleted . " ORDER BY ".$sort.
 
 if (!$result) {
     echo $lang["error.FailedFetchUsers"];
+    require "pages/footer.php";
+    exit;
 }
-else {	
-    $sort_data = array(
-      "label" => $lang["userlist.SortBy"],
-      "sort_by_options" => "",
-      "sort_order_options" => "",
-      "label_submit" => $lang["userlist.Submit"]
-    );
+$sort_data = array(
+  "label" => $lang["userlist.SortBy"],
+  "sort_by_options" => "",
+  "sort_order_options" => "",
+  "label_submit" => $lang["userlist.Submit"]
+);
     
-    foreach ($sortoptions as $s => $v) {
-        if (isset($_GET["sort_by"]) && $_GET["sort_by"] == $s) $selected = "selected=''";
-        else $selected = "";
+foreach ($sortoptions as $s => $v) {
+    if (isset($_GET["sort_by"]) && $_GET["sort_by"] == $s) $selected = "selected=''";
+    else $selected = "";
         
-        $sort_data["sort_by_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort.".$s] . '</option>';
-    }
-    foreach ($sortorderoptions as $s => $v) {
-        if (isset($_GET["sort_order"]) && $_GET["sort_order"] == $s) $selected = "selected=''";
-        else $selected = "";
+    $sort_data["sort_by_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort.".$s] . '</option>';
+}
+foreach ($sortorderoptions as $s => $v) {
+    if (isset($_GET["sort_order"]) && $_GET["sort_order"] == $s) $selected = "selected=''";
+    else $selected = "";
         
-        $sort_data["sort_order_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort_order.".$s] . '</option>';
-    }
+    $sort_data["sort_order_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort_order.".$s] . '</option>';
+}
     
-    $data = array(
-      "title" => $lang["header.Userlist"],
-      "pagination" => renderPagination(2, true),
-      "users" => "",
-      "sort_options" => $template->render("templates/userlist/sort_options.html",$sort_data)
-    );
+$data = array(
+  "title" => $lang["header.Userlist"],
+  "pagination" => renderPagination(2, true),
+  "users" => "",
+  "sort_options" => $template->render("templates/userlist/sort_options.html",$sort_data)
+);
         
-    while($row = $result->fetch_assoc())
-    {
-        //if ($row["deleted"] == "1" && $config["showDeletedInUserlist"] != 1) continue;
-        $user_data = array(
-          "deleted_class" => "",
-          "color" => $row["color"],
-          "url" => genURL('user/' . $row["userid"]),
-          "role_class" => $row["role"],
-          "username" => $row["username"],
-          "role" => $lang["role.".$row["role"]],
-          "buttons" => "",
-          "action" => parseAction($row["lastaction"], $lang),
-          "time" => date('m-d-Y h:i:s A', $row["lastactive"]),
-          "relative_time" => relativeTime($row["lastactive"])
-        );
+while($row = $result->fetch_assoc())
+{
+    $user_data = array(
+      "deleted_class" => "",
+      "color" => $row["color"],
+      "url" => genURL('user/' . $row["userid"]),
+      "role_class" => $row["role"],
+      "username" => $row["username"],
+      "role" => $lang["role.".$row["role"]],
+      "buttons" => "",
+      "action" => parseAction($row["lastaction"], $lang),
+      "time" => date('m-d-Y h:i:s A', $row["lastactive"]),
+      "relative_time" => relativeTime($row["lastactive"])
+    );
             
-        if ($row["deleted"] == "1") {
-            $user_data["deleted_class"] = " deleteduser";
-	    $user_data["username"] = $lang["user.Deleted"] . $row["userid"];
-	}
-
-        if (($row["verified"] == "0") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
-            $user_data["buttons"] = $template->render("templates/userlist/user_button.html",array("userid" => $row["userid"], "label" => $lang["userlist.Approve"]));
-        }
-        else if ($config["mainAdmin"] != $row["userid"] and (isset($_SESSION["role"]) && $_SESSION["role"] == "Administrator")) {
-            $user_data["buttons"] = '<small><a href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a></small>';
-        }
-
-        $data["users"] .= $template->render("templates/userlist/user_display.html",$user_data);
+    if ($row["deleted"] == "1") {
+        $user_data["deleted_class"] = " deleteduser";
+        $user_data["username"] = $lang["user.Deleted"] . $row["userid"];
     }
-    
-    echo $template->render("templates/userlist/userlist.html", $data);
+
+    if ($row["verified"] == "0" and allowed_to_edit_user($row["role"])) {
+        $user_data["buttons"] = $template->render("templates/userlist/user_button.html",array("userid" => $row["userid"], "label" => $lang["userlist.Approve"]));
+    }
+    else if ($config["mainAdmin"] != $row["userid"] and get_role_permissions() & PERM_EDIT_FORUM) {
+        $user_data["buttons"] = '<small><a href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a></small>';
+    }
+
+    $data["users"] .= $template->render("templates/userlist/user_display.html",$user_data);
 }
+
+echo $template->render("templates/userlist/userlist.html", $data);
+
 
 include "footer.php";
 
-// If the viewing user is logged in, update their last action.
-if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
+if (get_role_from_session() != "Guest")
 {
-	update_last_action($lang["action.Userlist"]);
+    update_last_action($lang["action.Userlist"]);
 }
 
 ?>
