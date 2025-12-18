@@ -93,6 +93,7 @@ if (($q1 == "thread") and ($threadExists == true))
 }
 else if ($q1 == "category" && isset($categoryName)) $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
 else if ($q1 == "user" && isset($username)) $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
+else if ($q1 == "panel" && array_key_exists($q2,$panel_pages) && strlen($panel_pages[$q2][1])) $data["title"] = $panel_pages[$q2][1] . ' • ' . $config["forumName"];
 
 foreach ($m_pages as $v) {
     if (getNumForRole(@$_SESSION["role"]) >= $v[2]) {
