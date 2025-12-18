@@ -5,7 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-// Start off by making a query using the given userid.
 $result = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
 
 if (!$result)
@@ -16,135 +15,111 @@ if (!$result)
     exit;
 }
 
-else
+if ($result->num_rows == 0)
 {
+    include "header.php";
+    message($lang["user.NoSuchUser"]);
+    include "footer.php";
+    exit;
+}
     
-    if ($result->num_rows == 0)
-    {
-        include "header.php";
-        message($lang["user.NoSuchUser"]);
-        include "footer.php";
-        exit;
-    }
-    
-    else
-    {
-        while ($row = $result->fetch_assoc())
-        {
-            if ($row["deleted"] == "1") $username = $lang["user.Deleted"] . $row["userid"];
-            else $username = $row["username"];
+while ($row = $result->fetch_assoc())
+{
+    if ($row["deleted"] == "1") $username = $lang["user.Deleted"] . $row["userid"];
+    else $username = $row["username"];
             
-            $userid = $row["userid"];
-            $color = $row["color"];
-            $role = $row["role"];
-            $verified = $row["verified"];
-            $lastactive = $row["lastactive"];
-            $jointime = $row["jointime"];
-            $deleted = $row["deleted"];
-            $avatar = $row["avatar"];
-            $avatarTime = $row["avataruploadtime"];
-        }
-        
-        if ((isset($_POST["role"])) and allowed_to_edit_user($role))
-        {
-            if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
-                if (in_array($_POST["role"],get_changeable_roles(get_role_from_session()))) {
-                    $setrole = $db->query("UPDATE users SET role='" . $db->real_escape_string($_POST["role"]) . "' WHERE userid='" . $db->real_escape_string($q2) . "'");
-                    if (!$setrole)
-                    {
-                        echo $lang["user.FaildChangeRole"];
-                    }
-                    else
-                    {
-                        $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
-            VALUES ('" . time() . "', 'edit_role', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "', '" . $role . "', '" . $db->real_escape_string($_POST["role"]) ."')");
-                    }
-                                
-                    refresh(0);
+    $userid = $row["userid"];
+    $color = $row["color"];
+    $role = $row["role"];
+    $verified = $row["verified"];
+    $lastactive = $row["lastactive"];
+    $jointime = $row["jointime"];
+    $deleted = $row["deleted"];
+    $avatar = $row["avatar"];
+    $avatarTime = $row["avataruploadtime"];
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    if (isset($_POST["role"]) and allowed_to_edit_user($role))
+    {
+        if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
+            if (in_array($_POST["role"],get_changeable_roles(get_role_from_session()))) {
+                $setrole = $db->query("UPDATE users SET role='" . $db->real_escape_string($_POST["role"]) . "' WHERE userid='" . $db->real_escape_string($q2) . "'");
+                if (!$setrole) echo $lang["user.FaildChangeRole"];
+                else {
+                    $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) VALUES ('" . time() . "', 'edit_role', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "', '" . $role . "', '" . $db->real_escape_string($_POST["role"]) ."')"); 
                 }
+                refresh(0);
             }
         }
-        elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and allowed_to_edit_user($role))
-        {
-            removeAvatar($q2);
-            $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`) 
-            VALUES ('" . time() . "', 'delete_avatar', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "')");
-            refresh(0);
-        }
-
-        include "header.php";
+    }
+    elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and allowed_to_edit_user($role))
+    {
+        removeAvatar($q2);
+        $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`) 
+        VALUES ('" . time() . "', 'delete_avatar', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "')");
+        refresh(0);
+    }
+}    
         
-        // Get the profile's status
-    if ($verified == "1") $verified = $lang["user.VerifiedYes"];
-    else $verified = $lang["user.VerifiedNo"];
-
-    $delClass = "";
+include "header.php";
         
-    if ($deleted == "1") 
-        {
-            $deleted = $lang["user.DeletedYes"];
-            $delClass = " deleteduser";
-        }
+if ($verified == "1") $verified = $lang["user.VerifiedYes"];
+else $verified = $lang["user.VerifiedNo"];
 
-    else $deleted = $lang["user.DeletedNo"];
+$delClass = "";
         
-    if ($avatar == "none") $uAvatar = "";
-        else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
+if ($deleted == "1") $delClass = " deleteduser";
+        
+if ($avatar == "none") $uAvatar = "";
+else $uAvatar = '<img class="avatar" src="' . genURL("avatars/" . $userid . "." . $avatar . "?t=" . $avatarTime) . '">';
             
-        echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
-        echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">';    
+echo '<h2>'.$lang["user.ViewingProfile"].' "' . htmlspecialchars($username) . '"</h2>';
+echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htmlspecialchars($color) . '">';    
 
-        drawUserProfile($userid, true);
+drawUserProfile($userid, true);
 
-        if ($avatar != "none" and allowed_to_edit_user($role)) {
-            echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
-        }
+if ($avatar != "none" and allowed_to_edit_user($role)) {
+    echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
+}
         
-        if ($config["mainAdmin"] != $userid and get_role_permissions() & PERM_EDIT_FORUM) {
-            echo '<a class="buttonsmall" href="' . genURL("panel/useradmin/" . $userid) . '">' . $lang["panel.Administrate"] . '</a>';
-        }
+if ($config["mainAdmin"] != $userid and get_role_permissions() & PERM_EDIT_FORUM) {
+    echo '<a class="buttonsmall" href="' . genURL("panel/useradmin/" . $userid) . '">' . $lang["panel.Administrate"] . '</a>';
+}
 
-        echo "</div></div>";
+echo "</div></div>";
         
-        // Get user statistics
+// Get user statistics
 
-        $posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
-        $uposts = mysqli_num_rows($posts);
+$posts = $db->query("SELECT 1 FROM posts WHERE user='" . $db->real_escape_string($q2) . "'");
+$uposts = mysqli_num_rows($posts);
                 
-        $threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
-        $uthreads = mysqli_num_rows($threads);
+$threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
+$uthreads = mysqli_num_rows($threads);
 
-        echo '<div class="userbottom">
-                    <h3>' . $lang["user.UserInformation"] . '</h3>
+echo '<div class="userbottom"><h3>' . $lang["user.UserInformation"] . '</h3>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></span>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></span>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'<a href="'.genURL("search?user=" . urlencode($username)).'"></label>' . $uposts . '</a></span>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label><a href="'.genURL("search?author=" . urlencode($username)).'">' . $uthreads . '</a></span>
             <span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>';
-    }
 
-echo '</div></div>';
+echo '</div></div><div class="userextra' . $delClass . '" postcolor="' . htmlspecialchars($color) . '"><div class=userbioside>';
 
-echo '<div class="userextra' . $delClass . '" postcolor="' . htmlspecialchars($color) . '">';
-
-echo "<div class=userbioside>";
-
-$bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
-        
-while ($b = $bioCheck->fetch_assoc()) {
-    if (($deleted == "1") and ((!!$b["bio"]) or (isset($b["bio"])) or ($b["bio"] != ""))) 
-    {
+if ($deleted != "1") {
+    $bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
+    $b = $bioCheck->fetch_assoc();
+    if (isset($b["bio"]) && strlen($b["bio"])) {
         echo '<span class="userpostsh">' . $lang["userpanel.Bio"] . '</span>';
         echo("<span class='userbio'>" . formatPost($b["bio"]) . "</span>");
     }
 }
-echo "</div>";
-echo '<div class="userposts">';
-echo '<span class="userpostsh">' . $lang["user.RecentPosts"] . '</span>';
+
+echo "</div><div class='userposts'><span class='userpostsh'>" . $lang["user.RecentPosts"] . "</span>";
 
 // Get the user's last 5 recent posts, excluding any draft posts.
 $postspre = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL");
-
 $exclude = "";
 
 while ($p = $postspre->fetch_assoc()) {
@@ -175,11 +150,10 @@ else
         }
     }
 }
-echo "</div></div>";
-}
 
-// If the viewing user is logged in, update their last action.
-if (isset($_SESSION['signed_in']) && ($_SESSION['signed_in'] == true))
+echo "</div></div>";
+
+if (get_role_from_session() != "Guest")
 {
     $action = $lang["action.Generic"]. '<a href="' . genURL('user/' . $userid) . '/">' . htmlspecialchars($username) . $lang["action.UserProfile"] . '</a>';
     update_last_action($action);
