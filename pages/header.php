@@ -85,7 +85,7 @@ if (isset($_SESSION['signed_in']) && $_SESSION['signed_in'] == true)
 	$data["welcome"] = sprintf($lang["header.Hello"], '<b><a href="' . genURL('user/' . $_SESSION["userid"]) . '" class="' . $_SESSION["role"] . '">' . htmlspecialchars($_SESSION["username"]) . '</a></b>');
 }
 
-if (($q1 == "thread") and ($threadExists == true))
+if (($q1 == "thread") and isset($title))
 {
     if (($draft == 0) or ($_SESSION["userid"] == $startuser) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
         $data["title"] = htmlspecialchars($title) . ' • ' . $config["forumName"];
