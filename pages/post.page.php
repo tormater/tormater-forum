@@ -27,7 +27,7 @@ while ($p = $posts->fetch_assoc()) {
 $postsPerPage = (is_numeric($config["postsPerPage"]) ? (int)$config["postsPerPage"] : 10);
 if ($postsPerPage < 1) $postsPerPage = 1;
 
-$pagenum = 1+floor($post_position/$postsPerPage);
+$pagenum = ceil($post_position/$postsPerPage);
 
 redirect("thread/" . $row["thread"] . "/" . $pagenum . "/#post_" . $row["postid"]);
 
