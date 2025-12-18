@@ -45,7 +45,7 @@ else
             $avatarTime = $row["avataruploadtime"];
         }
         
-        if ((isset($_POST["role"])) and get_role_permissions() & PERM_EDIT_USER and in_array($role,get_changeable_roles(get_role_from_session())))
+        if ((isset($_POST["role"])) and allowed_to_edit_user($role))
         {
             if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
                 if (in_array($_POST["role"],get_changeable_roles(get_role_from_session()))) {
@@ -64,7 +64,7 @@ else
                 }
             }
         }
-        elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and get_role_permissions() & PERM_EDIT_USER and in_array($role,get_changeable_roles()))
+        elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and allowed_to_edit_user($role))
         {
             removeAvatar($q2);
             $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`) 
@@ -96,7 +96,7 @@ else
 
         drawUserProfile($userid, true);
 
-        if (($avatar != "none") and in_array($role,get_changeable_roles(get_role_from_session()))) {
+        if ($avatar != "none" and allowed_to_edit_user($role)) {
             echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
         }
         
