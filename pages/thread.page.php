@@ -186,6 +186,7 @@ while ($post = $posts->fetch_assoc())
           "discard_edit" => $lang["post.DiscardEditBtn"]
         );
         $post_data["body"] = $template->render("templates/post/post_edit.html",$edit_data);
+        $post_data["body"] .= "<script>editbox = document.getElementById('edit'); editbox.scrollIntoView({block:'center'});</script>";
     }
     else {
         $post_data["body"] = formatPost($post["content"]);
@@ -206,6 +207,7 @@ while ($post = $posts->fetch_assoc())
         if (($post["deletedby"] == $viewerid and get_role_permissions() & PERM_CREATE_POST) or get_role_permissions() & PERM_EDIT_POST) {
             $post_data["quote"] = $template->render("templates/post/post_restore.html",array("id" => $post["postid"],"label" => $lang["post.RestoreHiddenBtn"]));
         }
+        else $post_data["quote"] = "";
         
         $role = $h["role"];
         $post_data["hidden_info"] = sprintf($lang["thread.HiddenBy"], (genURL('user/' . $post["deletedby"] . '/')), $role, htmlspecialchars($hideusername));
@@ -296,7 +298,7 @@ function saveDraft() {
 }
 
 function deletePost() {
-    global $db, $lang, $q2, $categoryID, $thread_data;
+    global $db, $lang, $q2, $categoryID, $thread_data, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
     $p = $permission->fetch_assoc();
     
@@ -333,7 +335,7 @@ function deletePost() {
 }
 
 function hidePost() {
-    global $db, $lang, $thread_data;
+    global $db, $lang, $thread_data, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
     $p = $permission->fetch_assoc();
     if ($p["user"] != $viewerid && !(get_role_permissions() & PERM_EDIT_POST)) {
@@ -348,11 +350,11 @@ function hidePost() {
     $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
             VALUES ('" . time() . "', 'hide_post', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($_POST["hide"]) . "',
             'restored', 'hidden')");
-    refresh(0);
+    redirect("post/" . $db->real_escape_string($_POST["hide"]));
 }
 
 function restorePost() {
-    global $db, $lang;
+    global $db, $lang, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
     $p = $permission->fetch_assoc();
     if ($p["user"] != $viewerid && !(get_role_permissions() & PERM_EDIT_POST)) {
@@ -367,11 +369,11 @@ function restorePost() {
     $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
             VALUES ('" . time() . "', 'hide_post', '" . $_SESSION["userid"] . "', '" . $db->real_escape_string($_POST["restore"]) . "',
             'hidden', 'restored')");            
-    refresh(0);
+    redirect("post/" . $db->real_escape_string($_POST["restore"]));
 }
 
 function saveEdit() {
-    global $db, $lang, $thread_data;
+    global $db, $lang, $thread_data, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
     $p = $permission->fetch_assoc();
     if (($p["user"] != $viewerid) && !(get_role_permissions() & PERM_EDIT_POST)) {
