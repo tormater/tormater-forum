@@ -5,10 +5,9 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include "header.php";
-
 if (!(get_role_permissions() & PERM_EDIT_FORUM))
 {
+    include "header.php";
     message($lang["nav.AdminsOnly"]);
     include "footer.php";
     exit;
@@ -25,6 +24,8 @@ $panel_pages = array(
 
 listener("panelBeforeRender");
 
+include "header.php";
+
 $data = array(
   "buttons" => ""
 );
@@ -34,7 +35,6 @@ foreach($panel_pages as $k => $v) {
     $b_data = array("url" => genURL("panel/" . $k), "title" => $v[1]);
     $data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
 }
-
 
 echo $template->render("templates/panel/panel_navigation.html",$data);
 
