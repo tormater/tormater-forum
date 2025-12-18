@@ -62,3 +62,7 @@ function get_changeable_roles($r = "") {
     if (get_role_permissions($r) & PERM_EDIT_FORUM) return get_roles();
     return array_slice(get_roles(),array_search($r,get_roles())+1);
 }
+
+function allowed_to_edit_user($victim_role, $role="") {
+    return get_role_permissions($role) & PERM_EDIT_USER and in_array($victim_role,get_changeable_roles());
+}
