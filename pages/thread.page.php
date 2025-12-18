@@ -60,11 +60,12 @@ $author = $authorinfo->fetch_assoc();
 $username = $author["username"];
 if ($author["deleted"] == 1) $username = $lang["user.Deleted"] . $author["userid"];
 
-$draftp = $db->query("SELECT content FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
-
-if ($draftp->num_rows > 0) {
-    $d = $draftp->fetch_assoc();
-    $draftPost = $d["content"];
+if (isset($_SESSION["userid"])) {
+    $draftp = $db->query("SELECT content FROM drafts WHERE user='" . $_SESSION["userid"] . "' AND thread='" . $db->real_escape_string($q2) . "'");
+    if ($draftp->num_rows > 0) {
+        $d = $draftp->fetch_assoc();
+        $draftPost = $d["content"];
+    }
 }
 
 $thread_data = array(
