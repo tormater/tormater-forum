@@ -5,35 +5,41 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-include "header.php";
-
 if ($_SESSION["signed_in"] == false)
 {
-	message(sprintf($lang["nav.LoginRequired"], genURL("login")));
+    include "header.php";
+    message(sprintf($lang["nav.LoginRequired"], genURL("login")));
     include "footer.php";
     exit;
 }
 
-echo '<div class="panelMenu"><a class="buttonbig" href="' . genURL("userpanel/avatarsettings") . '">'.$lang["userpanel.AvatarSettings"].'</a> <a class="buttonbig" href="' . genURL("userpanel/accountsettings") . '">'.$lang["userpanel.AccountSettings"].'</a> <a class="buttonbig" href="' . genURL("userpanel/profilesettings") . '">'.$lang["userpanel.ProfileSettings"].'</a></div>';
+$panel_pages = array(
+    "avatarsettings" => array("userpanelavatarsettings.page.php", $lang["userpanel.AvatarSettings"]),
+    "accountsettings" => array("userpanelaccountsettings.page.php", $lang["userpanel.AccountSettings"]),
+    "profilesettings" => array("userpanelprofilesettings.page.php", $lang["userpanel.ProfileSettings"])
+);
 
-// Find out which page we're loading
+listener("userpanelBeforeRender");
 
-if ($q2 == "avatarsettings")
-{
-    include "userpanelavatarsettings.page.php";
+include "header.php";
+
+
+$data = array(
+  "buttons" => ""
+);
+
+foreach($panel_pages as $k => $v) {
+    if (!strlen($v[1])) continue;
+    $b_data = array("url" => genURL("userpanel/" . $k), "title" => $v[1]);
+    $data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
 }
-elseif ($q2 == "accountsettings")
-{
-    include "userpanelaccountsettings.page.php";
+
+echo $template->render("templates/panel/panel_navigation.html",$data);
+
+if (array_key_exists($q2,$panel_pages)) {
+    include $panel_pages[$q2][0];
 }
-elseif ($q2 == "profilesettings")
-{
-    include "userpanelprofilesettings.page.php";
-}
-else
-{
-    include "userpanelavatarsettings.page.php";
-}
+else include $panel_pages["avatarsettings"][0];
 
 include "footer.php";
 
