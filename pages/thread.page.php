@@ -240,6 +240,9 @@ else if (get_role_permissions() & PERM_CREATE_POST) {
 else if (get_role_from_session() == "Guest") {
     $thread_data["reply"] = message(sprintf($lang["thread.LoginToReply"], genURL('login/'), genURL('signup/')),true);
 }
+else if (!(get_role_permissions() & PERM_CREATE_POST)) {
+    $thread_data["reply"] = message($lang["thread.SuspendCantPost"],true);
+}
 
 //
 // Define all the functions we need to handle user requests.
@@ -302,7 +305,7 @@ function deletePost() {
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
     $p = $permission->fetch_assoc();
     
-    if ($p["user"] != $viewerid && !(get_role_permissions() & PERM_EDIT_POST)) {
+    if (!($p["user"] == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
         // ..
         return;
     }
@@ -338,7 +341,7 @@ function hidePost() {
     global $db, $lang, $thread_data, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
     $p = $permission->fetch_assoc();
-    if ($p["user"] != $viewerid && !(get_role_permissions() & PERM_EDIT_POST)) {
+    if (!($p["user"] == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
         // ..
         return;
     }
@@ -357,7 +360,7 @@ function restorePost() {
     global $db, $lang, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
     $p = $permission->fetch_assoc();
-    if ($p["user"] != $viewerid && !(get_role_permissions() & PERM_EDIT_POST)) {
+    if (!($p["user"] == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
         // ..
         return;
     }
@@ -376,7 +379,7 @@ function saveEdit() {
     global $db, $lang, $thread_data, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
     $p = $permission->fetch_assoc();
-    if (($p["user"] != $viewerid) && !(get_role_permissions() & PERM_EDIT_POST)) {
+    if (!($p["user"] == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
         $thread_data["error"] .= message($lang["thread.PostEditError"],true);
         return;
     }
@@ -462,7 +465,7 @@ function pinThread($pinned) {
 
 function editTitle() {
     global $db, $lang, $q2, $thread_data;
-    if ($startuser == $viewerid or $_SESSION["role"] == "Moderator" or $_SESSION["role"] == "Administrator") {
+    if (!($startuser == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
         $thread_data["errors"] .= message($lang["thread.PostEditError"],true);
         return;
     }
