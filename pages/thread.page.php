@@ -530,4 +530,10 @@ echo $template->render("templates/thread/thread.html",$thread_data);
 
 include 'footer.php';
 
+if (get_role_from_session() == "Guest")
+{
+    $action = $lang["action.Generic"] . ' <a href="' . genURL('/thread/' . $db->real_escape_string($q2)) . '/">' . $title . '</a>';
+    update_last_action($action);
+}
+
 ?>
