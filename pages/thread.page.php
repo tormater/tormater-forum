@@ -80,7 +80,7 @@ $thread_data = array(
 );
 
 if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD) or get_role_permissions() & PERM_EDIT_THREAD) {
-    $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title)));
+    $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title),"maxtitle" => $config["maxCharsPerTitle"]));
 }
 else $thread_data["title"] = $template->render("templates/thread/thread_title.html",array("title" => htmlspecialchars($title)));
 
@@ -464,9 +464,17 @@ function pinThread($pinned) {
 }
 
 function editTitle() {
-    global $db, $lang, $q2, $thread_data;
-    if (!($startuser == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
+    global $db, $lang, $q2, $startuser, $viewerid, $config, $thread_data;
+    if (!($startuser == $viewerid && get_role_permissions() & PERM_CREATE_THREAD) && !(get_role_permissions() & PERM_EDIT_THREAD)) {
         $thread_data["errors"] .= message($lang["thread.PostEditError"],true);
+        return;
+    }
+    if (mb_strlen($_POST["editthread"]) < 1) {
+        $thread_data["error"] .= message($lang["thread.PostEmpty"],true);
+        return;
+    }
+    else if (mb_strlen($_POST["editthread"]) > $config["maxCharsPerTitle"]) {
+        $thread_data["error"] .= message(sprintf($lang["thread.PostBig"], $config["maxCharsPerTitle"]),true);
         return;
     }
     $result = $db->query("UPDATE threads SET title='".$db->real_escape_string($_POST["editthread"])."' WHERE threadid='".$db->real_escape_string($q2)."'");   
@@ -508,7 +516,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
         else if (isset($_POST["hide"])) hidePost();
         else if (isset($_POST["restore"])) restorePost();
         else if (isset($_POST["saveedit"])) saveEdit();  
-        else if (isset($_POST["edithread"])) editTitle();
+        else if (isset($_POST["editthread"])) editTitle();
         if (get_role_permissions() & PERM_EDIT_THREAD) 
         {
             if (isset($_POST["movethread"]) && isset($_POST["category"])) {
