@@ -61,9 +61,9 @@ while ($row = $userCheck->fetch_assoc()) {
 
 if (get_role_permissions() & PERM_EDIT_PROFILE) {
     $data["bio_form"] .= "<h3>" . $lang["userpanel.Signature"] . "</h3>";
-    $data["bio_form"] .=  BBCodeButtons(1,false) . "<form method='post' action=''><textarea maxlength='512' name='signature' id='textbox1'>" . htmlspecialchars($signature) . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateSignature"] . "'></form>";
+    $data["bio_form"] .=  BBCodeButtons(1,false) . "<form method='post' action=''><textarea maxlength='512' name='signature' id='textbox1'>" . htmlspecialchars($signature) . "</textarea><input class='buttonbig' type='submit' value='" . $lang["userpanel.UpdateSignature"] . "'></form>";
     $data["bio_form"] .=  "</br><h3>" . $lang["userpanel.Bio"] . "</h3>";
-    $data["bio_form"] .=  BBCodeButtons(2,false) . "<form method='post' action=''><textarea maxlength='2048' name='bio' id='textbox2'>" . htmlspecialchars($bio) . "</textarea><input type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form>";
+    $data["bio_form"] .=  BBCodeButtons(2,false) . "<form method='post' action=''><textarea maxlength='2048' name='bio' id='textbox2'>" . htmlspecialchars($bio) . "</textarea><input class='buttonbig' type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form>";
 }
 
 echo $template->render("templates/userpanel/profilesettings.html", $data);
