@@ -91,11 +91,8 @@ if (($q1 == "thread") and ($threadExists == true))
         $data["title"] = htmlspecialchars($title) . ' • ' . $config["forumName"];
     }
 }
-else if ($q1 == "category" && isset($categoryName))
-    if (isset($categoryName)) $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
-else if ($q1 == "user")
-    if (isset($username)) $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
-
+else if ($q1 == "category" && isset($categoryName)) $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
+else if ($q1 == "user" && isset($username)) $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
 
 foreach ($m_pages as $v) {
     if (getNumForRole(@$_SESSION["role"]) >= $v[2]) {
