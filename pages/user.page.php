@@ -45,7 +45,7 @@ else
             $avatarTime = $row["avataruploadtime"];
         }
         
-        if ((isset($_POST["role"])) and get_role_permissions() & PERM_EDIT_USER)
+        if ((isset($_POST["role"])) and get_role_permissions() & PERM_EDIT_USER and in_array($role,get_changeable_roles(get_role_from_session())))
         {
             if (is_numeric($q2) and ($_SESSION["userid"] != $q2) and ($config["mainAdmin"] != $q2)) {
                 if (in_array($_POST["role"],get_changeable_roles(get_role_from_session()))) {
@@ -64,7 +64,7 @@ else
                 }
             }
         }
-        elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and get_role_permissions() & PERM_EDIT_USER and in_array($_POST["role"],get_changeable_roles()))
+        elseif (isset($_POST["removeAvatar"]) and $config["mainAdmin"] != $q2 and get_role_permissions() & PERM_EDIT_USER and in_array($role,get_changeable_roles()))
         {
             removeAvatar($q2);
             $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`) 
@@ -96,11 +96,11 @@ else
 
         drawUserProfile($userid, true);
 
-        if (($avatar != "none") and (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator"))) {
+        if (($avatar != "none") and in_array($role,get_changeable_roles(get_role_from_session()))) {
             echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
         }
         
-        if ($config["mainAdmin"] != $userid and (isset($_SESSION["role"]) && $_SESSION["role"] == "Administrator")) {
+        if ($config["mainAdmin"] != $userid and get_role_permissions() & PERM_EDIT_FORUM) {
             echo '<a class="buttonsmall" href="' . genURL("panel/useradmin/" . $userid) . '">' . $lang["panel.Administrate"] . '</a>';
         }
 
