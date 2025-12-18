@@ -724,7 +724,7 @@ function drawNavigation() {
     }
     if ($q1 == "thread")
     {
-        if (($GLOBALS["threadExists"] == true) and (($GLOBALS["draft"] == 0) or ($_SESSION["userid"] == $GLOBALS["startuser"]) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))) {
+        if ((isset($GLOBALS["title"]) and isset($GLOBALS["categoryID"])) and (($GLOBALS["draft"] == 0) or ($_SESSION["userid"] == $GLOBALS["startuser"]) or (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administrator")))) {
         // Get the category information.
             $categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($GLOBALS["categoryID"]) . "'");
 
