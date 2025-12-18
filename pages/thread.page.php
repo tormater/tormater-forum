@@ -183,7 +183,8 @@ while ($post = $posts->fetch_assoc())
           "bbcodebar" => BBCodeButtons(2,false),
           "content" => $post["content"],
           "save_edit" => $lang["post.SaveEditBtn"],
-          "discard_edit" => $lang["post.DiscardEditBtn"]
+          "discard_edit" => $lang["post.DiscardEditBtn"],
+          "maxlength" => $config["maxCharsPerPost"],
         );
         $post_data["body"] = $template->render("templates/post/post_edit.html",$edit_data);
         $post_data["body"] .= "<script>editbox = document.getElementById('edit'); editbox.scrollIntoView({block:'center'});</script>";
@@ -229,6 +230,7 @@ else if (get_role_permissions() & PERM_CREATE_POST) {
       "preview_show_label" => $lang["nav.ShowPreview"],
       "preview_hide_label" => $lang["nav.HidePreview"],
       "save_draft_label" => $lang["thread.PostSaveDraftBtn"],
+      "maxlength" => $config["maxCharsPerPost"],
     );
     if (isset($contentSave)) $replybox_data["content"] = htmlspecialchars($contentSave);
     elseif (isset($draftPost)) $replybox_data["content"] = htmlspecialchars($draftPost);
@@ -376,11 +378,19 @@ function restorePost() {
 }
 
 function saveEdit() {
-    global $db, $lang, $thread_data, $viewerid;
+    global $db, $lang, $thread_data, $config, $viewerid;
     $permission = $db->query("SELECT user FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
     $p = $permission->fetch_assoc();
     if (!($p["user"] == $viewerid && get_role_permissions() & PERM_CREATE_POST) && !(get_role_permissions() & PERM_EDIT_POST)) {
         $thread_data["error"] .= message($lang["thread.PostEditError"],true);
+        return;
+    }
+    if (mb_strlen($_POST["saveedit"]) < 1) {
+        $thread_data["error"] .= message($lang["thread.PostEmpty"],true);
+        return;
+    }
+    if (mb_strlen($_POST["saveedit"]) > $config["maxCharsPerPost"]) {
+        $thread_data["error"] .= message(sprintf($lang["thread.PostBig"], $config["maxCharsPerPost"]),true);
         return;
     }
     $post = $db->query("SELECT content FROM posts WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
