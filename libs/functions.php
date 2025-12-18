@@ -812,7 +812,7 @@ function drawUserProfile($userid, $has_role_selector, $isHidden=false) {
 	    return;
     }
     $roles = get_changeable_roles();
-    if ($roles == NULL || !$has_role_selector || !in_array($role,$roles)) {
+    if ($roles == NULL || !$has_role_selector || !in_array($role,$roles) || $_SESSION["userid"] == $userid) {
         $l = $role;
         if (array_key_exists("role." . $role,$lang)) $l =  $lang["role." . $role];
         echo '<div class="userrole">' . $l;
