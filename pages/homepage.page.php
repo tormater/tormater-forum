@@ -74,15 +74,16 @@ while($row = $threads->fetch_assoc())
         "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
         "reldate" => relativeTime($row["lastposttime"]),
     );
-    if ($row["locked"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"locked","text"=>$lang["label.Locked"]]); 
-    if ($row["sticky"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"sticky","text"=>$lang["label.Sticky"]]);
-    if ($row["draft"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"draft","text"=>$lang["label.Draft"]]);  
-    if ($row["pinned"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"pinned","text"=>$lang["label.Pinned"]]);
-        
+    $labels = array();
+    if ($row["locked"] == true) $labels["locked"] = $lang["label.Locked"];
+    if ($row["sticky"] == true) $labels["sticky"] = $lang["label.Sticky"];
+    if ($row["draft"] == true) $labels["draft"] = $lang["label.Draft"];
+    if ($row["pinned"] == true) $labels["pinned"] = $lang["label.Pinned"];
+    listener("beforeRenderThreadLabels",$labels);
+    foreach ($labels as $k => $v) {
+        $label_data = array("text" => $v, "class" => $k);
+        $thread_data["labels"] .= $template->render("templates/thread/label.html",$label_data);
+    }           
     $data["threads"] .= $template->render("templates/thread/thread_display.html", $thread_data);
 }
 if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["error.ForumEmpty"]));
