@@ -114,6 +114,8 @@ if (get_role_permissions() & PERM_EDIT_THREAD)
         else $tools["pinthread"] = $lang["thread.PinThreadBtn"];
     }
     
+    listener("beforeRenderModTools",$tools);
+    
     foreach ($tools as $k => $v) {
         $button_data = array("label" => $v, "name" => $k, "id" => $q2);
         $modtools_data["buttons"] .= $template->render("templates/thread/modtools_button.html",$button_data);
@@ -130,6 +132,7 @@ if ($locked == true or $stickied == true or $draft == true or $pinned == true)
     if ($stickied == true) $labels["sticky"] = $lang["label.Sticky"];
     if ($draft == true) $labels["draft"] = $lang["label.Draft"];
     if ($pinned == true) $labels["pinned"] = $lang["label.Pinned"];
+    listener("beforeRenderThreadLabels",$labels);
     foreach ($labels as $k => $v) {
         $label_data = array("label" => $v, "class" => $k);
         $thread_data["labels"] .= $template->render("templates/thread/thread_label.html",$label_data);
