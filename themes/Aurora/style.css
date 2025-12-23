@@ -918,7 +918,7 @@ font.sticky, font.locked, font.draft, font.pinned {
 
 .userlist-grid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 1em;
 }
 .userlist-top {
@@ -1481,33 +1481,10 @@ fieldset {
 
 /* RWD */
 
-@media (max-width: 640px) {
-    .modtools {
-        display: block;
-        float: unset;
-        text-align: unset;
-    }
-    .pagination.left {
-        display: none;
-    }
-    .searcharea {
-        float: unset;
-        display: block;
-        width: 100%;
-        position: relative;
-        margin-bottom: 30px;
-    }
-    #searchbox {
-        box-sizing: border-box;
-        width:100%;
-        position: absolute;
-        left: 0;
-        border-radius: 6px;
-    }
-    .searchbutton {
-        position: absolute;
-        right: 0;
-        border-left: 1px solid var(--c-border);
+@media (max-width: 900px) {
+    #footer {
+        padding: 20px;
+        padding-top: 2px;
     }
 }
 @media (max-width: 800px) {
@@ -1588,9 +1565,8 @@ fieldset {
         border-top: none;
         border-radius: 0 0 6px 6px;
     }
-    /* Userlist */
     .userlist-grid {
-        grid-template-columns: auto;
+        grid-template-columns: 1fr 1fr;
     }
     .avatar {
         display:none;
@@ -1608,9 +1584,37 @@ fieldset {
         width: 100%;
     }
 }
-@media (max-width: 900px) {
-    #footer {
-        padding: 20px;
-        padding-top: 2px;
+@media (max-width: 640px) {
+    .modtools {
+        display: block;
+        float: unset;
+        text-align: unset;
+    }
+    .pagination.left {
+        display: none;
+    }
+    .searcharea {
+        float: unset;
+        display: block;
+        width: 100%;
+        position: relative;
+        margin-bottom: 30px;
+    }
+    #searchbox {
+        box-sizing: border-box;
+        width:100%;
+        position: absolute;
+        left: 0;
+        border-radius: 6px;
+    }
+    .searchbutton {
+        position: absolute;
+        right: 0;
+        border-left: 1px solid var(--c-border);
+    }
+}
+@media (max-width: 575px) {
+    .userlist-grid {
+        grid-template-columns: 1fr;
     }
 }
