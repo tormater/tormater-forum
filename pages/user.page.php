@@ -62,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         refresh(0);
     }
 }    
-        
 include "header.php";
         
 if ($verified == "1") $verified = $lang["user.VerifiedYes"];
@@ -80,7 +79,7 @@ echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htm
 
 drawUserProfile($userid, true);
 
-if ($avatar != "none" and allowed_to_edit_user($role)) {
+if ($config["mainAdmin"] != $userid and $avatar != "none" and allowed_to_edit_user($role)) {
     echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
 }
         
