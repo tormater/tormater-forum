@@ -18,7 +18,7 @@ define("MIME_ALPHA",3);
 
 $mimes = array(
     "image/png"  => array("png","imagecreatefrompng","imagepng",true),
-    "image/gif"  => array("gif","imagecreatefromgif","imagegif",true),
+    "image/gif"  => array("png","imagecreatefromgif","imagepng",true),
     "image/jpeg" => array("jpg","imagecreatefromjpeg","imagejpeg",false),
     "image/webp" => array("webp","imagecreatefromwebp","imagewebp",true),
 );
