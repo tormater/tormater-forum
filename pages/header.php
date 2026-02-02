@@ -23,7 +23,6 @@ if (!isset($login_redirect)) $login_redirect = "";
 
 $data = array(
 	    "locale" => str_replace("_", "-", $lang["locale"]),
-	    "search" => genURL("assets/search.js"),
 	    "title" => (empty($lang["page." . $q1])) ? $config["forumName"] : $lang["page." . $q1] . ' • ' . $config["forumName"],
 	    "stylesheet" => genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1'),
 	    "favicon" => genURL('themes/' . $config["forumTheme"] . '/icon.ico'),
@@ -35,12 +34,19 @@ $data = array(
 	    "searchText" => "",
 	    "searchPlaceholder" => $lang["search.Placeholder"],
 	    "searchButton" => $lang["search.Button"],
+	    "searchURL" => genURL("search"),
+	    "searchInput" => "",
 	    "meta" => "",
 	    "color" => "",
 	    "keywords" => strtolower($config["forumName"]),
 	    "navigation" => drawNavigation(),
 	    "header" => $template->render("templates/header/title.html", null),
 );
+
+if ($config["modRewriteDisabled"] == true)
+{
+    $data["searchInput"] = "<input type='hidden' name='url' value='search'>";
+}
 
 if ($config["forumColor"] != null)
 {
