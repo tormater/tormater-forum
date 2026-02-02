@@ -6,7 +6,7 @@
       filter: drop-shadow( 2px 2px rgba(0, 0, 0, .1));
     }
     .title {
-      font: 55px "Arial Black", sans-serif;
+      font: 55px "Arial Black", "Archivo Black", sans-serif;
       fill: #0292fc;
       filter: drop-shadow( 2px 2px rgba(0, 0, 0, .2));
     }
@@ -15,4 +15,3 @@
   <text x="50%" y="50" text-anchor="middle" class="title">Tormater Forum</text>
   <text x="50%" y="75" text-anchor="middle" class="subtitle">Lightweight, easy-to-use, free forum software.</text>
 </svg>
-
