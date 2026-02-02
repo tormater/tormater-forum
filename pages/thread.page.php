@@ -271,7 +271,7 @@ function postReply() {
         
     $result = $db->query("INSERT INTO posts (thread, user, timestamp, content) VALUES ('" . $db->real_escape_string($q2) . "', '" . $_SESSION["userid"] . "', '" . time() . "', '" . $db->real_escape_string($_POST["content"]) . "')");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.PostError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return $_POST["content"];
     }
     $id = $db->query("SELECT MAX(postid) FROM posts");
@@ -298,7 +298,7 @@ function saveDraft() {
     }
     $result = $db->query("INSERT INTO drafts (user, thread, timestamp, content) VALUES ('" . $_SESSION["userid"] . "', '" . $db->real_escape_string($q2) . "', '" . time() . "', '" . $db->real_escape_string($_POST["content"]) . "')");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.PostError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     redirect("thread/" . $q2 . "/" . $pages . "/#footer");
@@ -322,7 +322,7 @@ function deletePost() {
     $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`) VALUES ('" . time() . "', 'delete_post', '" . $_SESSION["userid"] . "', '" . $user . "', '" . $db->real_escape_string($content) . "')");
     $result = $db->query("DELETE FROM posts WHERE postid='" . $db->real_escape_string($_POST["delete"]) . "'");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.PostDeleteError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     $postCheck = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
@@ -333,7 +333,7 @@ function deletePost() {
     }
     $lastpost = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp DESC LIMIT 1");
     if (!$lastpost or $lastpost->num_rows == 0) {
-         $thread_data["error"] .= message($lang["thread.ThreadDataError"],true);
+         $thread_data["error"] .= message($lang["error.Database"],true);
          return;
     }
     $row = $lastpost->fetch_assoc();
@@ -351,7 +351,7 @@ function hidePost() {
     }
     $result = $db->query("UPDATE posts SET deletedby='" . $_SESSION["userid"] . "' WHERE postid='" . $db->real_escape_string($_POST["hide"]) . "'");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.PostHiddenError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
@@ -370,7 +370,7 @@ function restorePost() {
     }
     $result = $db->query("UPDATE posts SET deletedby=NULL WHERE postid='" . $db->real_escape_string($_POST["restore"]) . "'");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.PostRestoredError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`, `after`) 
@@ -402,7 +402,7 @@ function saveEdit() {
             '" . $db->real_escape_string($p["content"])  . "', '" . $db->real_escape_string($_POST["saveedit"]) . "')");
     $result = $db->query("UPDATE posts SET content='" . $db->real_escape_string($_POST["saveedit"]) . "' WHERE postid='" . $db->real_escape_string($_POST["saveeditpostid"]) . "'");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.PostRestoredError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     redirect("post/" . $db->real_escape_string($_POST["saveeditpostid"]));
@@ -415,7 +415,7 @@ function deleteThread() {
     $result = $db->query("DELETE FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
      
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.ThreadDeleteError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     $result = $db->query("INSERT INTO auditlog (`time`, `action`, `userid`, `victimid`, `before`) 
@@ -423,7 +423,7 @@ function deleteThread() {
     '" . $db->real_escape_string($p["title"])  . "')");
     $result = $db->query("DELETE FROM posts WHERE thread='" . $db->real_escape_string($q2) . "'");
     if (!$result) {
-        $thread_data["error"] .= message($lang["thread.ThreadPostDeleteError"],true);
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     redirect("category/" . $categoryID . "/");
@@ -432,12 +432,12 @@ function deleteThread() {
 function moveThread($new_categoryID, $thread) {
     global $db, $q2, $thread_data;
     if (!is_numeric($new_categoryID) || !is_numeric($thread)) {
-        // ..
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     $categoryCheck = $db->query("SELECT * FROM categories where categoryid='" . $db->real_escape_string($new_categoryID) . "'");
     if ($categoryCheck->num_rows < 1) {
-        // ..
+        $thread_data["error"] .= message($lang["error.Database"],true);
         return;
     }
     $db->query("UPDATE threads set category='" . $db->real_escape_string($new_categoryID) . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
@@ -451,7 +451,7 @@ function stickyThread($sticky) {
     global $db, $lang, $q2, $thread_data;
     $result = $db->query("UPDATE threads SET sticky='" . intval($sticky) . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
     if (!$result) {
-        $thread_data["errors"] .= message($lang["thread.ThreadStickError"],true);
+        $thread_data["errors"] .= message($lang["error.Database"],true);
         return;
     }
     refresh(0);
@@ -460,7 +460,7 @@ function lockThread($locked) {
     global $db, $lang, $q2, $thread_data;
     $result = $db->query("UPDATE threads SET locked='" . intval($locked) . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
     if (!$result) {
-        $thread_data["errors"] .= message($lang["thread.ThreadLockError"],true);
+        $thread_data["errors"] .= message($lang["error.Database"],true);
         return;
     }
     refresh(0);
@@ -469,7 +469,7 @@ function pinThread($pinned) {
     global $db, $lang, $q2, $thread_data;
     $result = $db->query("UPDATE threads SET pinned='" . intval($pinned) . "' WHERE threadid='" . $db->real_escape_string($q2) . "'");
     if (!$result) {
-        $thread_data["errors"] .= message($lang["thread.ThreadPinError"],true);
+        $thread_data["errors"] .= message($lang["error.Database"],true);
         return;
     }
     refresh(0);
@@ -492,7 +492,7 @@ function editTitle() {
     $result = $db->query("UPDATE threads SET title='".$db->real_escape_string($_POST["editthread"])."' WHERE threadid='".$db->real_escape_string($q2)."'");   
     if (!$result)
     {
-        $thread_data["errors"] .= message($lang["thread.PostRestoredError"],true);
+        $thread_data["errors"] .= message($lang["error.Database"],true);
         return;
     }
     refresh(0);
