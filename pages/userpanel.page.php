@@ -14,9 +14,9 @@ if ($_SESSION["signed_in"] == false)
 }
 
 $panel_pages = array(
-    "avatarsettings" => array("userpanelavatarsettings.page.php", $lang["userpanel.AvatarSettings"]),
-    "accountsettings" => array("userpanelaccountsettings.page.php", $lang["userpanel.AccountSettings"]),
-    "profilesettings" => array("userpanelprofilesettings.page.php", $lang["userpanel.ProfileSettings"])
+    "avatarsettings" => array("userpanel/avatarsettings.page.php", $lang["userpanel.AvatarSettings"]),
+    "accountsettings" => array("userpanel/accountsettings.page.php", $lang["userpanel.AccountSettings"]),
+    "profilesettings" => array("userpanel/profilesettings.page.php", $lang["userpanel.ProfileSettings"])
 );
 
 listener("userpanelBeforeRender");
