@@ -2,6 +2,7 @@
 // EN_US.php
 // English, United States language file
 
+
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
@@ -130,20 +131,7 @@ $lang = array(
     "thread.PostSoon" => "You tried to post too soon after a previous post. The post delay is currently %s seconds between posts.",
     "thread.PostEmpty" => "Your post cannot be blank.",
     "thread.PostBig" => "Your post was too long. The maximum number of characters a post may contain is currently set to %s.",
-    "thread.PostError" => "Your reply has not been saved, please try again later.",
-    "thread.PostDeleteError" => "Sorry, post couldn't be deleted.",
-    "thread.ThreadDataError" => "Something went wrong with resynchronizing the conversation. Perhaps there are no posts left?",
-    "thread.PostHiddenError" => "Sorry, post couldn't be hidden.",
-    "thread.PostRestoredError" => "Sorry, post couldn't be restored.",
     "thread.PostEditError" => "Hey, you don't have permission to edit that post.",
-    "thread.ThreadDeleteError" => "Sorry, thread couldn't be deleted.",
-    "thread.ThreadPostDeleteError" => "Sorry, the thread's posts couldn't be deleted.",
-    "thread.ThreadLockError" => "Sorry, thread couldn't be locked.",
-    "thread.ThreadStickError" => "Sorry, thread couldn't be stickied.",
-    "thread.ThreadUnlockError" => "Sorry, thread couldn't be unlocked.",
-    "thread.ThreadUnstickError" => "Sorry, thread couldn't be unstickied.",
-    "thread.ThreadPinError" => "Sorry, thread couldn't be pinned.",
-    "thread.ThreadUnpinError" => "Sorry, thread couldn't be unpinned",
     "thread.SuspendCantPost" => "Unfortunately, you're suspended. Suspended users cannot post.",
     "thread.ThreadLocked" => "Sorry, this thread is locked. Only moderators and administrators can post in it.",
     "thread.LoginToReply" => "You must <a href='%s'>sign in</a> or <a href='%s'>register</a> to reply to threads.",
