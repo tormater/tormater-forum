@@ -50,6 +50,7 @@ while($row = $categories->fetch_assoc())
 	
     $data["categories"] .= $template->render("templates/category/category_display.html", $category_data);
 }
+if ($categories->num_rows == 0) $data["categories"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["newthread.NoCategoryAdmin"]));
 
 while($row = $threads->fetch_assoc())
 {		
