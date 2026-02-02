@@ -125,3 +125,17 @@ hr {
     color: #7cb7fc;
     text-decoration: none;
 }
+
+select {
+    padding: 2px 4px;
+    background: linear-gradient(#fff,#d3d3d3);
+    color: #000;
+    border: 1px solid #808080;
+    border-radius: 3px;
+    font-size: 100%;
+    transition: filter 0.25s;
+}
+
+select:hover {
+    filter: brightness(105%);
+}
