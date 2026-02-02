@@ -16,11 +16,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
     
-    <script type='text/javascript' src='[[ search ]]' defer></script>
-    <script type='text/javascript'>
-       var baseURL = "[[ $baseURL ]]"; 
-    </script>
-    
+    <script type='text/javascript'>var baseURL = "[[ $baseURL ]]";</script>
     [[ color ]]
     [[ meta ]]
 </head>
@@ -35,7 +31,11 @@
         <div class="pagination left">[[ navigation ]]
         </div>
         <div class="searcharea">
-            <input type="text" id="searchbox" autocomplete="off" placeholder="[[ searchPlaceholder ]]" value="[[ searchText ]]"><span class="searchbutton" onclick="search()">[[ searchButton ]]</span>
+            <form action="[[ searchURL ]]" method="get">
+              [[ searchInput ]]
+              <input type="text" id="searchbox" name="search" autocomplete="off" placeholder="[[ searchPlaceholder ]]" value="[[ searchText ]]"><!--
+              --><button type="submit" class="searchbutton">[[ searchButton ]]</button>
+            </form>
         </div>
     </div>
     
