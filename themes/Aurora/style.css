@@ -832,8 +832,9 @@ tr:last-child td {
 
 .signature {
     font-size: 95%;
-    display: inline;
     color: var(--text-medium);
+    max-height: 192px;
+    overflow-y: scroll;
 }
 
 
