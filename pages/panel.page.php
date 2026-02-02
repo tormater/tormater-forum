@@ -14,12 +14,12 @@ if (!(get_role_permissions() & PERM_EDIT_FORUM))
 }
 
 $panel_pages = array(
-    "settings" => array("panelsettings.page.php", $lang["panel.ForumSettings"]),
-    "category" => array("panelcategory.page.php", $lang["panel.Categories"]),
-    "extensions" => array("panelextensions.page.php", $lang["panel.Extensions"]),
-    "auditlog" => array("panelauditlog.page.php", $lang["panel.AuditLog"]),
-    "useradmin" => array("paneluseradmin.page.php",""),
-    "restoreuser" => array("paneluseradmin.page.php","")
+    "settings" => array("panel/settings.page.php", $lang["panel.ForumSettings"]),
+    "category" => array("panel/category.page.php", $lang["panel.Categories"]),
+    "extensions" => array("panel/extensions.page.php", $lang["panel.Extensions"]),
+    "auditlog" => array("panel/auditlog.page.php", $lang["panel.AuditLog"]),
+    "useradmin" => array("panel/useradmin.page.php",""),
+    "restoreuser" => array("panel/useradmin.page.php","")
 );
 
 listener("panelBeforeRender");
