@@ -225,7 +225,6 @@ if ($locked == true && !(get_role_permissions() & PERM_IGNORE_THREAD_LABELS)) {
 }
 else if (get_role_permissions() & PERM_CREATE_POST) {
     $replybox_data = array(
-      "title" => $lang["thread.ContentTitle"],
       "bbcodebar" => BBCodeButtons(1,false),
       "content" => "",
       "discard" => "",
