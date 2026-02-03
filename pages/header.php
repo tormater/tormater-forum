@@ -21,10 +21,13 @@ if (isset($_GET['url']) && strlen($_GET['url']) > 0) {
 
 if (!isset($login_redirect)) $login_redirect = "";
 
+$css_modified = 0;
+if (file_exists('themes/' . $config["forumTheme"] . '/style.css')) $css_modified = filemtime('themes/' . $config["forumTheme"] . '/style.css');
+
 $data = array(
 	    "locale" => str_replace("_", "-", $lang["locale"]),
 	    "title" => (empty($lang["page." . $q1])) ? $config["forumName"] : $lang["page." . $q1] . ' • ' . $config["forumName"],
-	    "stylesheet" => genURL('themes/' . $config["forumTheme"] . '/style.css?v=0.1'),
+	    "stylesheet" => genURL('themes/' . $config["forumTheme"] . '/style.css?v=' . $css_modified),
 	    "favicon" => genURL('themes/' . $config["forumTheme"] . '/icon.ico'),
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
 	    "favicon_png" => genURL('themes/' . $config["forumTheme"] . '/icon.png'),
