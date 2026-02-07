@@ -23,21 +23,20 @@ if ($result->num_rows == 0)
     exit;
 }
     
-while ($row = $result->fetch_assoc())
-{
-    if ($row["deleted"] == "1") $username = $lang["user.Deleted"] . $row["userid"];
-    else $username = $row["username"];
+$user_row = $result->fetch_assoc();
+
+if ($user_row["deleted"] == "1") $username = $lang["user.Deleted"] . $user_row["userid"];
+else $username = $user_row["username"];
             
-    $userid = $row["userid"];
-    $color = $row["color"];
-    $role = $row["role"];
-    $verified = $row["verified"];
-    $lastactive = $row["lastactive"];
-    $jointime = $row["jointime"];
-    $deleted = $row["deleted"];
-    $avatar = $row["avatar"];
-    $avatarTime = $row["avataruploadtime"];
-}
+$userid = $user_row["userid"];
+$color = $user_row["color"];
+$role = $user_row["role"];
+$verified = $user_row["verified"];
+$lastactive = $user_row["lastactive"];
+$jointime = $user_row["jointime"];
+$deleted = $user_row["deleted"];
+$avatar = $user_row["avatar"];
+$avatarTime = $user_row["avataruploadtime"];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
@@ -107,11 +106,13 @@ echo '<div class="userbottom"><h3>' . $lang["user.UserInformation"] . '</h3>
 echo '</div></div><div class="userextra' . $delClass . '" postcolor="' . htmlspecialchars($color) . '"><div class=userbioside>';
 
 if ($deleted != "1") {
-    $bioCheck = $db->query("SELECT bio FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
-    $b = $bioCheck->fetch_assoc();
-    if (isset($b["bio"]) && strlen($b["bio"])) {
+    if (isset($user_row["bio"]) && strlen($user_row["bio"])) {
         echo '<span class="userpostsh">' . $lang["userpanel.Bio"] . '</span>';
-        echo("<span class='userbio'>" . formatPost($b["bio"]) . "</span>");
+        echo("<span class='userbio'>" . formatPost($user_row["bio"]) . "</span>");
+    }
+    if (isset($user_row["signature"]) && strlen($user_row["signature"])) {
+        echo '<span class="userpostsh">' . $lang["userpanel.Signature"] . '</span>';
+        echo("<span class='userbio'><p class='signature' style='margin:0px;'>" . formatPost($user_row["signature"]) . "</p></span>");
     }
 }
 
@@ -121,7 +122,8 @@ echo "</div><div class='userposts'><span class='userpostsh'>" . $lang["user.Rece
 $postspre = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL");
 $exclude = "";
 
-while ($p = $postspre->fetch_assoc()) {
+while ($p = $postspre->fetch_assoc()) 
+{
     $threads = $db->query("SELECT threadid FROM threads WHERE threadid='" . $db->real_escape_string($p["thread"]) . "' AND draft='1' AND startuser='" . $db->real_escape_string($q2) . "'");
 
     while ($t = $threads->fetch_assoc()) {
@@ -131,22 +133,16 @@ while ($p = $postspre->fetch_assoc()) {
 
 $posts = $db->query("SELECT * FROM posts WHERE user='" . $db->real_escape_string($q2) . "' AND deletedby IS NULL" . $exclude . " ORDER BY timestamp DESC LIMIT 5");
 
-if($posts->num_rows == 0)
+if ($posts->num_rows == 0)
 {
     message($lang["thread.NoPosts"]);
-}
-    
+}    
 else
 {
     while($row = $posts->fetch_assoc())
     {
-        $userinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["user"] . "'");
-            
-        while($u = $userinfo->fetch_assoc())
-        {
-            echo '<div class="userpost">' . formatPost($row["content"]) . '</div>';
-            echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span> - <a class='userpostlink' href='" . genURL("post/" . $row["postid"]) . "'>" . $lang["user.ViewThread"] . "</a>";
-        }
+        echo '<div class="userpost">' . formatPost($row["content"]) . '</div>';
+        echo "<span class='postdate' title='" . date('m-d-Y h:i:s A', $row["timestamp"]) . "'>" . relativeTime($row["timestamp"]) . "</span> - <a class='userpostlink' href='" . genURL("post/" . $row["postid"]) . "'>" . $lang["user.ViewThread"] . "</a>";
     }
 }
 
