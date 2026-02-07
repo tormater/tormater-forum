@@ -5,6 +5,12 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+$panel_pages = array(
+    "avatarsettings" => array("userpanel/avatarsettings.page.php", $lang["userpanel.AvatarSettings"]),
+    "accountsettings" => array("userpanel/accountsettings.page.php", $lang["userpanel.AccountSettings"]),
+    "profilesettings" => array("userpanel/profilesettings.page.php", $lang["userpanel.ProfileSettings"])
+);
+
 if ($_SESSION["signed_in"] == false)
 {
     include "header.php";
@@ -12,12 +18,6 @@ if ($_SESSION["signed_in"] == false)
     include "footer.php";
     exit;
 }
-
-$panel_pages = array(
-    "avatarsettings" => array("userpanel/avatarsettings.page.php", $lang["userpanel.AvatarSettings"]),
-    "accountsettings" => array("userpanel/accountsettings.page.php", $lang["userpanel.AccountSettings"]),
-    "profilesettings" => array("userpanel/profilesettings.page.php", $lang["userpanel.ProfileSettings"])
-);
 
 listener("userpanelBeforeRender");
 
