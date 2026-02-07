@@ -518,6 +518,10 @@ textarea:focus {
     border-radius: 5px;
 }
 
+.extension_message {
+    margin-bottom: 0px;
+}
+
 .message a {
     //color: #7cb7fc;
     text-decoration: none;
@@ -715,6 +719,12 @@ tr:last-child td {
     border: 1px solid var(--widget-border);
     border-radius: 8px;
     text-shadow: 0px 1px var(--widget-highlight);
+}
+
+.extension_warning {
+    background: linear-gradient(#ffd196, var(--widget-g-bottom));
+    box-shadow: 0px 1px 2px inset #ff8800;
+    border: 1px solid #ac6b44;
 }
 
 .leftpart {
