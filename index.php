@@ -47,7 +47,7 @@ if ($config["installed"] == "yes") {
 	$db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
 }
 
-// Load up the formatter.
+require "libs/version.php";
 require "libs/formatter.php";
 require "libs/permission.php";
 
