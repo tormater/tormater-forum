@@ -1,4 +1,9 @@
 <div class="editbox" id="edit"><form method="post" action="" class="editbox">
 [[ bbcodebar ]]
 <div class="forminput"><textarea maxlength="[[ maxlength ]]" name="saveedit" id="textbox2">[[ content ]]</textarea><textarea style="display:none;" name="saveeditpostid">[[ id ]]</textarea></div>
-<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="[[ save_edit ]]"> <a class="buttonbig buttonNo" href="">[[ discard_edit ]]</a></form></div></div>
+<div id="previewbox2" class="previewbox" style="display:none"></div>
+<div class="forminput"><input type="submit" class="buttonbig buttonYes" value="[[ save_edit ]]">
+<input type="button" class="buttonbig previewbutton" id="showpreview2" value="[[ preview_show_label ]]" onclick="previewPost(2, 1);">
+<input type="button" class="buttonbig previewbutton" id="hidepreview2" value="[[ preview_hide_label ]]" onclick="previewPost(2, 0);" style="display:none">
+<a class="buttonbig buttonNo" href="">[[ discard_edit ]]</a>
+</form></div></div>
