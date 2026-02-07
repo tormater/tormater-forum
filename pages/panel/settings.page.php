@@ -43,7 +43,7 @@ echo '</div>';
 
 echo '<div class="forminput"><label>' . $lang["panel.NewTheme"]  . '</label>';
 echo '<select name="newtheme">';
-$files = scandir(dirname(__DIR__,1) . '/themes');
+$files = scandir(dirname(__DIR__,2) . '/themes');
 foreach ($files as $file) {
     if ($file == '.' || $file == '..') continue;
     if ($file == $config["forumTheme"])  $selected = "selected ";
