@@ -5,14 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-if (!(get_role_permissions() & PERM_EDIT_FORUM))
-{
-    include "header.php";
-    message($lang["nav.AdminsOnly"]);
-    include "footer.php";
-    exit;
-}
-
 $panel_pages = array(
     "settings" => array("panel/settings.page.php", $lang["panel.ForumSettings"]),
     "category" => array("panel/category.page.php", $lang["panel.Categories"]),
@@ -21,6 +13,14 @@ $panel_pages = array(
     "useradmin" => array("panel/useradmin.page.php",""),
     "restoreuser" => array("panel/useradmin.page.php","")
 );
+
+if (!(get_role_permissions() & PERM_EDIT_FORUM))
+{
+    include "header.php";
+    message($lang["nav.AdminsOnly"]);
+    include "footer.php";
+    exit;
+}
 
 listener("panelBeforeRender");
 
