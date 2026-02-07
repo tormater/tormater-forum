@@ -187,6 +187,8 @@ while ($post = $posts->fetch_assoc())
           "content" => htmlspecialchars($post["content"]),
           "save_edit" => $lang["post.SaveEditBtn"],
           "discard_edit" => $lang["post.DiscardEditBtn"],
+          "preview_show_label" => $lang["nav.ShowPreview"],
+          "preview_hide_label" => $lang["nav.HidePreview"],
           "maxlength" => $config["maxCharsPerPost"],
         );
         $post_data["body"] = $template->render("templates/post/post_edit.html",$edit_data);
