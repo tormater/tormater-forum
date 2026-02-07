@@ -78,7 +78,7 @@ function formatBBCode($post)
 function formatPost($post)
 {
     $returnPost = formatBBCode($post);
-    $returnPost = str_replace("\n","<br>",$returnPost);
+    $returnPost = str_replace("\n","<br class='postnewline'>",$returnPost);
     listener("beforeReturnFormattedPost");
     return $returnPost;
 }
