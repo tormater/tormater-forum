@@ -161,6 +161,10 @@ th {
     border: none;
     box-shadow: none;
 }
+
+.extension_warning {
+    background: linear-gradient(#865210, var(--widget-g-bottom));
+}
 @media (max-width: 800px) {
     .threadcontent,
     .userbottom {
