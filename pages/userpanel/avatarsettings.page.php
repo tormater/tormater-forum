@@ -7,7 +7,13 @@ if (!defined("INDEXED")) exit;
 
 if ($config["avatarUploadsDisabled"] == true) {
     message($lang["userpanel.AvatarUploadsDisabled"]);
-    require "footer.php";
+    require __DIR__ . "/../footer.php";
+    exit;
+}
+
+if (!(get_role_permissions() & PERM_EDIT_PROFILE)) {
+    message($lang["nav.BadAction"]);
+    require __DIR__ . "/../footer.php";
     exit;
 }
 
@@ -24,6 +30,7 @@ $mimes = array(
 );
 
 // Handle post requests.
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_FILES["uploadedFile"]) && $_FILES["uploadedFile"]["size"]) {
         $timeCheck = $db->query("SELECT avataruploadtime FROM users WHERE userid='" . $_SESSION["userid"] . "'");
