@@ -72,9 +72,6 @@ function buildSearchQuery($get) {
             addToQuery("draft='1'",  $query, $and);
             addToQuery("startuser='". $_SESSION["userid"] . "'", $query, $and);
         }
-        else if ((($_SESSION["role"] == "Moderator") || ($_SESSION["role"] == "Administrator")) && $author) {
-            addToQuery("draft='1'",  $query, $and);
-        }
         else addToQuery("draft='0'",  $query, $and);
     }
     else addToQuery("draft='0'",  $query, $and);
