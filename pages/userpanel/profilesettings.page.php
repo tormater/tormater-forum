@@ -6,14 +6,14 @@
 if (!defined("INDEXED")) exit;
 
 if (isset($_POST["newcolor"]) and is_numeric($_POST["newcolor"]) and ($_POST["newcolor"] > 0) and ($_POST["newcolor"] <= 16)) {
-	$result = $db->query("UPDATE users SET color='" . $db->real_escape_string($_POST["newcolor"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
-	if (!$result) {
-		message($lang["settings.SetColorError"]);
-	}
-	else {
-		message($lang["settings.SetColorSuccess"]);
-		header("Cache-Control:private");
-	}
+    $result = $db->query("UPDATE users SET color='" . $db->real_escape_string($_POST["newcolor"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
+    if (!$result) {
+        message($lang["settings.SetColorError"]);
+    }
+    else {
+        message($lang["settings.SetColorSuccess"]);
+        header("Cache-Control:private");
+    }
 }
 else if (get_role_permissions() & PERM_EDIT_PROFILE) {
     if (isset($_POST["signature"]) and (strlen($_POST["signature"]) <= 512)) {
@@ -34,8 +34,8 @@ $result = $db->query("SELECT color FROM users WHERE userid='" . $_SESSION["useri
 $user = $result->fetch_assoc();
 
 for ($i = 1; $i <= 16; $i++) {
-	if ($user['color'] == $i) $usercolor = " userscolor";
-	else $usercolor = "";
+    if ($user['color'] == $i) $usercolor = " userscolor";
+    else $usercolor = "";
     $data["colors"] .= '<button class="settingscolor' . $usercolor . '" postcolor="' . $i . '" value="' . $i . '" name="newcolor"></button>';
 }
 
@@ -68,10 +68,9 @@ if (get_role_permissions() & PERM_EDIT_PROFILE) {
 
 echo $template->render("templates/userpanel/profilesettings.html", $data);
 
-// If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
+if (get_role_from_session() != "Guest")
 {
-	update_last_action($lang["action.ProfileSettings"]);
+    update_last_action($lang["action.ProfileSettings"]);
 }
 
 ?>
