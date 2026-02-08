@@ -7,19 +7,9 @@ if (!defined("INDEXED")) exit;
 
 $result = $db->query("SELECT * FROM users WHERE userid='" . $db->real_escape_string($q2) . "'");
 
-if (!$result)
+if (!$result || $result->num_rows == 0)
 {
-    include "header.php";
-    message($lang["user.FaildFindUser"]);
-    include "footer.php";
-    exit;
-}
-
-if ($result->num_rows == 0)
-{
-    include "header.php";
-    message($lang["user.NoSuchUser"]);
-    include "footer.php";
+    redirect("404");
     exit;
 }
     
