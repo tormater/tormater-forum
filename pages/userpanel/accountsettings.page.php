@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             else {
                 $_SESSION["username"] = $_POST["newusername"];
                 message($lang["settings.NewUsernameChanged"]);
-                include "footer.php";
+                require __DIR__ . "/../footer.php";
                 refresh(1.5);
                 exit;
             }
@@ -78,7 +78,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             }
             else {
                 message($lang["settings.ChangePasswordChanged"]);
-                include "footer.php";
+                require __DIR__ . "/../footer.php";
                 refresh(1.5);
                 exit;
             }
@@ -93,7 +93,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         }
         echo '</ul>';
         echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
-        include "footer.php";
+        require __DIR__ . "/../footer.php";
         exit;
     }
 }
