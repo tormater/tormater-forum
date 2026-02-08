@@ -7,11 +7,11 @@ if (!defined("INDEXED")) exit;
 
 $m_pages = array(
 	"home" => array($lang["header.Home"], genURL(""), 0),
-	"userlist" => array($lang["header.Userlist"], genURL("userlist"), 0),
-	"userpanel" => array($lang["header.UserPanel"], genURL("userpanel"), 1),
-	"newthread" => array($lang["header.NewThread"], genURL("newthread"), 1),
-	"panel" => array($lang["header.Panel"], genURL("panel"), 4),
-	"logout" => array($lang["header.Logout"], genURL("logout"), 1),
+	"userlist" => array($lang["header.Userlist"], genURL("userlist"), PERM_VIEW_USERLIST),
+	"userpanel" => array($lang["header.UserPanel"], genURL("userpanel"), "signed_in"),
+	"newthread" => array($lang["header.NewThread"], genURL("newthread"), PERM_CREATE_THREAD),
+	"panel" => array($lang["header.Panel"], genURL("panel"), PERM_EDIT_FORUM),
+	"logout" => array($lang["header.Logout"], genURL("logout"), "signed_in"),
 );
 
 if (isset($categoryID)) $m_pages["newthread"][1] = genURL('newthread/' . $categoryID);
@@ -105,7 +105,7 @@ else if ($q1 == "user" && isset($username)) $data["title"] = htmlspecialchars($u
 else if (($q1 == "panel" || $q1 == "userpanel") && array_key_exists($q2,$panel_pages) && strlen($panel_pages[$q2][1])) $data["title"] = $panel_pages[$q2][1] . ' • ' . $config["forumName"];
 
 foreach ($m_pages as $v) {
-    if (getNumForRole(@$_SESSION["role"]) >= $v[2]) {
+    if (($v[2] == "signed_in" && get_role_from_session() != "Guest") || $v[2] === 0 || (is_numeric($v[2]) && get_role_permissions() & $v[2])) {
         $p_data = array(
             "label" => $v[0],
             "url" => $v[1]
