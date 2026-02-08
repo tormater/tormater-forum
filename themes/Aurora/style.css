@@ -292,7 +292,7 @@ body {
 }
 
 .buttonbig {
-    /* display: inline-block; */
+    display: inline-block;
     padding: 5px 10px;
     background: linear-gradient(var(--button-g-top), var(--button-g-bottom));
     color: var(--button-text);
@@ -301,6 +301,7 @@ body {
     font-size: 13px;
     cursor: pointer;
     transition: filter 0.25s;
+    line-height: 1.15;
 }
 
 .buttonbig:hover {
@@ -428,6 +429,10 @@ input:focus {
     border: var(--c-gradient-bottom) 1px solid;
     box-shadow: 0px 0px 3px var(--c-gradient-top);
     outline: none; /* Firefox sets an outline by default on focus */
+}
+
+input[type=submit]:hover, button:hover {
+    cursor: pointer;
 }
 
 select {
@@ -628,12 +633,13 @@ table {
 
 table a {
     color: var(--text-heavy);
-    transition: color 0.25s;
 }
 
-table a:hover {
+.tdttitle, .tdctitle {
+    transition: color 0.25s;
+}
+.tdttitle:hover, .tdctitle:hover {
     color: var(--text-light);
-    text-decoration: none;
 }
 
 th {
@@ -916,6 +922,9 @@ font.sticky, font.locked, font.draft, font.pinned {
 .postdate a {
     color: #000;
 }
+*[title]:hover {
+    text-decoration: underline dotted;
+}
 
 .post {
     display: grid;
@@ -1158,6 +1167,8 @@ font.sticky, font.locked, font.draft, font.pinned {
 
 .userscolor {
     box-shadow: 0px 2px 2px #000000a1 inset;
+    padding-bottom: 19px;
+    border-top-width: 2px;
 }
 
 .deleteduser {
@@ -1247,16 +1258,8 @@ input[type=file]::file-selector-button:hover {
     border-radius: 8px;
     box-shadow: 0px 1px inset rgba(255, 255, 255, 0.5);
     background-image: linear-gradient(#ffffff3d, #00000012);
-    display: inline-block;
-    width: 100%
-}
-.userposts {
-    width: calc(100% - 250px);
-    float: right;
-}
-.userbioside {
-    width: 250px;
-    float: left;
+    display: grid;
+    grid-template-columns: 250px auto;
 }
 .userbio {
     margin-right: 4px;
@@ -1288,7 +1291,8 @@ input[type=file]::file-selector-button:hover {
 }
 
 .userpostlink {
-    font-size: 85%;
+    font-size: 10px;
+    color: #00f;
 }
 
 /* BBCode bar */
@@ -1591,11 +1595,9 @@ fieldset {
     .userposts {
         width: 100%;
     }
-    .userbioside {
-        width: 100%;
-    }
-    .userbio {
-        width: 100%;
+    .userextra {
+        grid-template-columns: unset;
+        display: block;
     }
 }
 @media (max-width: 640px) {
