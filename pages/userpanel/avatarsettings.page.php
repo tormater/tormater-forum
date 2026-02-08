@@ -119,10 +119,9 @@ echo("<div class='avatarForm'><h3>" . $lang["userpanel.ChangeAvatar"] . "</h3>" 
     <input type='submit' value='" . $lang["userpanel.UploadAvatar"] . "' name='submit'></form> <form action='' method='post' class='inline-block'><input type='submit' value='" . $lang["userpanel.RemoveAvatar"] . "' name='removeAvatar'></form>
     </div>");
 
-// If the viewing user is logged in, update their last action.
-if ($_SESSION['signed_in'] == true)
+if (get_role_from_session() != "Guest")
 {
-	update_last_action($lang["action.AvatarSettings"]);
+    update_last_action($lang["action.AvatarSettings"]);
 }
 
 ?>
