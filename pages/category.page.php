@@ -7,13 +7,16 @@ if (!defined("INDEXED")) exit;
 
 $category = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($q2) . "'");
 
+if (!$category || $category->num_rows == 0)
+{
+    redirect("404");
+    exit;
+}
+
+$currentPage = 1;
 if (isset($q3) && is_numeric($q3)) 
 {
     $currentPage = $q3;
-}
-else
-{
-    $currentPage = 1;
 }
 
 while ($row = $category->fetch_assoc()) 
@@ -53,19 +56,6 @@ else if (($_SESSION["role"] == "Moderator") or ($_SESSION["role"] == "Administra
 }
 else {
     $threads = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') UNION SELECT * FROM threads WHERE pinned='1' AND draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "') ORDER BY pinned DESC, sticky DESC, lastposttime DESC LIMIT " . $threadsPerPage . " OFFSET " . $offset . "");
-}
-
-if (!$category)
-{
-    message($lang["error.CategoryMisc"]);
-    include 'footer.php';
-    exit;
-}
-else if ($category->num_rows == 0)
-{
-    message($lang["error.CategoryNotFound"]);
-    include 'footer.php';
-    exit;
 }
 
 while($row = $threads->fetch_assoc())
