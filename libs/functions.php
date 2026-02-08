@@ -5,12 +5,6 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-function getNumForRole($role) {
-    if (!isset($_SESSION['signed_in']) || $_SESSION['signed_in'] == false) return 0;
-    if ($role == "Administrator") return 4;
-    else if ($role == "Moderator") return 3;
-    else return 1;
-}
 // Hash a string depending on what algorithm is desired by the configuration.
 function hashstring($text) {
     global $config;
