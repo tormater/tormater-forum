@@ -8,9 +8,7 @@ if (!defined("INDEXED")) exit;
 $thread = $db->query("SELECT * FROM threads WHERE threadid='" . $db->real_escape_string($q2) . "'");
 
 if ($thread->num_rows < 1) {
-    include 'header.php'; 
-    message($lang["thread.ThreadDoesntExist"]);
-    include 'footer.php';
+    redirect("404");
     exit();
 }
 
