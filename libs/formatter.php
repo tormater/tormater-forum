@@ -114,10 +114,10 @@ function BBCodeButtons($num = "", $echo = true) {
     $buttons .= "<input type='button' class='bbcode bspoiler' value='" . $lang["BBCode.Spoiler"] . "' onclick=formatText('spoiler'," . $num . ");>";
 
     $buttons .= "</div><div class='bbcodetray'>";
-    $buttons .= "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=formatTextWithDetails('color','colorbox'," . $num . ");>";
-    $buttons .= "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=formatTextWithDetails('size','sizebox'," . $num . ");>";
+    $buttons .= "<input type='color' class='bbcode bcolor' id='colorbox" . $num . "' value='#000000'" .  "' onchange=\"formatTextWithDetails('color','colorbox'," . $num . "); this.value='#000000';\">";
+    $buttons .= "<select name='font-size' class='bbcode bsize' id='sizebox" . $num . "'" .  "' onchange=\"formatTextWithDetails('size','sizebox'," . $num . "); this.value='100';\">";
     $buttons .= "<option value='80'>80%</option>";
-    $buttons .= "<option value='100'>100%</option>";
+    $buttons .= "<option value='100' selected=''>100%</option>";
     $buttons .= "<option value='150'>150%</option>";
     $buttons .= "<option value='200'>200%</option>";
     $buttons .= "<option value='300'>300%</option>";
