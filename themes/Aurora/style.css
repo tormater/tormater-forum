@@ -913,9 +913,10 @@ tr:last-child td {
 }
 
 .draft {
-    background:linear-gradient(rgb(148, 184, 211),rgb(107, 121, 143));
-    border: 1px solid rgb(70, 84, 99);
-    text-shadow: 0 1px rgb(176, 181, 186);
+    background: linear-gradient(rgb(0, 146, 255),rgb(0, 70, 181));
+    border: 1px solid rgb(0, 43, 89);
+    color: #fff;
+    text-shadow: 0 1px rgb(0, 43, 89);
 }
 
 .pinned {
