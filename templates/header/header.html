@@ -28,13 +28,15 @@
     </div>
     <div id="menu">[[ pages ]]</div>
     <div id="pageBar">
-        <div class="pagination left">[[ navigation ]]
+        <div class="pagination pagebar">[[ navigation ]]
         </div>
-        <div class="searcharea">
-            <form action="[[ searchURL ]]" method="get">
-              [[ searchInput ]]
-              <input type="text" id="searchbox" name="search" autocomplete="off" placeholder="[[ searchPlaceholder ]]" value="[[ searchText ]]"><!--
-              --><button type="submit" class="searchbutton">[[ searchButton ]]</button>
+        <div>
+            <form action="[[ searchURL ]]" method="get" class="searchform">
+              <div class="searcharea">
+                 [[ searchInput ]]
+                <input type="text" id="searchbox" name="search" autocomplete="off" placeholder="[[ searchPlaceholder ]]" value="[[ searchText ]]"><!--
+                --><button type="submit" class="searchbutton">[[ searchButton ]]</button>
+              </div>
             </form>
         </div>
     </div>
