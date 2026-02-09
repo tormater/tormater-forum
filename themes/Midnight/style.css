@@ -165,6 +165,26 @@ th {
 .extension_warning {
     background: linear-gradient(#865210, var(--widget-g-bottom));
 }
+
+.bcode {
+    background-image: url(bbcode/code.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
+}
+.bbold {
+    background-image: url(bbcode/bold.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
+}
+.bitalic {
+    background-image: url(bbcode/italic.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
+}
+.bunderline {
+    background-image: url(bbcode/underline.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
+}
+.bstrike {
+    background-image: url(bbcode/strike.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
+}
+.bheader {
+    background-image: url(bbcode/header.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
+}
+
 @media (max-width: 800px) {
     .threadcontent,
     .userbottom {
