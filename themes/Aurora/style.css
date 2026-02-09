@@ -772,12 +772,10 @@ tr:last-child td {
 
 
 .left {
-    width: 50%;
     box-sizing: border-box;
     display: inline-block;
 }
 .draftbuttons {
-    width: 50%;
     box-sizing: border-box;
     float: right;
     text-align: right;
