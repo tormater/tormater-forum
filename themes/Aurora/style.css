@@ -146,11 +146,21 @@ body {
 
 #pageBar {
     padding: 6px 0px;
-    width: 100%;
+    display: grid;
+    grid-template-columns: auto max-content;
     box-sizing: border-box;
     text-align: left;
 }
 
+.searcharea {
+    display: grid;
+    grid-template-columns: auto max-content;
+    margin: 5px 0;
+}
+
+.searchform {
+    margin: 0px;
+}
 
 #menu {
     width: 100%;
@@ -424,9 +434,11 @@ input:hover {
     filter: brightness(105%);
 }
 
-input:focus {
+input[type=text]:focus {
     background: var(--button-g-top);
-    border: var(--c-gradient-bottom) 1px solid;
+}
+input:focus {
+    border-color: var(--c-gradient-bottom);
     box-shadow: 0px 0px 3px var(--c-gradient-top);
     outline: none; /* Firefox sets an outline by default on focus */
 }
@@ -546,7 +558,7 @@ textarea:focus {
 .pagination {
     box-sizing: border-box;
     white-space: nowrap;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 .paginationinside {
     box-sizing: border-box;
@@ -568,11 +580,11 @@ textarea:focus {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
 }
-.pagination.left > :first-child {
+.pagination.pagebar > :first-child {
     border-top-left-radius: 6px;
     border-bottom-left-radius: 6px;
 }
-.pagination.left > :last-child {
+.pagination.pagebar > :last-child {
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
@@ -585,6 +597,7 @@ textarea:focus {
     border-right: none;
     box-shadow: 0 2px #0004;
     border-color: var(--input-border-bold);
+    display: inline-block;
 }
 .pagendr .pageButton:nth-child(2n), .pagendr .pageButtonDisabled:nth-child(2n), .pageButtonLast {
     border-right: 1px solid;
@@ -1303,8 +1316,6 @@ input[type=file]::file-selector-button:hover {
     align-items: center;
 }
 .bbcodetray {
-    display: inline-flex;
-    align-items: center;
     padding-right: 4px;
     padding-bottom: 4px;
 }
@@ -1316,45 +1327,48 @@ input[type=file]::file-selector-button:hover {
     border-color: var(--input-border);
     padding: 4px 8px;
     height: 24px;
+    vertical-align: middle;
+    transition: filter 0.25s;
 }
 
 .bbcode:hover {
     cursor:pointer;
+    filter: brightness(110%);
+}
+
+.bbcode:focus {
+    border-color: var(--input-border);
+    filter: brightness(80%);
 }
 
 .bbcode:first-child {
     border-left: 1px solid;
     border-color: var(--input-border);
 }
-.bbold, .bitalic, .bunderline, .bstrike, .bheader {
-    font-family: serif;
-    font-size: 120%;
-    padding-top: 2px;
+.bbold, .bitalic, .bunderline, .bstrike, .bheader, .bcode {
+    width: 26px;
+    color: transparent;
+    box-sizing: content-box;
+    padding: 0px;
+    height: 22px;
 }
 .bcode {
-    font-family: Courier, 'Courier New', Monaco, Monospace;
-    font-size: 90%;
-    padding-top: 6px;
+    background-image: url(bbcode/code.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
 .bbold {
-    font-weight: 600;
+    background-image: url(bbcode/bold.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
 .bitalic {
-    font-style: italic;
+    background-image: url(bbcode/italic.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
 .bunderline {
-    text-decoration: underline;
+    background-image: url(bbcode/underline.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
 .bstrike {
-    text-decoration: line-through;
+    background-image: url(bbcode/strike.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
 .bheader {
-    font-weight: bolder;
-    text-decoration: underline;
-}
-.bcolor {
-    display: inline-block;
-    padding: 2px;
+    background-image: url(bbcode/header.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
 
 /* Search Box */
@@ -1390,14 +1404,6 @@ input[type=file]::file-selector-button:hover {
     border-radius: 6px 0px 0px 6px;
     border-right: 1px solid var(--c-border);
     box-shadow: 0px 1px 2px #0000005c;
-}
-.searcharea {
-    float: right;
-    margin: 10px 0;
-    margin-top: 4px;
-    width: 50%;
-    box-sizing: border-box;
-    text-align: right;
 }
 
 .forumColor {
@@ -1605,28 +1611,10 @@ fieldset {
         display: block;
         float: unset;
         text-align: unset;
+        margin-bottom: 10px;
     }
-    .pagination.left {
+    .pagination.pagebar {
         display: none;
-    }
-    .searcharea {
-        float: unset;
-        display: block;
-        width: 100%;
-        position: relative;
-        margin-bottom: 30px;
-    }
-    #searchbox {
-        box-sizing: border-box;
-        width:100%;
-        position: absolute;
-        left: 0;
-        border-radius: 6px;
-    }
-    .searchbutton {
-        position: absolute;
-        right: 0;
-        border-left: 1px solid var(--c-border);
     }
 }
 @media (max-width: 575px) {
