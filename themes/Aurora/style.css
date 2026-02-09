@@ -1370,6 +1370,9 @@ input[type=file]::file-selector-button:hover {
 .bheader {
     background-image: url(bbcode/header.svg), linear-gradient(var(--button-g-top), var(--button-g-bottom));
 }
+.bcolor::-moz-color-swatch, .bcolor::-webkit-color-swatch {
+    background: linear-gradient(in hsl longer hue 90deg, red 0 100%);
+}
 
 /* Search Box */
 
