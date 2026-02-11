@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $extensions[htmlspecialchars_decode($name)] = true;
         saveExtensionConfig("config/extensions.php", $extensions);
         message($lang["panel.EnableSuccess"]);
-        include "footer.php";
+        require __DIR__ . "/../footer.php";
         header("Refresh:1; url=" . genURL("panel/extensions"));
         exit;
     }
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $extensions[htmlspecialchars_decode($name)] = false;
         saveExtensionConfig("config/extensions.php", $extensions);
         message($lang["panel.DisableSuccess"]);
-        include "footer.php";
+        require __DIR__ . "/../footer.php";
         header("Refresh:1; url=" . genURL("panel/extensions"));
         exit;
     }
