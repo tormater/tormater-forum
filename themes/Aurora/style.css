@@ -434,7 +434,7 @@ input:hover {
     filter: brightness(105%);
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
     background: var(--button-g-top);
 }
 input:focus {
