@@ -78,7 +78,7 @@ $thread_data = array(
 );
 
 if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD) or get_role_permissions() & PERM_EDIT_THREAD) {
-    $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title),"maxtitle" => $config["maxCharsPerTitle"]));
+    $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title),"maxtitle" => $config["maxCharsPerTitle"], "submit" => $lang["post.SaveEditBtn"]));
 }
 else $thread_data["title"] = $template->render("templates/thread/thread_title.html",array("title" => htmlspecialchars($title)));
 
