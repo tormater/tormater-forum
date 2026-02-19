@@ -792,10 +792,22 @@ tr:last-child td {
     display: block;
     margin-bottom: 10px;
 }
-#editthread {
+.edit_title_container {
+    display: grid;
+    grid-template-columns: auto max-content;
+    grid-auto-rows: min-content;
     margin-top: 10px;
     margin-bottom: 5px;
-    padding-left: 0px;
+}
+
+#title_save {
+    margin-left: 3px;
+    vertical-align: center;
+    padding: 2px 8px;
+}
+
+#editthread {
+    padding: 2px 0px;
     word-wrap: break-word;
     color: var(--text-heavy);
     font-weight: normal;
@@ -811,6 +823,7 @@ tr:last-child td {
 
 #editthread:focus {
     border: var(--c-gradient-bottom) 1px solid;
+    padding: 1px 2px;
     text-decoration: none;
 }
 .thread,
