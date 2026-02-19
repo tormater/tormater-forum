@@ -1,1 +1,7 @@
-<form action="" method="post"><input maxlength="[[ maxtitle ]]" type="text" id="editthread" name="editthread" autocomplete="off" onchange="form.submit();" value="[[ title ]]"></form>
+<form action="" method="post" style="margin-bottom: 0px;">
+<div class="edit_title_container">
+  <input maxlength="[[ maxtitle ]]" type="text" id="editthread" name="editthread" oninput="document.getElementById('title_save').style['display'] = 'block';" value="[[ title ]]">
+  <input id="title_save" type="submit" style="display:block" value="[[ submit ]]">
+  <script>document.getElementById('title_save').style['display'] = 'none';</script>
+</div>
+</form>
