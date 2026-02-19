@@ -539,11 +539,6 @@ textarea:focus {
     margin-bottom: 0px;
 }
 
-.message a {
-    //color: #7cb7fc;
-    text-decoration: none;
-}
-
 .buttonquote {
     float:right;
     margin-top: -3px;
