@@ -176,6 +176,11 @@ while ($post = $posts->fetch_assoc())
         $post_data["buttons"] = $template->render("templates/post/post_buttons.html",$buttons_data);
     }
     
+    if (get_role_permissions() & PERM_CREATE_POST) 
+    {
+        $post_data["quote"] = $template->render("templates/post/post_quote.html",array("id" => $post["postid"],"quote_label" => $lang["thread.QuotePost"]));
+    }
+    
     if ((isset($_POST["edit"]) && $_POST["edit"] == $post["postid"]) && 
       (($post_author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_POST) or get_role_permissions() & PERM_EDIT_POST) ) 
     {
@@ -191,17 +196,14 @@ while ($post = $posts->fetch_assoc())
         );
         $post_data["body"] = $template->render("templates/post/post_edit.html",$edit_data);
         $post_data["body"] .= "<script>editbox = document.getElementById('edit'); editbox.scrollIntoView({block:'center'});</script>";
+        $post_data["quote"] = "";
     }
     else {
         $post_data["body"] = formatPost($post["content"]);
         if (isset($post_author["signature"]) && strlen($post_author["signature"]) && $post_author["deleted"] != true) {
             $post_data["body"] .= '<hr class="sigline"><p class="signature">' . formatPost($post_author["signature"]) . '</p>';
         }
-    }
-    if ((($post_author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_POST) or get_role_permissions() & PERM_EDIT_POST) and !isset($_POST["edit"])) 
-    {
-        $post_data["quote"] = $template->render("templates/post/post_quote.html",array("id" => $post["postid"],"quote_label" => $lang["thread.QuotePost"]));
-    }
+    }    
     if (isset($post["deletedby"])) {
         $hider = $db->query("SELECT * FROM users WHERE userid='" . $post["deletedby"] . "'");
         $h = $hider->fetch_assoc();
