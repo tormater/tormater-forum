@@ -5,6 +5,14 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+if (get_role_from_session() == "Guest" && $config['searchMembersOnly'])
+{
+    include "header.php";
+    message(sprintf($lang["nav.LoginRequired"], genURL("login")));
+    include "footer.php";
+    exit;
+}
+
 function addToQuery($add, &$query, &$and) {
     if ($and == 1) $query .= "AND ";
     $query .= $add . " ";
