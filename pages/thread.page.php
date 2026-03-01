@@ -132,7 +132,7 @@ if ($locked == true or $stickied == true or $draft == true or $pinned == true)
     if ($pinned == true) $labels["pinned"] = $lang["label.Pinned"];
     listener("beforeRenderThreadLabels",$labels);
     foreach ($labels as $k => $v) {
-        $label_data = array("label" => $v, "class" => $k);
+        $label_data = array("label" => $v, "class" => $k, "search_label" => genURL("search?label=" . $k));
         $thread_data["labels"] .= $template->render("templates/thread/thread_label.html",$label_data);
     }
     $thread_data["labels"] .= '</div>';
