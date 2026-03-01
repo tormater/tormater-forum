@@ -26,6 +26,7 @@ $config = array(
     'forumLang' => 'EN_US', // The language file that the forum should use to display strings
     'userlistEnabled' => true, // Whether or not the userlist is enabled.
     'userlistMembersOnly' => false, // Whether or not the userlist is only viewable by members.
+    'searchMembersOnly' => false, // Whether or not the search is only viewable by members.
     'maxAccountsPerIP' => 5, // Maximum number of accounts that can be created on one IP.
     'hashAlgo' => "sha512", // The default hashing algorithm for your forum to use.
     'avatarWidth' => 200, // Maximum avatar width.
