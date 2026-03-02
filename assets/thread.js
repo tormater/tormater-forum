@@ -1,6 +1,8 @@
 function quotePost(id) {
     let ajaxPath = new URL(baseURL + '/pages/thread.ajax.php', document.location);
     var Field = document.getElementById('textbox1');
+    var editbox = document.getElementById('textbox2');
+    if (editbox != null) Field = editbox;
     var val = Field.value;
     var selected_txt = val.substring(Field.selectionStart, Field.selectionEnd);
     var before_txt = val.substring(0, Field.selectionStart);
