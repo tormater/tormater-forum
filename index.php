@@ -44,7 +44,7 @@ else {
 
 // Now that we have the config, connect to the MySQL database if the forum is installed.
 if ($config["installed"] == "yes") {
-	$db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
+    $db = mysqli_connect($config["MySQLServer"], $config["MySQLUser"],  $config["MySQLPass"], $config["MySQLDatabase"]);
 }
 
 require "libs/version.php";
@@ -71,11 +71,11 @@ $lang_compat = $lang;
 unset($lang);
 if(is_null($config["forumLang"]) or !isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
 {
-	require 'lang/EN_US.php';
+    require 'lang/EN_US.php';
 }
 else
 {
-	require 'lang/' . $config["forumLang"] . '.php';
+    require 'lang/' . $config["forumLang"] . '.php';
 }
 
 foreach($lang_compat as $k => $v) {
@@ -86,35 +86,29 @@ foreach($lang_compat as $k => $v) {
 
 // If a session doesn't exist, set one.
 if (!session_id()) {
-	session_name($config["cookieName"] . "_Session");
-	session_start();
+    session_name($config["cookieName"] . "_Session");
+    session_start();
 }
 
 // Check the user's role, verification status, and deletion status. Then ensure their session reflects it accordingly.
 if ($config['installed'] != "no" && isset($_SESSION["signed_in"]) && $_SESSION["signed_in"] == true) {
-	$rolecheck = $db->query("SELECT role, verified, deleted, ip FROM users WHERE userid='" . $_SESSION["userid"] . "'");
-	while ($r = $rolecheck->fetch_assoc())
-	{
-		// Prevent session stealing, log the user out if their IP is different from the one they logged in with.
-		if (hashstring($_SERVER["REMOTE_ADDR"]) != $r["ip"]) {
-			logout();
-		}
-		if ($r["role"] != $_SESSION["role"]) {
-			$_SESSION["role"] = $r["role"];
-		}
-		if (isset($_SESSION["verified"]) && ($r["verified"] != $_SESSION["verified"])) {
-			$_SESSION["verified"] = $r["verified"];
-		}
-		if (isset($_SESSION["deleted"]) && ($r["deleted"] != $_SESSION["deleted"])) {
-			$_SESSION["deleted"] = $r["deleted"];
-		}
-	}
-	// Log out any suspended, unverified, or deleted users.
-	if (($_SESSION["role"] == "Suspended")
-	or (isset($_SESSION["verified"]) && $_SESSION["verified"] == "0")
-	or (isset($_SESSION["deleted"]) && $_SESSION["deleted"] == "1")) {
-	    logout();
-	}
+    $rolecheck = $db->query("SELECT role, verified, deleted, ip FROM users WHERE userid='" . $_SESSION["userid"] . "'");
+    while ($r = $rolecheck->fetch_assoc())
+    {
+        // Prevent session stealing, log the user out if their IP is different from the one they logged in with.
+        if (hashstring($_SERVER["REMOTE_ADDR"]) != $r["ip"]) {
+            logout();
+        }
+        if ($r["role"] != $_SESSION["role"]) {
+            $_SESSION["role"] = $r["role"];
+        }
+        
+        // Log out any suspended, unverified, or deleted users.
+        if (($_SESSION["role"] == "Suspended") or ($r["verified"] == 0) or ($r["deleted"] == 1)) {
+            logout();
+        }
+    }
+    
 }
 
 require "libs/language.php";
@@ -138,11 +132,11 @@ elseif (isset($pages[$q1])) require $pages[$q1];
 elseif (isset($functionPages[$q1])) call_user_func($functionPages[$q1]);
 elseif (!$q1) require $fallbackPage;
 else {
-	http_response_code(404);
-	include "pages/header.php";
-	$data = array("title" => $lang["error.SomethingWentWrong"], "message" => message($lang["error.PageNotFound"],true), "back" => $lang["error.GoBack"]);
-	echo $template->render("templates/fatal.html", $data);
-	include "pages/footer.php";
+    http_response_code(404);
+    include "pages/header.php";
+    $data = array("title" => $lang["error.SomethingWentWrong"], "message" => message($lang["error.PageNotFound"],true), "back" => $lang["error.GoBack"]);
+    echo $template->render("templates/fatal.html", $data);
+    include "pages/footer.php";
 }
 
 listener("afterPageLoad");
