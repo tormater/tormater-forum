@@ -242,6 +242,10 @@ else if (get_role_permissions() & PERM_CREATE_POST) {
         $replybox_data["discard"] = '<input type="submit" class="buttonbig buttonNo" name="discardDraft" value="'.$lang["thread.PostDiscardDraftBtn"].'">';
     }
     $thread_data["reply"] = $template->render("templates/thread/reply_box.html",$replybox_data);
+    
+    if ($draft == 1) {
+        $thread_data["reply"] = "<form method='post' action =''><input type='submit' class='buttonbig' name='publishDraft' value='" . $lang["thread.PublishDraftBtn"] . "'></form>";
+    }
 }
 else if (get_role_from_session() == "Guest") {
     $thread_data["reply"] = message(sprintf($lang["thread.LoginToReply"], genURL('login/'), genURL('signup/')),true);
