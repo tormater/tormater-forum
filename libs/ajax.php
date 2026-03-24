@@ -5,6 +5,7 @@
 chdir(dirname(__DIR__, 1));
 
 define("INDEXED", "1");
+define("AJAX", "1");
 
 // Require all the necessary files for the forum to function.
 require "libs/functions.php";
@@ -24,6 +25,7 @@ if ($config["installed"] == "yes") {
 }
 
 require "libs/formatter.php";
+require "libs/permission.php";
 
 // Extensions config
 if (file_exists("config/extensions.php")) {
