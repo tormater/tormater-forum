@@ -129,25 +129,25 @@ $lang = array(
     "post.SaveEditBtn" => "बदलाव पक्का करें",
     "post.DiscardEditBtn" => "बदलाव हटाएँ",
     // Errors
-    "thread.ThreadDoesntExist" => "The specified thread doesn't exist.",
-    "thread.NoPosts" => "Couldn't find any posts.",
-    "thread.ThreadsNoPosts" => "There are no posts in this thread.",
-    "thread.LoginFirst" => "You must be signed in for any action within a thread.",
-    "thread.PostSoon" => "You tried to post too soon after a previous post. The post delay is currently %s seconds between posts.",
-    "thread.PostEmpty" => "Your post cannot be blank.",
-    "thread.PostBig" => "Your post was too long. The maximum number of characters a post may contain is currently set to %s.",
-    "thread.PostEditError" => "Hey, you don't have permission to edit that post.",
-    "thread.SuspendCantPost" => "Unfortunately, you're suspended. Suspended users cannot post.",
-    "thread.ThreadLocked" => "Sorry, this thread is locked. Only moderators and administrators can post in it.",
-    "thread.LoginToReply" => "You must <a href='%s'>sign in</a> or <a href='%s'>register</a> to reply to threads.",
-    "thread.DraftError" => "Sorry, you've made too many draft posts recently. Please wait a minute or two and try again.",
+    "thread.ThreadDoesntExist" => "ऐसी कोई थ्रेड नहीं है", //There's no such thread
+    "thread.NoPosts" => "कोई पोस्ट नहीं मिली", //I couldn't find a post
+    "thread.ThreadsNoPosts" => "इस थ्रेड में कोई पोस्ट नहीं है", //There's' no posts in this thread
+    "thread.LoginFirst" => "साइन इन किये बिना थ्रेड में एक्शन करना न मुमकिन है दोस्त।", //You can't do anything in a thread without signing in, my friend.
+    "thread.PostSoon" => "रुक जाओ, पोस्ट करने का डिले अभी %s है|",
+    "thread.PostEmpty" => "खाली पोस्ट से किसी को क्या ज्ञान मिलेगा? कुछ तो लिखो!", //An empty post is useless, write something atleast.
+    "thread.PostBig" => "क्या बड़ी बात की है! अब इसे बस %s करैक्टर से कम में लिख दो।", //That's such a great piece of literature, now can you shorten it down!
+    "thread.PostEditError" => "अपने काम से काम रखो, तुम इस पोस्ट को नहीं एडिट कर सकते हो।",
+    "thread.SuspendCantPost" => "ससपेंड हो चुके हो, तुम्हारा कोई हक़ नहीं है पोस्ट करने का।",
+    "thread.ThreadLocked" => "थ्रेड पे ताला लगा, आम लोग यहाँ नहीं बात कर सकते!",
+    "thread.LoginToReply" => "रिप्लाई करना है तो <a href='%s'>साइनइन</a> या <a href='%s'>रजिस्टर</a> करो|",
+    "thread.DraftError" => "सर्वर थक गएँ हैं, थोड़ा रुक जाओ।",
     
     // New Thread
-    "newthread.Header" => "Create a thread",
-    "newthread.Title" => "Title: ",
-    "newthread.Category" => "Category: ",
-    "newthread.Content" => "Content:",
-    "newthread.CreateBtn" => "Create thread",
+    "newthread.Header" => "थ्रेड बनाओ",
+    "newthread.Title" => "विषय: ",
+    "newthread.Category" => "विषय: ",
+    "newthread.Content" => "कंटेंट:",
+    "newthread.CreateBtn" => "थ्रेड बनाओ",
     // Error
     "newthread.LoginToCreate" => "You must <a href='%s'>sign in</a> to create a thread.",
     "newthread.SuspendCantCreate" => "Your account has been suspended. You can no longer start threads.",
