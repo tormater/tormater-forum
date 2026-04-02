@@ -7,12 +7,10 @@ if (!defined("INDEXED")) exit;
 
 function formatBBCode($post)
 {
+    
     $returnPost = htmlspecialchars($post);
     
-    $returnPost = preg_replace_callback("/\[code\](.+?)\[\/code\]/is", function($match) {
-        // We convert to html entities here so that the next RegEx function doesn't format inside the code block.
-        return '<code class="postcode">' . str_replace(array('[', ']'), array('&#91;', '&#93;'), $match[1]) . '</code>';
-    }, $returnPost);
+    $code_regex = "/\[code\](\n|\r\n?)?(.+?)\[\/code\](\n|\r\n?)?/is";
     
     $find = array(
         '/\[b\](.+?)\[\/b\]/is',
@@ -30,16 +28,16 @@ function formatBBCode($post)
         '/\[size=([8-9][0-9])\](.+?)\[\/size\]/is',
         //'/\[code\](.+?)\[\/code\]/is',
         '/\[pre\](.+?)\[\/pre\]/is',
-        '/\[h\](.+?)\[\/h\]/is',
-        '/\[h2\](.+?)\[\/h2\]/is',
-        '/\[list\](.+?)\[\/list\]/is',
-        '/\[list=1\](.+?)\[\/list\]/is',
-        '/\[list=a\](.+?)\[\/list\]/is',
+        '/\[h\](.+?)\[\/h\](\n|\r\n?)?/is',
+        '/\[h2\](.+?)\[\/h2\](\n|\r\n?)?/is',
+        '/\[list\](.+?)\[\/list\](\n|\r\n?)?/is',
+        '/\[list=1\](.+?)\[\/list\](\n|\r\n?)?/is',
+        '/\[list=a\](.+?)\[\/list\](\n|\r\n?)?/is',
         '/\[\*\](.+?)(\n|\r\n?)/is',
         '/(\n|\r\n?)\[hr\]\[\/hr\](\n|\r\n?)/is',
         '/(\n|\r\n?)\[hr\]\[\/hr\]/is',
-        '/\[quote\](.+?)\[\/quote\]/is',
-        '/\[blockquote\](.+?)\[\/blockquote\]/is',
+        '/\[quote\](.+?)\[\/quote\](\n|\r\n?)?/is',
+        '/\[blockquote\](.+?)\[\/blockquote\](\n|\r\n?)?/is',
     );
 
     $replace = array(
@@ -71,14 +69,24 @@ function formatBBCode($post)
     );
 
     listener("beforeFormatBBCode");
+    $code_body = array();
+    
+    $returnPost = preg_replace_callback($code_regex, function($match) use(&$code_body) {
+        $code_body[] = $match[2]; return '[code] [/code]';
+    }, $returnPost);
+    
     $returnPost = preg_replace($find, $replace, $returnPost);
+    $returnPost = str_replace("\n","<br class='postnewline'>",$returnPost);
+    
+    $returnPost = preg_replace_callback($code_regex, function($match) use(&$code_body) {
+        return '<code class="postcode">' . array_shift($code_body) . '</code>';
+    }, $returnPost);
     $returnPost = str_replace(array('&#91;', '&#93;'), array('[', ']'), $returnPost);
     return $returnPost;
 }
 function formatPost($post)
 {
     $returnPost = formatBBCode($post);
-    $returnPost = str_replace("\n","<br class='postnewline'>",$returnPost);
     listener("beforeReturnFormattedPost");
     return $returnPost;
 }
