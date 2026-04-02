@@ -21,6 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION["language"] = $_POST["lang"];
             }
         }
+        $_SERVER['REQUEST_METHOD'] = "GET";
+        $_POST = array();
     }
 }
 if (session_id() && isset($_SESSION["language"])) {
