@@ -19,22 +19,22 @@ function customLang($val) {
 }
 
 // Define the functions
-$start_time = microtime(true);
+$stats_StartTime = microtime(true);
 
 function Stats_displayPageLoadTime() {
-    global $start_time, $db;
+    global $stats_StartTime, $db;
 
     // Get counts of threads, users, and posts
-    $threads = $db->query("SELECT * FROM threads");
+    $threads = $db->query("SELECT * FROM threads WHERE draft='0'");
     $threadcount = $threads->num_rows;
-    $users = $db->query("SELECT * FROM users");
+    $users = $db->query("SELECT * FROM users WHERE deleted='0'");
     $usercount = $users->num_rows;
     $posts = $db->query("SELECT * FROM posts");
     $postcount = $posts->num_rows;
     
     // Display all the information
     print '<br/>';
-    print '<div class="statsLeft">This page was generated in ' . number_format((microtime(true) - $start_time)*1000, 3) . ' ms.</div>';
+    print '<div class="statsLeft">This page was generated in ' . number_format((microtime(true) - $stats_StartTime)*1000, 3) . ' ms.</div>';
     print '<div class="statsRight">' . number_format($threadcount) .  customLang("stats.Threads")  . number_format($postcount) . customLang("stats.Posts") . number_format($usercount) . customLang("stats.Users") . '</div>';
 }
 
