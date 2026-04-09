@@ -87,6 +87,7 @@ foreach($lang_compat as $k => $v) {
 // If a session doesn't exist, set one.
 if (!session_id()) {
     session_name($config["cookieName"] . "_Session");
+    session_set_cookie_params(['samesite' => 'Lax']);
     session_start();
 }
 
