@@ -129,7 +129,11 @@ listener("beforePageLoad");
 // Based on the URL, serve the user with a corresponding page.
 if ($config['installed'] != "yes") require "install/install.php";
 elseif (isset($pages[$q1])) require $pages[$q1];
-elseif (isset($functionPages[$q1])) call_user_func($functionPages[$q1]);
+elseif (isset($functionPages[$q1])) {
+    if (!str_contains($_SERVER["HTTP_SEC_FETCH_DEST"],"image")) {
+        call_user_func($functionPages[$q1]);
+    }
+}
 elseif (!$q1) require $fallbackPage;
 else {
     http_response_code(404);
