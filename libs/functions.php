@@ -66,14 +66,11 @@ function refresh($time) {
 
 // Logs the user out.
 function logout() {
-// Log out so long as the user isn't requesting an image.
-	if (!str_contains($_SERVER["HTTP_ACCEPT"],"image")) {
-	    listener("beforeLogout");
-		session_unset();
-		session_destroy();
-		listener("afterLogout");
-		redirect("");
-	}
+    listener("beforeLogout");
+    session_unset();
+    session_destroy();
+    listener("afterLogout");
+    redirect("");
 }
 
 // Makes sure there aren't any bad characters in usernames
