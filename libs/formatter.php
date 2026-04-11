@@ -34,8 +34,7 @@ function formatBBCode($post)
         '/\[list=1\](.+?)\[\/list\](\n|\r\n?)?/is',
         '/\[list=a\](.+?)\[\/list\](\n|\r\n?)?/is',
         '/\[\*\](.+?)(\n|\r\n?)/is',
-        '/(\n|\r\n?)\[hr\]\[\/hr\](\n|\r\n?)/is',
-        '/(\n|\r\n?)\[hr\]\[\/hr\]/is',
+        '/(\n|\r\n?)?\[(\/)?hr\](\n|\r\n?)?/is',
         '/\[quote\](.+?)\[\/quote\](\n|\r\n?)?/is',
         '/\[blockquote\](.+?)\[\/blockquote\](\n|\r\n?)?/is',
     );
@@ -62,8 +61,7 @@ function formatBBCode($post)
         '<ol class="postlist" style="list-style-type: decimal;">$1</ol>',
         '<ol class="postlist" style="list-style-type: lower-alpha">$1</ol>',
         '<li>$1</li>',
-        '<hr class="posthr"></hr>',
-        '<hr class="posthr"></hr>',
+        '<hr class="posthr">',
         '<blockquote class="postquote">$1</blockquote>',
         '<blockquote class="postquote">$1</blockquote>',
     );
