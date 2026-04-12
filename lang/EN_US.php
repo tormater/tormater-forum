@@ -62,6 +62,8 @@ $lang = array(
     "search.CategoryLabel" => "in",
     "search.UserLabel" => "has replies from",
     "search.Submit" => "Submit Search",
+    "search.LabelLabel" => "with label(s)",
+    "userlist.sort.posts" => "Post count",
     
     // Viewing:
     "action.Generic" => "Viewing: ",
