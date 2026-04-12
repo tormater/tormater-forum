@@ -162,6 +162,17 @@ body {
     margin: 0px;
 }
 
+.search_line {
+    border: 0px;
+    border-bottom: 1px solid #ccc;
+}
+.search_label {
+    width: unset;
+}
+.label_checkbox {
+    vertical-align: middle;
+}
+
 #menu {
     width: 100%;
     padding: 7px 17px;
