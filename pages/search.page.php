@@ -19,7 +19,7 @@ function addToQuery($add, &$query, &$and) {
     $and = 1;
 }
 function buildSearchQuery($get) {
-    global $db;
+    global $db, $sortoptions, $sortorderoptions;
     $query = "WHERE ";
     $and = 0;
     $author = 0;
@@ -66,16 +66,23 @@ function buildSearchQuery($get) {
 	    }
         }
     }
+    $labels = array();
     if (isset($get["label"]) && $get["label"] != null) {
         $labels = explode(",", $get["label"]);
-        if (in_array("locked",$labels)) addToQuery("locked='1'", $query, $and);
-        else if (in_array("!locked",$labels)) addToQuery("locked='0'", $query, $and);
-        if (in_array("sticky",$labels)) addToQuery("sticky='1'", $query, $and);
-        else if (in_array("!sticky",$labels)) addToQuery("sticky='0'", $query, $and);
-        if (in_array("pinned",$labels)) addToQuery("pinned='1'", $query, $and);
-        else if (in_array("!pinned",$labels)) addToQuery("pinned='0'", $query, $and);
     }
-    if (isset($get["label"]) && $get["label"] != null && in_array("draft", $labels)) {
+    if (isset($get["locked"]) && $get["locked"] != null) $labels[] = "locked";
+    if (isset($get["sticky"]) && $get["sticky"] != null) $labels[] = "sticky";
+    if (isset($get["pinned"]) && $get["pinned"] != null) $labels[] = "pinned";
+    if (isset($get["draft"]) && $get["draft"] != null)   $labels[] = "draft";
+    
+    if (in_array("locked",$labels)) addToQuery("locked='1'", $query, $and);
+    else if (in_array("!locked",$labels)) addToQuery("locked='0'", $query, $and);
+    if (in_array("sticky",$labels)) addToQuery("sticky='1'", $query, $and);
+    else if (in_array("!sticky",$labels)) addToQuery("sticky='0'", $query, $and);
+    if (in_array("pinned",$labels)) addToQuery("pinned='1'", $query, $and);
+    else if (in_array("!pinned",$labels)) addToQuery("pinned='0'", $query, $and);
+    
+    if (in_array("draft", $labels)) {
         if (($_SESSION["signed_in"] && !$author)) {
             addToQuery("draft='1'",  $query, $and);
             addToQuery("startuser='". $_SESSION["userid"] . "'", $query, $and);
@@ -84,8 +91,24 @@ function buildSearchQuery($get) {
     }
     else addToQuery("draft='0'",  $query, $and);
     
-    if ($query == "WHERE draft='0' ") $query = "";
-    return $query;
+    $sort_by = "lastposttime";
+    if (isset($get["sort_by"]) && $get["sort_by"] != null && array_key_exists($get["sort_by"],$sortoptions)) {
+        $query .= "ORDER BY " . $sortoptions[$get["sort_by"]] . " ";
+        $sort_by = $sortoptions[$get["sort_by"]];
+    }
+    else $query .= "ORDER BY lastposttime ";
+    
+    $order = "ASC";
+    if (isset($get["sort_order"]) && $get["sort_order"] != null && array_key_exists($get["sort_order"],$sortorderoptions)) {
+        $order = $sortorderoptions[$get["sort_order"]];
+    }
+    
+    if ($sort_by == "lastposttime" || $sort_by == "starttime" || $sort_by == "posts") {
+        if ($order == "DESC") $order = "ASC";
+        else $order = "DESC";
+    }
+    
+    return $query . $order;
 }
 
 if (isset($q2) && is_numeric($q2)) 
@@ -105,12 +128,24 @@ $data = array
     "searchText" => "",
     "authorText" => "",
     "userText" => "",
-    "categoryOptions" => "<option value=''>" . $lang["search.CategoryPlaceholder"] . "</option>",
+    "category_options" => "<option value=''>" . $lang["search.CategoryPlaceholder"] . "</option>",
     "user_placeholder" => $lang["search.UserPlaceholder"],
     "title_label" => $lang["search.TitleLabel"],
     "author_label" => $lang["search.AuthorLabel"],
     "category_label" => $lang["search.CategoryLabel"],
     "user_label" => $lang["search.UserLabel"],
+    "sort_by_label" => $lang["userlist.SortBy"],
+    "label_label" => $lang["search.LabelLabel"],
+    "draft" => $lang["label.Draft"],
+    "locked" => $lang["label.Locked"],
+    "sticky" => $lang["label.Sticky"],
+    "pinned" => $lang["label.Pinned"],
+    "draft_checked" => isset($_GET["draft"]) ? "checked=''" : "",
+    "locked_checked" => isset($_GET["locked"]) ? "checked=''" : "",
+    "sticky_checked" => isset($_GET["sticky"]) ? "checked=''" : "",
+    "pinned_checked" => isset($_GET["pinned"]) ? "checked=''" : "",
+    "sort_options" => "",
+    "sort_order_options" => "",
     "submit" => $lang["search.Submit"],
     "table" => ""
 );
@@ -130,7 +165,32 @@ while($row = $categories->fetch_assoc()) {
     if (isset($_GET["category"]) && $_GET["category"] == $row["categoryid"]) $selected = "selected=''";
     else $selected = "";
         
-    $data["categoryOptions"] .= '<option ' . $selected . 'value="' . $row["categoryid"] . '">' . htmlspecialchars($row["categoryname"]) . '</option>';
+    $data["category_options"] .= '<option ' . $selected . 'value="' . $row["categoryid"] . '">' . htmlspecialchars($row["categoryname"]) . '</option>';
+}
+
+$sortoptions = array(
+  "activity" => "lastposttime",
+  "time" => "starttime",
+  "alphabet" => "title",
+  "posts" => "posts"
+);
+
+$sortorderoptions = array(
+  "asc" => "ASC",
+  "desc" => "DESC"
+);
+
+foreach ($sortoptions as $s => $v) {
+    if (isset($_GET["sort_by"]) && $_GET["sort_by"] == $s) $selected = "selected=''";
+    else $selected = "";
+        
+    $data["sort_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort.".$s] . '</option>';
+}
+foreach ($sortorderoptions as $s => $v) {
+    if (isset($_GET["sort_order"]) && $_GET["sort_order"] == $s) $selected = "selected=''";
+    else $selected = "";
+        
+    $data["sort_order_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort_order.".$s] . '</option>';
 }
 
 if (isset($_GET["search"]) && strlen($_GET["search"]) > 64)
@@ -171,7 +231,7 @@ if ($currentPage < 1) $currentPage = 1;
 // Calculate the offset for the threads query.
 $offset = (($currentPage * $config["threadsPerPage"]) - $config["threadsPerPage"]);
 
-$threads = $db->query("SELECT * FROM threads " . $search . " ORDER BY lastposttime DESC LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
+$threads = $db->query("SELECT * FROM threads " . $search . " LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
 
 $table_data = array(
     "title" => $lang["search.Header"],
