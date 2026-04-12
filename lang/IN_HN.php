@@ -62,6 +62,8 @@ $lang = array(
     "search.CategoryLabel" => "में",
     "search.UserLabel" => "में रिप्लाई है इससे-",
     "search.Submit" => "सर्च सबमिट करो",
+    "search.LabelLabel" => "with label(s)",
+    "userlist.sort.posts" => "Post count",
     
     // आप देख रहे हैं :
     "action.Generic" => "आप देख रहे हैं: ",
