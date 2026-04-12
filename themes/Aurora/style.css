@@ -1140,11 +1140,8 @@ font.sticky, font.locked, font.draft, font.pinned {
     width: 100%;
     box-sizing: border-box;
 }
-.postquote:nth-child(2) { /* :( */
+.postquote:nth-child(2), .postquote:first-child { /* :( */
     margin-top: 0px;
-}
-.postquote:last-child {
-    margin-bottom: 0px;
 }
 
 .postlist {
