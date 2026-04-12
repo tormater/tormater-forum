@@ -62,6 +62,8 @@ $lang = array(
     "search.CategoryLabel" => "в",
     "search.UserLabel" => "есть ответы от",
     "search.Submit" => "Поиск",
+    "search.LabelLabel" => "with label(s)",
+    "userlist.sort.posts" => "Post count",
     
     // Viewing:
     "action.Generic" => "Просмотр: ",
@@ -290,7 +292,9 @@ $lang = array(
     "register.EmailExists" => "Аккаунт с таким электронным адресом уже существует.",
     "register.InvalidEmailFormat" => "Неверный адрес электронной почты.",
     "register.EmailEmpty" => "Поле электронной почты не должно быть пустым.",
-    "register.PasswordSmall" => "Пароль должен состоять не менее чем из 6 символов.",
+    "register.PasswordSmall" => "Пароль должен состоять не
+    "search.LabelLabel" => "with label(s)",
+    "userlist.sort.posts" => "Post count", менее чем из 6 символов.",
     "register.PasswordEmpty" => "Поле пароля не должно быть пустым.",
     "register.ConfirmPasswordEmpty" => "Поле подтверждения пароля не должно быть пустым.",
     "register.ConfirmPasswordWrong" => "Пароли не совпадают.",
