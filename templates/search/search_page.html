@@ -3,9 +3,18 @@
 <div class="forminput"><label class="label">[[ title_label ]]</label><input type="text" name="search" value="[[ searchText ]]"></div>
 <div class="forminput">
 <label class="label">[[ author_label ]]</label><input placeholder="[[ user_placeholder ]]" type="text" name="author" value="[[ authorText ]]"><!--
---><label class="label_multiline">[[ category_label ]]</label><select name="category">[[ categoryOptions ]]</select></div>
+--><label class="label_multiline">[[ category_label ]]</label><select name="category">[[ category_options ]]</select></div>
 <div class="forminput">
-<label class="label">[[ user_label ]]</label><input placeholder="[[ user_placeholder ]]" type="text" name="user" value="[[ userText ]]"> <input type="submit" value="[[ submit ]]">
+<label class="label">[[ user_label ]]</label><input placeholder="[[ user_placeholder ]]" type="text" name="user" value="[[ userText ]]"> 
+</div>
+<label class="label">[[ label_label ]]</label>
+<input class="label_checkbox" type="checkbox" id="sticky" name="sticky" value="true" [[ sticky_checked ]]> <label class="sticky search_label" for="sticky">[[ sticky ]]</label>
+<input class="label_checkbox" type="checkbox" id="pinned" name="pinned" value="true" [[ pinned_checked ]]> <label class="pinned search_label" for="pinned">[[ pinned ]]</label>
+<input class="label_checkbox" type="checkbox" id="locked" name="locked" value="true" [[ locked_checked ]]> <label class="locked search_label" for="locked">[[ locked ]]</label>
+<input class="label_checkbox" type="checkbox" id="draft" name="draft" value="true" [[ draft_checked ]]> <label class="draft search_label" for="draft">[[ draft ]]</label>
+<hr class="search_line">
+<div class="forminput">
+[[ sort_by_label ]] <select name="sort_by">[[ sort_options ]]</select> <select name="sort_order">[[ sort_order_options ]]</select> <input type="submit" value="[[ submit ]]">
 </div>
 </form>
 [[ table ]]
