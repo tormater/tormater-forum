@@ -673,17 +673,9 @@ function drawNavigation() {
     }
     if ($q1 == "thread")
     {
-        if ((isset($GLOBALS["title"]) and isset($GLOBALS["categoryID"])) and (($GLOBALS["draft"] == 0) or ($_SESSION["userid"] == $GLOBALS["startuser"]))) {
-        // Get the category information.
-            $categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($GLOBALS["categoryID"]) . "'");
-
-
-            while ($row = $categoryDB->fetch_assoc()) {
-	        $categoryName = $row['categoryname'];
-	        $categoryDescription = $row['categorydescription'];
-            }
+        if ((isset($GLOBALS["title"]) and isset($GLOBALS["categoryName"])) and (($GLOBALS["draft"] == 0) or ($_SESSION["userid"] == $GLOBALS["startuser"]))) {
             $nav .= $template->render("templates/header/nav_button.html", 
-                    array("label" => htmlspecialchars($categoryName), "url" => genURL('category/' . $GLOBALS["categoryID"]))
+                    array("label" => htmlspecialchars($GLOBALS["categoryName"]), "url" => genURL('category/' . $GLOBALS["categoryID"]))
                     );
                     
             $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
