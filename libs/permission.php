@@ -20,14 +20,17 @@ define('PERM_VIEW_THREAD', 2048);
 define('PERM_VIEW_CATEGORY', 4096);
 define('PERM_EDIT_PROFILE', 8192);
 define('PERM_IGNORE_THREAD_LABELS', 16384);
+define('PERM_VIEW_SEARCH', 32768);
 
 $permissions = array(
-    "Administrator" => PERM_EDIT_POST|PERM_EDIT_THREAD|PERM_EDIT_USER|PERM_EDIT_CATEGORY|PERM_EDIT_FORUM|PERM_VIEW_AUDIT|PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE|PERM_IGNORE_THREAD_LABELS,
-    "Moderator" => PERM_EDIT_POST|PERM_EDIT_THREAD|PERM_EDIT_USER|PERM_VIEW_AUDIT|PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE|PERM_IGNORE_THREAD_LABELS,
-    "Member" => PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE,
-    "Guest" => PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY,
-    "Suspended" => PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY,
+    "Administrator" => PERM_EDIT_POST|PERM_EDIT_THREAD|PERM_EDIT_USER|PERM_EDIT_CATEGORY|PERM_EDIT_FORUM|PERM_VIEW_AUDIT|PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE|PERM_IGNORE_THREAD_LABELS|PERM_VIEW_SEARCH,
+    "Moderator" => PERM_EDIT_POST|PERM_EDIT_THREAD|PERM_EDIT_USER|PERM_VIEW_AUDIT|PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE|PERM_IGNORE_THREAD_LABELS|PERM_VIEW_SEARCH,
+    "Member" => PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE|PERM_VIEW_SEARCH,
+    "Guest" => PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_VIEW_SEARCH,
+    "Suspended" => PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_VIEW_SEARCH,
 );
+
+$category_permissions = array();
 
 if ($config["userlistMembersOnly"]) {
     $permissions["Guest"] ^= PERM_VIEW_USERLIST;
@@ -42,12 +45,24 @@ function get_role_from_session() {
 }
 
 function get_role_permissions($r = "") {   
-    global $permissions;
+    global $category_permissions, $permissions;
     
     if ($r != "") $role = $r;
     else $role = get_role_from_session();
     
+    if (isset($category_permissions[$role])) return $category_permissions[$role];
     return $permissions[$role];
+}
+
+function get_permission_from_category($category_row, $r = "") {
+    global $category_permissions, $permissions;
+    
+    if ($r != "") $role = $r;
+    else $role = get_role_from_session();
+    
+    $category_permissions[$role] = $permissions[$role];
+    // TODO: modify permissions integer based on category database row
+    return $category_permissions[$role];
 }
 
 function get_roles() {
