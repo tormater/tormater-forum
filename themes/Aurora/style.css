@@ -892,6 +892,7 @@ tr:last-child td {
     display: inline-block;
     margin-right: 2px;
     margin-top: 4px;
+    margin-bottom: 0px;
 }
 
 .rpostc {
@@ -1524,6 +1525,20 @@ fieldset {
 
 /* RWD */
 
+@media (max-width: 1140px) {
+    .tormater-forum {
+        padding-bottom: 20px;
+        margin: 0px auto;
+    }
+    #forumheader {
+        margin: 0;
+        margin-bottom: 1px;
+    }
+    #forumheader, #menu, #content {
+        border-radius: 0px;
+    }
+}
+
 @media (max-width: 900px) {
     #footer {
         padding: 20px;
@@ -1532,11 +1547,6 @@ fieldset {
 }
 @media (max-width: 800px) {
 
-    .tormater-forum {
-        padding: 1px;
-        padding-bottom: 20px;
-        margin: 0px auto;
-    }
     /* Menu */
     #menu {
         height: auto;
@@ -1634,6 +1644,10 @@ fieldset {
     }
     .pagination.pagebar {
         display: none;
+    }
+    
+    #searchbox, .searchbutton {
+        border-radius: 0px;
     }
 }
 @media (max-width: 575px) {
