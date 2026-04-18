@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             $id = $row['categoryid'];
         }
 
-        if ($_POST["edit_edit_cat_name"] or $_POST["edit_cat_description"])
+        if (isset($_POST["edit_edit_cat_name"]) or isset($_POST["edit_cat_description"]))
         {
             $id = $_POST["cat_num"];
             $name = $_POST["edit_edit_cat_name"];
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 else
                 {
                     message($lang["panel.SuccessUpdateCategory"]);
-                    include "footer.php";
+                    include __DIR__ . "/../footer.php";
                     echo("<meta http-equiv='refresh' content='1'>");
                     exit;
                 }
@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["panel.EditCategoryBtn"].'"> <a class="buttonbig" href="">'.$lang["panel.EditCategoryDisBtn"].'</a></div>
         </form></div>';
 
-            include "footer.php";
+            include __DIR__ . "/../footer.php";
             exit;
     }
 
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     $result = $db->query("DELETE FROM threads WHERE threadid='" . $row['threadid'] . "'");
                 }
                 message($lang["panel.SuccessDeleteCategory"]);
-                include "footer.php";
+                include __DIR__ . "/../footer.php";
                 echo("<meta http-equiv='refresh' content='1'>");
                 exit;
             }
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <div class="forminput"><button type="submit" class="buttonbig">'.$lang["panel.DeleteCategoryBtn"].'</button> <a class="buttonbig" href="">'.$lang["panel.DeleteCategoryBackBtn"].'</a></div>
         </form></div>';
 
-        include "footer.php";
+        include __DIR__ . "/../footer.php";
         exit;
     }
     
