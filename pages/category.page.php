@@ -34,6 +34,16 @@ while ($row = $category->fetch_assoc())
     );
 }
 
+get_permission_from_category($row);
+
+if (!(get_role_permissions() & PERM_VIEW_CATEGORY)) {
+    unset($categoryName);
+    include "header.php";
+    message($lang["nav.AdminsOnly"]);
+    include "footer.php";
+    exit;
+}
+
 include "header.php";
 
 $thread_count = $db->query("SELECT 1 FROM threads WHERE category='" . $db->real_escape_string($q2) . "'");
