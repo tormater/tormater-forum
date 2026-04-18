@@ -38,6 +38,23 @@ if ($draft == 1 and $viewerid != $startuser) {
     include "footer.php";
     exit();
 }
+
+$categoryDB = $db->query("SELECT * FROM categories WHERE categoryid='" . $db->real_escape_string($categoryID) . "'");
+
+while ($crow = $categoryDB->fetch_assoc()) {
+    $categoryName = $crow['categoryname'];
+    $categoryDescription = $crow['categorydescription'];
+}
+
+get_permission_from_category($crow);
+
+if (!(get_role_permissions() & PERM_VIEW_CATEGORY) || !(get_role_permissions() & PERM_VIEW_THREAD)) {
+    unset($categoryName);
+    include "header.php";
+    message($lang["nav.AdminsOnly"]);
+    include "footer.php";
+    exit;
+}
     
 $numPosts = $row['posts'];
 $pages = ceil($numPosts / $postsPerPage);
