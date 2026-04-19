@@ -1,6 +1,6 @@
 <?php
-// panelcategory.page.php
-// Creates a new category.
+// category.page.php
+// Allows administrators to manage the forum's categories
 
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
@@ -191,59 +191,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         include __DIR__ . "/../footer.php";
         exit;
     }
-    
-    if (isset($_POST["cat_name"]))
-    {
-        // Ensure the name and description aren't empty.
-        if ($_POST["cat_name"] == "")
-        {
-            message($lang["panel.CategoryNameBlank"]);
-        }
-        
-        elseif (!isset($_POST["cat_description"]) or $_POST["cat_description"] == "")
-        {
-            message($lang["panel.CategoryDescBlank"]);
-        }
-        
-        elseif (strlen($_POST["cat_description"]) > 255) {
-            message($lang["panel.CategoryDescTooLong"]);
-        }
-        elseif (strlen($_POST["cat_name"]) > 255) {
-            message($lang["panel.CategoryNameTooLong"]);
-        }
-        else {
-            
-            // Check if there are any categories at all.
-            $categoryCheck = $db->query("SELECT 1 FROM `categories`");
-
-            // If there aren't, set the order index to 0.
-            if ($categoryCheck->num_rows < 1) {
-                $largestOrder = 0;
-            }
-            // If there are, get the highest order index, and add 1 to it.
-            else {
-                $getLargestOrder = $db->query("SELECT MAX(`order`) AS 'order' FROM `categories`");
-
-                while ($r = $getLargestOrder->fetch_assoc()) {
-                    $largestOrder = $r["order"];
-                }
-
-                $largestOrder++;
-            }
-
-            $result = $db->query("INSERT INTO `categories` (`categoryname`, `categorydescription`, `order`) VALUES ('" . $db->real_escape_string($_POST['cat_name']) . "', '" . $db->real_escape_string($_POST['cat_description']) . "', '" . $db->real_escape_string($largestOrder) . "')");
-        
-            if(!$result)
-            {
-                message($lang["error.SomethingWentWrong"]);
-            }
-        
-            else
-            {
-                message($lang["panel.SuccessAddedCategory"]);
-            }
-        }
-    }
 }
 
     $result = $db->query("SELECT * FROM categories ORDER BY `order` ASC");
@@ -252,13 +199,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     while ($l = $getLargest->fetch_assoc()) {
         $largest = $l["order"];
     }
+    
+    echo "<div class='addcategorytray'><a class='addcategorybutton' href='" . genURL("panel/newcategory&at=top") . "'>".$lang["panel.CreateACategory"]."</a></div>";
 
     while($row = $result->fetch_assoc()) {
         $numthreads = $db->query("SELECT * FROM threads WHERE category='" . $row["categoryid"] . "'");
         $number = $numthreads->num_rows;
         echo '<div class="category"><tr>';
             echo '<td class="leftpart">';
-            echo '<h3><span>' . htmlspecialchars($row["categoryname"]) . ' (#' . $row["categoryid"] . ')</span></h3>';
+            echo '<h3><span>' . htmlspecialchars($row["categoryname"]) . '</span></h3>';
             echo '<div>' . formatPost($row["categorydescription"]) . '</div>';
             echo '<div><div style="float:right">';
 
@@ -277,16 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             echo $lang["panel.CatThreads"] . $number . '</div>';
         echo '</tr></div>';
     }
-    echo '
-    <h3>'.$lang["panel.CreateACategory"].'</h3>
-    <div class="formcontainer"><form method="post" action="">
-        <div class="forminput"><label>'.$lang["panel.InputCategoryTitle"].'</label><input type="text" name="cat_name"></div>
-        <div class="forminput"><label>'.$lang["panel.InputCategoryDesc"].'</label></div>';
-        
-    BBCodeButtons(1);
-        
-    echo'    <div class="forminput"><textarea name="cat_description" id="textbox1"></textarea></div>
-        <div class="forminput"><input type="submit" class="buttonbig" value="'.$lang["panel.CreateCategoryBtn"].'"></div>
-        </form></div>';
+    
+    echo "<div class='addcategorytray'><a class='addcategorybutton addcategorybottom' href='" . genURL("panel/newcategory&at=bottom") . "'>".$lang["panel.CreateACategory"]."</a></div>";
 
 ?>
