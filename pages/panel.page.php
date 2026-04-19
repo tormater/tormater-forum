@@ -8,6 +8,7 @@ if (!defined("INDEXED")) exit;
 $panel_pages = array(
     "settings" => array("panel/settings.page.php", $lang["panel.ForumSettings"]),
     "category" => array("panel/category.page.php", $lang["panel.Categories"]),
+    "newcategory" => array("panel/newcategory.page.php", ""),
     "extensions" => array("panel/extensions.page.php", $lang["panel.Extensions"]),
     "auditlog" => array("panel/auditlog.page.php", $lang["panel.AuditLog"]),
     "useradmin" => array("panel/useradmin.page.php",""),
