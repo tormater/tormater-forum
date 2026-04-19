@@ -737,13 +737,39 @@ tr:last-child td {
 /* Menu styles. */
 
 .category {
-    margin-bottom: 14px;
+    margin: 7px 0px;
     padding: 12px;
     background: linear-gradient(var(--widget-g-top), var(--widget-g-bottom));
     box-shadow: 0px 1px 2px inset var(--widget-highlight);
     border: 1px solid var(--widget-border);
     border-radius: 8px;
     text-shadow: 0px 1px var(--widget-highlight);
+}
+
+.addcategorybutton {
+    padding: 6px 12px;
+    color: #fff;
+    background-color: var(--c-gradient-medium);
+    background-image: linear-gradient(#ffffff00, #fff7);
+    box-shadow: 0px 1px 2px inset #ffffff87;
+    border: 1px solid var(--c-gradient-bottom-darker);
+    text-shadow: 0px 1px var(--c-border);
+    font-weight: bold;
+    box-shadow: 0px 1px #fff6 inset;
+    display: inline-block;
+    font-size: 120%;
+}
+
+.addcategorytray {
+    background: linear-gradient(#ccc,#f2f2f2);
+    box-shadow: 0px 0px 1px #777 inset;
+    border-radius: 8px;
+}
+
+.addcategorybottom {
+    display: block;
+    margin-left: auto;
+    width: max-content;
 }
 
 .extension_warning {
