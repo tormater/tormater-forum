@@ -1145,7 +1145,7 @@ font.sticky, font.locked, font.draft, font.pinned {
     color: #203443;
     font-family: monospace;
     font-size: 120%;
-    white-space: pre;
+    white-space: pre-wrap;
 }
 
 .postpre {
