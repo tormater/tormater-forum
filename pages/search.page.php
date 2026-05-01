@@ -13,104 +13,6 @@ if (get_role_from_session() == "Guest" && $config['searchMembersOnly'])
     exit;
 }
 
-function addToQuery($add, &$query, &$and) {
-    if ($and == 1) $query .= "AND ";
-    $query .= $add . " ";
-    $and = 1;
-}
-function buildSearchQuery($get) {
-    global $db, $sortoptions, $sortorderoptions;
-    $query = "WHERE ";
-    $and = 0;
-    $author = 0;
-    
-    if (isset($get["search"]) && $get["search"] != null) {
-        addToQuery("(`title` LIKE '%" . $db->real_escape_string(urldecode($get["search"])) . "%')", $query, $and);
-    }
-    if (isset($get["author"]) && $get["author"] != null) {
-        $user = $db->query("SELECT * FROM users WHERE username='" . $db->real_escape_string(urldecode($get["author"])) . "'");
-        if ($user->num_rows) {
-            $user_row = $user->fetch_assoc();
-            addToQuery("startuser='". $user_row["userid"] . "'", $query, $and);
-            $author = 1;
-        }
-    }
-    if (isset($get["category"]) && $get["category"] != null) {
-        $category = $db->query("SELECT 1 FROM categories WHERE categoryid='" . $db->real_escape_string(urldecode($get["category"])) . "'");
-        if ($category->num_rows) {
-            addToQuery("category='". $db->real_escape_string(urldecode($get["category"])) . "'", $query, $and);
-        }
-    }
-    if (isset($get["user"]) && $get["user"] != null) {
-        $user = $db->query("SELECT * FROM users WHERE username='" . $db->real_escape_string(urldecode($get["user"])) . "'");
-        if ($user->num_rows) {
-            $user_row = $user->fetch_assoc();
-            $posts = $db->query("SELECT * FROM posts WHERE user='" . $user_row["userid"] . "'");
-            if ($posts->num_rows) {
-                $threads = array();
-                while($row = $posts->fetch_assoc())
-	        {
-	            if (!in_array($row["thread"],$threads)) array_push($threads,$row["thread"]);
-	        }
-	        if (count($threads)) {
-	            $query_add = "(";
-	            $first = 1;
-	            foreach($threads as $t) {
-	                if (!$first) $query_add .= " OR ";
-	                $query_add .= "threadid='" . $t . "'";
-	                $first = 0;
-	            }
-	            $query_add .= ")";
-	            addToQuery($query_add,$query,$and);
-	        }
-	    }
-        }
-    }
-    $labels = array();
-    if (isset($get["label"]) && $get["label"] != null) {
-        $labels = explode(",", $get["label"]);
-    }
-    if (isset($get["locked"]) && $get["locked"] != null) $labels[] = "locked";
-    if (isset($get["sticky"]) && $get["sticky"] != null) $labels[] = "sticky";
-    if (isset($get["pinned"]) && $get["pinned"] != null) $labels[] = "pinned";
-    if (isset($get["draft"]) && $get["draft"] != null)   $labels[] = "draft";
-    
-    if (in_array("locked",$labels)) addToQuery("locked='1'", $query, $and);
-    else if (in_array("!locked",$labels)) addToQuery("locked='0'", $query, $and);
-    if (in_array("sticky",$labels)) addToQuery("sticky='1'", $query, $and);
-    else if (in_array("!sticky",$labels)) addToQuery("sticky='0'", $query, $and);
-    if (in_array("pinned",$labels)) addToQuery("pinned='1'", $query, $and);
-    else if (in_array("!pinned",$labels)) addToQuery("pinned='0'", $query, $and);
-    
-    if (in_array("draft", $labels)) {
-        if (($_SESSION["signed_in"] && !$author)) {
-            addToQuery("draft='1'",  $query, $and);
-            addToQuery("startuser='". $_SESSION["userid"] . "'", $query, $and);
-        }
-        else addToQuery("draft='0'",  $query, $and);
-    }
-    else addToQuery("draft='0'",  $query, $and);
-    
-    $sort_by = "lastposttime";
-    if (isset($get["sort_by"]) && $get["sort_by"] != null && array_key_exists($get["sort_by"],$sortoptions)) {
-        $query .= "ORDER BY " . $sortoptions[$get["sort_by"]] . " ";
-        $sort_by = $sortoptions[$get["sort_by"]];
-    }
-    else $query .= "ORDER BY lastposttime ";
-    
-    $order = "ASC";
-    if (isset($get["sort_order"]) && $get["sort_order"] != null && array_key_exists($get["sort_order"],$sortorderoptions)) {
-        $order = $sortorderoptions[$get["sort_order"]];
-    }
-    
-    if ($sort_by == "lastposttime" || $sort_by == "starttime" || $sort_by == "posts") {
-        if ($order == "DESC") $order = "ASC";
-        else $order = "DESC";
-    }
-    
-    return $query . $order;
-}
-
 if (isset($q2) && is_numeric($q2)) 
 {
     $currentPage = $q2;
@@ -168,25 +70,13 @@ while($row = $categories->fetch_assoc()) {
     $data["category_options"] .= '<option ' . $selected . 'value="' . $row["categoryid"] . '">' . htmlspecialchars($row["categoryname"]) . '</option>';
 }
 
-$sortoptions = array(
-  "activity" => "lastposttime",
-  "time" => "starttime",
-  "alphabet" => "title",
-  "posts" => "posts"
-);
-
-$sortorderoptions = array(
-  "asc" => "ASC",
-  "desc" => "DESC"
-);
-
-foreach ($sortoptions as $s => $v) {
+foreach ($thread_sortoptions as $s => $v) {
     if (isset($_GET["sort_by"]) && $_GET["sort_by"] == $s) $selected = "selected=''";
     else $selected = "";
         
     $data["sort_options"] .= '<option ' . $selected . 'value="' . $s . '">' . $lang["userlist.sort.".$s] . '</option>';
 }
-foreach ($sortorderoptions as $s => $v) {
+foreach ($thread_sortorderoptions as $s => $v) {
     if (isset($_GET["sort_order"]) && $_GET["sort_order"] == $s) $selected = "selected=''";
     else $selected = "";
         
