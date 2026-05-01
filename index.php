@@ -123,6 +123,7 @@ if (isset($url[2])) $q3 = $url[2];
 if (isset($url[3])) $q4 = $url[3];
 
 require "libs/templates.php";
+require "libs/generator.php";
 require "libs/extensions.php";
 
 listener("beforePageLoad");
