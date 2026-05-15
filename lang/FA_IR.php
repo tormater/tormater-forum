@@ -62,8 +62,8 @@ $lang = array(
     "search.CategoryLabel" => "در",
     "search.UserLabel" => "دارای پاسخ از",
     "search.Submit" => "جستجو",
-    "search.LabelLabel" => "with label(s)",
-    "userlist.sort.posts" => "Post count",
+    "search.LabelLabel" => "همراه با برچسب(ها)",
+    "userlist.sort.posts" => "تعداد پست‌ها",
     
     // Viewing:
     "action.Generic" => "در حال مشاهده: ",
