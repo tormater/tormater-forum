@@ -64,6 +64,11 @@ else {
 
 // Check for malformed baseURLs.
 $config["baseURL"] = rtrim($config["baseURL"], '/');
+$protocol = "http://";
+if (isset($_SERVER["HTTPS"])) $protocol = "https://";
+$config["baseURL"] = preg_replace('/^(http|https)?:?\/\//', "", $config["baseURL"]);
+$config["baseURL"] = $protocol . $config["baseURL"];
+
 
 // Get our language file
 require 'lang/EN_US.php';
