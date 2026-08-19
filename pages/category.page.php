@@ -46,7 +46,7 @@ if (!(get_role_permissions() & PERM_VIEW_CATEGORY)) {
 
 include "header.php";
 
-$thread_count = $db->query("SELECT 1 FROM threads WHERE category='" . $db->real_escape_string($q2) . "'");
+$thread_count = $db->query("SELECT * FROM threads WHERE category='" . $db->real_escape_string($q2) . "' AND draft='0' UNION SELECT * FROM threads WHERE pinned='1' AND draft='0'");
 
 // Important details for sorting the threads into pages.
 $threadsPerPage = (is_numeric($config["threadsPerPage"]) ? (int)$config["threadsPerPage"] : 20);
