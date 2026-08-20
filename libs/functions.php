@@ -75,14 +75,47 @@ function logout() {
 
 // Makes sure there aren't any bad characters in usernames
 function checkUsername($username) {
-if (!preg_match("#^[a-zA-Z0-9\s_-]+$#", $username)) {
-   $returned = false;   
-} 
-else {
-   $returned = true;
+    $returned = preg_match("#^[a-zA-Z0-9\s.,_-]+$#", $username);
+    listener("beforeReturnUsernameCheck", $returned, $username);
+    return $returned;
 }
-listener("beforeReturnUsernameCheck", $returned, $username);
-return $returned;
+
+// Validate usernames.
+function validateUsername($username) {
+    global $db, $lang, $config;
+    $res = $db->query("SELECT salt FROM users WHERE username = '" . $db->real_escape_string($username) . "'");
+    
+    if ($res->num_rows) return message($lang["register.UsernameExists"],true);
+    if (strlen($username) < 3) return message($lang["error.UsernameSmall"],true);
+    if (strlen($username) > $config['maxUsernameLength']) return message($lang["error.UsernameBig"],true);
+    if (!checkUsername(htmlspecialchars_decode($username))) return message($lang["error.UsernameAlphNum"],true);
+    $return = "";
+    listener("validateUsername", $return, $username);
+    return $return;
+}
+
+// Validate email addresses.
+function validateEmail($email) {
+    global $db, $lang;
+    $res = $db->query("SELECT * FROM users WHERE email ='". $db->real_escape_string($email) ."'");
+
+    if ($res->num_rows) return message($lang["register.EmailExists"],true);
+    if (strlen($email) < 1) return message($lang["register.EmailShort"],true);
+    if (strlen($email) > 254) return message($lang["register.EmailLong"],true);
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return message($lang["register.InvalidEmailFormat"],true);
+    $return = "";
+    listener("validateEmail", $return, $username);
+    return $return;
+}
+
+// Validate passwords.
+function validatePassword($password, $passwordCheck) {
+    global $lang;
+    if (strlen($password) < 6) return message($lang["register.PasswordSmall"],true);
+    if ($password != $passwordCheck) return message($lang["register.ConfirmPasswordWrong"],true);
+    $return = "";
+    listener("validatePassword", $return, $username);
+    return $return;
 }
 
 // Update the user's last action and set their last active time to now.
@@ -371,10 +404,20 @@ function randomCaptcha($length = 5) {
     return $randomString;
 }
 
+function checkCaptcha($captcha, $response) {
+    $return = trim($captcha) == trim($response);
+    listener("beforeReturnCompareCaptcha", $captcha, $response, $return);
+    return $return;
+}
+
 // Simple captcha generator.
-function generateCaptcha($numChars)
+function generateCaptcha($chars)
 {
-    $chars = randomCaptcha($numChars);
+    $customCaptcha = "";
+    listener("beforeDrawCaptcha", $chars, $customCaptcha);
+    if (strlen($customCaptcha)) return $customCaptcha;
+    
+    $numChars = strlen($chars);
     $width = 15 * $numChars;
     $height = 30;
 
@@ -464,14 +507,9 @@ function generateCaptcha($numChars)
 
     $rawImageBytes = ob_get_clean();
 
-    listener("beforeDrawCaptcha", $rawImageBytes, $numChars, $chars);
-
-    echo "<img src='data:image/webp;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
-
-    // Free the memory
     imagedestroy($new_image);
 
-    return $chars;
+    return "<img src='data:image/webp;base64," . base64_encode($rawImageBytes) . "' class='captcha'>";
 }
 
 // Remove an account's avatar.
