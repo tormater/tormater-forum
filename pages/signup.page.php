@@ -44,7 +44,7 @@ $data = array(
 function registerUser(&$data) {
     global $db, $lang, $config;
     
-    if ($config["captchaEnabled"] == true and !checkCaptcha($_SESSION["captcha"],$_POST["captcha"])) {
+    if ($config["captchaEnabled"] == true and !checkCaptcha($_SESSION["captcha"],@$_POST["captcha"])) {
         $data["error"] .= message($lang["register.CaptchaWrong"],true);
         return;
     }
@@ -101,6 +101,7 @@ if ($config["captchaEnabled"] == true) {
     $data["captcha"] .= "<br/><div class='forminput'><label>" . $lang["register.Captcha"] . "</label><input type='text' name='captcha'></div>";
     $data["captcha"] .=  "<small class='captchalabel'>" . $lang["register.CaptchaHint"] . "</small>";
     $_SESSION["captcha"] = randomCaptcha($config["captchaLength"]);
+    listener("beforeDrawCaptchaForm",$data["captcha"]);
     $data["captcha"] .= generateCaptcha($_SESSION["captcha"]);
 }
 
