@@ -14,29 +14,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
     while($row = $res->fetch_assoc()) {
         $password = $row["password"];
     }
-    $hash = hashstring($salt . $_POST["confirmpass"]);
     $errors = array();
     if (isset($_POST["newusername"])) {
-        $newusername = $_POST["newusername"];
-        if (!isset($newusername)) {
-            $errors[] = $lang["settings.NewUsernameEmpty"];
-        }
-        elseif (!isset($_POST["confirmpass"])) {
+        $newusername = trim(@$_POST["newusername"]);
+        if (!isset($_POST["confirmpass"])) {
             $errors[] = $lang["settings.PasswordEmpty"];
         }
-        elseif ($newusername == $_SESSION["username"]) {
-            $errors[] = $lang["settings.NewUsernameSame"];
-        }
-        elseif (strlen($newusername) > 24) {
-            $errors[] = $lang["settings.NewUsernameBig"];
-        }
-        elseif (!checkUsername($newusername)) {
-            $errors[] = $lang["settings.NewUsernameNonAlph"];
-        }
-        elseif (!password_verify($_POST["confirmpass"], $password)) {
+        else if (!password_verify($_POST["confirmpass"], $password)) {
             $errors[] = $lang["error.PasswordWrong"];
         }
         else {
+            $error = validateUsername($newusername);
+            if (strlen($error)) $errors[] = $error;
+        }
+        if (empty($errors)) {
             $result = $db->query("UPDATE users SET username='" . $db->real_escape_string($_POST["newusername"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
             if (!$result) {
                 message($lang["settings.NewUsernameError"]);
@@ -45,7 +36,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                 $_SESSION["username"] = $_POST["newusername"];
                 message($lang["settings.NewUsernameChanged"]);
                 require __DIR__ . "/../footer.php";
-                refresh(1.5);
                 exit;
             }
         }
