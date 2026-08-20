@@ -24,7 +24,7 @@ function formatBBCode($post)
         '/\[spoiler\](.+?)\[\/spoiler\]/is',
         '/\[spoiler=(.+?)\](.+?)\[\/spoiler\]/is',
         '/\[color=(#[a-fA-F0-9]{6}|[a-fA-F0-9]{3})\](.+?)\[\/color\]/is',
-        '/\[size=([0-3][0-9][0-9])\](.+?)\[\/size\]/is',
+        '/\[size=([1-3][0-9][0-9])\](.+?)\[\/size\]/is',
         '/\[size=([8-9][0-9])\](.+?)\[\/size\]/is',
         //'/\[code\](.+?)\[\/code\]/is',
         '/\[pre\](.+?)\[\/pre\]/is',
