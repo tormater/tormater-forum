@@ -33,12 +33,25 @@ echo '<div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label>
 
 echo '<div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
 
-// We are re-using the language selector found on every page here for one reason or another,
-// so we have to remove the automatic submit functionality.
+$languageSelector = "<select name='newlang'>";
 
-$adminLanguageSelector = str_replace('<select name="lang" id="lang" aria-label="Language" onchange="this.form.submit()">', "<select name='newlang'>", $languageSelector);
-$adminLanguageSelector = str_replace('</form>', "", $adminLanguageSelector);
-echo $adminLanguageSelector;
+foreach ($validLanguages as $l) {
+    if ($l == $config["forumLang"]) $selected = "selected='' ";
+    else $selected = "";
+    
+    $l_display = $l;
+    
+    if (file_exists("lang/" . $l . ".json")) {
+        $manifest = json_decode(file_get_contents("lang/" . $l . ".json"), true);
+        if (isset($manifest["region_abbr"])) $l_display = $manifest["name"] . " (" . $manifest["region_abbr"] . ")";
+        else $l_display = $manifest["name"];
+    }
+    $languageSelector .= '<option ' . $selected . 'value="' . $l . '">' . $l_display . '</option>';
+}
+
+$languageSelector .= '</select>';
+
+echo $languageSelector;
 echo '</div>';
 
 echo '<div class="forminput"><label>' . $lang["panel.NewTheme"]  . '</label>';
@@ -51,6 +64,7 @@ foreach ($files as $file) {
     echo '<option ' . $selected . 'value="' . $file . '">' . $file . '</option>';
 }
 echo '</select></div>';
+
 
 $presetColor = "#000000";
 $defaultchecked = "";
