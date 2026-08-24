@@ -69,26 +69,6 @@ if (isset($_SERVER["HTTPS"])) $protocol = "https://";
 $config["baseURL"] = preg_replace('/^(http|https)?:?\/\//', "", $config["baseURL"]);
 $config["baseURL"] = $protocol . $config["baseURL"];
 
-
-// Get our language file
-require 'lang/EN_US.php';
-$lang_compat = $lang;
-unset($lang);
-if(is_null($config["forumLang"]) or !isset($config["forumLang"]) or !file_exists("lang/" . $config["forumLang"] . ".php"))
-{
-    require 'lang/EN_US.php';
-}
-else
-{
-    require 'lang/' . $config["forumLang"] . '.php';
-}
-
-foreach($lang_compat as $k => $v) {
-    if (!array_key_exists($k, $lang)) {
-        $lang[$k] = "Missing: &#39;" . $k . "&#39;";
-    }
-}
-
 // If a session doesn't exist, set one.
 if (!session_id()) {
     session_name($config["cookieName"] . "_Session");
