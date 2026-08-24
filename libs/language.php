@@ -10,6 +10,7 @@ $validLanguages = glob("lang/*.php");
 foreach ($validLanguages as &$v) {
     $v = pathinfo($v, PATHINFO_FILENAME);
 }
+unset($v);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST["lang"]) && in_array($_POST["lang"], $validLanguages)) {
@@ -48,7 +49,7 @@ else
     include "lang/" . $currentLang . ".php";
 }
 
-foreach ($lang_en_us as $k => $val) { // note: do not use $v for this because of the &$v above. Unless you want "Install Tormater Forum" to be a language.
+foreach ($lang_en_us as $k => $val) {
     if (!array_key_exists($k,$lang)) {
         $lang[$k] = $k;
     }
