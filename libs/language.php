@@ -33,12 +33,22 @@ if (session_id() && isset($_SESSION["language"])) {
 
 include "lang/EN_US.php";
 $lang_en_us = $lang;
+unset($lang);
 
 if (isset($currentLang)) {
-   include "lang/" . $currentLang . ".php";
+    include "lang/" . $currentLang . ".php";
 }
 else {
-   $currentLang = $config["forumLang"];
+    $currentLang = $config["forumLang"];
+}
+
+if(is_null($currentLang) or !isset($currentLang) or !file_exists("lang/" . $currentLang . ".php"))
+{
+    require 'lang/EN_US.php';
+}
+else
+{
+    include "lang/" . $currentLang . ".php";
 }
 
 foreach ($lang_en_us as $k => $val) { // note: do not use $v for this because of the &$v above. Unless you want "Install Tormater Forum" to be a language.
