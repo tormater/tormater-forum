@@ -35,10 +35,7 @@ include "lang/EN_US.php";
 $lang_en_us = $lang;
 unset($lang);
 
-if (isset($currentLang)) {
-    include "lang/" . $currentLang . ".php";
-}
-else {
+if (!isset($currentLang)) {
     $currentLang = $config["forumLang"];
 }
 
