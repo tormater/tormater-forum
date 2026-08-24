@@ -33,7 +33,7 @@ echo '<div class="forminput"><label>' . $lang["panel.NewForumName"]  . '</label>
 
 echo '<div class="forminput"><label>' . $lang["panel.NewLang"]  . '</label>';
 
-$languageSelector = "<select name='newlang'>";
+$adminlanguageSelector = "<select name='newlang'>";
 
 foreach ($validLanguages as $l) {
     if ($l == $config["forumLang"]) $selected = "selected='' ";
@@ -46,12 +46,12 @@ foreach ($validLanguages as $l) {
         if (isset($manifest["region_abbr"])) $l_display = $manifest["name"] . " (" . $manifest["region_abbr"] . ")";
         else $l_display = $manifest["name"];
     }
-    $languageSelector .= '<option ' . $selected . 'value="' . $l . '">' . $l_display . '</option>';
+    $adminlanguageSelector .= '<option ' . $selected . 'value="' . $l . '">' . $l_display . '</option>';
 }
 
-$languageSelector .= '</select>';
+$adminlanguageSelector .= '</select>';
 
-echo $languageSelector;
+echo $adminlanguageSelector;
 echo '</div>';
 
 echo '<div class="forminput"><label>' . $lang["panel.NewTheme"]  . '</label>';
