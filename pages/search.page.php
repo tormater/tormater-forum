@@ -154,6 +154,7 @@ while($row = $threads->fetch_assoc())
         "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" class="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
         "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
         "reldate" => relativeTime($row["lastposttime"]),
+        "viewed" => "",
     );
     if ($row["locked"]) 
         $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"locked","text"=>$lang["label.Locked"]]); 
