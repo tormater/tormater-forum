@@ -1,0 +1,11 @@
+<h2>[[ new_thread ]]</h2>
+<form method="post" action="">
+<div class="forminput"><label>[[ title_label ]]</label><input type="text" maxlength="[[ title_max_length ]]" name="title" [[ title_save ]]></div><div class="forminput"><label>[[ category_label ]]</label><select name="category">[[ categories ]]</select></div>	
+[[ bbcode_tray ]]
+<div class="forminput"><textarea name="content" id="textbox1">[[ content_save ]]</textarea></div>
+<div id="previewbox1" class="previewbox" style="display:none"></div>
+<div class="forminput"><div class="forminput left"><input type="submit" class="buttonbig" value="[[ create_label ]]">
+<input type="button" class="buttonbig previewbutton" id="showpreview1" value="[[ show_preview ]]" onclick="previewPost(1, 1);">
+<input type="button" class="buttonbig previewbutton" id="hidepreview1" value="[[ hide_preview ]]" onclick="previewPost(1, 0);" style="display:none"></div>
+<div class="draftbuttons"><input type="submit" class="buttonbig" name="saveDraft" value="[[ save_draft ]]">
+</div></form></div>
