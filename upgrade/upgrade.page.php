@@ -22,6 +22,7 @@ $auditlog = $db->query("SHOW TABLES LIKE 'auditlog'");
 $pinned = $db->query("SHOW COLUMNS FROM `threads` WHERE field LIKE 'pinned'");
 $order = $db->query("SHOW COLUMNS FROM `categories` WHERE field LIKE 'order'");
 $category_perms = $db->query("SHOW COLUMNS FROM `categories` WHERE field LIKE 'permissions'");
+$views = $db->query("SHOW TABLES LIKE 'views'");
 
 
 if ($category_perms->num_rows < 1)
@@ -115,6 +116,17 @@ if ($pinned->num_rows < 1)
 if ($order->num_rows < 1)
 {
     $db->query("ALTER TABLE `categories` ADD `order` int unsigned NOT NULL DEFAULT '0'");
+    $upgraded = true;
+}
+if ($views->num_rows < 1)
+{
+    $db->query("CREATE TABLE `views` (
+        `userid` int unsigned NOT NULL,
+        `threadid` int unsigned NOT NULL,
+        `timestamp` int unsigned NOT NULL,
+        `postcount` int unsigned NOT NULL,
+        PRIMARY KEY (userid, threadid)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
     $upgraded = true;
 }
 // Always run this because checking for it is too hard.
