@@ -14,7 +14,7 @@ $m_pages = array(
 	"logout" => array($lang["header.Logout"], genURL("logout"), "signed_in"),
 );
 
-if (isset($categoryID)) $m_pages["newthread"][1] = genURL('newthread/' . $categoryID);
+if (isset($q1) && $q1 == "category" && isset($q2) && is_numeric($q2)) $m_pages["newthread"][1] = genURL('newthread/' . intval($q2));
 if (isset($_GET['url']) && strlen($_GET['url']) > 0) {
     $login_redirect = "?next=" . ltrim($_GET['url'], '/');
 }
@@ -100,7 +100,7 @@ if (($q1 == "thread") and isset($title))
         $data["title"] = htmlspecialchars($title) . ' • ' . $config["forumName"];
     }
 }
-else if ($q1 == "category" && isset($categoryName)) $data["title"] = htmlspecialchars($categoryName) . ' • ' . $config["forumName"];
+else if (strlen($custom_page_title)) $data["title"] = htmlspecialchars($custom_page_title) . ' • ' . $config["forumName"];
 else if ($q1 == "user" && isset($username)) $data["title"] = htmlspecialchars($username) . ' • ' . $config["forumName"];
 else if (($q1 == "panel" || $q1 == "userpanel") && array_key_exists($q2,$panel_pages) && strlen($panel_pages[$q2][1])) $data["title"] = $panel_pages[$q2][1] . ' • ' . $config["forumName"];
 
