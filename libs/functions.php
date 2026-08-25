@@ -181,6 +181,7 @@ function saveConfig($file, $array) {
     $getArray = var_export($array, true);
     listener("beforeSaveConfig", $getArray, $array, $file);
     $success = file_put_contents($file, '<?php '.PHP_EOL. '$config = '. $getArray .';' .PHP_EOL. '?>');
+    if (function_exists("opcache_invalidate")) opcache_invalidate($file, true);
     listener("afterSaveConfig");
     if (!$success) return false;
     else return true;
@@ -191,6 +192,7 @@ function saveExtensionConfig($file, $array) {
     $getArray = var_export($array, true);
     listener("beforeSaveExtensionConfig", $getArray, $array, $file);
     $success = file_put_contents($file, '<?php '.PHP_EOL. '$extensions = '. $getArray .';' .PHP_EOL. '?>');
+    if (function_exists("opcache_invalidate")) @opcache_invalidate($file, true);
     listener("afterSaveExtensionConfig");
     if (!$success) return false;
     else return true;
@@ -214,6 +216,7 @@ function saveExtensionSettingsConfig($file, &$array) {
     }
     $getArray = var_export($array, true);
     $success = file_put_contents($file, '<?php '.PHP_EOL. '$extension_config = '. $getArray .';' .PHP_EOL. '?>');
+    if (function_exists("opcache_invalidate")) @opcache_invalidate($file, true);
     if (!$success) return false;
     else return true;
 }
