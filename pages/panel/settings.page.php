@@ -105,7 +105,7 @@ if ((bool)$config["showDeletedInUserlist"]) echo 'checked';
 echo '></div>';
 
 $options = array("open", "closed", "approval");
-echo "<label>" . $lang["panel.Registration"] . "</label><select name='registration'>";
+echo '<div class="forminput"><label>' . $lang["panel.Registration"] . "</label><select name='registration'>";
 foreach ($options as $option) {
     $selected = "";
     if ($config["registration"] == $option) $selected = "selected='' ";
