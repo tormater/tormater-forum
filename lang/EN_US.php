@@ -80,12 +80,12 @@ $lang = array(
     
     "header.Home" => "Home",
     "header.Userlist" => "Userlist",
-    "header.NewThread" => "New thread",
+    "header.NewThread" => "New Thread",
     "header.Panel" => "Admin Panel",
     "header.Logout" => "Logout",
     "header.Welcome" => "<a href='%s'>Login</a> or <a href='%s'>Sign up</a>",
     "header.Hello" => "Hello, %s",
-    "header.UserPanel" => "User Panel",
+    "header.UserPanel" => "My Settings",
     
     "homepage.CatThreads" => "Threads",
     "homepage.Threads" => "Recent Threads",
