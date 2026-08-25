@@ -179,6 +179,14 @@ if (($_SERVER["REQUEST_METHOD"] == "POST") && (isset($_POST["MySQLServer"]))) {
             `context` text DEFAULT NULL,
             PRIMARY KEY (`actionid`)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
+        
+        $db->query("CREATE TABLE `views` (
+            `userid` int unsigned NOT NULL,
+            `threadid` int unsigned NOT NULL,
+            `timestamp` int unsigned NOT NULL,
+            `postcount` int unsigned NOT NULL,
+            PRIMARY KEY (userid, threadid)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;");
 
         // Create the admin's account, first generating the salt, password hash, and IP address hash.
         $adminSalt = "";
