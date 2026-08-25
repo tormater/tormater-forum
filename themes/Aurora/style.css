@@ -342,6 +342,19 @@ body {
     border: 1px solid var(--input-border);
 }
 
+.buttonbig_active {
+    color:var(--button-text-disabled);
+    box-shadow: 0 2px var(--c-gradient-top);
+    border-color: var(--input-border);
+}
+
+.buttonbig_active:hover, .buttonbig_active:active, .buttonbig_active:focus {
+    filter: none;
+    text-decoration: none;
+    border-color: var(--input-border);
+    cursor: unset;
+}
+
 .buttonsmall {
     background: linear-gradient(var(--button-g-top), var(--button-g-bottom));
     color: var(--button-text);
