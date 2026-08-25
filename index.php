@@ -13,7 +13,6 @@ $pages = array(
     "register" => "pages/signup.page.php",
     "login" => "pages/login.page.php",
     "newthread" => "pages/newthread.page.php",
-    "category" => "pages/category.page.php",
     "thread" => "pages/thread.page.php",
     "userlist" => "pages/userlist.page.php",
     "user" => "pages/user.page.php",
@@ -25,7 +24,6 @@ $pages = array(
 $functionPages = array(
     "logout" => "logout",
 );
-$fallbackPage = "pages/homepage.page.php";
 
 // Require all the necessary files for the forum to function.
 require "libs/functions.php";
@@ -106,6 +104,10 @@ if (isset($url[0])) $q1 = $url[0];
 if (isset($url[1])) $q2 = $url[1];
 if (isset($url[2])) $q3 = $url[2];
 if (isset($url[3])) $q4 = $url[3];
+if (!isset($url[0]) || !strlen($url[0])) {
+    $url = array("homepage");
+    $q1 = "homepage";
+}
 
 require "libs/templates.php";
 require "libs/generator.php";
@@ -121,7 +123,11 @@ elseif (isset($functionPages[$q1])) {
         call_user_func($functionPages[$q1]);
     }
 }
-elseif (!$q1) require $fallbackPage;
+elseif (($generated_page = try_load_custom_pages()) !== false) {
+    include 'pages/header.php';
+    echo $generated_page;
+    include 'pages/footer.php';
+}
 else {
     http_response_code(404);
     include "pages/header.php";
