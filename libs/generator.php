@@ -18,7 +18,7 @@ function try_load_custom_pages() {
     {
         $custom_pages["category/" . $row["categoryid"]] = ["title"=>$row["categoryname"],"data"=>json_encode([
         "title" => ["title"=>$row["categoryname"],"desc"=>$row["categorydescription"]],
-        "threads" => ["query"=>'sort_by=activity&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true"]
+        "threads" => ["query"=>'sort_by=activity&stickies=true&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true"]
         ])];
     }
     $size = count($url);
@@ -87,6 +87,7 @@ function generator_threads($widget) {
     if (!isset($widget["query"])) return;
     $pagination = "";
     $offset = "";
+    $pins = "";
     if (isset($widget["limit"])) {
          if (intval($widget["limit"]) < 1) unset($widget["limit"]);
          else $limit = "LIMIT " . intval($widget["limit"]);
@@ -108,7 +109,7 @@ function generator_threads($widget) {
          $offset = " OFFSET " . (($currentPage * $threadsPerPage) - $threadsPerPage);
          $pagination = renderPagination($custom_page_depth,1);
     }    
-    $threads = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])) . " " . $limit . $offset);
+    $threads = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])) . " " . $pins . $limit . $offset);
     
     
     $data = array(
@@ -314,21 +315,29 @@ function buildSearchQuery($get) {
     if (in_array("pinned",$labels)) addToQuery("pinned='1'", $query, $and);
     else if (in_array("!pinned",$labels)) addToQuery("pinned='0'", $query, $and);
     
-    if (in_array("draft", $labels)) {
-        if (($_SESSION["signed_in"] && !$author)) {
+    if ((get_role_from_session() != "Guest" && !$author)) {
+        if (in_array("draft", $labels)) {
             addToQuery("draft='1'",  $query, $and);
             addToQuery("startuser='". $_SESSION["userid"] . "'", $query, $and);
         }
-        else addToQuery("draft='0'",  $query, $and);
+        else {
+            addToQuery("draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "')",  $query, $and);
+        }
     }
     else addToQuery("draft='0'",  $query, $and);
     
+    if (isset($get["stickies"]) && $get["stickies"] != null) {
+        $query .= "UNION SELECT * FROM threads WHERE pinned='1' ";
+    }
+    
     $sort_by = "lastposttime";
+    $query .= "ORDER BY ";
+    if (isset($get["stickies"]) && $get["stickies"] != null) $query .= "pinned DESC, sticky DESC, ";
     if (isset($get["sort_by"]) && $get["sort_by"] != null && array_key_exists($get["sort_by"],$thread_sortoptions)) {
-        $query .= "ORDER BY " . $thread_sortoptions[$get["sort_by"]] . " ";
+        $query .= $thread_sortoptions[$get["sort_by"]] . " ";
         $sort_by = $thread_sortoptions[$get["sort_by"]];
     }
-    else $query .= "ORDER BY lastposttime ";
+    else $query .= "lastposttime ";
     
     $order = "ASC";
     if (isset($get["sort_order"]) && $get["sort_order"] != null && array_key_exists($get["sort_order"],$thread_sortorderoptions)) {
