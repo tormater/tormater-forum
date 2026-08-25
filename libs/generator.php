@@ -5,6 +5,33 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+$custom_pages = array(
+    "homepage" => ['{"title":"$homepage.Title","categories":{},"threads":{"query":"sort_by=activity&sort_order=asc","limit":5}}']
+);
+$custom_page_depth = 2;
+
+function try_load_custom_pages() {
+    global $url, $db, $config, $custom_pages,$custom_page_depth;
+    $category = $db->query("SELECT * FROM categories");
+    while ($row = $category->fetch_assoc()) 
+    {
+        $custom_pages["category/" . $row["categoryid"]] = [json_encode([
+        "title" => ["title"=>$row["categoryname"],"desc"=>formatPost($row["categorydescription"])],
+        "threads" => ["query"=>'sort_by=activity&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true"]
+        ])];
+    }
+    $size = count($url);
+    for ($i = 0; $i < $size; $i++) {
+        if ($i > 0) $urlpart .= "/" . $url[$i];
+        else $urlpart = $url[0];
+        if (array_key_exists($urlpart,$custom_pages)) {
+            $custom_page_depth = 2+$i;
+            return page_generate($custom_pages[$urlpart][0]);
+        }
+    }
+    return false;
+}
+
 $layout_widgets = array();
 
 $widgets = array(
@@ -24,8 +51,14 @@ function localize($string) {
 
 function page_generate($page) {
     global $widgets;
+    try {
+        $dpage = json_decode($page,true,512,JSON_THROW_ON_ERROR);
+    }
+    catch (Exception $e) {
+        return message("JSON parse error while generating page: " . $e->getMessage(),true);
+    }
     $data = "";
-    foreach($page as $w => $v) {
+    foreach($dpage as $w => $v) {
         if (!array_key_exists($w,$widgets)) continue;
         if (!is_callable($widgets[$w])) continue;
         $data .= call_user_func($widgets[$w],$v);
@@ -44,15 +77,37 @@ function generator_bbcode($widget) {
 function generator_title($widget) {
     global $template;
     if (is_string($widget)) return $template->render("templates/generator/title.html",array("title"=>localize($widget)));
-    else return $template->render("templates/generator/titledesc.html",array("title"=>localize($widget["title"]),"desc"=>localize($widget["desc"])));
+    else return $template->render("templates/generator/titledesc.html",array("title"=>localize($widget["title"]),"desc"=>$widget["desc"]));
 }
 
 function generator_threads($widget) {
-    global $config, $db, $template, $lang;
+    global $config, $db, $template, $lang, $url, $custom_page_depth;
     if (!isset($widget["query"])) return;
-    $limit = "LIMIT 10";
-    if (isset($widget["limit"])) $limit = "LIMIT " . intval($widget["limit"]);
-    $threads = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])) . " " . $limit);
+    $pagination = "";
+    $offset = "";
+    if (isset($widget["limit"])) {
+         if (intval($widget["limit"]) < 1) unset($widget["limit"]);
+         else $limit = "LIMIT " . intval($widget["limit"]);
+    }
+    else {
+         $threadsPerPage = (is_numeric($config["threadsPerPage"]) ? (int)$config["threadsPerPage"] : 20);
+         if ($threadsPerPage < 1) $threadsPerPage = 1;
+         $limit = "LIMIT " . $threadsPerPage;
+    }
+    if (isset($widget["pagination"])) {
+         $thread_count = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])));
+         $threadsPerPage = (isset($widget["limit"]) ? intval($widget["limit"]) : 10);
+         $numThreads = $thread_count->num_rows;
+         $pages = ceil($numThreads / $threadsPerPage);
+         $GLOBALS["pages"] = $pages;
+         $currentPage = @$url[$custom_page_depth-1];
+         if (!is_numeric($currentPage) || $currentPage < 1) $currentPage = 1;
+         $GLOBALS["currentPage"] = $currentPage;
+         $offset = " OFFSET " . (($currentPage * $threadsPerPage) - $threadsPerPage);
+         $pagination = renderPagination($custom_page_depth,1);
+    }    
+    $threads = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])) . " " . $limit . $offset);
+    
     
     $data = array(
       "th_lastpost" => $lang["category.LastPost"],
@@ -61,6 +116,8 @@ function generator_threads($widget) {
       "threads" => ""
     );
     if (isset($widget["title"])) $data["th_recentthreads"] = localize($widget["title"]);
+    
+    if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["error.CategoryEmpty"]));
     
     while($row = $threads->fetch_assoc())
     {		
@@ -97,13 +154,20 @@ function generator_threads($widget) {
         }           
         $data["threads"] .= $template->render("templates/thread/thread_display.html", $thread_data);
     }
-    return $template->render("templates/generator/thread_table.html",$data);
+    return $pagination . $template->render("templates/generator/thread_table.html",$data) . $pagination;
 }
 
 function generator_categories($widget) {
     global $config, $db, $template, $lang;
-    $query = "SELECT * FROM `categories` ORDER BY `order` ASC";
-    //TODO: implement "which" field to choose which categories will be displayed
+    $where = "";
+    if (isset($widget["which"])) {
+        $where .= " WHERE categoryid in (";
+        foreach ($widget["which"] as $v) {
+            $where .= intval($v) . ",";
+        }
+        $where = substr($where,0,-1) . ")";
+    }
+    $query = "SELECT * FROM `categories`" . $where . " ORDER BY `order` ASC";
     $categories = $db->query($query);
     $data = array(
       "categories" => "",
