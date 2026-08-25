@@ -21,6 +21,7 @@ function try_load_custom_pages() {
         "threads" => ["query"=>'sort_by=activity&stickies=true&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true"]
         ])];
     }
+    listener("beforeTryLoadCustomPage",$custom_pages);
     $size = count($url);
     for ($i = 0; $i < $size; $i++) {
         if ($i > 0) $urlpart .= "/" . $url[$i];
@@ -38,6 +39,7 @@ $layout_widgets = array();
 
 $widgets = array(
     "bbcode" => "generator_bbcode",
+    "message" => "generator_message",
     "threads" => "generator_threads",
     "categories" => "generator_categories",
     "title" => "generator_title",
@@ -74,6 +76,12 @@ function generator_bbcode($widget) {
     global $template;
     if (!is_string($widget)) return;
     return $template->render("templates/generator/text.html",array("text"=>formatBBCode($widget)));
+}
+
+function generator_message($widget) {
+    global $template;
+    if (!is_string($widget)) return;
+    return message(formatBBCode($widget),true);
 }
 
 function generator_title($widget) {
