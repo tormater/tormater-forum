@@ -94,6 +94,10 @@ $thread_data = array(
     "error" => "",
 );
 
+if (get_role_from_session() != "Guest") {
+    $db->query("REPLACE INTO views(threadid,userid,timestamp,postcount) VALUES(" . $row["threadid"] . "," . $_SESSION["userid"] . "," . time() . "," . $offset + $posts->num_rows . ")");
+}
+
 if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD) or get_role_permissions() & PERM_EDIT_THREAD) {
     $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title),"maxtitle" => $config["maxCharsPerTitle"], "submit" => $lang["post.SaveEditBtn"]));
 }
