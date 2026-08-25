@@ -6,17 +6,18 @@
 if (!defined("INDEXED")) exit;
 
 $custom_pages = array(
-    "homepage" => ['{"title":"$homepage.Title","categories":{},"threads":{"query":"sort_by=activity&sort_order=asc","limit":5}}']
+    "homepage" => ["data"=>'{"title":"$homepage.Title","categories":{},"threads":{"query":"sort_by=activity&sort_order=asc","limit":5}}',"title"=>'']
 );
 $custom_page_depth = 2;
+$custom_page_title = "";
 
 function try_load_custom_pages() {
-    global $url, $db, $config, $custom_pages,$custom_page_depth;
+    global $url, $db, $config, $custom_pages,$custom_page_depth,$custom_page_title;
     $category = $db->query("SELECT * FROM categories");
     while ($row = $category->fetch_assoc()) 
     {
-        $custom_pages["category/" . $row["categoryid"]] = [json_encode([
-        "title" => ["title"=>$row["categoryname"],"desc"=>formatPost($row["categorydescription"])],
+        $custom_pages["category/" . $row["categoryid"]] = ["title"=>$row["categoryname"],"data"=>json_encode([
+        "title" => ["title"=>$row["categoryname"],"desc"=>$row["categorydescription"]],
         "threads" => ["query"=>'sort_by=activity&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true"]
         ])];
     }
@@ -26,7 +27,8 @@ function try_load_custom_pages() {
         else $urlpart = $url[0];
         if (array_key_exists($urlpart,$custom_pages)) {
             $custom_page_depth = 2+$i;
-            return page_generate($custom_pages[$urlpart][0]);
+            $custom_page_title = $custom_pages[$urlpart]["title"];
+            return page_generate($custom_pages[$urlpart]["data"]);
         }
     }
     return false;
@@ -77,7 +79,7 @@ function generator_bbcode($widget) {
 function generator_title($widget) {
     global $template;
     if (is_string($widget)) return $template->render("templates/generator/title.html",array("title"=>localize($widget)));
-    else return $template->render("templates/generator/titledesc.html",array("title"=>localize($widget["title"]),"desc"=>$widget["desc"]));
+    else return $template->render("templates/generator/titledesc.html",array("title"=>localize($widget["title"]),"desc"=>formatPost($widget["desc"])));
 }
 
 function generator_threads($widget) {
