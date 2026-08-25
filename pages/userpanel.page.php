@@ -24,6 +24,11 @@ listener("userpanelBeforeRender");
 include "header.php";
 
 
+if (array_key_exists($q2,$panel_pages)) {
+    $panel_page = $q2;
+}
+else $panel_page = "avatarsettings";
+
 $data = array(
   "buttons" => ""
 );
@@ -31,15 +36,13 @@ $data = array(
 foreach($panel_pages as $k => $v) {
     if (!strlen($v[1])) continue;
     $b_data = array("url" => genURL("userpanel/" . $k), "title" => $v[1]);
-    $data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
+    if ($k == $panel_page) $data["buttons"] .= $template->render("templates/panel/panel_button_active.html",$b_data);
+    else $data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
 }
 
 echo $template->render("templates/panel/panel_navigation.html",$data);
 
-if (array_key_exists($q2,$panel_pages)) {
-    include $panel_pages[$q2][0];
-}
-else include $panel_pages["avatarsettings"][0];
+include $panel_pages[$panel_page][0];
 
 include "footer.php";
 
