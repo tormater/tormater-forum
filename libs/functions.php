@@ -695,7 +695,7 @@ function deleteUser($mode, $userid) {
 }
 
 function drawNavigation() {
-    global $lang, $config, $template, $db;
+    global $lang, $config, $template, $db, $custom_page_title;
     global $q1, $q2, $q3;
     
     $nav = "";
@@ -728,9 +728,9 @@ function drawNavigation() {
             return $nav;
         }
     }
-    else if ($q1 == "category" && isset($GLOBALS["categoryName"]))
+    else if (strlen($custom_page_title))
     {
-        $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($GLOBALS["categoryName"])));
+        $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($custom_page_title)));
     }
     else if ($q1 == "user" && isset($GLOBALS["username"]))
     {
