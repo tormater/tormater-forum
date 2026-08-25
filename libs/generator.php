@@ -141,7 +141,13 @@ function generator_threads($widget) {
             "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" class="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
             "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
             "reldate" => relativeTime($row["lastposttime"]),
-        );
+            "viewed" => "",
+        );        
+        if (get_role_from_session() != "Guest") {
+            $viewed = $db->query("SELECT * FROM views WHERE userid=" . $_SESSION["userid"] . " AND threadid=" . $row["threadid"] . " AND timestamp > " . $row['lastposttime'] . " AND postcount=" . $row["posts"]);	
+            if ($viewed->num_rows) $thread_data["viewed"] = " thread_viewed";
+        }
+        
         $labels = array();
         if ($row["locked"] == true) $labels["locked"] = $lang["label.Locked"];
         if ($row["sticky"] == true) $labels["sticky"] = $lang["label.Sticky"];
