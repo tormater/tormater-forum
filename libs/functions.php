@@ -5,6 +5,12 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
+$meta = "";
+function addToMeta($string) {
+    global $meta;
+    $meta .= $string;
+}
+
 // Hash a string depending on what algorithm is desired by the configuration.
 function hashstring($text) {
     global $config;
