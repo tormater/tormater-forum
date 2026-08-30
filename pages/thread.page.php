@@ -95,7 +95,12 @@ $thread_data = array(
 );
 
 if (get_role_from_session() != "Guest") {
-    $db->query("REPLACE INTO views(threadid,userid,timestamp,postcount) VALUES(" . $row["threadid"] . "," . $_SESSION["userid"] . "," . time() . "," . $offset + $posts->num_rows . ")");
+    $postcount = $offset + $posts->num_rows;
+    $existing = $db->query("SELECT * FROM views WHERE threadid=" . $row["threadid"]);
+    while ($viewrow = $existing->fetch_assoc()) {
+        if ($viewrow["postcount"] > $postcount) $postcount = $viewrow["postcount"];
+    }
+    $db->query("REPLACE INTO views(threadid,userid,timestamp,postcount) VALUES(" . $row["threadid"] . "," . $_SESSION["userid"] . "," . time() . "," . $postcount . ")");
 }
 
 if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD) or get_role_permissions() & PERM_EDIT_THREAD) {
