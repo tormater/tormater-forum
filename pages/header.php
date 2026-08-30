@@ -39,7 +39,7 @@ $data = array(
 	    "searchButton" => $lang["search.Button"],
 	    "searchURL" => genURL("search"),
 	    "searchInput" => "",
-	    "meta" => "",
+	    "meta" => $meta,
 	    "color" => "",
 	    "keywords" => strtolower($config["forumName"]),
 	    "navigation" => drawNavigation(),
@@ -82,7 +82,7 @@ if (isset($matches[0]))
 
 ob_start();
 listener("meta");
-$data["meta"] = ob_get_contents();
+$data["meta"] .= ob_get_contents();
 ob_end_clean();
 
 if (isset($_GET["search"]) && !empty($_GET["search"])) {
