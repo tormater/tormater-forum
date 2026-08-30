@@ -26,7 +26,7 @@ if (file_exists('themes/' . $config["forumTheme"] . '/style.css')) $css_modified
 
 $data = array(
 	    "locale" => str_replace("_", "-", $lang["locale"]),
-	    "title" => (empty($lang["page." . $q1])) ? $config["forumName"] : $lang["page." . $q1] . ' • ' . $config["forumName"],
+	    "title" => (empty($lang["page." . $q1]) || $q1 == "homepage") ? $config["forumName"] : $lang["page." . $q1] . ' • ' . $config["forumName"],
 	    "stylesheet" => genURL('themes/' . $config["forumTheme"] . '/style.css?v=' . $css_modified),
 	    "favicon" => genURL('themes/' . $config["forumTheme"] . '/icon.ico'),
 	    "favicon_svg" => genURL('themes/' . $config["forumTheme"] . '/icon.svg'),
