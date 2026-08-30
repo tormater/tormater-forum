@@ -175,7 +175,7 @@ body {
 
 #menu {
     width: 100%;
-    padding: 7px 17px;
+    padding: 4px 17px;
     box-sizing: border-box;
     background-color: var(--slate);
     background-image: linear-gradient(#ffffff6b 0%, #ffffff1c 50%, #fff0 50%, #ffffff2b 100%);
@@ -185,6 +185,7 @@ body {
     border-bottom-right-radius:10px;
     border-bottom-left-radius:10px;
     box-shadow: 0px 1px 2px #0000005c;
+    line-height: 1.6;
 }
 
 .item {
@@ -198,13 +199,14 @@ body {
 
 #userbar {
     margin-left: auto;
-    padding: 4px 8px 4px 60px;
+    padding: 2px 8px 2px 60px;
     background: linear-gradient(to left, rgba(255, 255, 255, .6) 40%, rgba(255, 255, 255, 0));
     border-radius: 0 4px 4px 0;
     box-shadow: -1px 0px 1px #fff5 inset;
     backdrop-filter: blur(2px);
     color: #000;
     margin-right: 25px;
+    line-height: 1.5;
 }
 
 #footer {
@@ -1599,9 +1601,6 @@ fieldset {
 
     .item {
         display: inline-block;
-        margin: 5px;
-        margin-bottom: 0;
-        margin-top: 0;
     }
 
     #menu #userbar {
@@ -1609,7 +1608,7 @@ fieldset {
         text-align: right;
         margin: 4px 0;
     }
-    #forumheader {
+    .forumTitle {
         padding: 25px 15px;
     }
 
@@ -1697,5 +1696,20 @@ fieldset {
 @media (max-width: 575px) {
     .userlist-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    #forumheader {
+        display: block;
+    }
+    
+    #userbar {
+        padding: 4px 8px 4px 24px;
+        background: linear-gradient(to top, rgba(255, 255, 255, .4) 40%, rgba(255, 255, 255, .2));
+        margin-right: unset;
+        margin-left: unset;
+        border-radius: 0px;
+        font-size: 110%;
     }
 }
