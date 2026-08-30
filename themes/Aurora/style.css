@@ -106,7 +106,6 @@ body {
 #forumheader {
     display: flex;
     align-items: center;
-    padding: 25px;
     background-color: var(--c-gradient-medium);
     background-image: linear-gradient(#ffffffad 0%, #ffffff20 50%, #0001 50%, #fff3 100%);
     box-shadow: 0px 1px 2px inset #ffffff87;
@@ -127,6 +126,7 @@ body {
     font-weight:bold;
     text-shadow: 0px 1px 2px var(--c-border);
     display: inline-block;
+    padding: 25px;
 }
 
 .forumtitle:hover {
@@ -204,6 +204,7 @@ body {
     box-shadow: -1px 0px 1px #fff5 inset;
     backdrop-filter: blur(2px);
     color: #000;
+    margin-right: 25px;
 }
 
 #footer {
@@ -708,6 +709,10 @@ tr:last-child td:last-child {
 }
 .tdttitle {
     font-weight: bold;
+}
+
+.thread_viewed {
+    font-weight: normal;
 }
 
 td {
