@@ -66,7 +66,7 @@ function formatBBCode($post)
         '<blockquote class="postquote">$1</blockquote>',
     );
 
-    listener("beforeFormatBBCode");
+    listener("beforeFormatBBCode",$returnPost);
     $code_body = array();
     
     $returnPost = preg_replace_callback($code_regex, function($match) use(&$code_body) {
@@ -85,13 +85,13 @@ function formatBBCode($post)
 function formatPost($post)
 {
     $returnPost = formatBBCode($post);
-    listener("beforeReturnFormattedPost");
+    listener("beforeReturnFormattedPost",$returnPost);
     return $returnPost;
 }
 function formatFooter($post)
 {
     $returnPost = formatPost($post);
-    listener("beforeReturnFormattedFooter");
+    listener("beforeReturnFormattedFooter",$returnPost);
     return $returnPost;
 }
 
@@ -99,7 +99,7 @@ function formatFooter($post)
 function BBCodeButtons($num = "", $echo = true) {
     global $lang;
     // Serve the JavaScript.
-    echo("<script type='text/javascript' src='" . genURL("assets/bbcode.js") . "'></script>");
+    addToMeta("<script type='text/javascript' src='" . genURL("assets/bbcode.js") . "'></script>");
 
     listener("beforeRenderBBCodeTray");
 
