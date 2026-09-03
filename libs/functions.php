@@ -106,7 +106,7 @@ function validateEmail($email) {
     $res = $db->query("SELECT * FROM users WHERE email ='". $db->real_escape_string($email) ."'");
 
     if ($res->num_rows) return message($lang["register.EmailExists"],true);
-    if (strlen($email) < 1) return message($lang["register.EmailShort"],true);
+    if (strlen($email) < 1) return message($lang["register.EmailEmpty"],true);
     if (strlen($email) > 254) return message($lang["register.EmailLong"],true);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) return message($lang["register.InvalidEmailFormat"],true);
     $return = "";
