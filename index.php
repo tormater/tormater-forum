@@ -111,6 +111,14 @@ if (!isset($url[0]) || !strlen($url[0])) {
 
 require "libs/templates.php";
 require "libs/generator.php";
+
+$profile_color_count = 16;
+if (file_exists('themes/' . $config["forumTheme"] . '/manifest.json')) {
+    $theme_manifest = json_decode(file_get_contents('themes/' . $config["forumTheme"] . '/manifest.json'));
+}
+else $theme_manifest = json_decode(file_get_contents('themes/Aurora/manifest.json'));
+if (isset($theme_manifest->profile_color_count) && is_numeric($theme_manifest->profile_color_count)) $profile_color_count = $theme_manifest->profile_color_count;
+
 require "libs/extensions.php";
 
 listener("beforePageLoad");
