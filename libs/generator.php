@@ -6,7 +6,7 @@
 if (!defined("INDEXED")) exit;
 
 $custom_pages = array(
-    "homepage" => ["data"=>'{"title":"$homepage.Title","categories":{},"threads":{"query":"sort_by=activity&sort_order=asc","limit":5}}',"title"=>'']
+    "homepage" => ["data"=>'{"title":"$homepage.Title","categories":{},"threads":{"query":"sort_by=activity&sort_order=asc","empty_msg":"$error.ForumEmpty","limit":5}}',"title"=>'']
 );
 $custom_page_depth = 2;
 $custom_page_title = "";
@@ -18,7 +18,7 @@ function try_load_custom_pages() {
     {
         $custom_pages["category/" . $row["categoryid"]] = ["title"=>$row["categoryname"],"data"=>json_encode([
         "title" => ["title"=>$row["categoryname"],"desc"=>$row["categorydescription"]],
-        "threads" => ["query"=>'sort_by=activity&stickies=true&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true"]
+        "threads" => ["query"=>'sort_by=activity&stickies=true&sort_order=asc&category='.$row["categoryid"],"pagination"=>"true","empty_msg"=>"\$error.CategoryEmpty"]
         ])];
     }
     listener("beforeTryLoadCustomPage",$custom_pages);
@@ -128,7 +128,7 @@ function generator_threads($widget) {
     );
     if (isset($widget["title"])) $data["th_recentthreads"] = localize($widget["title"]);
     
-    if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["search.NoResults"]));
+    if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => isset($widget["empty_msg"]) ?  localize($widget["empty_msg"]) : $lang["search.NoResults"]));
     
     while($row = $threads->fetch_assoc())
     {		
