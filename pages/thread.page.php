@@ -59,7 +59,7 @@ if (!(get_role_permissions() & PERM_VIEW_CATEGORY) || !(get_role_permissions() &
 $numPosts = $row['posts'];
 $pages = ceil($numPosts / $postsPerPage);
 if ($currentPage > $pages) $currentPage = $pages;
-$offset = (($currentPage * $postsPerPage) - $postsPerPage);
+$offset = intval(($currentPage * $postsPerPage) - $postsPerPage);
 
 $posts = $db->query("SELECT * FROM posts WHERE thread='" . $db->real_escape_string($q2) . "' ORDER BY timestamp LIMIT " . $postsPerPage . " OFFSET " . $offset . "");
 
