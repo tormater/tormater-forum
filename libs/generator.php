@@ -128,7 +128,7 @@ function generator_threads($widget) {
     );
     if (isset($widget["title"])) $data["th_recentthreads"] = localize($widget["title"]);
     
-    if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["error.CategoryEmpty"]));
+    if ($threads->num_rows == 0) $data["threads"] = $template->render("templates/thread/thread_display_blank.html", array("title" => $lang["search.NoResults"]));
     
     while($row = $threads->fetch_assoc())
     {		
