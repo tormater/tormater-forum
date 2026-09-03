@@ -322,6 +322,7 @@ function renderPageButton($page_url, $page_index, $query, $label="") {
     );
     if (empty($data["label"])) $data["label"] = $page_index;
     if ($page_index == $currentPage) return $template->render("templates/pagination/page_button_disabled.html",$data);
+    else if ($page_index == intval($currentPage)) return $template->render("templates/pagination/page_button.html",$data).$template->render("templates/pagination/page_button_disabled.html",["label"=>$currentPage,"url"=>genPaginationURL($page_url, $currentPage, $query)]);
     return $template->render("templates/pagination/page_button.html",$data);
 }
 
@@ -355,7 +356,7 @@ function renderPagination($qN = 3, $return = 0) {
             }
         }
         else if ($currentPage > 4 && $currentPage < $pages - 4) {
-            for ($i = $currentPage - 3; $i <= $currentPage + 3; $i++) {
+            for ($i = intval($currentPage) - 3; $i <= intval($currentPage) + 3; $i++) {
                 $data["page_buttons"] .= renderPageButton($page_url,$i,$query);
             }         
         }
