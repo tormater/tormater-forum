@@ -114,7 +114,7 @@ function generator_threads($widget) {
          $currentPage = @$url[$custom_page_depth-1];
          if (!is_numeric($currentPage) || $currentPage < 1) $currentPage = 1;
          $GLOBALS["currentPage"] = $currentPage;
-         $offset = " OFFSET " . (($currentPage * $threadsPerPage) - $threadsPerPage);
+         $offset = " OFFSET " . intval(($currentPage * $threadsPerPage) - $threadsPerPage);
          $pagination = renderPagination($custom_page_depth,1);
     }    
     $threads = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])) . " " . $pins . $limit . $offset);
