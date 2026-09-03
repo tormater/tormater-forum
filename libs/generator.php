@@ -87,6 +87,7 @@ function generator_message($widget) {
 function generator_title($widget) {
     global $template;
     if (is_string($widget)) return $template->render("templates/generator/title.html",array("title"=>localize($widget)));
+    else if (!isset($widget["desc"])) return $template->render("templates/generator/title.html",array("title"=>localize($widget["title"])));
     else return $template->render("templates/generator/titledesc.html",array("title"=>localize($widget["title"]),"desc"=>formatPost($widget["desc"])));
 }
 
