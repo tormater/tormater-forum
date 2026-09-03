@@ -11,7 +11,7 @@ $m_pages = array(
 	"userpanel" => array($lang["header.UserPanel"], genURL("userpanel"), "signed_in"),
 	"newthread" => array($lang["header.NewThread"], genURL("newthread"), PERM_CREATE_THREAD),
 	"panel" => array($lang["header.Panel"], genURL("panel"), PERM_EDIT_FORUM),
-	"logout" => array($lang["header.Logout"], genURL("logout"), "signed_in"),
+	"logout" => array($lang["header.Logout"], genURL("logout?next=" . implode("/",$url)), "signed_in"),
 );
 
 if (isset($q1) && $q1 == "category" && isset($q2) && is_numeric($q2)) $m_pages["newthread"][1] = genURL('newthread/' . intval($q2));
