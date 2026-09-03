@@ -49,7 +49,7 @@ if ($currentPage > $pages) $currentPage = $pages;
 if ($currentPage < 1) $currentPage = 1;
 
 // Calculate the offset for the threads query.
-$offset = (($currentPage * $config["usersPerPage"]) - $config["usersPerPage"]);
+$offset = intval(($currentPage * $config["usersPerPage"]) - $config["usersPerPage"]);
 
 if ($config["userlistEnabled"] == false) {
     include "header.php";
