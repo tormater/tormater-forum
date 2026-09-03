@@ -13,15 +13,6 @@ if (get_role_from_session() == "Guest" && $config['searchMembersOnly'])
     exit;
 }
 
-if (isset($q2) && is_numeric($q2)) 
-{
-    $currentPage = $q2;
-}
-else
-{
-    $currentPage = 1;
-}
-
 include "header.php";
 
 $data = array
@@ -93,84 +84,7 @@ if (isset($_GET["search"]) && strlen($_GET["search"]) > 64)
 
 $search = buildSearchQuery($_GET);
 
-if (!$search || strlen($search) < 1)
-{
-    $data["table"] = message($lang["search.EmptySearch"], 1);
-    echo $template->render("templates/search/search_page.html", $data);
-    include 'footer.php';
-    exit;
-}
-
-// Important details for sorting the threads into pages.
-$thread_count = $db->query("SELECT 1 FROM threads " . $search);
-
-$numThreads = $thread_count->num_rows;
-
-if (!$numThreads) {
-    $data["table"] = message($lang["search.NoResults"], 1);
-    echo $template->render("templates/search/search_page.html", $data);
-    include 'footer.php';
-    exit;
-}
-
-if ($numThreads < 1) $numThreads = 1;
-$pages = ceil($numThreads / $config["threadsPerPage"]);
-if ($currentPage > $pages) $currentPage = $pages;
-if ($currentPage < 1) $currentPage = 1;
-
-// Calculate the offset for the threads query.
-$offset = (($currentPage * $config["threadsPerPage"]) - $config["threadsPerPage"]);
-
-$threads = $db->query("SELECT * FROM threads " . $search . " LIMIT " . $config["threadsPerPage"] . " OFFSET " . $offset . "");
-
-$table_data = array(
-    "title" => $lang["search.Header"],
-    "pagination" => "",
-    "threads" => "",
-    "th_thread" => $lang["category.Thread"],
-    "th_posts" => $lang["category.Posts"],
-    "th_lastpost" => $lang["category.LastPost"],
-);
-
-while($row = $threads->fetch_assoc())
-{		
-    $suinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["startuser"] . "'");	
-    $su = $suinfo->fetch_assoc();
-    if ($su["deleted"] == 1) $susername = $lang["user.Deleted"] . $su["userid"];
-    else $susername = $su["username"];
-    
-    $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $row["lastpostuser"] . "'");	
-    $u = $uinfo->fetch_assoc();
-    if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
-    else $username = $u["username"];
-    
-    $thread_data = array
-    (
-        "labels" => "",
-        "url" => genURL('thread/' . $row['threadid']),
-        "title" => htmlspecialchars($row['title']),
-        "startuser" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $su["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($susername), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"])),
-        "posts" => $row['posts'],
-        "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" class="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
-        "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
-        "reldate" => relativeTime($row["lastposttime"]),
-        "viewed" => "",
-    );
-    if ($row["locked"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"locked","text"=>$lang["label.Locked"]]); 
-    if ($row["sticky"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"sticky","text"=>$lang["label.Sticky"]]);
-    if ($row["draft"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"draft","text"=>$lang["label.Draft"]]);  
-    if ($row["pinned"]) 
-        $thread_data["labels"] .= $template->render("templates/thread/label.html", ["class"=>"pinned","text"=>$lang["label.Pinned"]]);
-        
-    $table_data["threads"] .= $template->render("templates/thread/thread_display.html", $thread_data);
-}
-
-$table_data["pagination"] = renderPagination(2,1);
-
-$data["table"] = $template->render("templates/search/search_table.html", $table_data);
+$data["table"] = generator_threads(["query" => $_SERVER['QUERY_STRING'],"pagination" => "true"]);
 
 echo $template->render("templates/search/search_page.html", $data);
 
