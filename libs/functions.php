@@ -76,7 +76,7 @@ function logout() {
     session_unset();
     session_destroy();
     listener("afterLogout");
-    redirect("");
+    redirect($_GET["next"]);
 }
 
 // Makes sure there aren't any bad characters in usernames
