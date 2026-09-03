@@ -5,7 +5,7 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-if (isset($_POST["newcolor"]) and is_numeric($_POST["newcolor"]) and ($_POST["newcolor"] > 0) and ($_POST["newcolor"] <= 16)) {
+if (isset($_POST["newcolor"]) and is_numeric($_POST["newcolor"]) and ($_POST["newcolor"] > 0) and ($_POST["newcolor"] <= $profile_color_count)) {
     $result = $db->query("UPDATE users SET color='" . $db->real_escape_string($_POST["newcolor"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
     if (!$result) {
         message($lang["settings.SetColorError"]);
@@ -33,7 +33,7 @@ $data = array(
 $result = $db->query("SELECT color FROM users WHERE userid='" . $_SESSION["userid"] . "'");
 $user = $result->fetch_assoc();
 
-for ($i = 1; $i <= 16; $i++) {
+for ($i = 1; $i <= $profile_color_count; $i++) {
     if ($user['color'] == $i) $usercolor = " userscolor";
     else $usercolor = "";
     $data["colors"] .= '<button class="settingscolor' . $usercolor . '" postcolor="' . $i . '" value="' . $i . '" name="newcolor"></button>';
