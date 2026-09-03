@@ -322,7 +322,7 @@ function renderPageButton($page_url, $page_index, $query, $label="") {
     );
     if (empty($data["label"])) $data["label"] = $page_index;
     if ($page_index == $currentPage) return $template->render("templates/pagination/page_button_disabled.html",$data);
-    else if ($page_index == intval($currentPage)) return $template->render("templates/pagination/page_button.html",$data).$template->render("templates/pagination/page_button_disabled.html",["label"=>$currentPage,"url"=>genPaginationURL($page_url, $currentPage, $query)]);
+    else if ($page_index == intval($currentPage) && $data["label"] == $page_index) return $template->render("templates/pagination/page_button.html",$data).$template->render("templates/pagination/page_button_disabled.html",["label"=>$currentPage,"url"=>genPaginationURL($page_url, $currentPage, $query)]);
     return $template->render("templates/pagination/page_button.html",$data);
 }
 
