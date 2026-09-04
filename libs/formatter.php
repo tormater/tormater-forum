@@ -94,6 +94,12 @@ function formatFooter($post)
     listener("beforeReturnFormattedFooter",$returnPost);
     return $returnPost;
 }
+function format($post)
+{
+    $returnPost = htmlspecialchars($post);
+    listener("beforeReturnFormatted",$returnPost);
+    return $returnPost;
+}
 
 // Display buttons for adding BBCode to textareas.
 function BBCodeButtons($num = "", $echo = true) {
