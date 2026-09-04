@@ -50,7 +50,7 @@ function localize($string) {
     if ($string[0] == "$" && array_key_exists(substr($string,1),$lang)) {
         return $lang[substr($string,1)];
     }
-    else return htmlspecialchars($string);
+    else return format($string);
 }
 
 function page_generate($page) {
@@ -147,7 +147,7 @@ function generator_threads($widget) {
         (
             "labels" => "",
             "url" => genURL('thread/' . $row['threadid']),
-            "title" => htmlspecialchars($row['title']),
+            "title" => format($row['title']),
             "startuser" => sprintf("<span>" .$lang["thread.Info"] . "</span>", $su["role"], genURL("user/" . htmlspecialchars($row["startuser"])), htmlspecialchars($susername), date('m-d-Y h:i:s A', $row['starttime']), relativeTime($row["starttime"])),
             "posts" => $row['posts'],
             "user" => '<a href="' . genURL('user/' . $row['lastpostuser']) . '" class="' . $u["role"] . '">' . htmlspecialchars($username) . '</a>',
@@ -204,7 +204,7 @@ function generator_categories($widget) {
         $user = "";
         if ($numthreads->num_rows > 0) {
             $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
-            $title = htmlspecialchars($trow['title']);
+            $title = format($trow['title']);
             $u = $uinfo->fetch_assoc();
             if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
             else $username = $u["username"];
@@ -215,7 +215,7 @@ function generator_categories($widget) {
         $category_data = array
         (
             "url" => genURL("category/" . $row["categoryid"]),
-	    "title" => htmlspecialchars($row["categoryname"]),
+	    "title" => format($row["categoryname"]),
 	    "desc" => formatPost($row["categorydescription"]),
 	    "threads" => $numthreads->num_rows,
 	    "lastpost" => $title,
