@@ -106,7 +106,7 @@ if (get_role_from_session() != "Guest") {
 if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD) or get_role_permissions() & PERM_EDIT_THREAD) {
     $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title),"maxtitle" => $config["maxCharsPerTitle"], "submit" => $lang["post.SaveEditBtn"]));
 }
-else $thread_data["title"] = $template->render("templates/thread/thread_title.html",array("title" => htmlspecialchars($title)));
+else $thread_data["title"] = $template->render("templates/thread/thread_title.html",array("title" => format($title)));
 
 if (get_role_permissions() & PERM_EDIT_THREAD) 
 {
@@ -589,7 +589,7 @@ include 'footer.php';
 
 if (get_role_from_session() != "Guest")
 {
-    $action = $lang["action.Generic"] . ' <a href="' . genURL('thread/' . $db->real_escape_string($q2)) . '/">' . htmlspecialchars($title) . '</a>';
+    $action = $lang["action.Generic"] . ' <a href="' . genURL('thread/' . $db->real_escape_string($q2)) . '/">' . format($title) . '</a>';
     update_last_action($action);
 }
 
