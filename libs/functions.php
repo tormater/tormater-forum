@@ -707,7 +707,7 @@ function drawNavigation() {
     
     $nav = "";
     if (isset($config["parentSite"]) && isset($config["parentSiteName"]) && $config["parentSite"] !== '' && $config["parentSiteName"] !== '') {
-        $nav .= $template->render("templates/header/nav_button.html", array("label" => $config["parentSiteName"], "url" => $config["parentSite"]));
+        $nav .= $template->render("templates/header/nav_button.html", array("label" => format($config["parentSiteName"]), "url" => $config["parentSite"]));
         $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
     } 
     
@@ -723,12 +723,12 @@ function drawNavigation() {
     {
         if ((isset($GLOBALS["title"]) and isset($GLOBALS["categoryName"])) and (($GLOBALS["draft"] == 0) or ($_SESSION["userid"] == $GLOBALS["startuser"]))) {
             $nav .= $template->render("templates/header/nav_button.html", 
-                    array("label" => htmlspecialchars($GLOBALS["categoryName"]), "url" => genURL('category/' . $GLOBALS["categoryID"]))
+                    array("label" => format($GLOBALS["categoryName"]), "url" => genURL('category/' . $GLOBALS["categoryID"]))
                     );
                     
             $nav .= $template->render("templates/header/nav_seperator.html", array("label" => "/"));
             
-            $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($GLOBALS["title"])));
+            $nav .= $template->render("templates/header/nav_last.html", array("label" => format($GLOBALS["title"])));
         }
         else {
             $nav .= $template->render("templates/header/nav_last.html", array("label" => $lang["page.homepage"]));
@@ -737,7 +737,7 @@ function drawNavigation() {
     }
     else if (strlen($custom_page_title))
     {
-        $nav .= $template->render("templates/header/nav_last.html", array("label" => htmlspecialchars($custom_page_title)));
+        $nav .= $template->render("templates/header/nav_last.html", array("label" => format($custom_page_title)));
     }
     else if ($q1 == "user" && isset($GLOBALS["username"]))
     {
