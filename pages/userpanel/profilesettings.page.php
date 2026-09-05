@@ -8,10 +8,10 @@ if (!defined("INDEXED")) exit;
 if (isset($_POST["newcolor"]) and is_numeric($_POST["newcolor"]) and ($_POST["newcolor"] > 0) and ($_POST["newcolor"] <= $profile_color_count)) {
     $result = $db->query("UPDATE users SET color='" . $db->real_escape_string($_POST["newcolor"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
     if (!$result) {
-        message($lang["settings.SetColorError"]);
+        $page_output .= message($lang["settings.SetColorError"],true);
     }
     else {
-        message($lang["settings.SetColorSuccess"]);
+        $page_output .= message($lang["settings.SetColorSuccess"],true);
         header("Cache-Control:private");
     }
 }
@@ -66,7 +66,7 @@ if (get_role_permissions() & PERM_EDIT_PROFILE) {
     $data["bio_form"] .=  BBCodeButtons(2,false) . "<form method='post' action=''><textarea maxlength='2048' name='bio' id='textbox2'>" . htmlspecialchars($bio) . "</textarea><input class='buttonbig' type='submit' value='" . $lang["userpanel.UpdateBio"] . "'></form>";
 }
 
-echo $template->render("templates/userpanel/profilesettings.html", $data);
+$page_output .=  $template->render("templates/userpanel/profilesettings.html", $data);
 
 if (get_role_from_session() != "Guest")
 {
