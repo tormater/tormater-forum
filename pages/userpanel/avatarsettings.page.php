@@ -6,15 +6,13 @@
 if (!defined("INDEXED")) exit;
 
 if ($config["avatarUploadsDisabled"] == true) {
-    message($lang["userpanel.AvatarUploadsDisabled"]);
-    require __DIR__ . "/../footer.php";
-    exit;
+    $page_output .= message($lang["userpanel.AvatarUploadsDisabled"],true);
+    return;
 }
 
 if (!(get_role_permissions() & PERM_EDIT_PROFILE)) {
-    message($lang["nav.BadAction"]);
-    require __DIR__ . "/../footer.php";
-    exit;
+    $page_output .= message($lang["nav.BadAction"],true);
+    return;
 }
 
 define("MIME_EXTENSION",0);
@@ -40,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (($config["timeBetweenAvatarUploads"] > 0) and isset($uploadTime) and ((time() - $uploadTime) <= $config["timeBetweenAvatarUploads"])) {
-            message($lang["userpanel.WaitToUpload"]);
+            $page_output .= message($lang["userpanel.WaitToUpload"],true);
             return;
         }
 
@@ -49,15 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Make sure the width and height is valid.
         if (!isset($width) or !isset($height) or ($width < 1) or ($height < 1)) {
-            message($lang["userpanel.InvalidDimensions"]);
+            $page_output .= message($lang["userpanel.InvalidDimensions"],true);
         }
         // Check for uploading errors.
         elseif (!isset($_FILES["uploadedFile"]["error"]) or (is_array($_FILES["uploadedFile"]["error"])) or ($_FILES["uploadedFile"]["error"] !== 0)) {
-            message($lang["userpanel.FileUploadFail"]);
+            $page_output .= message($lang["userpanel.FileUploadFail"],true);
         }
         // Make sure the avatar isn't too big.
         elseif ($_FILES["uploadedFile"]["size"] > $config["maxAvatarSize"]) {
-            message($lang["userpanel.FileTooBig"]);
+            $page_output .= message($lang["userpanel.FileTooBig"],true);
         }
         else {
             if (array_key_exists($mime,$mimes)) {
@@ -94,19 +92,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 if (file_exists("avatars/" . $_SESSION["userid"] . "." . $mimes[$mime][MIME_EXTENSION])) {
                     $db->query("UPDATE users SET avatar='".$mimes[$mime][MIME_EXTENSION]."', avataruploadtime='" . time() . "' WHERE userid='" . $_SESSION["userid"] . "'");
-                    message($lang["userpanel.AvatarUploadSuccess"]);
+                    $page_output .= message($lang["userpanel.AvatarUploadSuccess"],true);
                 }
                 else {
-                    message($lang["userpanel.Fail"]);
+                    $page_output .= message($lang["userpanel.Fail"],true);
                 }
             }
             else {
-                message($lang["userpanel.UnsupportedImageType"]);
+                $page_output .= message($lang["userpanel.UnsupportedImageType"],true);
             }
         }
     }
     elseif (isset($_POST["removeAvatar"])) {
-        if (removeAvatar($_SESSION["userid"])) message($lang["userpanel.RemoveAvatarSuccess"]);
+        if (removeAvatar($_SESSION["userid"])) $page_output .= message($lang["userpanel.RemoveAvatarSuccess"],true);
     }
 }
 
@@ -120,7 +118,7 @@ while ($a = $avatarCheck->fetch_assoc()) {
     }
 }
 
-echo("<div class='avatarForm'><h3>" . $lang["userpanel.ChangeAvatar"] . "</h3>" . $avatarURL . "</br>
+$page_output .= ("<div class='avatarForm'><h3>" . $lang["userpanel.ChangeAvatar"] . "</h3>" . $avatarURL . "</br>
     <form action='' method='post' enctype='multipart/form-data' class='inline-block'>
     <input type='file' name='uploadedFile' class='upload' accept='image/*'>
     <input type='submit' value='" . $lang["userpanel.UploadAvatar"] . "' name='submit'></form> <form action='' method='post' class='inline-block'><input type='submit' value='" . $lang["userpanel.RemoveAvatar"] . "' name='removeAvatar'></form>
