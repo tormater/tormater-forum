@@ -30,13 +30,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
         if (empty($errors)) {
             $result = $db->query("UPDATE users SET username='" . $db->real_escape_string($_POST["newusername"]) . "' WHERE userid='" . $_SESSION["userid"] . "'");
             if (!$result) {
-                message($lang["settings.NewUsernameError"]);
+                $page_output .= message($lang["settings.NewUsernameError"],true);
             }
             else {
                 $_SESSION["username"] = $_POST["newusername"];
-                message($lang["settings.NewUsernameChanged"]);
-                require __DIR__ . "/../footer.php";
-                exit;
+                $page_output .= message($lang["settings.NewUsernameChanged"],true);
+                return;
             }
         }
     }
@@ -64,39 +63,37 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
             $password = password_hash($_POST["newpass"], PASSWORD_DEFAULT);
             $result = $db->query("UPDATE users SET password ='" . $db->real_escape_string($password) . "', salt = '" . $db->real_escape_string($salt) . "'    WHERE userid='" . $_SESSION["userid"] . "'");
             if (!$result) {
-                message($lang["settings.ChangePasswordError"]);
+                $page_output .=  message($lang["settings.ChangePasswordError"],true);
             }
             else {
-                message($lang["settings.ChangePasswordChanged"]);
-                require __DIR__ . "/../footer.php";
+                $page_output .=  message($lang["settings.ChangePasswordChanged"],true);
                 refresh(1.5);
-                exit;
+                return;
             }
         }
     }
 	
     if (!empty($errors)) {
-        echo $lang["error.BadFields"];
-        echo '<ul>';
+        $page_output .=   $lang["error.BadFields"];
+        $page_output .=   '<ul>';
         foreach($errors as $key => $value) {
-            echo '<li>' . $value . '</li>';
+            $page_output .=   '<li>' . $value . '</li>';
         }
-        echo '</ul>';
-        echo '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
-        require __DIR__ . "/../footer.php";
-        exit;
+        $page_output .=   '</ul>';
+        $page_output .=   '<a class="buttonbig" href="javascript:history.back()">'.$lang["error.GoBack"].'</a>';
+        return;
     }
 }
 
 // Display the change username form.
-echo '</br><h3>'.$lang["settings.ChangeUsername"].'</h3><div class="formcontainer">
+$page_output .= '</br><h3>'.$lang["settings.ChangeUsername"].'</h3><div class="formcontainer">
 <form method="post" action="">
 <div class="forminput"><label>'.$lang["settings.NewUsername"].'</label><input type="text" name="newusername"></div>
 <div class="forminput"><label>'.$lang["settings.CurrentPassword"].'</label><input type="password" name="confirmpass"></div>
 <div class="forminput"><label></label><input type="submit" class="buttonbig" value="'.$lang["settings.ChangeUsernameBtn"].'"></div></form></div>';
 
 // Display the change password form.
-echo '<h3>'.$lang["settings.ChangePassword"].'</h3><div class="formcontainer">
+$page_output .=  '<h3>'.$lang["settings.ChangePassword"].'</h3><div class="formcontainer">
 <form method="post" action="">
 <div class="forminput"><label>'.$lang["settings.CurrentPassword"].'</label><input type="password" name="oldpass"></div>
 <div class="forminput"><label>'.$lang["settings.NewPassword"].'</label><input type="password" name="newpass"></div>
