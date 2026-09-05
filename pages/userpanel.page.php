@@ -36,10 +36,8 @@ foreach($panel_pages as $k => $v) {
     if ($k == $panel_page) $up_data["buttons"] .= $template->render("templates/panel/panel_button_active.html",$b_data);
     else $up_data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
 }
-ob_start();
+$page_output = "";
 include $panel_pages[$panel_page][0];
-$page_output = ob_get_contents();
-ob_end_clean();
 
 include "header.php";
 
