@@ -21,28 +21,30 @@ if ($_SESSION["signed_in"] == false)
 
 listener("userpanelBeforeRender");
 
-include "header.php";
-
-
 if (array_key_exists($q2,$panel_pages)) {
     $panel_page = $q2;
 }
 else $panel_page = "avatarsettings";
 
-$data = array(
+$up_data = array(
   "buttons" => ""
 );
 
 foreach($panel_pages as $k => $v) {
     if (!strlen($v[1])) continue;
     $b_data = array("url" => genURL("userpanel/" . $k), "title" => $v[1]);
-    if ($k == $panel_page) $data["buttons"] .= $template->render("templates/panel/panel_button_active.html",$b_data);
-    else $data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
+    if ($k == $panel_page) $up_data["buttons"] .= $template->render("templates/panel/panel_button_active.html",$b_data);
+    else $up_data["buttons"] .= $template->render("templates/panel/panel_button.html",$b_data);
 }
-
-echo $template->render("templates/panel/panel_navigation.html",$data);
-
+ob_start();
 include $panel_pages[$panel_page][0];
+$page_output = ob_get_contents();
+ob_end_clean();
+
+include "header.php";
+
+echo $template->render("templates/panel/panel_navigation.html",$up_data);
+echo $page_output;
 
 include "footer.php";
 
