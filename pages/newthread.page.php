@@ -73,9 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
 err:
 
-include 'header.php';
-
-$data = array(
+$nt_data = array(
     "new_thread" => $lang["newthread.Header"],
     "title_label" => $lang["newthread.Title"],
     "title_maxlength" => $config["maxCharsPerTitle"],
@@ -90,35 +88,39 @@ $data = array(
     "save_draft" => $lang["thread.PostSaveDraftBtn"]
 );
 
-if (isset($error)) {
-    $catSave = $_POST["category"];
-    $data["title_save"] = "value='" . trim(htmlspecialchars($_POST["title"])) . "'";
-    $data["content_save"] = htmlspecialchars($_POST["content"]);
-    echo $error;
-}
-
 $result = $db->query("SELECT * FROM categories");
 if (!$result) {
+    include 'header.php';
     message($lang["newthread.DataError"]);
     include 'footer.php';
     exit;
 }
 if (!$result->num_rows) {
+    include 'header.php';
     if (get_role_permissions() & PERM_EDIT_CATEGORY) message($lang["newthread.NoCategoryAdmin"]);
     else message($lang["newthread.NoCategoryUser"]);
     include 'footer.php';
     exit;
 }
 while ($row = $result->fetch_assoc()) {
-    $data["categories"] .= '<option ';
-    if (isset($catSave) && $catSave == $row["categoryid"]) $data["categories"] .= "selected ";
-    else if (isset($q2) && $q2 == $row["categoryid"]) $data["categories"] .= "selected ";
-    $data["categories"] .= 'value="' . $row['categoryid'] . '">' . htmlspecialchars($row['categoryname']) . '</option>';
+    $nt_data["categories"] .= '<option ';
+    if (isset($catSave) && $catSave == $row["categoryid"]) $nt_data["categories"] .= "selected ";
+    else if (isset($q2) && $q2 == $row["categoryid"]) $nt_data["categories"] .= "selected ";
+    $nt_data["categories"] .= 'value="' . $row['categoryid'] . '">' . htmlspecialchars($row['categoryname']) . '</option>';
 }
 
-echo ("<script type='text/javascript' src='" . genURL("assets/thread.js") . "'></script>");
+addToMeta("<script type='text/javascript' src='" . genURL("assets/thread.js") . "'></script>");
 
-echo $template->render("templates/newthread.html",$data);
+include 'header.php';
+
+if (isset($error)) {
+    $catSave = $_POST["category"];
+    $nt_data["title_save"] = "value='" . trim(htmlspecialchars($_POST["title"])) . "'";
+    $nt_data["content_save"] = htmlspecialchars($_POST["content"]);
+    echo $error;
+}
+
+echo $template->render("templates/newthread.html",$nt_data);
 
 include 'footer.php';
 
