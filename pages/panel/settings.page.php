@@ -86,21 +86,16 @@ echo '</div></div>';
 
 echo '<h3>' . $lang["panel.AdvancedSettings"] . '</h3>';
 echo '<div class="formcontainer">
-<div class="forminput"><label>' . $lang["panel.ThreadsPerPage"] . '</label>
-<input type="text" name="newthreadsPerPage" value="' . $config["threadsPerPage"] . '"></div>
-<div class="forminput"><label>' . $lang["panel.PostPerPage"] . '</label>
-<input type="text" name="newpostsPerPage" value="' . $config["postsPerPage"] . '"></div>
-<div class="forminput"><label>' . $lang["panel.Userlist"] . '</label>
-<input type="checkbox" name="newuserlistEnabled" id="userlist" value="'. $config["userlistEnabled"] .'" ';
+<div class="forminput"><label>' . $lang["panel.ThreadsPerPage"] . '</label><input type="text" name="newthreadsPerPage" value="' . $config["threadsPerPage"] . '"></div>
+<div class="forminput"><label>' . $lang["panel.PostPerPage"] . '</label><input type="text" name="newpostsPerPage" value="' . $config["postsPerPage"] . '"></div>
+<div class="forminput"><label>' . $lang["panel.Userlist"] . '</label><input type="checkbox" name="newuserlistEnabled" id="userlist" value="'. $config["userlistEnabled"] .'" ';
 if ((bool)$config["userlistEnabled"]) echo 'checked';
 echo '></div>
-<div class="forminput"><label>' . $lang["panel.UserlistMemberOnly"] . '</label>
-<input type="checkbox" name="newuserlistMembersOnly" id="userlistMember" value="'. $config["userlistMembersOnly"] .'" ';
+<div class="forminput"><label>' . $lang["panel.UserlistMemberOnly"] . '</label><input type="checkbox" name="newuserlistMembersOnly" id="userlistMember" value="'. $config["userlistMembersOnly"] .'" ';
 if ((bool)$config["userlistMembersOnly"])  echo 'checked';
 echo '></div>';
 
-echo '<div class="forminput"><label>' . $lang["panel.showDeletedInUserlist"] . '</label>
-<input type="checkbox" name="showDeletedInUserlist" id="userlistDeleted" value="'. $config["showDeletedInUserlist"] .'" ';
+echo '<div class="forminput"><label>' . $lang["panel.showDeletedInUserlist"] . '</label><input type="checkbox" name="showDeletedInUserlist" id="userlistDeleted" value="'. $config["showDeletedInUserlist"] .'" ';
 if ((bool)$config["showDeletedInUserlist"]) echo 'checked';
 echo '></div>';
 
@@ -111,7 +106,7 @@ foreach ($options as $option) {
     if ($config["registration"] == $option) $selected = "selected='' ";
     echo "<option ".$selected."value='" . $option . "'>" . $lang["panel." . $option] . "</option>";
 }
-echo "</select></div>";
+echo "</select></div></div>";
 
 echo '<h3>' . $lang["panel.ChangeFooter"]  . '</h3><div class="formcontainer">';
 
