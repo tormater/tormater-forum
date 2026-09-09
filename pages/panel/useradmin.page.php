@@ -49,7 +49,7 @@ while ($r = $ip->fetch_assoc()) {
 }
 
 echo '<br/>';
-echo '<h2>'. sprintf($lang["panel.sameIP"], $name) .'</h2>';
+echo '<h2>'. sprintf($lang["panel.sameIP"], htmlspecialchars($name)) .'</h2>';
 
 if($result->num_rows == 0)
 {
@@ -82,7 +82,7 @@ echo "</div>";
 
 echo '<br/>';
 echo '<h2>'. $lang["panel.DangerZone"] .'</h2>';
-if (($config["mainAdmin"] != $row["userid"]) and ($deleted != "1")) {
+if (($config["mainAdmin"] != $q3) and ($deleted != "1")) {
     echo($lang["panel.DeleteUserMessage"] . "</br></br><form action='' method='POST'><button class='buttonbig' name='deleteKeepPosts'>" . $lang["panel.DeleteKeepPosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteHidePosts'>" . $lang["panel.DeleteHidePosts"] . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteRemovePosts'>" . $lang["panel.DeleteRemovePosts"] . "</button></form>" . "</button></form></br><form action='' method='POST'><button class='buttonbig' name='deleteAllIP'>" . $lang["panel.DeleteAllUsersOnIP"] . "</button></form>");
 }
 elseif ($deleted == "1") {
