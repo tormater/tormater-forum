@@ -64,6 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $db->query("ROLLBACK"); goto err;
     }
     $db->query("COMMIT");
+    listener("onCreateThread",$threadid);
     redirect("thread/" . $threadid);
     include 'header.php';
     message($lang["newthread.SuccessCreate1"] . ' <a href="' . genURL('thread/' . $threadid) . '/">' . $lang["newthread.SuccessCreate2"] . '</a>');
