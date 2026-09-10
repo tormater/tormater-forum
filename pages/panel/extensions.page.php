@@ -48,6 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 }
 
+function sort_extensions($a,$b) {
+    global $extensions;   
+    $c = !(isset($extensions[$a]) && $extensions[$a] == true) <=> !(isset($extensions[$b]) && $extensions[$b] == true); 
+    if ($c == 0) return strcasecmp($a,$b);
+    return $c;
+}
+usort($allExtensions,"sort_extensions");
+
     foreach ($allExtensions as $e) 
     {
         if ((file_exists("extensions/" . htmlspecialchars($e) . "/manifest.json" )) && (file_exists("extensions/" . $e . "/extension.php" )))
@@ -96,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             
                     foreach($manifest["settings"] as $setting) 
                     {
-                        echo "<label>" . $setting["name"] . "</label>";
+                        echo "<div class='forminput'><label>" . $setting["name"] . "</label>";
                         //var_dump($setting);
                         
                         $value = htmlspecialchars($extension_config[$e][$setting["id"]]);
@@ -120,9 +128,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                               break;
                         }
                         
-                        echo "<br>";
+                        echo "</div>";
                     }
-                    echo '<br><button name="changesettings" value="' . htmlspecialchars($e) . '">'.$lang["panel.ChangeSettingsBtn"].'</button>';
+                    echo '<button name="changesettings" value="' . htmlspecialchars($e) . '">'.$lang["panel.ChangeSettingsBtn"].'</button>';
                     echo '</form>';
                     echo "</fieldset>";
                 }
