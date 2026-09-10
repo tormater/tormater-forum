@@ -40,7 +40,8 @@ $data = array
     "sort_options" => "",
     "sort_order_options" => "",
     "submit" => $lang["search.Submit"],
-    "table" => ""
+    "table" => "",
+    "extra_options" => ""
 );
 if (isset($_GET["search"])) {
     $data["searchText"] = htmlspecialchars($_GET["search"]);
@@ -81,8 +82,6 @@ if (isset($_GET["search"]) && strlen($_GET["search"]) > 64)
     include 'footer.php';
     exit;
 }
-
-$search = buildSearchQuery($_GET);
 
 $data["table"] = generator_threads(["query" => $_SERVER['QUERY_STRING'],"pagination" => "true"]);
 
