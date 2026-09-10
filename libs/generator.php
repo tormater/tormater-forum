@@ -8,6 +8,7 @@ if (!defined("INDEXED")) exit;
 $custom_pages = array(
     "homepage" => ["data"=>'{"title":"$homepage.Title","categories":{},"threads":{"query":"sort_by=activity&sort_order=asc","empty_msg":"$error.ForumEmpty","limit":5}}',"title"=>'']
 );
+
 $custom_page_depth = 2;
 $custom_page_title = "";
 
@@ -154,6 +155,8 @@ function generator_threads($widget) {
             "date" => date('m-d-Y h:i:s A', $row['lastposttime']),
             "reldate" => relativeTime($row["lastposttime"]),
             "viewed" => "",
+            "info" => "",
+            "threadid" => $row['threadid']      
         );        
         if (get_role_from_session() != "Guest") {
             $viewed = $db->query("SELECT * FROM views WHERE userid=" . $_SESSION["userid"] . " AND threadid=" . $row["threadid"] . " AND timestamp > " . $row['lastposttime'] . " AND postcount=" . $row["posts"]);	
@@ -221,6 +224,7 @@ function generator_categories($widget) {
 	    "lastpost" => $title,
 	    "lastposturl" => !isset($trow['threadid']) ?: genURL('thread/' . $trow['threadid']),
 	    "user" => $user,
+	    "categoryid" => $row["categoryid"]
         );
 	
         $data["categories"] .= $template->render("templates/category/category_display.html", $category_data);
