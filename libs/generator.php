@@ -95,6 +95,7 @@ function generator_title($widget) {
 function generator_threads($widget) {
     global $config, $db, $template, $lang, $url, $custom_page_depth;
     if (!isset($widget["query"])) return;
+    $q = "SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"]));
     $pagination = "";
     $offset = "";
     $pins = "";
@@ -108,7 +109,7 @@ function generator_threads($widget) {
          $limit = "LIMIT " . $threadsPerPage;
     }
     if (isset($widget["pagination"])) {
-         $thread_count = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])));
+         $thread_count = $db->query($q);
          $threadsPerPage = (isset($widget["limit"]) ? intval($widget["limit"]) : 10);
          $numThreads = $thread_count->num_rows;
          $pages = ceil($numThreads / $threadsPerPage);
@@ -119,7 +120,7 @@ function generator_threads($widget) {
          $offset = " OFFSET " . intval(($currentPage * $threadsPerPage) - $threadsPerPage);
          $pagination = renderPagination($custom_page_depth,1);
     }    
-    $threads = $db->query("SELECT * FROM threads " . buildSearchQuery(createQueryArray($widget["query"])) . " " . $pins . $limit . $offset);
+    $threads = $db->query($q . " " . $pins . $limit . $offset);
     
     
     $data = array(
@@ -343,6 +344,8 @@ function buildSearchQuery($get) {
         $query .= "UNION SELECT * FROM threads WHERE pinned='1' ";
     }
     
+    listener("buildSearchQueryBeforeAddOrder",$query,$and,$get);
+    
     $sort_by = "lastposttime";
     $query .= "ORDER BY ";
     if (isset($get["stickies"]) && $get["stickies"] != null) $query .= "pinned DESC, sticky DESC, ";
@@ -362,6 +365,7 @@ function buildSearchQuery($get) {
         else $order = "DESC";
     }
     
+    listener("buildSearchQueryBeforeReturn",$query,$and,$get,$order);
     return $query . $order;
 }
 
