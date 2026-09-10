@@ -335,7 +335,7 @@ function buildSearchQuery($get) {
             addToQuery("startuser='". $_SESSION["userid"] . "'", $query, $and);
         }
         else if (!count($labels)) {
-            addToQuery("draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "')",  $query, $and);
+            addToQuery("(draft='0' OR (draft='1' AND startuser='" . $_SESSION["userid"] . "'))",  $query, $and);
         }
     }
     else addToQuery("draft='0'",  $query, $and);
