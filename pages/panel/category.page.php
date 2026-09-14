@@ -207,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         $number = $numthreads->num_rows;
         echo '<div class="category"><tr>';
             echo '<td class="leftpart">';
-            echo '<h3><span>' . htmlspecialchars($row["categoryname"]) . '</span></h3>';
+            echo '<h3><span>' . format($row["categoryname"]) . '</span></h3>';
             echo '<div>' . formatPost($row["categorydescription"]) . '</div>';
             echo '<div><div style="float:right">';
 
