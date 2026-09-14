@@ -99,7 +99,7 @@ else
                 printf($lang["panel.LogDeleteThread"],
                 "<a class='".$urow["role"]."' href='" . genURL("user/" . $row["userid"]) . "'>" . htmlspecialchars($urow["username"]) . "</a>", 
                 "<a class='".$urow2["role"]."' href='" . genURL("user/" . $row["victimid"]) . "'>" . htmlspecialchars($urow2["username"]) . "</a>",
-                htmlspecialchars($row["before"]) );
+                format($row["before"]) );
             }
             else if ($row["action"] == "move_thread") {
                 $user = $db->query("SELECT * FROM users WHERE userid='" . $row["userid"] . "'");
