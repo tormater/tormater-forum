@@ -103,7 +103,7 @@ if (get_role_from_session() != "Guest") {
     $db->query("REPLACE INTO views(threadid,userid,timestamp,postcount) VALUES(" . $row["threadid"] . "," . $_SESSION["userid"] . "," . time() . "," . $postcount . ")");
 }
 
-if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD) or get_role_permissions() & PERM_EDIT_THREAD) {
+if (($author["userid"] == $viewerid and get_role_permissions() & PERM_CREATE_THREAD and $locked != true) or get_role_permissions() & PERM_EDIT_THREAD) {
     $thread_data["title"] = $template->render("templates/thread/thread_title_edit.html",array("title" => htmlspecialchars($title),"maxtitle" => $config["maxCharsPerTitle"], "submit" => $lang["post.SaveEditBtn"]));
 }
 else $thread_data["title"] = $template->render("templates/thread/thread_title.html",array("title" => format($title)));
@@ -509,7 +509,7 @@ function pinThread($pinned) {
 
 function editTitle() {
     global $db, $lang, $q2, $startuser, $viewerid, $config, $thread_data;
-    if (!($startuser == $viewerid && get_role_permissions() & PERM_CREATE_THREAD) && !(get_role_permissions() & PERM_EDIT_THREAD)) {
+    if (!($startuser == $viewerid && get_role_permissions() & PERM_CREATE_THREAD and $locked != true) && !(get_role_permissions() & PERM_EDIT_THREAD)) {
         $thread_data["errors"] .= message($lang["thread.PostEditError"],true);
         return;
     }
