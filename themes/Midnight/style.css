@@ -25,7 +25,7 @@
   --text-medium: #ddd;
   --text-heavy: #fff;
   
-  --button-g-top: #7b7b7b;
+  --button-g-top: #333;
   --button-g-bottom: #000;
   
   --input-border: #444;
@@ -34,7 +34,7 @@
   --button-text: #fff;
   --button-text-disabled: #ccc;
   
-  --widget-g-top: #4b4b4b;
+  --widget-g-top: #333;
   --widget-g-bottom: #000;
   --widget-border: #555;
   --widget-highlight: #000;
@@ -47,6 +47,7 @@ body {
   background-repeat: no-repeat;
   background-color: var(--bg-tertiary);
 }
+
 a {
   color: #64ccff;
 }
@@ -94,7 +95,12 @@ tr:nth-child(2n) {
 }
 
 .postc button {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: #0006;
+  border-color: transparent;
+}
+
+.postc button:hover {
+  background-color: #0003;
 }
 
 input:focus {
