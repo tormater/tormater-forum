@@ -502,8 +502,8 @@ function generateCaptcha($chars)
         imageline($new_image, 0, $y, $width, $height-$y, IMG_COLOR_STYLED);
     }
     
-    $new_image = imagescale($new_image,$width*2);
-    imagefilter($new_image,IMG_FILTER_SCATTER,-1,1);
+    $new_image = imagescale($new_image,$width*(rand(11,25)/10));
+    imagefilter($new_image,IMG_FILTER_SCATTER,0,2);
     $new_image = imagescale($new_image,$width);
     
     if (rand(0,1)) {
