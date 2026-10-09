@@ -99,18 +99,13 @@ function generator_threads($widget) {
     $pagination = "";
     $offset = "";
     $pins = "";
+    $threadsPerPage = (is_numeric($config["threadsPerPage"]) ? (int)$config["threadsPerPage"] : 20);
     if (isset($widget["limit"])) {
-         if (intval($widget["limit"]) < 1) unset($widget["limit"]);
-         else $limit = "LIMIT " . intval($widget["limit"]);
+         $threadsPerPage = intval($widget["limit"]);
     }
-    else {
-         $threadsPerPage = (is_numeric($config["threadsPerPage"]) ? (int)$config["threadsPerPage"] : 20);
-         if ($threadsPerPage < 1) $threadsPerPage = 1;
-         $limit = "LIMIT " . $threadsPerPage;
-    }
+    if ($threadsPerPage < 1) $threadsPerPage = 1;
     if (isset($widget["pagination"])) {
          $thread_count = $db->query($q);
-         $threadsPerPage = (isset($widget["limit"]) ? intval($widget["limit"]) : 10);
          $numThreads = $thread_count->num_rows;
          $pages = ceil($numThreads / $threadsPerPage);
          $GLOBALS["pages"] = $pages;
@@ -120,7 +115,7 @@ function generator_threads($widget) {
          $offset = " OFFSET " . intval(($currentPage * $threadsPerPage) - $threadsPerPage);
          $pagination = renderPagination($custom_page_depth,1);
     }    
-    $threads = $db->query($q . " " . $pins . $limit . $offset);
+    $threads = $db->query($q . " " . $pins . "LIMIT " . $threadsPerPage . $offset);
     
     
     $data = array(
