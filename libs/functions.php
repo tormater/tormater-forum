@@ -542,49 +542,84 @@ function removeAvatar($userid)
     return false;
 }
 
-// Brighten or darken a color hex value
-function hexAdjustLight($originalHex, $percent) {
+function str_to_color($color) {
+    if ($color[0] == "#") $color = substr($color,1);
+    return [hexdec(substr($color, 0, 2)), hexdec(substr($color, 2, 2)), hexdec(substr($color, 4, 2))];
+}
 
-    $hex = $originalHex;
-    if (stristr($hex, '#')) {
-        $hex = str_replace('#', '', $hex);
-    }
-
-    $rgb = [hexdec(substr($hex, 0, 2)), hexdec(substr($hex, 2, 2)), hexdec(substr($hex, 4, 2))];
-
+function color_to_str($color) {
+    $hex = '';
     for ($i = 0; $i < 3; $i++) {
+        $hexDigit = dechex($color[$i]);
+        if (strlen($hexDigit) == 1) $hex .= "0";
+        $hex .= $hexDigit;
+    }
+    return '#' . $hex;
+}
 
-        if ($percent > 0) 
-        {
+function color_hsl_to_str($color) {
+    return 'hsl(' . round($color[0] * (360/255)) . ',' . round($color[1] * (100/255)) .  '%,' . round($color[2] * (100/255)) . '%)';
+}
+
+function rgb_to_hsl($color) {
+    $min = min($color);
+    $max = max($color);
+    $hsl = [0,0,0];
+                
+    if ($max == 0) return [0,0,0];
+    
+    $hsl[2] = ($max + $min) / 2;
+    
+    if ($max-$min == 0) {$hsl[0] = 0; $hsl[1] = 0;}
+    else {
+        $hsl[1] = 255 * ($max-$hsl[2]) / min($hsl[2],255-$hsl[2]);
+        if ($max == $color[0]) $hsl[0] = round(43 * ($color[1] - $color[2]) / ($max-$min));
+        else if ($max == $color[1]) $hsl[0] = round(85 + 43 * ($color[2] - $color[0]) / ($max-$min));
+        else $hsl[0] = round(171 + 43 * ($color[0] - $color[1]) / ($max-$min));
+        $hsl[0] = color_wrap($hsl[0]);
+    }
+        
+    return $hsl;
+}
+
+// Keeps a color value between 0-255
+function color_wrap($value) {
+    //$value = $value % 255;
+    //if ($value < 0) $value += 255;
+    return $value;
+}
+
+function modify_color($color, $mod) {
+    $hsl = rgb_to_hsl(str_to_color($color));
+    for ($i = 0; $i < 3; $i++) {
+        $hsl[$i] = color_wrap($hsl[$i] + $mod[$i]);
+        if ($mod[$i + 3] > 0) {
+            $hsl[$i] = color_wrap($mod[$i + 3]);
+        }
+        if ($mod[$i + 3] < 0) {
+            $hsl[$i] = color_wrap(255-$hsl[$i]);
+        }
+    }
+    return color_hsl_to_str($hsl);
+}
+
+// Brighten or darken a color hex value
+function hexAdjustLight($color, $percent) {
+    $rgb = str_to_color($color);
+    
+    for ($i = 0; $i < 3; $i++) {
+        if ($percent > 0) {
             $rgb[$i] = round($rgb[$i] * $percent) + round(255 * (1 - $percent));
         } 
 
-        else 
-        {
+        else {
             $positivePercent = $percent - ($percent * 2);
             $rgb[$i] = round($rgb[$i] * (1 - $positivePercent));
         }
-        
         if ($rgb[$i] > 255) $rgb[$i] = 255;
-
     }
-
-    $hex = '';
-
-    for ($i = 0; $i < 3; $i++) {
-
-        $hexDigit = dechex($rgb[$i]);
-
-        if (strlen($hexDigit) == 1) {
-            $hexDigit = "0" . $hexDigit;
-        }
-
-        $hex .= $hexDigit;
-    }
-
-    listener("beforeReturnHexAdjustLight", $originalHex, $hex, $percent);
-    return '#' . $hex;
-
+    
+    return color_to_str($rgb);
 }
 
 // Delete a user given their userid and a mode of deletion.
