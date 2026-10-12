@@ -835,28 +835,9 @@ function drawUserProfile($userid, $has_role_selector, $isHidden=false) {
     if ($isHidden) {
 	    return;
     }
-    $roles = get_changeable_roles();
-    if ($roles == NULL || !$has_role_selector || !in_array($role,$roles) || $_SESSION["userid"] == $userid) {
-        $l = $role;
-        if (array_key_exists("role." . $role,$lang)) $l =  $lang["role." . $role];
-        echo '<div class="userrole">' . $l;
-        return;
-    }
-    
-    echo '<div class="forminput"><form method="post" class="changerole" action=""><select name="role">';
-    
-    foreach ($roles as $r) {
-        $l = "user.Option" . $r;
-        if ($r == "Moderator") $l = "user.OptionMod";
-        if ($r == "Administrator") $l = "user.OptionAdmin";
-        if (array_key_exists($l,$lang)) $l = $lang[$l];
-        else $l = $r;
-        $s = "";
-        if ($role == $r) $s = " selected";
-        echo '<option value="' . $r . '"' . $s . '>'.$l.'</option>';
-    }
-    
-    echo '</select><div class="forminput"><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></div></form>';
+    $l = $role;
+    if (array_key_exists("role." . $role,$lang)) $l = $lang["role." . $role];
+    echo '<div class="userrole">' . $l;
 }
 
 // Display a user's information, used by userlists.
