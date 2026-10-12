@@ -369,6 +369,7 @@ body {
     transition: filter 0.25s;
     display: inline-block;
     margin-top: 1px;
+    line-height: 1.0;
 }
 
 .buttonsmall:hover {
@@ -455,6 +456,7 @@ input {
     border-radius: 3px;
     font-size: 100%;
     transition: filter 0.25s;
+    line-height: 1.0;
 }
 
 input:hover {
@@ -482,6 +484,7 @@ select {
     border-radius: 3px;
     font-size: 100%;
     transition: filter 0.25s;
+    line-height: 1.0;
 }
 
 select:hover {
@@ -922,6 +925,12 @@ tr:last-child td {
     background-color: var(--border-primary);
 }
 
+.line {
+    height: 1px;
+    border-width: 0;
+    background-color: var(--border-primary);
+}
+
 .signature {
     font-size: 95%;
     color: var(--text-medium);
@@ -1041,9 +1050,22 @@ font.sticky, font.locked, font.draft, font.pinned {
 
 /* User Styles. */
 
-.userstat {
-    display: block;
-    padding: 3px 8px;
+.stats {
+    margin: 0px;
+    padding-left: 0px;
+    list-style-type: none;
+    line-height: 1.5;
+}
+
+.useractions > form {
+    display: inline;    
+}
+.useractions > form > select {
+    padding: 1px 4px;
+    margin-right: 2px;
+}
+.useractions > * {
+    margin-right: 2px;
 }
 
 .userrole {
@@ -1135,7 +1157,7 @@ font.sticky, font.locked, font.draft, font.pinned {
     display: inline-block;
     margin: 3px 0px;
     padding: 5px 10px;
-    background: linear-gradient(#fff 0px, #d3d3d3 25px);
+    background: linear-gradient(var(--button-g-top) 0px, var(--button-g-bottom) 25px);
     border: 1px solid var(--input-border);
     border-radius: 3px;
 }
