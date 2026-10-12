@@ -68,14 +68,6 @@ echo '<div class="post' . $delClass . '"><div class="usertop" postcolor="' . htm
 
 drawUserProfile($userid, true);
 
-if ($config["mainAdmin"] != $userid and $avatar != "none" and allowed_to_edit_user($role)) {
-    echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
-}
-        
-if ($config["mainAdmin"] != $userid and get_role_permissions() & PERM_EDIT_FORUM) {
-    echo '<a class="buttonsmall" href="' . genURL("panel/useradmin/" . $userid) . '">' . $lang["panel.Administrate"] . '</a>';
-}
-
 echo "</div></div>";
         
 // Get user statistics
@@ -86,23 +78,64 @@ $uposts = mysqli_num_rows($posts);
 $threads = $db->query("SELECT 1 FROM threads WHERE startuser='" . $db->real_escape_string($q2) . "'");
 $uthreads = mysqli_num_rows($threads);
 
-echo '<div class="userbottom"><h3>' . $lang["user.UserInformation"] . '</h3>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></span>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></span>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'<a href="'.genURL("search?user=" . urlencode($username)).'"></label>' . $uposts . '</a></span>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label><a href="'.genURL("search?author=" . urlencode($username)).'">' . $uthreads . '</a></span>
-            <span class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span>';
+$stats = '<ul class="stats"><li class="userstat"><label class="shortlabel">'.$lang["user.TitleRegistered"].'</label><a title="' . date('m-d-Y h:i:s A', $jointime) . '">' . relativeTime($jointime) . '</a></li><li class="userstat"><label class="shortlabel">'.$lang["user.TitleLastActive"].'</label><a title="' . date('m-d-Y h:i:s A', $lastactive) . '">' . relativeTime($lastactive) . '</a></li><li class="userstat"><label class="shortlabel">'.$lang["user.TitlePosts"].'<a href="'.genURL("search?user=" . urlencode($username)).'"></label>' . $uposts . '</a></li><li class="userstat"><label class="shortlabel">'.$lang["user.TitleThreads"].'</label><a href="'.genURL("search?author=" . urlencode($username)).'">' . $uthreads . '</a></li><li class="userstat"><label class="shortlabel">'.$lang["user.TitleVerified"].'</label>' . $verified . '</span></ul>';
+
+echo '<div class="userbottom">';
+
+if ($deleted != "1" && isset($user_row["bio"]) && strlen($user_row["bio"])) {
+    echo '<div class="infobar"><span class="postdate">' . $lang["userpanel.Bio"] . '</span></div>';
+    echo formatPost($user_row["bio"]);
+}
+else {
+    echo '<div class="infobar"><span class="postdate">' . $lang["user.UserInformation"] . '</span></div>';
+    echo $stats;
+}
+
+$has_signature = false;
+if ($deleted != "1" && isset($user_row["signature"]) && strlen($user_row["signature"])) {
+    echo("<hr class='sigline'><p class='signature' style='margin:0px;'>" . formatPost($user_row["signature"]) . "</p>");
+    $has_signature = true;
+}
+
+if ($config["mainAdmin"] != $userid and (isset($_SESSION["userid"]) && $_SESSION["userid"] != $userid) and allowed_to_edit_user($role)) {
+
+    if (!$has_signature) echo "<hr class='sigline'>";
+    else echo "<hr class='line'>";
+    echo "<div class='useractions'>";
+    
+    $roles = get_changeable_roles();
+    if (!($roles == NULL || !in_array($role,$roles) || $_SESSION["userid"] == $userid)) {
+        echo '<form method="post" class="changerole" action=""><select name="role">';
+    
+        foreach ($roles as $r) {
+            $l = "user.Option" . $r;
+            if ($r == "Moderator") $l = "user.OptionMod";
+            if ($r == "Administrator") $l = "user.OptionAdmin";
+            if (array_key_exists($l,$lang)) $l = $lang[$l];
+            else $l = $r;
+            $s = "";
+            if ($role == $r) $s = " selected";
+            echo '<option value="' . $r . '"' . $s . '>'.$l.'</option>';
+        }
+    
+        echo '</select><input type="submit" class="buttonrole" value="'.$lang["user.ChangeRole"].'"></form>';
+    }
+    if ($avatar != "none") {
+        echo "<form method='post' action=''><button name='removeAvatar'>" . $lang["userpanel.RemoveAvatar"] . "</button></form>";
+    }
+        
+    if ($config["mainAdmin"] != $userid and get_role_permissions() & PERM_EDIT_FORUM) {
+        echo '<a class="buttonsmall" href="' . genURL("panel/useradmin/" . $userid) . '">' . $lang["panel.Administrate"] . '</a>';
+    }
+    echo "</div>";
+}
 
 echo '</div></div><div class="userextra' . $delClass . '" postcolor="' . htmlspecialchars($color) . '"><div class=userbioside>';
 
 if ($deleted != "1") {
     if (isset($user_row["bio"]) && strlen($user_row["bio"])) {
-        echo '<span class="userpostsh">' . $lang["userpanel.Bio"] . '</span>';
-        echo("<span class='userbio'>" . formatPost($user_row["bio"]) . "</span>");
-    }
-    if (isset($user_row["signature"]) && strlen($user_row["signature"])) {
-        echo '<span class="userpostsh">' . $lang["userpanel.Signature"] . '</span>';
-        echo("<span class='userbio'><p class='signature' style='margin:0px;'>" . formatPost($user_row["signature"]) . "</p></span>");
+        echo '<span class="userpostsh">' . $lang["user.UserInformation"] . '</span>';
+        echo "<span class='userbio'>" . $stats . "</span>";
     }
 }
 
