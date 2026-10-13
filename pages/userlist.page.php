@@ -118,10 +118,13 @@ while($row = $result->fetch_assoc())
       "username" => htmlspecialchars($row["username"]),
       "role" => $lang["role.".$row["role"]],
       "buttons" => "",
-      "action" => parseAction($row["lastaction"], $lang),
-      "time" => date('m-d-Y h:i:s A', $row["lastactive"]),
-      "relative_time" => relativeTime($row["lastactive"])
+      "action" => ""
     );
+    $time = $template->render("templates/date.html",["time" => date('m-d-Y h:i:s A', $row["lastactive"]),"relative_time" => relativeTime($row["lastactive"])]);
+    if ((time() - $row["lastactive"]) <= $config["onlinePeriod"] && strlen($row["lastaction"])) {
+        $user_data["action"] = parseAction($row["lastaction"], $lang) . " (" . $time . ")";
+    }
+    else $user_data["action"] = $lang["user.TitleLastActive"] . " " . $time;
             
     if ($row["deleted"] == "1") {
         $user_data["deleted_class"] = " deleteduser";
@@ -132,7 +135,7 @@ while($row = $result->fetch_assoc())
         $user_data["buttons"] = $template->render("templates/userlist/user_button.html",array("userid" => $row["userid"], "label" => $lang["userlist.Approve"]));
     }
     else if ($config["mainAdmin"] != $row["userid"] and get_role_permissions() & PERM_EDIT_FORUM) {
-        $user_data["buttons"] = '<small><a href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a></small>';
+        $user_data["buttons"] = '<a class="userlist_button" href="' . genURL("panel/useradmin/" . $row["userid"]) . '">' . $lang["panel.Administrate"] . '</a>';
     }
 
     $data["users"] .= $template->render("templates/userlist/user_display.html",$user_data);
