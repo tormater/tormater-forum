@@ -35,6 +35,7 @@
   
   --button-text: #000;
   --button-text-disabled: #333;
+  --link: #0058bd;
   accent-color: var(--c-gradient-bottom);
 }
 
@@ -50,7 +51,7 @@
 }
 
 a {
-    color: #0058bd;
+    color: var(--link);
     text-decoration: none;
 }
 
@@ -948,6 +949,24 @@ tr:last-child td {
     margin-right: 2px;
     margin-top: 4px;
     margin-bottom: 0px;
+}
+
+.userc {
+    display: inline-block;
+    margin: 0px;
+}
+
+.userlist_button {
+    font-size: 9pt;
+    color: var(--link);
+    background: none;
+    border: 0px;  
+    padding: 0px;
+    display: inline;
+}
+
+.userlist_button:hover {
+    text-decoration: underline;
 }
 
 .rpostc {
