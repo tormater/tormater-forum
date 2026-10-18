@@ -203,7 +203,7 @@ function generator_categories($widget) {
         $user = "";
         if ($numthreads->num_rows > 0) {
             $uinfo = $db->query("SELECT * FROM users WHERE userid='" . $trow["lastpostuser"] . "'");
-            $title = format($trow['title']);
+            $title = $trow['title'];
             $u = $uinfo->fetch_assoc();
             if ($u["deleted"] == 1) $username = $lang["user.Deleted"] . $u["userid"];
             else $username = $u["username"];
@@ -217,7 +217,7 @@ function generator_categories($widget) {
 	    "title" => format($row["categoryname"]),
 	    "desc" => formatPost($row["categorydescription"]),
 	    "threads" => $numthreads->num_rows,
-	    "lastpost" => $title,
+	    "lastpost" => truncate($title,'format'),
 	    "lastposturl" => !isset($trow['threadid']) ?: genURL('thread/' . $trow['threadid']),
 	    "user" => $user,
 	    "categoryid" => $row["categoryid"]
