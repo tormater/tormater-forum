@@ -77,7 +77,7 @@ err:
 $nt_data = array(
     "new_thread" => $lang["newthread.Header"],
     "title_label" => $lang["newthread.Title"],
-    "title_maxlength" => $config["maxCharsPerTitle"],
+    "title_max_length" => $config["maxCharsPerTitle"],
     "title_save" => "",
     "category_label" => $lang["newthread.Category"],
     "categories" => "",
