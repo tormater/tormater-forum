@@ -589,7 +589,7 @@ include 'footer.php';
 
 if (get_role_from_session() != "Guest")
 {
-    $action = $lang["action.Generic"] . ' <a href="' . genURL('thread/' . $db->real_escape_string($q2)) . '/">' . format($title) . '</a>';
+    $action = $lang["action.Generic"] . ' <a href="' . genURL('thread/' . $db->real_escape_string($q2)) . '/">' . truncate($title,"format") . '</a>';
     update_last_action($action);
 }
 
