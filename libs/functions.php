@@ -840,6 +840,15 @@ function drawUserProfile($userid, $has_role_selector, $isHidden=false) {
     echo '<div class="userrole">' . $l;
 }
 
+function noformat($string) {return $string;}
+function truncate($string, $func='noformat') {
+    global $config;
+    if (mb_strlen($string) <= $config["truncateLength"]) return $func($string);
+    else {
+        return "<span title='$string'>".$func(rtrim(mb_substr($string,0,$config["truncateLength"])))."...</span>";
+    }
+}
+
 // Display a user's information, used by userlists.
 function displayUser($deletedClass, $color, $userid, $role, $username, $verify, $lastaction, $lastactive) {
   global $lang;
