@@ -155,7 +155,7 @@ function generator_threads($widget) {
             "threadid" => $row['threadid']      
         );        
         if (get_role_from_session() != "Guest") {
-            $viewed = $db->query("SELECT * FROM views WHERE userid=" . $_SESSION["userid"] . " AND threadid=" . $row["threadid"] . " AND timestamp > " . $row['lastposttime'] . " AND postcount=" . $row["posts"]);	
+            $viewed = $db->query("SELECT * FROM views WHERE userid=" . $_SESSION["userid"] . " AND threadid=" . $row["threadid"] . " AND timestamp >= " . $row['lastposttime'] . " AND postcount=" . $row["posts"]);	
             if ($viewed->num_rows) $thread_data["viewed"] = " thread_viewed";
         }
         
