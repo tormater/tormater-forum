@@ -19,6 +19,7 @@ $currentPage = 1;
 if (isset($q3) && is_numeric($q3)) {
     $currentPage = $q3;
 }
+if ($currentPage < 1) $currentPage = 1;
 
 $row = $thread->fetch_assoc();
 
