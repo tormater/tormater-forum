@@ -5,22 +5,28 @@
 // Only load the page if it's being loaded through the index.php file.
 if (!defined("INDEXED")) exit;
 
-define('PERM_EDIT_POST', 1);
-define('PERM_EDIT_THREAD', 2);
-define('PERM_EDIT_USER', 4);
-define('PERM_EDIT_CATEGORY', 8);
-define('PERM_EDIT_EXTENSIONS', 16);
-define('PERM_EDIT_FORUM', 32);
-define('PERM_VIEW_AUDIT', 64);
-define('PERM_CREATE_THREAD', 128);
-define('PERM_CREATE_POST', 256);
-define('PERM_VIEW_USERLIST', 512);
-define('PERM_VIEW_USER', 1024);
-define('PERM_VIEW_THREAD', 2048);
-define('PERM_VIEW_CATEGORY', 4096);
-define('PERM_EDIT_PROFILE', 8192);
-define('PERM_IGNORE_THREAD_LABELS', 16384);
-define('PERM_VIEW_SEARCH', 32768);
+$permissions_int = array(
+    "PERM_EDIT_POST",
+    "PERM_EDIT_THREAD",
+    "PERM_EDIT_USER",
+    "PERM_EDIT_CATEGORY",
+    "PERM_EDIT_EXTENSIONS",
+    "PERM_EDIT_FORUM",
+    "PERM_VIEW_AUDIT",
+    "PERM_CREATE_THREAD",
+    "PERM_CREATE_POST",
+    "PERM_VIEW_USERLIST",
+    "PERM_VIEW_USER",
+    "PERM_VIEW_THREAD",
+    "PERM_VIEW_CATEGORY",
+    "PERM_EDIT_PROFILE",
+    "PERM_IGNORE_THREAD_LABELS",
+    "PERM_VIEW_SEARCH"
+);
+
+for ($i = 0; $i < count($permissions_int); $i++) {
+    define($permissions_int[$i],2**$i);
+}
 
 $permissions = array(
     "Administrator" => PERM_EDIT_POST|PERM_EDIT_THREAD|PERM_EDIT_USER|PERM_EDIT_CATEGORY|PERM_EDIT_FORUM|PERM_VIEW_AUDIT|PERM_CREATE_THREAD|PERM_CREATE_POST|PERM_VIEW_USERLIST|PERM_VIEW_USER|PERM_VIEW_THREAD|PERM_VIEW_CATEGORY|PERM_EDIT_PROFILE|PERM_IGNORE_THREAD_LABELS|PERM_VIEW_SEARCH,
@@ -37,6 +43,13 @@ if ($config["userlistMembersOnly"]) {
 }
 
 listener("afterDefaultPerms");
+
+function get_num_for_permission($permission) {
+    global $permissions_int;
+    $index = array_search($permission,$permissions_int);
+    if ($index === false) return 0;
+    return 2**$index;
+}
 
 function get_role_from_session() {
     if (isset($_SESSION["role"])) return $_SESSION["role"];
