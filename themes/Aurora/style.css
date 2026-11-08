@@ -917,6 +917,7 @@ tr:last-child td {
     line-height: 1.5;
     text-rendering: optimizelegibility;
     text-shadow: 0px 1px var(--bg-primary);
+    overflow: auto;
 }
 
 .sigline {
@@ -1400,6 +1401,7 @@ input[type=file]::file-selector-button:hover {
     word-wrap: break-word;
     word-break: break-word;
     color: var(--text-heavy);
+    overflow: auto;
 }
 .userpostsh {
     font-weight: bold;
